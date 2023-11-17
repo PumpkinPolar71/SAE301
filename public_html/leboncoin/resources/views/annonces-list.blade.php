@@ -25,7 +25,7 @@
 
   <h2>Annonces : "..."</h2>
 
-<ul>
+<ul id="Annonce">
    @foreach ($annonces as $annonce)
        <li>
          <a href="{{ url("/annonce/".$annonce->idannonce) }}">

@@ -4,7 +4,7 @@
 }
 a {
     text-decoration: none;
-    /*color: black;*/
+    color: black;
 }
 title {
     color: black;
@@ -15,6 +15,6 @@ title {
     padding: 0% 2% 0% 2%;
     list-style: none;
 }
-#topnav li {
+.logo {
     color: orange;
 }

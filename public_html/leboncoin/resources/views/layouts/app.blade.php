@@ -20,7 +20,7 @@
 
         @section('nav')
             <ul id="topnav">
-                <li><a href="{{ url("/") }}">LenBonCoin</a></li>
+                <li><a class="logo" href="{{ url("/") }}">LeBonCoin</a></li>
                 <li><a href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
                 <li><a href="{{ url("/annonces") }}">"champs de saisie"</a></li>
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
