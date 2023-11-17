@@ -16,8 +16,14 @@ class LeBonCoinController extends Controller
     public function connect() {
       return view("connect");
     }
+    public function createaccount() {
+      return view("createaccount");
+    }
     public function one($id) {
       return view ("annonce", ['annonce'=>LeBonCoin::find($id) ]);
+    }
+    public function search() {
+      return view("search");
     }
 
   public function save(Request $request)

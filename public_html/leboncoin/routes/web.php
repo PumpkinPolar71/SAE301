@@ -27,3 +27,7 @@ Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
 Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
 
 Route::get("/connect", [ LeBonCoinController::class, "connect"]);
+
+Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
+
+Route::get("/recherche", [ LeBonCoinController::class, "recherche"]);
