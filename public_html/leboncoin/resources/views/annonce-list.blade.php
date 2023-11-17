@@ -17,7 +17,7 @@
 @section('content')
 <h2>Les annonces</h2>
 <ul>
-   @foreach ($annonces as $annonce)
+   @foreach ($annonce as $annonces)
        <li>
          <a href="{{ url("/annonce/".$annonce->idannonce) }}">
             {{ $annonce->name }} 
