@@ -20,6 +20,9 @@ class LeBonCoinController extends Controller
     public function add() {
         return view("annonce-add");
     }
+    public function createaccount() {
+      return view("createaccount");
+    }
 
 
   public function save(Request $request)
@@ -43,6 +46,4 @@ class LeBonCoinController extends Controller
       
       } 
     }
-
-
 }

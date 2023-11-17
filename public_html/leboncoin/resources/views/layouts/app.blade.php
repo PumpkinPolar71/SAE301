@@ -26,7 +26,7 @@
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
                 <li><a href="{{ url("/") }}">Favoris</a></li>
                 <li><a href="{{ url("/") }}">Message</a></li>
-                <li><a href="{{ url("/") }}">Se connecter</a></li>
+                <li><a href="{{ url("/createaccount") }}">Se connecter</a></li>
             </ul>
         @show
 
