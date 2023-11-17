@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\leboncoin;
+use App\Models\LeBonCoin;
 
-class leboncoinController extends Controller
+class LeBonCoinController extends Controller
 {
     public function index() {
-        return view ("annonces-list", ['annonces'=>leboncoin::all() ]);
+        return view ("annonces-list", ['annonces'=>LeBonCoin::all() ]);
     }
 
     public function one($id) {
-        return view ("annonce", ['annonce'=>leboncoin::find($id) ]);
+        return view ("annonce", ['annonce'=>LeBonCoin::find($id) ]);
     }
 
 
@@ -33,7 +33,7 @@ class leboncoinController extends Controller
         return redirect('annonce/add')->withInput()->with("error","Oups, t'as fait une boulette !");
 
       } else {
-        $b = new leboncoin();
+        $b = new LeBonCoin();
         $b->name = $request->input("name");
         $b->descr = $request->input("descr");
         $b->category = $request->input("category");
