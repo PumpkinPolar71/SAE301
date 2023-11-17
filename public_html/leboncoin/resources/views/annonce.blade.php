@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'NageWaza')
+@section('title', 'LeBonCoin')
 
 
 
@@ -9,7 +9,7 @@
 <h2>Annonce : {{ $annonce->name }}</h2>
 <p>{{ $annonce }}</p>
 
-<p><a href="{{ url("annonce") }}">Retour...</a></p>
+<p><a href="{{ url("annonces") }}">Retour...</a></p>
 
 
 @endsection

@@ -1,1 +1,2 @@
-php -S 51.83.36.122:8081 -t public_html/leboncoin/public
+cd public_html/leboncoin/
+php -S 51.83.36.122:8081 -t public
