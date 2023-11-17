@@ -1,4 +1,4 @@
 @extends('layouts.app')
 <rel="stylesheet" href="styleconnect.css">
 
-<div="" >LeBonCoin</div>
+<div class="title" >LeBonCoin</div>
