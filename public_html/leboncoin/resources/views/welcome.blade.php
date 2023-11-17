@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'NageWaza')
+@section('title', 'LeBonCoin')
 
 @section('sidebar')
     @parent

@@ -21,8 +21,10 @@
         @section('nav')
             <ul>
                 <li><a href="{{ url("/") }}">Accueil</a></li>
-                <li><a href="{{ url("/projection") }}">Les annonces</a></li>
-                <li><a href="{{ url("/projection/add") }}">Ajout</a></li>
+                <li><a href="{{ url("/annonce-list") }}">Les annonces</a></li>
+                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
+                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
+                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
             </ul>
         @show
 
