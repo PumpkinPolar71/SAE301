@@ -17,13 +17,7 @@
 @section('content')
 
 
-<div id="Recherche">
-      <label>Rechercher</label>
-      <input class="typeahead" type="text" name="rechercher" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)recherche()"  value="{{ old("name") }}">
-      
-  </div>
-
-  <h2>Annonces : "..."</h2>
+<h2>Annonces : "..."</h2>
 
 <ul class="ulaffiche">
    @foreach ($annonces as $annonce)

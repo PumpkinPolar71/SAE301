@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+
 <div class="title" >LeBonCoin</div>
 
 <section>
@@ -5,3 +8,4 @@
     <div>mot de passe</div>
     <div><a href="{{ url("/createaccount") }}">créer un compte</a></div>
 </section>
+@section('tamere')
