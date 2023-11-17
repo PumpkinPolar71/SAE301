@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <script src="/recherche.js"></script>
         <title>@yield('title')</title>
 
 
@@ -15,16 +15,18 @@
     <body>
 
     	<header>
-    		<h1>@yield('title')</h1>
+    		<!-- <h1>@yield('title')</h1> -->
     	</header>
 
         @section('nav')
-            <ul>
+            <ul class="topnav">
                 <li><a href="{{ url("/") }}">LenBonCoin</a></li>
+                <li><a href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
                 <li><a href="{{ url("/annonces") }}">"champs de saisie"</a></li>
-                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
-                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
-                <li><a href="{{ url("/annonce/add") }}">Ajout</a></li>
+                <li><a href="{{ url("/") }}">Mes recherches</a></li>
+                <li><a href="{{ url("/") }}">Favoris</a></li>
+                <li><a href="{{ url("/") }}">Message</a></li>
+                <li><a href="{{ url("/") }}">Se connecter</a></li>
             </ul>
         @show
 
