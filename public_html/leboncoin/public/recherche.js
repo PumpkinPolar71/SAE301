@@ -9,8 +9,7 @@ function recherche(){
 	for(i=0; i<tb.length;i++){
 		if (t.toUpperCase()!= null && t.toUpperCase() != ""  && tb[i].textContent.toUpperCase().indexOf(t.toUpperCase()) == -1){
 		}
-		text = 'SELECT titreannonce FROM annonce'
-		console.log(text);
+		
 	}
 	console.log(t);
 	console.log(tb);
