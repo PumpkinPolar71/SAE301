@@ -21,7 +21,7 @@
         @section('nav')
             <ul>
                 <li><a href="{{ url("/") }}">Accueil</a></li>
-                <li><a href="{{ url("/projections") }}">Les projections</a></li>
+                <li><a href="{{ url("/projection") }}">Les annonces</a></li>
                 <li><a href="{{ url("/projection/add") }}">Ajout</a></li>
             </ul>
         @show
