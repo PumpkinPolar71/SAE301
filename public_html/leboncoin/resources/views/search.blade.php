@@ -37,6 +37,7 @@ console.log("test recherche js");
 
 $t =  $_POST["rechercher"];
 
+echo $_POST;
 echo $t;
 
 pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
