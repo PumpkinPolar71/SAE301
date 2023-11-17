@@ -18,6 +18,8 @@ use App\Http\Controllers\SiteController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/', function () {
-    return view('annonce-list');
-});
+Route::get("/annonce",[LeBonCoinController::class, "index" ]);
+
+Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
+
+Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
