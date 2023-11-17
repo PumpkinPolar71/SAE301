@@ -9,12 +9,12 @@ a {
 title {
     color: black;
 }
-.topnav li {
+#topnav li {
     display: block;
     float: left;
     padding: 0% 2% 0% 2%;
     list-style: none;
 }
-.topnav li:nth-child(1n+1) {
+#topnav li {
     color: orange;
 }
