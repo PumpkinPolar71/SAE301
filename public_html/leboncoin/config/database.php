@@ -74,7 +74,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'search_path' => 'LeBonCoin',
+            'search_path' => 'leboncoin',
             'sslmode' => 'prefer',
         ],
 
