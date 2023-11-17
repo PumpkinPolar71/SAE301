@@ -15,12 +15,12 @@
 
 
 @section('content')
-<h2>Les annonces</h2>
+<h2>Les Annonces</h2>
 <ul>
-   @foreach ($annonce as $leboncoins)
+   @foreach ($annonces as $annonce)
        <li>
-         <a href="{{ url("/annonce/".$leboncoin->idleboncoin) }}">
-            {{ $annonce->name }} 
+         <a href="{{ url("/annonce/".$annonce->idannonce) }}">
+            {{ $annonce->titreannonce }} 
          </a>
        </li>
   @endforeach
