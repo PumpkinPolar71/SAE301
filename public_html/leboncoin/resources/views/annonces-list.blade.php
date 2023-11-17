@@ -19,7 +19,7 @@
 
 <h2>Annonces : "..."</h2>
 
-<ul class="ulaffiche">
+<ul class="ulAffiche">
    @foreach ($annonces as $annonce)
        <li>
          <a href="{{ url("/annonce/".$annonce->idannonce) }}">

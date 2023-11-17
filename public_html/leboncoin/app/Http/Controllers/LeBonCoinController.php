@@ -25,6 +25,9 @@ class LeBonCoinController extends Controller
     public function search() {
       return view("search");
     }
+    public function createaccountparticulier() {
+      return view("createaccountparticulier"); 
+    }
 
   public function save(Request $request)
     {
