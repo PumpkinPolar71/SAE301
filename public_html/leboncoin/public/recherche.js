@@ -13,15 +13,11 @@ function recherche(){
 	}
 	console.log(t);
 	console.log(tb);
-	
-	window.open(href);
+
+	window.open("/search");
 };
 
-function openNewWindow(href)
-{
- window.open(href);
- return false;
-}
+
 
 console.log("test recherche js");
 

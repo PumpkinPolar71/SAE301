@@ -18,3 +18,9 @@ title {
 .logo {
     color: orange;
 }
+section {
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px;
+    width: 70%;
+    margin-left: 15%;
+}

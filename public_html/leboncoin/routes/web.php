@@ -30,4 +30,4 @@ Route::get("/connect", [ LeBonCoinController::class, "connect"]);
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
-Route::get("/recherche", [ LeBonCoinController::class, "recherche"]);
+Route::get("/search", [ LeBonCoinController::class, "search"]);
