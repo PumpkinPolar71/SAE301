@@ -22,7 +22,7 @@
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonces") }}">LeBonCoin</a></li>
                 <li><a href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
-                <li><form action="../search.blade.php" method="post"><input class="inputText" type="text" name="rechercher" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)recherche()"  value="{{ old("name") }}"></form></li>
+                <li><form action="/search.blade.php" method="post"><input class="inputText" type="text" name="nom" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)recherche()"  value="{{ old("name") }}"></form></li>
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
                 <li><a href="{{ url("/") }}">Favoris</a></li>
                 <li><a href="{{ url("/") }}">Message</a></li>
