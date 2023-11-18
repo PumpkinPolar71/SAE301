@@ -13,7 +13,7 @@
 
 
     <body>
-        <script src="/recherche.js" defer></script>
+        <script src="/search.js" defer></script>
     	<header>
     		<!-- <h1>@yield('title')</h1> -->
     	</header>
@@ -22,13 +22,23 @@
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonces") }}">LeBonCoin</a></li>
                 <li><a href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
-                <li><form action="/search.blade.php" method="post"><input class="inputText" type="text" name="nom" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)recherche()"  value="{{ old("name") }}"></form></li>
+                <li>
+                    <div>
+                        <form action="/search" method="post" target="_self">
+                            @csrf
+                            <input id="search" type="text" name="search" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)submitForm()"/>
+                        </form>
+                    </div>
+                </li>                  
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
                 <li><a href="{{ url("/") }}">Favoris</a></li>
                 <li><a href="{{ url("/") }}">Message</a></li>
                 <li><a href="{{ url("/connect") }}">Se connecter</a></li>
             </ul><br>
         @show
+
+        
+
 
         <div class="container">
             @yield('content')

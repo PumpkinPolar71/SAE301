@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,7 @@ Route::get("/connect", [ LeBonCoinController::class, "connect"]);
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);
+
+Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
