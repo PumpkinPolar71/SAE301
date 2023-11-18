@@ -10,7 +10,7 @@ class SearchController extends Controller
     {
         $searchTerm = $request->input('search');
 
-        $searchTermLower = strtolower($searchTerm);
+        //$searchTermLower = strtolower($searchTerm);
 
 
         return view('search', ['searchTerm' => $searchTerm]);

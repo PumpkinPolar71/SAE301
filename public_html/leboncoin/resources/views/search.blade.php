@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+<!-- tentative de recherche par location : -->
+    
+    
+
+<!-- traitement de la recherche et affichage : -->
     <h2>Résultats de la recherche :</h2>
 
     @if(isset($_POST['search']))
@@ -25,4 +33,12 @@
     @else
         <p>Aucune recherche effectuée.</p>
     @endif
+
+
+
+
+
+
+
+
 @endsection

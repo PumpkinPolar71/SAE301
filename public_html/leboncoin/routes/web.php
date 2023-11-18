@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,11 @@ Route::get("/connect", [ LeBonCoinController::class, "connect"]);
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
+Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
+
 Route::get("/search", [ LeBonCoinController::class, "search"]);
 
 Route::post('/search', [SearchController::class, 'search'])->name('search');
 
-Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
+// Route::get('/cities', [CityController::class, 'city']);
+// Route::post('/process-city', [CityController::class, 'processCity'])->name('process.city');

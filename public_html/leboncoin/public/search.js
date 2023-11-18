@@ -4,4 +4,4 @@ function submitForm() {
 }
 
 
-console.log("test recherche js");
+//console.log("test recherche js");
