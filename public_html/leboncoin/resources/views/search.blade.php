@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,7 +12,7 @@
 <!-- traitement de la recherche et affichage : -->
     <h2>Résultats de la recherche :</h2>
 
-    @if(isset($_POST['search']))
+   
         <p>Vous avez recherché : {{ $_POST['search'] }}</p></br>
         <?php
         $nom = $_POST['search'];
@@ -23,16 +24,21 @@
 		$text = pg_query($query);
 
 		echo "<table>";
+        if (pg_fetch_assoc($text)!=0) {
 		while ($row = pg_fetch_assoc($text)) {
 		echo "<tr>";
-		foreach($row as $key=>$value)
+
+
+        foreach($row as $key=>$value)
 		echo "<td>".$value."</td>";
 		echo "</tr>";
 		} echo "</table>";
-        ?>
-    @else
-        <p>Aucune recherche effectuée.</p>
-    @endif
+        }
+        else {
+            echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat !st-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
+        }
+
+?>
 
 
 
@@ -42,3 +48,4 @@
 
 
 @endsection
+
