@@ -9,5 +9,3 @@
     <input>
     <div><a href="{{ url('/createaccount') }}">créer un compte</a></div>
 </section>
-
-LE GROS ZIZI

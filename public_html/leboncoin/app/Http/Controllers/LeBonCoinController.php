@@ -38,23 +38,29 @@ class LeBonCoinController extends Controller
           $request->input("prenom") == "" ||
           $request->input("email") == "" ||
           $request->input("civi") == "" ||
-          $request->input("date") == "" ) {
-
-        return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
-
+          $request->input("date") == "" ||
+          $request->input("ville") == "" ||
+          $request->input("mdp") == "" ||
+          $request->input("rue") == "" ||
+          $request->input("mail") == "" ||
+          $request->input("cp") == "" ) {
+            return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
       } else {
         $a = new Compte();
         $a->idville = $request->input("ville");
-        $a->motdepasse = $request->input("mdr");
+        $a->motdepasse = $request->input("mdp");
         $a->adresseruecompte = $request->input("rue");
         $a->adressecpcompte = $request->input("cp");
-        $a->codeetatcompte = $request->input("etat");
+        $a->codeetatcompte = 1;
      
         $b = new Particulier();
+        $b->idcompte = 986;
+        $b->bonplanmailpartenaire = $request->input("mail");
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
         $b->adressemailparticulier = $request->input("email");
-        if ($request->input("nom") =="Homme") { $b->civilite = $request->input(true);} else { $b->civilite = $request->input(false);}
+        //if ($request->input("nom") =="Homme") { $b->civilite = $request->input(true);} else { $b->civilite = $request->input(false);}
+        $b->civilite = $request->input(true);
         $b->datenaissanceparticulier = $request->input("date");
         $b->save();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CityController extends Controller
 {
@@ -12,8 +13,9 @@ class CityController extends Controller
         $selectedCityId = $request->input('ville');
 
         // Faire quelque chose avec l'ID de la ville sélectionnée (par exemple, enregistrer en base de données, etc.)
+        echo "coucou";
 
-        return redirect('/')->with('success', 'Ville sélectionnée avec succès.');
+        return redirect('/city')->with('success', 'Ville sélectionnée avec succès.');
     }
 
     public function index()

@@ -15,6 +15,14 @@
     <label for="Femme">Femme</label>--> <input name="civi" type="">
     <div>date naissance AAAA-MM-JJ</div>
     <input name="date" type="">
-
+    <div>Ville</div>
+    <input name="ville" type="">
+    <div>Addresse</div>
+    <input name="rue" type="">
+    <div>Code Postal</div>
+    <input name="cp" type="">
+    <div>Mot de passe</div>
+    <input name="mdp" type="">
+    <div>Recevoir des mails commerciaux </div><input name="mail" type="checkbox">
     <button type="submit">Créer mon compte</button>
 </form>
