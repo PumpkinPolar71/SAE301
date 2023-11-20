@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LeBonCoin;
+use App\Models\Particulier;
+use App\Models\Entreprise;
+use App\Models\Compte;
 
 class LeBonCoinController extends Controller
 {
@@ -35,16 +38,17 @@ class LeBonCoinController extends Controller
           $request->input("prenom") == "" ||
           $request->input("email") == "" ||
           $request->input("civi") == "" ||
-          $request->input("date") == "" 
-         )  {
+          $request->input("date") == "" ) {
+
         return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
 
       } else {
-        $b = new LeBonCoin();
+     
+        $b = new Particulier();
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
         $b->adressemailparticulier = $request->input("email");
-        $b->civilite = $request->input("civi");
+        if ($request->input("nom") =="Homme") { $b->civilite = $request->input(true);} else { $b->civilite = $request->input(false);}
         $b->datenaissanceparticulier = $request->input("date");
         $b->save();
 

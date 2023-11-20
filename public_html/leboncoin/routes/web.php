@@ -38,8 +38,8 @@ Route::get("/search", [ LeBonCoinController::class, "search"]);
 
 Route::post('/search', [SearchController::class, 'search'])->name('search');
 
-Route::get('/search', [SearchController::class, 'index']);
+// Route::get('/search', [SearchController::class, 'index']);
 
-Route::post('/process-city', [CityController::class, 'processCity'])->name('process.city');
+// Route::post('/search', [SearchController::class, 'processCity'])->name('ville');
 
 

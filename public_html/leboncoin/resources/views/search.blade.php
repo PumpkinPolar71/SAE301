@@ -6,21 +6,6 @@
 
 
 <!-- tentative de recherche par location : -->
-<h1>Combobox de Villes</h1>
-
-        <form action="{{ route('search') }}" method="post">
-            @csrf
-        
-            <label for="city-select">Sélectionnez une ville :</label>
-            <select name="city" id="city-select">
-                <option value="">--Choisir un ville--</option>
-                @foreach($cities as $id => $city)
-                    <option value="{{ $id }}">{{ $city }}</option>
-                @endforeach
-            </select>
-        
-            <button type="submit">Soumettre</button>
-    
 
 <!-- traitement de la recherche et affichage : -->
     <h2>Résultats de la recherche :</h2>
