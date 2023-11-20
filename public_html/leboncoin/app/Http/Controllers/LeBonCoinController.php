@@ -33,17 +33,21 @@ class LeBonCoinController extends Controller
     {
 
       if (
-          $request->input("name") == "" || 
-          $request->input("descr") == "" ||
-          $request->input("category") == "" 
+          $request->input("nom") == "" || 
+          $request->input("prenom") == "" ||
+          $request->input("email") == "" ||
+          $request->input("civi") == "" ||
+          $request->input("date") == "" 
          )  {
         return redirect('annonce/add')->withInput()->with("error","Oups, t'as fait une boulette !");
 
       } else {
         $b = new LeBonCoin();
-        $b->name = $request->input("name");
-        $b->descr = $request->input("descr");
-        $b->category = $request->input("category");
+        $b->nomparticulier = $request->input("nom");
+        $b->prenomparticulier = $request->input("prenom");
+        $b->adressemailparticulier = $request->input("email");
+        $b->civilite = $request->input("civi");
+        $b->datenaissanceparticulier = $request->input("date");
         $b->save();
 
         return redirect('annonce/add');

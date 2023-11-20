@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
-    public function city()
+    public function index()
     {
         $cities = DB::table('ville')->pluck('nomville', 'idville');
 
-        return view('cities.index', compact('cities'));
+        return view('search', compact('cities'));
     }
     public function processCity(Request $request)
     {
