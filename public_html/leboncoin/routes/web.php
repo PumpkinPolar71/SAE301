@@ -19,6 +19,7 @@ use App\Http\Controllers\CityController;
 
 Route::get('/', function () {
     return view('welcome');
+    redirect('/annonces');
 });
 Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
@@ -38,9 +39,7 @@ Route::get("/search", [ LeBonCoinController::class, "search"]);
 Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/search', [CityController::class, 'indexe']);
-// Route::get('/city', [CityController::class, 'index']);
-// Route::post('/city', [CityController::class, 'processCity'])->name('ville');
-Route::get('/search-filtres', [CityController::class, 'indexe'])->name('annonce-index');
+Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
 
 
 
