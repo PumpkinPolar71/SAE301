@@ -28,10 +28,8 @@ class LeBonCoinController extends Controller
     public function createaccountparticulier() {
       return view("createaccountparticulier"); 
     }
-
   public function save(Request $request)
     {
-
       if (
           $request->input("nom") == "" || 
           $request->input("prenom") == "" ||
@@ -39,7 +37,7 @@ class LeBonCoinController extends Controller
           $request->input("civi") == "" ||
           $request->input("date") == "" 
          )  {
-        return redirect('annonce/add')->withInput()->with("error","Oups, t'as fait une boulette !");
+        return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
 
       } else {
         $b = new LeBonCoin();
@@ -50,7 +48,7 @@ class LeBonCoinController extends Controller
         $b->datenaissanceparticulier = $request->input("date");
         $b->save();
 
-        return redirect('annonce/add');
+        return redirect('/');
       
       } 
     }

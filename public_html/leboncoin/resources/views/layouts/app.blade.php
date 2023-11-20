@@ -37,7 +37,19 @@
             </ul><br>
         @show
 
-            
+        <h1>Combobox de Villes</h1>
+
+        <form action="{{ route('search') }}" method="post">
+            @csrf
+        
+            <label for="city-select">Sélectionnez une ville :</label>
+            <select name="city" id="city-select">
+                <option value="">--Choisir un ville--</option>
+                    <option value="{{ $id }}">{{ $city }}</option>
+            </select>
+        
+            <button type="submit">Soumettre</button>
+</form>
 
 
         <div class="container">

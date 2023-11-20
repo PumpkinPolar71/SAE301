@@ -1,18 +1,20 @@
 
 <form method="post" action="{{ url("/annonce/save") }}">
+@csrf
+  {{ session()->get("error") }}
     <div>Nom</div>
-    <input id="nom" type="">
+    <input name="nom" type="">
     <div>Prenom</div>
-    <input id="prenom" type="">
+    <input name="prenom" type="">
     <div>Email</div>
-    <input id="email" type="">
+    <input name="email" type="">
     <div>civilité</div>
-    <input type="radio" id="civi" name="civi" value="Homme" checked />
+    <!--<input type="radio" id="civi" name="civi" value="Homme" checked />
     <label for="Homme">Homme</label>
     <input type="radio" id="civi" name="civi" value="Femme" />
-    <label for="Femme">Femme</label>
+    <label for="Femme">Femme</label>--> <input name="civi" type="">
     <div>date naissance AAAA-MM-JJ</div>
-    <input id="date" type="">
+    <input name="date" type="">
 
     <button type="submit">Créer mon compte</button>
 </form>
