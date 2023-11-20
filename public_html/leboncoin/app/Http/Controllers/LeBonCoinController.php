@@ -52,46 +52,22 @@ class LeBonCoinController extends Controller
         $a->adresseruecompte = $request->input("rue");
         $a->adressecpcompte = $request->input("cp");
         $a->codeetatcompte = 1;
+        $a->save();
      
         $b = new Particulier();
-        $b->idcompte = 986;
+        $b->idcompte = $a->idcompte;
+        $lastIdPart = Particulier::max('idparticulier');
+        $newId = $lastIdPart + 1;
+        $b->idparticulier = $newId;
         $b->bonplanmailpartenaire = $request->input("mail");
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
         $b->adressemailparticulier = $request->input("email");
-        //if ($request->input("nom") =="Homme") { $b->civilite = $request->input(true);} else { $b->civilite = $request->input(false);}
-        $b->civilite = $request->input(true);
+        if ($request->input("nom") =="Homme") { $b->civilite = true;} else { $b->civilite = false;}
         $b->datenaissanceparticulier = $request->input("date");
+        $b->etatcompte = false;
         $b->save();
-
         return redirect('/');
-      
       } 
-    }
-    public function index(Request $request)
-    {
-        $villes = Ville::all();
-        $typesHebergement = TypeHebergement::all(); // Assurez-vous d'avoir le modèle et la table pour les types d'hébergement
-    
-        $annonces = Annonce::query();
-    
-        if ($request->has('ville')) {
-            $annonces->where('ville', $request->ville);
-        }
-    
-        if ($request->has('type_hebergement')) {
-            $annonces->where('idtype', $request->type_hebergement);
-        }
-    
-        if ($request->has('datedebut') && $request->has('datefin')) {
-            $dateDebut = Carbon::createFromFormat('Y-m-d', $request->date_debut)->startOfDay();
-            $dateFin = Carbon::createFromFormat('Y-m-d', $request->date_fin)->endOfDay();
-    
-            $annonces->whereBetween('date_disponibilite', [$dateDebut, $dateFin]);
-        }
-    
-        $annonces = $annonces->get();
-    
-        return view('annonces.index', compact('annonces', 'villes', 'typesHebergement'));
     }
     }

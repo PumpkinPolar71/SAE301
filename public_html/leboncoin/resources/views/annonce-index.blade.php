@@ -1,10 +1,10 @@
-<form action="{{ route('annonces.index') }}" method="GET">
+<form action="{{ route('annonce-index') }}" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
     <select name="ville" id="ville">
         <option value="">Toutes les villes</option>
-        @foreach($villes as $ville)
-            <option value="{{ $ville->id }}">{{ $ville->nom }}</option>
+        @foreach($villes as $id => $ville)
+            <option value="{{ $id }}">{{ $ville->nomville }}</option>
         @endforeach
     </select>
     
