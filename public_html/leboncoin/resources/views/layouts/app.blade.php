@@ -45,7 +45,6 @@
             <label for="city-select">Sélectionnez une ville :</label>
             <select name="city" id="city-select">
                 <option value="">--Choisir un ville--</option>
-                    <option value="{{ $id }}">{{ $city }}</option>
             </select>
         
             <button type="submit">Soumettre</button>
