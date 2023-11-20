@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Entreprise extends Model
 {
     use HasFactory;
+    protected $table = "entreprise";
+    protected $primaryKey = "siret";
+    public $timestamps = false;
 }

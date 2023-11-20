@@ -35,11 +35,12 @@ Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);
-
 Route::post('/search', [SearchController::class, 'search'])->name('search');
 
-// Route::get('/search', [SearchController::class, 'index']);
+Route::get('/search', [CityController::class, 'index']);
+Route::get('/city', [CityController::class, 'index']);
+Route::post('/city', [CityController::class, 'processCity'])->name('ville');
 
-// Route::post('/search', [SearchController::class, 'processCity'])->name('ville');
+
 
 

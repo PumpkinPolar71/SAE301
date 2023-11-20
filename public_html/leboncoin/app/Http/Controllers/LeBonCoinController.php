@@ -43,6 +43,12 @@ class LeBonCoinController extends Controller
         return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
 
       } else {
+        $a = new Compte();
+        $a->idville = $request->input("ville");
+        $a->motdepasse = $request->input("mdr");
+        $a->adresseruecompte = $request->input("rue");
+        $a->adressecpcompte = $request->input("cp");
+        $a->codeetatcompte = $request->input("etat");
      
         $b = new Particulier();
         $b->nomparticulier = $request->input("nom");
