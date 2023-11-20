@@ -68,4 +68,30 @@ class LeBonCoinController extends Controller
       
       } 
     }
-}
+    public function index(Request $request)
+    {
+        $villes = Ville::all();
+        $typesHebergement = TypeHebergement::all(); // Assurez-vous d'avoir le modèle et la table pour les types d'hébergement
+    
+        $annonces = Annonce::query();
+    
+        if ($request->has('ville')) {
+            $annonces->where('ville', $request->ville);
+        }
+    
+        if ($request->has('type_hebergement')) {
+            $annonces->where('idtype', $request->type_hebergement);
+        }
+    
+        if ($request->has('datedebut') && $request->has('datefin')) {
+            $dateDebut = Carbon::createFromFormat('Y-m-d', $request->date_debut)->startOfDay();
+            $dateFin = Carbon::createFromFormat('Y-m-d', $request->date_fin)->endOfDay();
+    
+            $annonces->whereBetween('date_disponibilite', [$dateDebut, $dateFin]);
+        }
+    
+        $annonces = $annonces->get();
+    
+        return view('annonces.index', compact('annonces', 'villes', 'typesHebergement'));
+    }
+    }
