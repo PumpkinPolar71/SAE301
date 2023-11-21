@@ -20,6 +20,7 @@ class CityController extends Controller
     
         if ($request->has('ville')) {
             $annonces->where('idville', $request->nomville  );
+            
         }
     
         if ($request->has('type_hebergement')) {

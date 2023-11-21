@@ -24,6 +24,7 @@
        <li>
          <a href="{{ url("/annonce/".$annonce->idannonce) }}">
             {{ $annonce->titreannonce }} 
+            <img src=''>
          </a>
        </li>
   @endforeach

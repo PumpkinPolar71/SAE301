@@ -76,3 +76,16 @@ img {
 .descr {
     margin-top: 1%;
 }
+/*----------------annonce-list------------------*/
+.ulAffiche {
+    margin-left: 15%;
+}
+.ulAffiche li {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 25%;
+    list-style: none;
+}
+.ulAffiche img {
+    height: 10%;
+}
