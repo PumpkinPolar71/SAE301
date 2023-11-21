@@ -7,6 +7,7 @@ use App\Models\LeBonCoin;
 use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
+use App\Models\Ville;
 
 class LeBonCoinController extends Controller
 {
@@ -42,16 +43,20 @@ class LeBonCoinController extends Controller
           $request->input("ville") == "" ||
           $request->input("mdp") == "" ||
           $request->input("rue") == "" ||
-          $request->input("mail") == "" ||
           $request->input("cp") == "" ) {
             return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
       } else {
         $a = new Compte();
-        $a->idville = $request->input("ville");
+        $villeAll = Ville::all();
+        foreach ($villeAll as $vile) { 
+          if ($request->input("ville") == $vile->nomville) {$a->idville = $vile->idville;}
+        }
+        //$a->idville = $request->input("ville");
+        //if ($request->input("mdp"))
         $a->motdepasse = $request->input("mdp");
         $a->adresseruecompte = $request->input("rue");
         $a->adressecpcompte = $request->input("cp");
-        $a->codeetatcompte = 1;
+        $a->codeetatcompte = 0;
         $a->save();
      
         $b = new Particulier();
@@ -59,13 +64,13 @@ class LeBonCoinController extends Controller
         $lastIdPart = Particulier::max('idparticulier');
         $newId = $lastIdPart + 1;
         $b->idparticulier = $newId;
-        $b->bonplanmailpartenaire = $request->input("mail");
+        if ($request->input("mail")==""){$b->bonplanmailpartenaire = false;} else {$b->bonplanmailpartenaire = true;} //
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
         $b->adressemailparticulier = $request->input("email");
         if ($request->input("nom") =="Homme") { $b->civilite = true;} else { $b->civilite = false;}
         $b->datenaissanceparticulier = $request->input("date");
-        $b->etatcompte = false;
+        $b->etatcompte = 1;
         $b->save();
         return redirect('/');
       } 
