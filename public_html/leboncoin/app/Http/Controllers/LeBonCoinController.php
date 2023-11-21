@@ -50,8 +50,8 @@ class LeBonCoinController extends Controller
         $villeAll = Ville::all();
         foreach ($villeAll as $vile) { 
           if ($request->input("ville") == $vile->nomville) {$a->idville = $vile->idville;}
+          else {$a->idville = 100;}
         }
-        //$a->idville = $request->input("ville");
         //if ($request->input("mdp"))
         $a->motdepasse = $request->input("mdp");
         $a->adresseruecompte = $request->input("rue");
