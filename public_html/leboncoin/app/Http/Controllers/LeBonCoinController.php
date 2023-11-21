@@ -8,6 +8,7 @@ use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
+use App\Models\Photo;
 
 class LeBonCoinController extends Controller
 {
@@ -24,7 +25,7 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-      return view ("annonce", ['annonce'=>LeBonCoin::find($id) ]);
+      return view ("annonce", ['annonce'=>LeBonCoin::find($id) ], ['photo'=>Photo::find($id) ]);
     }
     public function search() {
       return view("search");
@@ -44,7 +45,7 @@ class LeBonCoinController extends Controller
           $request->input("mdp") == "" ||
           $request->input("rue") == "" ||
           $request->input("cp") == "" ) {
-            return redirect('createaccountparticulier')->withInput()->with("error","Oups, t'as fait une boulette !");
+            return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
       } else {
         $a = new Compte();
         $villeAll = Ville::all();

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<link rel="stylesheet" type="text/css" href="{{asset('style.css')}}"/> 
 <div class="flecheretour" onclick="history.back()">←</div>
 <div class="titleconnect"><a href="{{ url('/annonces') }}">LeBonCoin</a></div>
 
