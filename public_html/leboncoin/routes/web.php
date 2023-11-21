@@ -18,7 +18,7 @@ use App\Http\Controllers\CityController;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
+    return view('welcome');
     redirect('/annonces');
 });
 Route::get("/annonces",[LeBonCoinController::class, "index" ]);

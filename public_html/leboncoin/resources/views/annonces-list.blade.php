@@ -1,19 +1,6 @@
 
 @extends('layouts.app')
 
-<!--@section('title', 'LeBonCoin')-->
-<!-- 
-@section('sidebar')
-    @parent
-
-   
-
-
-@endsection -->
-
-
-
-
 @section('content')
 
 
@@ -22,6 +9,13 @@
 <ul class="ulAffiche">
    @foreach ($annonces as $annonce)
        <li>
+       <?php
+        if ($photo->idphoto != NULL) {
+            echo "<img src='$photo->photo' />";
+        } else {
+            echo "Oups... Il semblerait que cette annonce ne contienne aucune image.";
+        }
+    ?>
          <a href="{{ url("/annonce/".$annonce->idannonce) }}">
             {{ $annonce->titreannonce }} 
             <img src=''>

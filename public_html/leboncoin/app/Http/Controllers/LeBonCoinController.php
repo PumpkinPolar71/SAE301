@@ -13,7 +13,7 @@ use App\Models\Photo;
 class LeBonCoinController extends Controller
 {
     public function index() {
-        return view ("annonces-list", ['annonces'=>LeBonCoin::all() ]);
+        return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
     public function add() {
         return view("annonce-add");

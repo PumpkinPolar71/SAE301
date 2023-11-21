@@ -3,13 +3,13 @@
 @section('content')
 
         
-<form action="{{ route('annonce-index') }}" method="GET">
+<form action="" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
     <select name="ville" id="ville">
         <option value="">Toutes les villes</option>
         @foreach($villes as $id => $ville)
-            <option value="{{ $id }}">{{ $ville->nomville }}</option>
+            <option value="{{ $id+1 }}">{{ $ville->nomville }}</option>
         @endforeach
     </select>
     
@@ -35,12 +35,24 @@
 
    
     <?php
-        $nom = $_GET['annonce-index'];
         pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
+        if ($_GET['ville']== "") {
+            $query = "SELECT titreannonce FROM annonce
+                    ";
+        }
 
-        $query = "SELECT titreannonce FROM annonce WHERE titreannonce ILIKE '%$nom%'";
+            //echo "a".$_GET['ville']."a";
+           $test = $_GET['ville'];
+           //echo $test;
+            //$request->input("ville") = $recherhce;
+        // $nom = $_GET['annonce-index'];
+        
+
+        $query = "SELECT titreannonce FROM annonce a 
+                    Join ville v on v.idville = a.idville
+                    WHERE a.idville = $test";
         $text = pg_query($query);
 
         echo "<table>";
@@ -53,10 +65,11 @@
         echo "<td>".$value."</td>";
         echo "</tr>";
         } echo "</table>";
+    
         }
         else {
-            echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat !st-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
-        }
+            echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
+        }//}
     ?>
         
 

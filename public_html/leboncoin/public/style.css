@@ -83,7 +83,7 @@ img {
 .ulAffiche li {
     border: 1px solid black;
     border-radius: 10px;
-    width: 25%;
+    width: 50%;
     list-style: none;
 }
 .ulAffiche img {
