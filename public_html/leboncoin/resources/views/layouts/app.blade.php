@@ -38,7 +38,7 @@
         @show
 
         @section('nav2')
- 
+            
         @show
         
         <div class="container">
