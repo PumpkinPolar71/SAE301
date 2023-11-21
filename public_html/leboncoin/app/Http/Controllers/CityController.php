@@ -15,6 +15,7 @@ class CityController extends Controller
     {
         $villes = Ville::all();
         $typesHebergement = TypeHebergement::all(); // Assurez-vous d'avoir le modèle et la table pour les types d'hébergement
+        $lesannonces=LeBonCoin::all();
         $annonces = LeBonCoin::query();
     
         if ($request->has('ville')) {
@@ -35,6 +36,6 @@ class CityController extends Controller
     
         $annonces = $annonces->get();
     
-        return view('annonce-index', compact('annonces', 'villes', 'typesHebergement'));
+        return view('annonce-index', compact('annonces', 'villes', 'typesHebergement', 'lesannonces'));
     }
 }

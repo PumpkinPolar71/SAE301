@@ -26,7 +26,7 @@
                     <div>
                         <form action="/search" method="post" target="_self">
                             @csrf
-                            <input id="search" type="text" name="search" placeholder="Ex: Apagnyan" OnKeyPress="if (event.keyCode == 13)submitForm()"/>
+                            <input id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()"/>
                         </form>
                     </div>
                 </li>                  

@@ -33,7 +33,7 @@
 </form>
 <h2>Résultats de la recherche pour :</h2>
     <?php
-    echo  $_GET['ville'];
+    //echo  $_GET['ville'];
         pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
@@ -52,8 +52,13 @@
             Join ville v on v.idville = a.idville
             WHERE a.idville = $test";
         }
-        elseif ($_GET['ville']== "" && $_GET['type_hebergement']== ""){
-
+        elseif ($_GET['ville']!= "" && $_GET['type_hebergement']!= ""){
+            $test = $_GET['ville'];
+            $test2 = $_GET['type_hebergement'];
+            $query = "SELECT titreannonce FROM annonce a 
+            Join ville v on v.idville = a.idville
+            Join type_hebergement t on t.idtype = a.idtype
+            WHERE a.idville = $test AND a.idtype = $test2";
         }
         else {
 
@@ -82,6 +87,20 @@
 
 
         foreach($row as $key=>$value)
+            /*$query = "SELECT titreannonce FROM annonce a 
+            Join ville v on v.idville = a.idville
+            WHERE a.idville = $test";
+
+            $text = pg_query($query);*/
+
+            //echo `<a href="url('/annonce/'.$lesannonces->idannonce)"><td>$value</td></a>`;
+       
+
+
+
+
+
+
         echo "<td>".$value."</td>";
         echo "</tr>";
         } echo "</table>";
