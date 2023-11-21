@@ -3,7 +3,7 @@
 @section('content')
 
         
-<form action="" method="GET">
+<form class="formindex" action="" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
     <select name="ville" id="ville">
@@ -17,8 +17,8 @@
     <label for="type_hebergement">Choisir un type d'hébergement :</label>
     <select name="type_hebergement" id="type_hebergement">
         <option value="">Tous les types</option>
-        @foreach($villes as $id => $ville)
-            <option value="{{ $id }}">{{ $ville->nomville }}</option>
+        @foreach($typesHebergement as $id => $type_hebergement)
+            <option value="{{ $id+1 }}">{{ $type_hebergement->type }}</option>
         @endforeach
         
     </select>
@@ -31,33 +31,53 @@
     
     <button type="submit">Rechercher</button>
 </form>
-<h2>Résultats de la recherche :</h2>
-
-   
+<h2>Résultats de la recherche pour :</h2>
     <?php
+    echo  $_GET['ville'];
         pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
-        if ($_GET['ville']== "") {
+        if ($_GET['ville']== "" && $_GET['type_hebergement']== "") {
             $query = "SELECT titreannonce FROM annonce
                     ";
+        } elseif ($_GET['ville']== "" && $_GET['type_hebergement']!= "") {
+            $test = $_GET['type_hebergement'];
+            $query = "SELECT titreannonce FROM annonce a 
+            Join type_hebergement t on t.idtype = a.idtype
+            WHERE a.idtype = $test";
+        }
+        elseif ($_GET['ville']!= "" && $_GET['type_hebergement']== ""){
+            $test = $_GET['ville'];
+            $query = "SELECT titreannonce FROM annonce a 
+            Join ville v on v.idville = a.idville
+            WHERE a.idville = $test";
+        }
+        elseif ($_GET['ville']== "" && $_GET['type_hebergement']== ""){
+
+        }
+        else {
+
         }
 
             //echo "a".$_GET['ville']."a";
-           $test = $_GET['ville'];
+           
            //echo $test;
             //$request->input("ville") = $recherhce;
         // $nom = $_GET['annonce-index'];
         
+        
 
-        $query = "SELECT titreannonce FROM annonce a 
-                    Join ville v on v.idville = a.idville
-                    WHERE a.idville = $test";
+        
+        
+        
+        //echo "<h2>Résultats de la recherche pour :.$query = 'Select nomville from ville where idville = $_GET[`ville`] ';.</h2>";
         $text = pg_query($query);
-
+       // echo $text;
         echo "<table>";
+        //var_dump($text);
         if (pg_fetch_assoc($text)!=0) {
         while ($row = pg_fetch_assoc($text)) {
+           
         echo "<tr>";
 
 
@@ -69,7 +89,7 @@
         }
         else {
             echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
-        }//}
+        }
     ?>
         
 

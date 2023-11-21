@@ -21,7 +21,7 @@
         @section('nav')
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonces") }}">LeBonCoin</a></li>
-                <li><a href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
+                <li><a class="depo" href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
                 <li>
                     <div>
                         <form action="/search" method="post" target="_self">
@@ -31,9 +31,9 @@
                     </div>
                 </li>                  
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
-                <li><a href="{{ url("/") }}">Favoris</a></li>
-                <li><a href="{{ url("/") }}">Message</a></li>
-                <li><a href="{{ url("/connect") }}">Se connecter</a></li>
+                <li><a class="fav" href="{{ url("/") }}">Favoris</a></li>
+                <li><a class="mess" href="{{ url("/") }}">Message</a></li>
+                <li><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
             </ul><br>
         @show
 

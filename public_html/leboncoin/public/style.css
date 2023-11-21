@@ -2,6 +2,31 @@
     margin: 0;
     padding: 0;
 }
+/*----------------layout--------------*/
+body {
+    margin-left: 16%;
+    width: 68%;
+}
+#topnav {
+    padding: 0% 0% 4% 0%;
+    text-align: center;
+}
+#topnav li {
+    display: block;
+    float: left;
+    padding: 2% 2% 2% 2%;
+    list-style: none;
+}
+.logo {
+    font-family: cursive;
+    font-size: larger;
+    color: orange;
+}
+.depo {
+    color: aliceblue;
+    background-color: orange;
+    border-radius: 5px;
+}
 
 
 a {
@@ -21,21 +46,14 @@ title {
 }
 .titleconnect a {color: orange; font-family: monospace; font-size: 4vh;}
 .flecheretour {color:orange; position: absolute; font-size: 4vh; margin-top: 0%;}
-#topnav li {
-    display: block;
-    float: left;
-    padding: 0% 2% 0% 2%;
-    list-style: none;
-}
+
 .inputaccount {
     border-radius: 50%;
     width: 13px;
     height: 13px;
 }
 .inputaccount:hover {background-color: aqua;}
-.logo {
-    color: orange;
-}
+
 section {
     margin-top: 10%;
     padding: 5% 0% 5% 0%;
@@ -49,8 +67,8 @@ section {
 }
 /*----------------annonce------------------*/
 .annoncedetail {
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
+   
     margin-top: 2%;
 }
 h1 {
@@ -78,14 +96,21 @@ img {
 }
 /*----------------annonce-list------------------*/
 .ulAffiche {
-    margin-left: 15%;
+    
 }
 .ulAffiche li {
     border: 1px solid black;
     border-radius: 10px;
     width: 50%;
     list-style: none;
+    margin-bottom: 1%;
+   
 }
 .ulAffiche img {
     height: 10%;
+    width: 20%;
+}
+/*----------------annonce-index------------------*/
+.formindex {
+    margin-top: 2%;
 }

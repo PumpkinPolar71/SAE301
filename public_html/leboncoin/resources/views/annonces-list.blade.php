@@ -8,19 +8,20 @@
 
 <ul class="ulAffiche">
    @foreach ($annonces as $annonce)
-       <li>
+   <a href="{{ url("/annonce/".$annonce->idannonce) }}">
+   <li>
        <?php
-        if ($photo->idphoto != NULL) {
+        /*if ($photo->idphoto != NULL) {
             echo "<img src='$photo->photo' />";
         } else {
             echo "Oups... Il semblerait que cette annonce ne contienne aucune image.";
         }
-    ?>
-         <a href="{{ url("/annonce/".$annonce->idannonce) }}">
+   */ ?>
+         
+         <img src=''>
             {{ $annonce->titreannonce }} 
-            <img src=''>
-         </a>
-       </li>
+        
+       </li> </a>
   @endforeach
 </ul>
 @endsection

@@ -27,8 +27,17 @@
         echo "<tr>";
 
 
+       /* 
+        {{ $annonce->titreannonce }} 
+        
+     */
+
+
         foreach($row as $key=>$value)
-        echo "<td>".$value."</td>";
+
+        //echo `<a href="url('/annonce/'.$annonce->idannonce)"><td>`.$value."</td>";
+        //echo "<img src=''></a></tr>";
+        echo `<td>`.$value."</td>";
         echo "</tr>";
         } echo "</table>";
         }
