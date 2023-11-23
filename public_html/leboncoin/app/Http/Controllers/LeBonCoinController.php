@@ -9,6 +9,8 @@ use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
 use App\Models\Photo;
+use App\Models\Critere;
+use Illuminate\Support\Facades\Hash;
 
 class LeBonCoinController extends Controller
 {
@@ -25,7 +27,7 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-      return view ("annonce", ['annonce'=>LeBonCoin::find($id) ], ['photo'=>Photo::find($id) ]);
+      return view ("annonce", ['annonce'=>LeBonCoin::find($id) ], ['photo'=>Photo::find($id) ], ['critere'=>Critere::find($id) ]);
     }
     public function search() {
       return view("search");
@@ -54,7 +56,7 @@ class LeBonCoinController extends Controller
           else {$a->idville = 100;}
         }
         //if ($request->input("mdp"))
-        $a->motdepasse = $request->input("mdp");
+        $a->motdepasse = Hash::make($request->input("mdp"));
         $a->adresseruecompte = $request->input("rue");
         $a->adressecpcompte = $request->input("cp");
         $a->codeetatcompte = 0;

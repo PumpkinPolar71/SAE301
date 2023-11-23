@@ -9,11 +9,13 @@
     <div>Email</div>
     <input name="email" type="">
     <div>civilité</div>
-    <!--<input type="radio" id="civi" name="civi" value="Homme" checked />
-    <label for="Homme">Homme</label>
-    <input type="radio" id="civi" name="civi" value="Femme" />
-    <label for="Femme">Femme</label>--> <input name="civi" type="">
-    <div>date naissance AAAA-MM-JJ</div>
+    <input type="radio" id="homme" name="sexe">
+        <label for="homme">Homme</label>
+        <input type="radio" id="femme" name="sexe">
+        <label for="femme">Femme</label>
+        <input type="radio" id="nonDefini" name="sexe">
+        <label for="nonDefini">Non défini</label>
+    <div>date naissance JJ-MM-AAAA</div>
     <input name="date" type="">
     <div>Ville</div>
     <input name="ville" type="">
@@ -22,7 +24,7 @@
     <div>Code Postal</div>
     <input name="cp" type="">
     <div>Mot de passe</div>
-    <input name="mdp" type="">
+    <input name="mdp" type="password">
     <div>Recevoir des mails commerciaux </div><input name="mail" type="checkbox">
     <button type="submit">Créer mon compte</button>
 </form>

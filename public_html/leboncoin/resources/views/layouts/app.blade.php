@@ -19,14 +19,15 @@
     	</header>
 
         @section('nav')
+        <div class=""></div>
             <ul id="topnav">
-                <li><a class="logo" href="{{ url("/annonces") }}">LeBonCoin</a></li>
+                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=") }}">LeBonCoin</a></li>
                 <li><a class="depo" href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
                 <li>
                     <div>
                         <form action="/search" method="post" target="_self">
                             @csrf
-                            <input id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()"/>
+                            <input id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()" />
                         </form>
                     </div>
                 </li>                  

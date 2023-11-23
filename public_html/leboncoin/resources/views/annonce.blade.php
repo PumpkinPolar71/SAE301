@@ -21,5 +21,6 @@
     <h2>Description</h2>
     <p class="descr">{{ $annonce->description }}</p>
     <h2>Critere</h2>
+    <p class="crit">{{ $critere->libellecritere }}</p>
 </div>
 @endsection

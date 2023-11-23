@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'LeBonCoin')
+
 @section('content')
 
         
@@ -9,6 +11,7 @@
     <select name="ville" id="ville">
         <option value="">Toutes les villes</option>
         @foreach($villes as $id => $ville)
+        
             <option value="{{ $id+1 }}">{{ $ville->nomville }}</option>
         @endforeach
     </select>
@@ -38,24 +41,23 @@
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
         if ($_GET['ville']== "" && $_GET['type_hebergement']== "") {
-            $query = "SELECT titreannonce FROM annonce
-                    ";
+            $query = "SELECT idannonce FROM annonce";
         } elseif ($_GET['ville']== "" && $_GET['type_hebergement']!= "") {
             $test = $_GET['type_hebergement'];
-            $query = "SELECT titreannonce FROM annonce a 
+            $query = "SELECT idannonce FROM annonce a 
             Join type_hebergement t on t.idtype = a.idtype
             WHERE a.idtype = $test";
         }
         elseif ($_GET['ville']!= "" && $_GET['type_hebergement']== ""){
             $test = $_GET['ville'];
-            $query = "SELECT titreannonce FROM annonce a 
+            $query = "SELECT idannonce FROM annonce a 
             Join ville v on v.idville = a.idville
             WHERE a.idville = $test";
         }
         elseif ($_GET['ville']!= "" && $_GET['type_hebergement']!= ""){
             $test = $_GET['ville'];
             $test2 = $_GET['type_hebergement'];
-            $query = "SELECT titreannonce FROM annonce a 
+            $query = "SELECT idannonce FROM annonce a 
             Join ville v on v.idville = a.idville
             Join type_hebergement t on t.idtype = a.idtype
             WHERE a.idville = $test AND a.idtype = $test2";
@@ -63,46 +65,41 @@
         else {
 
         }
-
-            //echo "a".$_GET['ville']."a";
-           
-           //echo $test;
-            //$request->input("ville") = $recherhce;
-        // $nom = $_GET['annonce-index'];
-        
+   
+          
         
 
-        
-        
-        
-        //echo "<h2>Résultats de la recherche pour :.$query = 'Select nomville from ville where idville = $_GET[`ville`] ';.</h2>";
         $text = pg_query($query);
        // echo $text;
         echo "<table>";
         //var_dump($text);
         if (pg_fetch_assoc($text)!=0) {
         while ($row = pg_fetch_assoc($text)) {
-           
-        echo "<tr>";
-
-
-        foreach($row as $key=>$value)
-            /*$query = "SELECT titreannonce FROM annonce a 
-            Join ville v on v.idville = a.idville
-            WHERE a.idville = $test";
-
-            $text = pg_query($query);*/
-
-            //echo `<a href="url('/annonce/'.$lesannonces->idannonce)"><td>$value</td></a>`;
+            echo "<tr>";
+            foreach($row as $key=>$value)
+                foreach ($annonces as $ann) {
+                    if ($ann->idannonce == $value) {
+                  
+                        echo "<td >";
+                        foreach ($photos as $photo) {
+                            if ($photo->idphoto == $ann->idannonce) {
+                                echo "<img class='temp' src=$photo->photo/>";
+                            }
+                        }
+                        echo "<a href=/annonce/".$ann->idannonce.">";
+                        echo $ann->titreannonce;
+                        //if ($photos->photo != NULL){echo "<img scr=".$photos->idphoto->idann.">";}
+                        echo $ann->idphoto;
+                        echo "</a>";
+                        echo "</td>";
+                 }
+            }
+            echo "</tr>";
        
 
-
-
-
-
-
-        echo "<td>".$value."</td>";
-        echo "</tr>";
+            
+        // echo "<td>".$value."</td>";
+        // echo "</tr>";
         } echo "</table>";
     
         }
