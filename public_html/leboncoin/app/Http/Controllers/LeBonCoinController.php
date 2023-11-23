@@ -41,7 +41,7 @@ class LeBonCoinController extends Controller
           $request->input("nom") == "" || 
           $request->input("prenom") == "" ||
           $request->input("email") == "" ||
-          $request->input("civi") == "" ||
+          $request->input("sexe") == "" ||
           $request->input("date") == "" ||
           $request->input("ville") == "" ||
           $request->input("mdp") == "" ||
@@ -52,8 +52,10 @@ class LeBonCoinController extends Controller
         $a = new Compte();
         $villeAll = Ville::all();
         foreach ($villeAll as $vile) { 
-          if ($request->input("ville") == $vile->nomville) {$a->idville = $vile->idville;}
-          else {$a->idville = 100;}
+          if ( $request->input("ville") == $vile->nomville) {
+              $a->idville = $vile->idville;
+          } //A REFAIRE
+          else {/*ca plante*/}
         }
         //if ($request->input("mdp"))
         $a->motdepasse = Hash::make($request->input("mdp"));
@@ -71,11 +73,11 @@ class LeBonCoinController extends Controller
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
         $b->adressemailparticulier = $request->input("email");
-        if ($request->input("nom") =="Homme") { $b->civilite = true;} else { $b->civilite = false;}
+        if ($request->input("sexe") == "Homme") { $b->civilite = true;} else { $b->civilite = false;}
         $b->datenaissanceparticulier = $request->input("date");
         $b->etatcompte = 1;
         $b->save();
-        return redirect('/');
+        return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
       } 
     }
     }

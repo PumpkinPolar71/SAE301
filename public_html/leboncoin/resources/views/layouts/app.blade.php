@@ -3,7 +3,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+                    /*$(document).ready(function() {
+                        alert("Attention: Valentin suce pour 10e\nETAT ERROR = '515'");
+                    })*/
+        </script>
         <title>@yield('title')</title>
 
 

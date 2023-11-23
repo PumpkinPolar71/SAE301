@@ -4,7 +4,7 @@
 
 @section('content')
 
-        
+{{ session()->get("compte") }}
 <form class="formindex" action="" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
@@ -63,14 +63,33 @@
             WHERE a.idville = $test AND a.idtype = $test2";
         }
         elseif ($_GET['ville']== "" && $_GET['type_hebergement']== "" && $_GET['datedebut']!= "" && $_GET['datefin']== "") {
-            $test = $_GET['datedebut'];
-            $query = "SELECT idreservation FROM reservation r
-            WHERE r.datedebut = $test";
-            $resultDatedebut = $query;
-            $databaseDatedebut = $resultDatedebut->datedebut;
-            $carbonDatedebut = Carbon::parse($databaseDatedebut);
-            $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
-            $query=$datedebutFormatFr;
+            $datedebutExist = $_GET['datedebut'];
+            $query = "SELECT datedebut FROM reservation
+            WHERE datedebut <= $datedebutExist";
+
+            if($datedebutExist <= $query)
+            {
+                //---------------------------------------------datedebut de disponibilité
+                $query = "SELECT a.idannonce FROM annonce a
+                JOIN reservation r ON r.idannonce = a.idannonce
+                WHERE $datedebutExist != datedebut";
+                //------------------------------------------------------------------------
+            }
+            elseif ($datedebutExist != $query)
+            {
+                $query = 0;
+            }
+            else{
+                $query=0;
+            }
+            
+
+
+            // $resultDatedebut = $query;
+            // $databaseDatedebut = $resultDatedebut->datedebut;
+            // $carbonDatedebut = Carbon::parse($databaseDatedebut);
+            // $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
+            // $query=$datedebutFormatFr;
         }
         else {
 
@@ -99,7 +118,7 @@
         
 
         
-       // echo $text;
+       //echo $text;
         echo "<table>";
         //var_dump($text);
         if (pg_fetch_assoc($text)!=0) {
@@ -108,8 +127,9 @@
             foreach($row as $key=>$value)
                 foreach ($annonces as $ann) {
                     if ($ann->idannonce == $value) {
-                  
+                        
                         echo "<td >";
+                        echo $value;
                         foreach ($photos as $photo) {
                             if ($photo->idphoto == $ann->idannonce) {
                                 echo "<img class='temp' src=$photo->photo/>";
