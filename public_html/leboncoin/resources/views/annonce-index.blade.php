@@ -27,10 +27,10 @@
     </select>
     
     <!-- Choisir une période de disponibilité -->
-    <!-- <label for="datedebut">Date de début :</label>
+    <label for="datedebut">Date de début :</label>
     <input type="date" name="datedebut" id="datedebut">
     <label for="datefin">Date de fin :</label>
-    <input type="date" name="datefin" id="datefin"> -->
+    <input type="date" name="datefin" id="datefin">
     
     <button type="submit">Rechercher</button>
 </form>
@@ -62,14 +62,43 @@
             Join type_hebergement t on t.idtype = a.idtype
             WHERE a.idville = $test AND a.idtype = $test2";
         }
+        elseif ($_GET['ville']== "" && $_GET['type_hebergement']== "" && $_GET['datedebut']!= "" && $_GET['datefin']== "") {
+            $test = $_GET['datedebut'];
+            $query = "SELECT idreservation FROM reservation r
+            WHERE r.datedebut = $test";
+            $resultDatedebut = $query;
+            $databaseDatedebut = $resultDatedebut->datedebut;
+            $carbonDatedebut = Carbon::parse($databaseDatedebut);
+            $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
+            $query=$datedebutFormatFr;
+        }
         else {
 
         }
+        $text = pg_query($query);
    
-          
+        // // Supposez que $result soit le résultat de votre requête à la base de données
+        // $resultDatedebut = datedebut;
+        // $resultDatefin = datefin;
+
+        // // Récupérez la date de la base de données (assurez-vous que votre colonne est de type date ou datetime dans la base de données)
+        // $databaseDatedebut = $resultDatedebut->datedebut;
+        // $databaseDatefin = $resultDatefin->datefin;
+
+        // // Convertissez la date en objet Carbon
+        // $carbonDatedebut = Carbon::parse($databaseDatedebut);
+        // $carbonDatefin = Carbon::parse($databaseDatefin);
+
+        // // Changez le format de la date en format francophone
+        // $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
+        // $datefinFormatFr = $carbonDatefin->locale('fr')->isoFormat('D MMMM YYYY');
+
+        // // $dateFormatFr contient maintenant la date formatée en format francophone
+        // echo $datedebutFormatFr;
+        // echo $datefinFormatFr;
         
 
-        $text = pg_query($query);
+        
        // echo $text;
         echo "<table>";
         //var_dump($text);

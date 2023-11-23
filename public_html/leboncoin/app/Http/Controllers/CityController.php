@@ -8,6 +8,7 @@ use App\Models\TypeHebergement;
 use App\Models\Ville;
 use App\Models\LeBonCoin;
 use App\Models\Photo;
+use App\Models\Reservation;
 use carbon\carbon;
 
 class CityController extends Controller
@@ -16,9 +17,12 @@ class CityController extends Controller
     {
         $villes = Ville::all();
         $photos = Photo::all();
-        $typesHebergement = TypeHebergement::all(); // Assurez-vous d'avoir le modèle et la table pour les types d'hébergement
+        $typesHebergement = TypeHebergement::all();
         $annonces = LeBonCoin::all(); 
+        $reservations = Reservation::all();
+        
 
-        return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos'));
+        return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations'));
     }
+    
 }
