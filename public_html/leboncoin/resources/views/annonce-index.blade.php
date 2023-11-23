@@ -67,7 +67,7 @@
             $query = "SELECT datedebut FROM reservation
             WHERE datedebut <= $datedebutExist";
 
-            if($datedebutExist <= $query)
+            if($datedebutExist >= $query)
             {
                 //---------------------------------------------datedebut de disponibilité
                 $query = "SELECT a.idannonce FROM annonce a
