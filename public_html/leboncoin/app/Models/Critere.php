@@ -8,15 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Critere extends Model
 {
     use HasFactory;
+
     protected $table = "critere";
     protected $primaryKey = "idcritere";
     public $timestamps = false;
+
     public function annonce()
     {
         return $this->belongsTo(Annonce::class);
     }
-    public function critere()
+    public static function getLabelsForSpecificCriteres()
     {
-        return $this->belongsTo(Critere::class, 'idcritere', 'libellecritere');
+        $labels = [
+            1 => 'Nb étoiles',
+            2 => 'Capacité',
+            3 => 'Nb chambres',
+        ];
+
+        return $labels;
     }
+   
 }
+
+
+
+

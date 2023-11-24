@@ -11,8 +11,8 @@
     <select name="ville" id="ville">
         <option value="">Toutes les villes</option>
         @foreach($villes as $id => $ville)
-        
-            <option value="{{ $id+1 }}">{{ $ville->nomville }}</option>
+            {{$villeSelectionnee = isset($_GET['ville']) ? $_GET['ville'] : null;}}
+            <option value="{{ $id + 1 }}" {{  ($id + 1 == $villeSelectionnee) ? 'selected' : '' }}>{{ $ville->nomville }}</option>
         @endforeach
     </select>
     
@@ -21,7 +21,8 @@
     <select name="type_hebergement" id="type_hebergement">
         <option value="">Tous les types</option>
         @foreach($typesHebergement as $id => $type_hebergement)
-            <option value="{{ $id+1 }}">{{ $type_hebergement->type }}</option>
+            <!-- {{$ThSelectionnee = isset($_GET['type_hebergement']) ? $_GET['type_hebergement'] : null;}} -->
+            <option value="{{ $id+1 }} {{  ($id + 1 == $ThSelectionnee) ? 'selected' : '' }}">{{ $type_hebergement->type }}</option>
         @endforeach
         
     </select>

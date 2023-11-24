@@ -14,7 +14,7 @@
     <input name="prenom" type="">
     <div>Email</div>
     <input name="email" type="">
-    <div>Genre de naissance</div>
+    <div>Sexe de naissance</div>
     <input type="radio" value="Homme" name="sexe">
     <label  for="homme">Homme</label>
     <input type="radio" value="Femme" name="sexe">
@@ -35,28 +35,38 @@
     </div>
     <div>Mot de passe</div>
     <input name="mdp" id="mdp" type="password">
-    <div id="messageErreur"></div>
-    <div id="submitBtn" style="cursor: pointer; background-color: #3498db; color: white; padding: 8px 12px; border-radius: 5px; margin-top: 10px;">Créer mon compte</div>
+    <div style="color:red;" id="messageErreur"></div>
     <div>Recevoir des mails commerciaux </div><input name="mail" type="checkbox">
-    <button type="submit">Créer mon compte</button>
+    <button id="submitb" type="submit">Créer mon compte</button>
 
     <script>
-       
         $(document).ready(function() {
-
+        let btenvoi = $("#submitb")
         $("#mdp").on("blur", function() {
-            const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=<>?]).{12,}$/;
+            console.log("test blur")
+            var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
             const motDePasse = document.getElementById("mdp").value;
             const messageErreur = document.getElementById("messageErreur");
-            if (!regex.test(motDePasse)) {
+            if (!Reg.test(motDePasse)) {
             messageErreur.textContent = "Le mot de passe doit comporter au moins 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux.";
-            return false;
+            btenvoi.hide()
         } else {
             messageErreur.textContent = "";
-            return true;
+            btenvoi.show()
         }
         })
-            //alert('ok on commence');
+        $("#email").on("blur", function() {
+            var Reg = new RegExp();
+            const email = document.getElementById("email").value;
+            const messageErreur = document.getElementById("messageErreurEmail");
+            if (!Reg.test(email))   {
+                messageErreur.textContent = "L'email doit finr par '@Gmail.com'.";
+                btenvoi.hide()
+            } else {
+                messageErreur.textContent = "";
+                btenvoi.show()
+            }
+        })
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";

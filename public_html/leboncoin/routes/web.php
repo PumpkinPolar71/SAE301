@@ -42,6 +42,8 @@ Route::post('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/search', [CityController::class, 'indexe']);
 Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
 
+Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
+
 
 
 

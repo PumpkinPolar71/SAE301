@@ -27,38 +27,52 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-    $annonce = LeBonCoin::find($id); // Récupère les détails de l'annonce par son ID
-    $photos = Photo::where('idannonce', $id)->get(); // Récupère toutes les photos pour cette annonce
-    $criteres = LeBonCoin::find($id)->critere->libellecritere ?? null;
-    $particuliers = Particulier::where('idparticulier', $id)->get();
+      $annonce = LeBonCoin::find($id);
+      $photos = Photo::where('idannonce', $id)->get();
+      $criteresIds = $annonce->critere()->pluck('idcritere')->toArray();
+      $criteresLabels = Critere::getLabelsForSpecificCriteres();
+      dd($criteresIds); // Vérifiez ici les IDs des critères pour cette annonce
+      // Récupérer les valeurs numériques des critères pour cette annonce
+      $criteresValeurs = [];
+  
+      foreach ($criteresIds as $critereId) {
+          // Code pour obtenir les valeurs numériques de chaque critère
+          // Ici, supposons que vous récupériez ces valeurs d'une manière ou d'une autre
+          // Si les valeurs numériques des critères sont stockées dans une table, faites une requête pour les récupérer
+          // $valeurCritere = ...; // Récupérer la valeur numérique du critère correspondant à $critereId
+          $valeurCritere = Critere::find($critereId)->valeur; // Par exemple, si la valeur est stockée dans la table critere
+  
+          // Ajouter la valeur numérique au tableau des valeurs de critères
+          $criteresValeurs[] = $valeurCritere;
+      }
+  
+      return view("annonce", compact('annonce', 'photos', 'criteresIds', 'criteresLabels', 'criteresValeurs'));
+  }
 
-    // Récupère le libellé du critère associé à cette annonce
-    // Récupère le libellé du critère associé à cette annonce
-    $critere = $annonce->critere->libellecritere ?? null;
-    return view("annonce", compact('annonce', 'photos', 'criteres', 'particuliers'));
-      
-    }
     public function search() {
       return view("search");
     }
     public function createaccountparticulier() {
       return view("createaccountparticulier"); 
     }
+    public function imgGP() {
+      return view("imgGP");
+    }
 
   public function save(Request $request)
     {
       if (
-          $request->input("nom") == "" || 
-          $request->input("prenom") == "" ||
-          $request->input("email") == "" ||
-          $request->input("sexe") == "" ||
-          $request->input("date") == "" ||
-          $request->input("ville") == "" ||
-          $request->input("mdp") == "" ||
-          $request->input("rue") == "" ||
-          $request->input("cp") == "" ) {
-            return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
-      } else {
+        $request->input("nom") == "" || 
+        $request->input("prenom") == "" ||
+        $request->input("email") == "" ||
+        $request->input("sexe") == "" ||
+        $request->input("date") == "" ||
+        $request->input("ville") == "" ||
+        $request->input("mdp") == "" ||
+        $request->input("adresse") == "" ||
+        $request->input("cp") == "" ) {
+          return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
+    } else {
         $a = new Compte();
         $villeAll = Ville::all();
         foreach ($villeAll as $vile) { 
@@ -67,9 +81,8 @@ class LeBonCoinController extends Controller
           } //A REFAIRE
           else {/*ca plante*/}
         }
-        //if ($request->input("mdp"))
         $a->motdepasse = Hash::make($request->input("mdp"));
-        $a->adresseruecompte = $request->input("rue");
+        $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
         $a->codeetatcompte = 0;
         $a->save();
@@ -82,9 +95,12 @@ class LeBonCoinController extends Controller
         if ($request->input("mail")==""){$b->bonplanmailpartenaire = false;} else {$b->bonplanmailpartenaire = true;} //
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
+       
         $b->adressemailparticulier = $request->input("email");
         if ($request->input("sexe") == "Homme") { $b->civilite = true;} else { $b->civilite = false;}
-        $b->datenaissanceparticulier = $request->input("date");
+        $boutemail = $request->input("email").split('-');
+        $date = $boutemail[3]+"-"+$boutemail[2]+"-"+$boutemail[1];
+        $b->datenaissanceparticulier = $date;
         $b->etatcompte = 1;
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
