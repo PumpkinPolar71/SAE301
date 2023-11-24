@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-                    /*$(document).ready(function() {
-                        alert("Attention: Valentin suce pour 10e\nETAT ERROR = '515'");
+                   /* $(document).ready(function() {
+                        alert("Attention: Valentin suce pour 15e le prix a augmenté\nETAT ERROR = '515'");
                     })*/
         </script>
         <title>@yield('title')</title>

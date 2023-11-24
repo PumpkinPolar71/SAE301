@@ -27,7 +27,16 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-      return view ("annonce", ['annonce'=>LeBonCoin::find($id) ], ['photo'=>Photo::find($id) ], ['critere'=>Critere::find($id) ]);
+    $annonce = LeBonCoin::find($id); // Récupère les détails de l'annonce par son ID
+    $photos = Photo::where('idannonce', $id)->get(); // Récupère toutes les photos pour cette annonce
+    $criteres = LeBonCoin::find($id)->critere->libellecritere ?? null;
+    $particuliers = Particulier::where('idparticulier', $id)->get();
+
+    // Récupère le libellé du critère associé à cette annonce
+    // Récupère le libellé du critère associé à cette annonce
+    $critere = $annonce->critere->libellecritere ?? null;
+    return view("annonce", compact('annonce', 'photos', 'criteres', 'particuliers'));
+      
     }
     public function search() {
       return view("search");
@@ -35,6 +44,7 @@ class LeBonCoinController extends Controller
     public function createaccountparticulier() {
       return view("createaccountparticulier"); 
     }
+
   public function save(Request $request)
     {
       if (

@@ -25,6 +25,7 @@ Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
+
 Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
 
 Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);

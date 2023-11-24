@@ -11,4 +11,8 @@ class Photo extends Model
     protected $table = "photo";
     protected $primaryKey = "idphoto";
     public $timestamps = false;
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class);
+    }
 }

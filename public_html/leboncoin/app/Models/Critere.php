@@ -11,4 +11,12 @@ class Critere extends Model
     protected $table = "critere";
     protected $primaryKey = "idcritere";
     public $timestamps = false;
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class);
+    }
+    public function critere()
+    {
+        return $this->belongsTo(Critere::class, 'idcritere', 'libellecritere');
+    }
 }
