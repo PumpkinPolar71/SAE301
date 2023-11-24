@@ -45,4 +45,45 @@
 @else
     <p>Aucun critère trouvé pour cette annonce.</p>
 @endif
+<h2>Propriétaire de l'annonce</h2>
+<form id="proprioPost" method="post">
+<p class="proprio">{{ $annonce->idcompte }}</p>
+</form>
+
+
+<?php
+use Illuminate\Support\Facades\Config;
+
+$nomDB = Config::get('database.connections.pgsql.database');
+$userDB = Config::get('database.connections.pgsql.username');
+$motDePasse = Config::get('database.connections.pgsql.password');
+
+
+pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
+pg_query("set names 'UTF8'");
+pg_query("SET search_path TO leboncoin");
+
+$query = "SELECT nomparticulier, prenomparticulier FROM particulier p
+JOIN annonce a ON a.idcompte=p.idcompte
+WHERE p.idcompte = idannonce";
+
+$text = pg_query($query);
+
+
+var_dump(pg_fetch_assoc($text));
+
+$data = pg_fetch_assoc($text);
+
+if($data){
+    $nomparticulier = $data['nomparticulier'];
+    $prenomparticulier = $data['prenomparticulier'];
+
+    echo "$nomparticulier $prenomparticulier";
+}
+
+?>
+
+
+
+
 @endsection

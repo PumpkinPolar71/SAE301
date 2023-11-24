@@ -14,7 +14,16 @@
         <?php
         // echo "<p>Vous avez recherché :".$_POST['search']."</p></br>";
         $nom = $_POST['search'];
-        pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
+        
+        
+        use Illuminate\Support\Facades\Config;
+
+        $nomDB = Config::get('database.connections.pgsql.database');
+        $userDB = Config::get('database.connections.pgsql.username');
+        $motDePasse = Config::get('database.connections.pgsql.password');
+
+
+        pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
 

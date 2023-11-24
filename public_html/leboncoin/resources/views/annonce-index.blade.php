@@ -40,8 +40,14 @@
     <?php
     //echo  $_GET['ville'];
     
+        use Illuminate\Support\Facades\Config;
 
-        pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
+        $nomDB = Config::get('database.connections.pgsql.database');
+        $userDB = Config::get('database.connections.pgsql.username');
+        $motDePasse = Config::get('database.connections.pgsql.password');
+
+
+        pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
         if ($_GET['ville']== "" && $_GET['type_hebergement']== "") {
@@ -77,7 +83,7 @@
             WHERE $datedebutExist <= datedebut
             GROUP BY 1,2";
 
-            var_dump(pg_fetch_assoc($text));
+            //var_dump(pg_fetch_assoc($text));
             $text = pg_query($query);
             if (pg_fetch_assoc($text)/*!=0*/) {
                 while ($row = pg_fetch_assoc($text)) {
