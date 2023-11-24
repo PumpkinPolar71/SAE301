@@ -35,11 +35,12 @@
 <h2>Description</h2>
 <p class="descr">{{ $annonce->description }}</p>
 <h2>Critères</h2>
-@if (!empty($criteresLibelles))
+<h2>Critères</h2>
+@if (!empty($criteresIds))
     <ul>
-    @foreach ($criteresIds as $key => $critereId)
-    <p>{{ $criteresLabels[$critereId] }} : {{ $criteresValeurs[$key] }}</p>
-@endforeach
+        @foreach ($criteresIds as $critereId)
+            <li>{{ $criteresLabels[$critereId] ?? 'Libellé non défini' }}</li>
+        @endforeach
     </ul>
 @else
     <p>Aucun critère trouvé pour cette annonce.</p>

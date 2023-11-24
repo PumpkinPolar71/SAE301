@@ -31,22 +31,8 @@ class LeBonCoinController extends Controller
       $photos = Photo::where('idannonce', $id)->get();
       $criteresIds = $annonce->critere()->pluck('idcritere')->toArray();
       $criteresLabels = Critere::getLabelsForSpecificCriteres();
-      dd($criteresIds); // Vérifiez ici les IDs des critères pour cette annonce
-      // Récupérer les valeurs numériques des critères pour cette annonce
-      $criteresValeurs = [];
   
-      foreach ($criteresIds as $critereId) {
-          // Code pour obtenir les valeurs numériques de chaque critère
-          // Ici, supposons que vous récupériez ces valeurs d'une manière ou d'une autre
-          // Si les valeurs numériques des critères sont stockées dans une table, faites une requête pour les récupérer
-          // $valeurCritere = ...; // Récupérer la valeur numérique du critère correspondant à $critereId
-          $valeurCritere = Critere::find($critereId)->valeur; // Par exemple, si la valeur est stockée dans la table critere
-  
-          // Ajouter la valeur numérique au tableau des valeurs de critères
-          $criteresValeurs[] = $valeurCritere;
-      }
-  
-      return view("annonce", compact('annonce', 'photos', 'criteresIds', 'criteresLabels', 'criteresValeurs'));
+      return view("annonce", compact('annonce', 'photos', 'criteresIds', 'criteresLabels'));
   }
 
     public function search() {

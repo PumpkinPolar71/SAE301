@@ -22,7 +22,7 @@
         <option value="">Tous les types</option>
         @foreach($typesHebergement as $id => $type_hebergement)
             <!-- {{$ThSelectionnee = isset($_GET['type_hebergement']) ? $_GET['type_hebergement'] : null;}} -->
-            <option value="{{ $id+1 }} {{  ($id + 1 == $ThSelectionnee) ? 'selected' : '' }}">{{ $type_hebergement->type }}</option>
+            <option value="{{ $id+1 }}" {{  ($id + 1 == $ThSelectionnee) ? 'selected' : '' }}>{{ $type_hebergement->type }}</option>
         @endforeach
         
     </select>
