@@ -18,15 +18,14 @@ class Critere extends Model
         return $this->belongsTo(Annonce::class);
     }
     public static function getLabelsForSpecificCriteres()
-    {
-        $labels = [
-            1 => 'Nb étoiles',
-            2 => 'Capacité',
-            3 => 'Nb chambres',
-        ];
-
-        return $labels;
-    }
+{
+    return [
+        1 => 'Nb étoiles',
+        2 => 'Capacité',
+        3 => 'Nb chambres',
+        // Ajoutez d'autres IDs de critères avec leurs libellés associés
+    ];
+}
    
 }
 
