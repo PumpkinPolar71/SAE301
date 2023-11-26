@@ -92,4 +92,7 @@ class LeBonCoinController extends Controller
         return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
       } 
     }
+    
     }
+
+    

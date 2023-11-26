@@ -10,6 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    protected $table = "compte";
+    public $timestamps = false;
+    protected $primaryKey = "idcompte";
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -23,6 +26,11 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    
+    public function getAuthPassword() {
+        return $this->passwd;
+    }
     /**
      * The attributes that are mass assignable.
      *
