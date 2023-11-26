@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Particulier;
+use App\Models\Entreprise;
+use App\Models\Compte;
 
 class LoginController extends Controller
 {
@@ -16,7 +19,7 @@ class LoginController extends Controller
     {
 
         $credentials = $request->validate([
-            'login' => ['required'],//nom dans la bd
+            'emailparticulier' => ['required'],//nom dans la bd
             'motdepasse' => ['required'],
         ]);
 

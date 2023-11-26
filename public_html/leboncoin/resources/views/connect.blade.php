@@ -10,7 +10,7 @@
 <section>
     <div class="bonj"><b>Bonjour !</b></div>
     <div class="conn">Connectez-vous pour découvrir toutes nos fonctionnalités.</div>
-    <form method="post" action="{{ url("/login") }}">
+    <form method="post" action="{{ route("/login") }}">
     @csrf
     <label>Email :</label><br>
     <input type="text" name="login"/><br>
