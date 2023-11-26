@@ -14,6 +14,7 @@
     <input name="prenom" type="">
     <div>Email</div>
     <input name="email" type="">
+    <div style="color:red;" id="messageErreurEmail"></div>
     <div>Sexe de naissance</div>
     <input type="radio" value="Homme" name="sexe">
     <label  for="homme">Homme</label>
@@ -26,12 +27,10 @@
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville</div>
     <select id="ville" name="ville">
-
     </select>
     <div>Addresse</div>
     <input name="adresse" type="" id="adresse">
     <div style="" id="listA">
-
     </div>
     <div>Mot de passe</div>
     <input name="mdp" id="mdp" type="password">
