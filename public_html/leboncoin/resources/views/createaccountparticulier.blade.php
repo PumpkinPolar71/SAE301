@@ -43,22 +43,6 @@
     <script>
         $(document).ready(function() {
         let btenvoi = $("#submitb")
-        $("#email").on("blur", function() {
-        const email = document.getElementById("email").value;
-        const messageErreur = document.getElementById("messageErreurEmail");
-        
-    
-        // Expression régulière pour vérifier si l'email se termine par @gmail.com
-        var regexee = /@gmail\.com$/i; // Le i à la fin signifie "ignore la casse"
-
-        if (!regexee.test(email)) {
-            messageErreur.textContent = "L'email doit finir par '@gmail.com'.";
-            btenvoi.hide();
-        } else {
-            messageErreur.textContent = "";
-            btenvoi.show();
-        }
-    })
         $("#mdp").on("blur", function() {
             console.log("test blur")
             var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
@@ -72,7 +56,18 @@
             btenvoi.show()
         }
         })
-        
+        $("#email").on("blur", function() {
+            var Reg = new RegExp(/@gmail\.com$/i);
+            const email = document.getElementById("email").value;
+            const messageErreur = document.getElementById("messageErreurEmail");
+            if (!Reg.test(email))   {
+                messageErreur.textContent = "L'email doit finir par '@Gmail.com'.";
+                btenvoi.hide()
+            } else {
+                messageErreur.textContent = "";
+                btenvoi.show()
+            }
+        })
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";

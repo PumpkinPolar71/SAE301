@@ -48,7 +48,7 @@
         const char = crit.split(" ")
         //console.log(crit, crite) 
         //console.log(char[0],char[1],char[2])
-        crite.innerHTML = "Nombre d'étoile : "+char[0]+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
+        crite.innerHTML = "Nombre d'étoile : "+char[0]"/5"+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
     })
 </script>
 <h2>Propriétaire de l'annonce</h2>
