@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Particulier;
-use App\Models\Entreprise;
-use App\Models\Compte;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -19,17 +17,19 @@ class LoginController extends Controller
     {
 
         $credentials = $request->validate([
-            'emailparticulier' => ['required'],//nom dans la bd
+            'email' => ['required'],
             'motdepasse' => ['required'],
         ]);
 
-        unset($credentials["modepasse"]);
+        unset($credentials["motdepasse"]);
         $credentials["password"] = $request->motdepasse;
 
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            
             return redirect()->intended('/');
+            
         }
 
         return back()->withErrors([

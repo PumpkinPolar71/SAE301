@@ -27,12 +27,12 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-      $annonce = LeBonCoin::find($id);
+      
       $photos = Photo::where('idannonce', $id)->get();
-      $criteresIds = $annonce->critere()->pluck('idcritere')->toArray();
-      $criteresLabels = Critere::getLabelsForSpecificCriteres();
+      $annonce = LeBonCoin::find($id);
+      $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
   
-      return view("annonce", compact('annonce', 'photos', 'criteresIds', 'criteresLabels'));
+      return view("annonce", compact('annonce', 'photos', 'criteres'));
   }
 
     public function search() {
@@ -40,6 +40,9 @@ class LeBonCoinController extends Controller
     }
     public function createaccountparticulier() {
       return view("createaccountparticulier"); 
+    }
+    public function createaccountentreprise() {
+      return view("createaccountentreprise"); 
     }
     public function imgGP() {
       return view("imgGP");
@@ -67,10 +70,11 @@ class LeBonCoinController extends Controller
           } //A REFAIRE
           else {/*ca plante*/}
         }
-        $a->motdepasse = Hash::make($request->input("mdp"));
+        // $a->motdepasse = Hash::make($request->input("mdp"));
+        $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
-        $a->codeetatcompte = 0;
+        $a->codeetatcompte = 1;
         $a->save();
      
         $b = new Particulier();
@@ -90,6 +94,42 @@ class LeBonCoinController extends Controller
         $b->etatcompte = 1;
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
+      } 
+    }
+
+    public function saveent(Request $request)
+    {
+      if (
+        $request->input("nom") == "" || 
+        $request->input("siret") == "" ||
+        $request->input("secteur") == "" ||
+        $request->input("ville") == "" ||
+        $request->input("mdp") == "" ||
+        $request->input("adresse") == "" ||
+        $request->input("cp") == "" ) {
+          return redirect('createaccountentreprise')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
+    } else {
+        $a = new Compte();
+        $villeAll = Ville::all();
+        foreach ($villeAll as $vile) { 
+          if ( $request->input("ville") == $vile->nomville) {
+              $a->idville = $vile->idville;
+          } //A REFAIRE
+          else {/*ca plante*/}
+        }
+        $a->motdepasse = Hash::make($request->input("mdp"));
+        $a->adresseruecompte = $request->input("adresse");
+        $a->adressecpcompte = $request->input("cp");
+        $a->codeetatcompte = 1;
+        $a->save();
+     
+        $b = new Entreprise();
+        $b->idcompte = $a->idcompte;
+        $b->secteuractivite = $request->input("secteur");
+        $b->societe = $request->input("nom");
+        $b->siret = $request->input("siret");
+        $b->save();
+        return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte professionnel créé');
       } 
     }
     

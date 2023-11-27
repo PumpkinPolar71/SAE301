@@ -4,11 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-                   /* $(document).ready(function() {
-                        alert("Attention: Valentin suce pour 15e le prix a augmenté\nETAT ERROR = '515'");
-                    })*/
-        </script>
+
         <title>@yield('title')</title>
 
 
@@ -54,4 +50,9 @@
 
 
     </body>
+    <script>
+                  /*  $(document).ready(function() {
+                        alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
+                    })*/
+        </script>
 </html>

@@ -8,7 +8,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section('content')
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         @if ($photos->isNotEmpty())
             @foreach($photos as $key => $photo)
@@ -16,35 +16,41 @@
                     <img src="{{ $photo->photo }}" class="d-block w-100" alt="...">
                 </div>
             @endforeach
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <!-- Carousel controls -->
+            <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        @else
+            <p>Oups... Il semblerait que cette annonce ne contienne aucune image.</p>
+        @endif
     </div>
-@else
-    <p>Oups... Il semblerait que cette annonce ne contienne aucune image.</p>
-@endif
-
+</div>
 <h1>{{ $annonce->titreannonce }}</h1>
 <p class="dateannonce">{{ $annonce->dateannonce }}</p>
 <h2>Description</h2>
 <p class="descr">{{ $annonce->description }}</p>
-<h2>Critères</h2>
-<h2>Critères</h2>
-@if (!empty($criteresIds))
-    <ul>
-        @foreach ($criteresIds as $critereId)
-            <li>{{ $criteresLabels[$critereId] ?? 'Libellé non défini' }}</li>
-        @endforeach
-    </ul>
-@else
-    <p>Aucun critère trouvé pour cette annonce.</p>
-@endif
+<h2>Critère</h2>
+<ul>
+    @foreach($criteres as $critere)
+        <li id="crit">{{ $critere }}</li>
+    @endforeach
+</ul>
+</div>
+<script>
+    $(document).ready(function() {
+        const crit = document.getElementById("crit").innerHTML;
+        const crite = document.getElementById("crit");
+        const char = crit.split(" ")
+        //console.log(crit, crite) 
+        //console.log(char[0],char[1],char[2])
+        crite.innerHTML = "Nombre d'étoile : "+char[0]+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
+    })
+</script>
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
 <p class="proprio">{{ $annonce->idcompte }}</p>
@@ -84,6 +90,16 @@ if($data){
 ?>
 
 
-
+<!-- <h2>Critères</h2>
+<@if (!empty($criteresIds))
+    <ul>
+        <li>{{ criteres }}</li>
+        /* @foreach ($criteresIds as $critereId)
+            <li>{{ $criteresLabels[$critereId] ?? 'Libellé non défini' }}</li>
+        @endforeach */
+    </ul>
+@else 
+    <p>Aucun critère trouvé pour cette annonce.</p>
+@endif -->
 
 @endsection

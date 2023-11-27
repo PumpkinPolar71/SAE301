@@ -39,8 +39,12 @@
 <h2>Résultats de la recherche pour :</h2>
     <?php
     //echo  $_GET['ville'];
+
+    
     
         use Illuminate\Support\Facades\Config;
+
+        
 
         $nomDB = Config::get('database.connections.pgsql.database');
         $userDB = Config::get('database.connections.pgsql.username');
@@ -170,32 +174,40 @@
             
             
         while ($row = pg_fetch_assoc($text)) {
-            echo "<tr>";
+          
             
-            foreach($row as $key=>$value)
+            foreach($row as $key=>$value) {
+            echo "<tr>";
                 foreach ($annonces as $ann) {
+                 
                     if ($ann->idannonce == $value) {
-                        
-                        echo "<td >";
-                        echo $value ;
+                        echo "<td>";
+                        echo "<a href=/annonce/".$ann->idannonce.">";
+                        //echo $value ;
                         foreach ($photos as $photo) {
                             
                             if ($photo->idphoto == $ann->idannonce) {
-                                echo "<img class='temp' src=$photo->photo/>";
-                                echo $photo->idphoto;
+                                $a = 4;
+                                echo "<img class='temp' src=$photo->photo>";
+                                //echo $photo->idphoto;
                             }
-                            
+                            // if ($a = 3) {
+                            //     echo "Oups... Il semblerait que cette annonce ne contienne aucune image.";
+                            // }
                         }
                         
-                        echo "<a href=/annonce/".$ann->idannonce.">";
+                        
                         echo $ann->titreannonce;
                         // if ($photos->photo != NULL){echo "<img scr=".$photos->idphoto->idann.">";}
                         echo $ann->idphoto;
                         echo "</a>";
                         echo "</td>";
+                     
                  }
+                 echo "</tr>";
             }
-            echo "</tr>";
+        }
+    
        
 
             

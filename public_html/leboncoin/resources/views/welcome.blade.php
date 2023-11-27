@@ -17,6 +17,9 @@
 @section('content')
 <h2>Bienvenue</h2>
 
+<?php
+
+?>
 
 
 

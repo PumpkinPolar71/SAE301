@@ -2,8 +2,10 @@
     /*require 'vendor/autoload.php';
     use GuzzleHttp\Client;*/
 ?>
-<link rel="stylesheet" type="text/css" href="{{asset('style2.css')}}"/> 
+<link rel="stylesheet" type="text/css" href="{{asset('create.css')}}"/> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div class="flecheretour" onclick="history.back()">←</div>
+<div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=") }}"><b>LeBonCoin</b></a></div>
 <form method="post" action="{{ url("/annonce/save") }}">
 @csrf
   {{ session()->get("error") }}
@@ -35,12 +37,28 @@
     <div>Mot de passe</div>
     <input name="mdp" id="mdp" type="password">
     <div style="color:red;" id="messageErreur"></div>
-    <div>Recevoir des mails commerciaux </div><input name="mail" type="checkbox">
+    <input id="" name="mail" type="checkbox"><div>Recevoir des mails commerciaux </div>
     <button id="submitb" type="submit">Créer mon compte</button>
 
     <script>
         $(document).ready(function() {
         let btenvoi = $("#submitb")
+        $("#email").on("blur", function() {
+        const email = document.getElementById("email").value;
+        const messageErreur = document.getElementById("messageErreurEmail");
+        
+    
+        // Expression régulière pour vérifier si l'email se termine par @gmail.com
+        var regexee = /@gmail\.com$/i; // Le i à la fin signifie "ignore la casse"
+
+        if (!regexee.test(email)) {
+            messageErreur.textContent = "L'email doit finir par '@gmail.com'.";
+            btenvoi.hide();
+        } else {
+            messageErreur.textContent = "";
+            btenvoi.show();
+        }
+    })
         $("#mdp").on("blur", function() {
             console.log("test blur")
             var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
@@ -54,18 +72,7 @@
             btenvoi.show()
         }
         })
-        $("#email").on("blur", function() {
-            var Reg = new RegExp();
-            const email = document.getElementById("email").value;
-            const messageErreur = document.getElementById("messageErreurEmail");
-            if (!Reg.test(email))   {
-                messageErreur.textContent = "L'email doit finr par '@Gmail.com'.";
-                btenvoi.hide()
-            } else {
-                messageErreur.textContent = "";
-                btenvoi.show()
-            }
-        })
+        
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";

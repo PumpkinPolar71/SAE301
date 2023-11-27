@@ -15,9 +15,9 @@ class LeBonCoin extends Model
     {
         return $this->hasMany(Photo::class);
     }
-    public function critere()
+    public function criteres()
     {
-        return $this->belongsTo(Critere::class, 'idcritere');
+        return $this->hasMany(Critere::class, 'idcritere');
     }
 }
 

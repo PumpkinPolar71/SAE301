@@ -5,6 +5,7 @@ use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,15 @@ Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
 
 Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
 
+Route::post("/annonce/saveent", [ LeBonCoinController::class, "saveent"]);
+
 Route::get("/connect", [ LeBonCoinController::class, "connect"]);
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
 Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
+
+Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createaccountentreprise"]);
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);
 Route::post('/search', [SearchController::class, 'search'])->name('search');
@@ -43,6 +48,9 @@ Route::get('/search', [CityController::class, 'indexe']);
 Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
 
 Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
+
+
+Route::get("/login",[LoginController::class, "authenticate" ]);
 
 
 

@@ -13,11 +13,12 @@ class Critere extends Model
     protected $primaryKey = "idcritere";
     public $timestamps = false;
 
-    public function annonce()
+    public function annonces()
     {
-        return $this->belongsTo(Annonce::class);
+        return $this->hasMany(LeBonCoin::class, 'idcritere');
     }
-    public static function getLabelsForSpecificCriteres()
+    
+    /*public static function getLabelsForSpecificCriteres()
 {
     return [
         1 => 'Nb étoiles',
@@ -25,7 +26,7 @@ class Critere extends Model
         3 => 'Nb chambres',
         // Ajoutez d'autres IDs de critères avec leurs libellés associés
     ];
-}
+}*/
    
 }
 

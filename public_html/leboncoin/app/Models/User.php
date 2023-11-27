@@ -8,28 +8,29 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Particulier;
+use App\Models\Entreprise;
+use App\Models\Compte;
+
 class User extends Authenticatable
 {
     protected $table = "compte";
     public $timestamps = false;
     protected $primaryKey = "idcompte";
     use HasApiTokens, HasFactory, Notifiable;
-
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
-        'password',
+        'motdepasse',
     ];
-
-
-    
+   
     public function getAuthPassword() {
-        return $this->passwd;
+        return $this->motdepasse;
     }
     /**
      * The attributes that are mass assignable.
@@ -46,7 +47,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'motdepasse',
         'remember_token',
     ];
 
