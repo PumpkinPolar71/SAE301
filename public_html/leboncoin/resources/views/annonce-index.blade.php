@@ -129,47 +129,12 @@
             if ($selectedTypeHebergement) {
                 $query->where('idtype', $selectedTypeHebergement);
             }
-
-            // Exécuter la requête
-            // $resultats = $query->get();
-
-            // $resultDatedebut = $query;
-            // $databaseDatedebut = $resultDatedebut->datedebut;
-            // $carbonDatedebut = Carbon::parse($databaseDatedebut);
-            // $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
-            // $query=$datedebutFormatFr;
         }
         else {
 
         }
         $text = pg_query($query);
-   
-        // // Supposez que $result soit le résultat de votre requête à la base de données
-        // $resultDatedebut = datedebut;
-        // $resultDatefin = datefin;
-
-        // // Récupérez la date de la base de données (assurez-vous que votre colonne est de type date ou datetime dans la base de données)
-        // $databaseDatedebut = $resultDatedebut->datedebut;
-        // $databaseDatefin = $resultDatefin->datefin;
-
-        // // Convertissez la date en objet Carbon
-        // $carbonDatedebut = Carbon::parse($databaseDatedebut);
-        // $carbonDatefin = Carbon::parse($databaseDatefin);
-
-        // // Changez le format de la date en format francophone
-        // $datedebutFormatFr = $carbonDatedebut->locale('fr')->isoFormat('D MMMM YYYY');
-        // $datefinFormatFr = $carbonDatefin->locale('fr')->isoFormat('D MMMM YYYY');
-
-        // // $dateFormatFr contient maintenant la date formatée en format francophone
-        // echo $datedebutFormatFr;
-        // echo $datefinFormatFr;
-        
-
-        
-       //echo $text;
         echo "<table>";
-        //var_dump($text);
-        //var_dump(pg_fetch_assoc($text));
         if (pg_fetch_assoc($text)/*!=0*/) {
             
             
@@ -185,7 +150,6 @@
                         echo "<a href=/annonce/".$ann->idannonce.">";
                         //echo $value ;
                         foreach ($photos as $photo) {
-                            
                             if ($photo->idphoto == $ann->idannonce) {
                                 $a = 4;
                                 echo "<img class='temp' src=$photo->photo>";
@@ -195,26 +159,15 @@
                             //     echo "Oups... Il semblerait que cette annonce ne contienne aucune image.";
                             // }
                         }
-                        
-                        
                         echo $ann->titreannonce;
-                        // if ($photos->photo != NULL){echo "<img scr=".$photos->idphoto->idann.">";}
-                        echo $ann->idphoto;
+                        //echo $ann->idphoto;
                         echo "</a>";
                         echo "</td>";
-                     
                  }
                  echo "</tr>";
             }
         }
-    
-       
-
-            
-        // echo "<td>".$value."</td>";
-        // echo "</tr>";
         } echo "</table>";
-    
         }
         else {
             echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";

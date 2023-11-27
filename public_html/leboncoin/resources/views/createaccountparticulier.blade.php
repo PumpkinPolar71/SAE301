@@ -57,11 +57,12 @@
         }
         })
         $("#email").on("blur", function() {
-            var Reg = new RegExp(/@gmail\.com$/i);
+            console.log("test blur")
+            var Reg = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);        
             const email = document.getElementById("email").value;
             const messageErreur = document.getElementById("messageErreurEmail");
             if (!Reg.test(email))   {
-                messageErreur.textContent = "L'email doit finir par '@Gmail.com'.";
+                messageErreur.textContent = "L'adresse email n'est pas valide'.";
                 btenvoi.hide()
             } else {
                 messageErreur.textContent = "";

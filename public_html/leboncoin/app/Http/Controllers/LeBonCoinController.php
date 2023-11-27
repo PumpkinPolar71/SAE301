@@ -75,6 +75,7 @@ class LeBonCoinController extends Controller
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
         $a->codeetatcompte = 1;
+        $a->email = $request->input("email");
         $a->save();
      
         $b = new Particulier();
@@ -86,12 +87,12 @@ class LeBonCoinController extends Controller
         $b->nomparticulier = $request->input("nom");
         $b->prenomparticulier = $request->input("prenom");
        
-        $b->adressemailparticulier = $request->input("email");
+        
         if ($request->input("sexe") == "Homme") { $b->civilite = true;} else { $b->civilite = false;}
-        $boutemail = $request->input("email").split('-');
-        $date = $boutemail[3]+"-"+$boutemail[2]+"-"+$boutemail[1];
+        $boutdate = explode('-', $request->input("date"));
+        $date = $boutdate[2] . "-" . $boutdate[1] . "-" . $boutdate[0];
         $b->datenaissanceparticulier = $date;
-        $b->etatcompte = 1;
+        $b->etatcompte = 0;
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
       } 
@@ -117,7 +118,7 @@ class LeBonCoinController extends Controller
           } //A REFAIRE
           else {/*ca plante*/}
         }
-        $a->motdepasse = Hash::make($request->input("mdp"));
+        $a->motdepasse =  password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
         $a->codeetatcompte = 1;

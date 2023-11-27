@@ -10,24 +10,24 @@
 @csrf
   {{ session()->get("error") }}
 
-    <div>SIRET :</div>
+    <div>SIRET *</div>
     <input id="siret" name="siret" type="">
     <div style="color:red;" id="messageErreurSir"></div>
-    <div>Nom de sociéte :</div>
+    <div>Nom de sociéte *</div>
     <input name="nom" type="">
-    <div>Secteur d'activité</div>
+    <div>Secteur d'activité *</div>
     <input name="secteur" type="">
-    <div>Code Postal</div>
+    <div>Code Postal *</div>
     <input id="cp" name="cp" type="">
     <div style="display:none; color:#f55;" id="error-message"></div>
-    <div>Ville</div>
+    <div>Ville *</div>
     <select id="ville" name="ville">
     </select>
-    <div>Addresse</div>
+    <div>Addresse *</div>
     <input name="adresse" type="" id="adresse">
     <div style="" id="listA">
     </div>
-    <div>Mot de passe</div>
+    <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div style="color:red;" id="messageErreur"></div>
     <button id="submitbent" type="submit">Créer mon compte</button>

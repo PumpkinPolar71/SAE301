@@ -53,7 +53,7 @@
 </script>
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
-<p class="proprio">{{ $annonce->idcompte }}</p>
+<!--<p class="proprio">{{ $annonce->idcompte }}</p>-->
 </form>
 
 
@@ -71,12 +71,9 @@ pg_query("SET search_path TO leboncoin");
 
 $query = "SELECT nomparticulier, prenomparticulier FROM particulier p
 JOIN annonce a ON a.idcompte=p.idcompte
-WHERE p.idcompte = idannonce";
+WHERE p.idcompte = {$annonce->idannonce}";
 
 $text = pg_query($query);
-
-
-var_dump(pg_fetch_assoc($text));
 
 $data = pg_fetch_assoc($text);
 
@@ -84,7 +81,7 @@ if($data){
     $nomparticulier = $data['nomparticulier'];
     $prenomparticulier = $data['prenomparticulier'];
 
-    echo "$nomparticulier $prenomparticulier";
+    echo "Nom : $nomparticulier\n<br> Prenom : $prenomparticulier";
 }
 
 ?>
