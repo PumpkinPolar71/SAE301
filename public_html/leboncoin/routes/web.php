@@ -28,7 +28,6 @@ Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
-
 Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
 
 Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
@@ -48,7 +47,7 @@ Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/search', [CityController::class, 'indexe']);
 Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
-
+Route::get('/adresse/{q}', [CityController::class, 'adresse']);
 Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
 
 Route::get("/login",[LoginController::class, "authenticate" ]);

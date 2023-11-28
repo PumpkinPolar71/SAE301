@@ -65,7 +65,8 @@
         })
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
-            const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
+            const apiUrlAdresse = "/adresse/";
+            //const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
             const limit = "&type=name&autocomplete=1"//&limit=15";
 
             let adresse = $("#adresse");
@@ -82,8 +83,8 @@
                 }
                 console.log(urlA);
                 //urlA ="https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&limit=15"
-                fetch(urlA, {method: 'get'}).then(response => response.json()).then(results => { //requet
-                    //console.log(results)
+                fetch(urlA, {method: 'get'}).then(response => response.text()).then(results => { //requet
+                    console.log(results)
                     //$(city).find('option').remove(); //on supprime les anciennes
                     if(results.length) {
                         $(errorMessage).text('').hide();

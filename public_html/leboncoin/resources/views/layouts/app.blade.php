@@ -55,8 +55,8 @@
 
     </body>
     <script>
-                     $(document).ready(function() {
+                     /*$(document).ready(function() {
                        alert("Attention: Yanisse pose des bombs dans tout le site !\nETAT ERROR = '💣'");
-                     })
+                     })*/
         </script>
 </html>

@@ -24,5 +24,10 @@ class CityController extends Controller
 
         return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations'));
     }
+    public function adresse($q){
+        $r = file_get_contents("https://api-adresse.data.gouv.fr/search/?type=json&q=$q");
+        return response($r, 200)
+        ->header('Content-Type', 'application/json');
+    }
     
 }
