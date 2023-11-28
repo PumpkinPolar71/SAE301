@@ -19,5 +19,7 @@ class LeBonCoin extends Model
     {
         return $this->hasMany(Critere::class, 'idcritere');
     }
+    
+    
 }
 

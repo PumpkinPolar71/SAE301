@@ -8,6 +8,7 @@ use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
+use App\Models\Departement;
 use App\Models\Photo;
 use App\Models\Critere;
 use Illuminate\Support\Facades\Hash;
@@ -39,9 +40,11 @@ class LeBonCoinController extends Controller
     }
     public function proprio($id) {
     $annonces = LeBonCoin::find($id);
-    //$proprio = Compte::find($id);
+    $compte = Compte::find($id);
+    $ville = Ville::find($id);
+    $departement = Departement::find($id);
     $proprio = Particulier::find($id);
-    return view("proprio", compact('annonces', 'proprio'));
+    return view("proprio", compact('annonces', 'compte', 'ville', 'departement', 'proprio'));
     }
     public function search() {
       return view("search");
