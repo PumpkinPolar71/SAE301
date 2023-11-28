@@ -51,9 +51,6 @@
         <button type="submit">Déconnexion</button>
         </form>
         
-            
-            
-        
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -76,6 +73,35 @@
                 });
             });
         </script>
+
+
+<div id="container">
+    <label for="champ">Nom :</label>
+    <span id="valeurChamp">John Doe</span>
+    <input type="text" id="champ" style="display: none;">
+    <button id="modifierChamp">Modifier</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Au chargement de la page, affiche le label et cache l'input
+        $('#champ').hide();
+
+        // Gestion du clic sur le bouton "Modifier"
+        $('#modifierChamp').on('click', function () {
+            // Cache le label et affiche l'input
+            $('#valeurChamp').hide();
+            $('#champ').show().val($('#valeurChamp').text()).focus();
+        });
+
+        // Gestion du changement de focus sur l'input
+        $('#champ').on('blur', function () {
+            // Cache l'input et affiche le label
+            $('#valeurChamp').show().text($(this).val());
+            $(this).hide();
+        });
+    });
+</script>
 
 
     @else

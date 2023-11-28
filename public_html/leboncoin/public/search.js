@@ -24,4 +24,7 @@ function handleKeyPress(event) {
 		alert("Touche Entrée pressée !");
 	}
 }
+
+
+
 //console.log("test recherche js");

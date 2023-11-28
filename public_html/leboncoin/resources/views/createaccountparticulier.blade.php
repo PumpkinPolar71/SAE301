@@ -83,25 +83,26 @@
             $(adresse).on('keyup', function() {
                 let codeA = $(this).val(); 
                 let urlA = apiUrlAdresse+codeA//+limit//+format; //url serveur
+                if (codeA.length < 3) {} else {
                 for (lettre in codeA) {
                     urlA = urlA.replace(' ','%20');
                 }
                 console.log(urlA);
                 //urlA ="https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&limit=15"
                 fetch(urlA, {method: 'get'}).then(response => response.json()).then(results => { //requet
-                    //console.log(results)
+                    console.log(results.features[0].properties.label)
                     //$(city).find('option').remove(); //on supprime les anciennes
-                    if(results.length) {
+                     if(true/*results.length*/) {
                         $(errorMessage).text('').hide();
                         $.each(results, function(key, value) {
                             //console.log(value);
-                            //console.log(value.nom);
+                            console.log(value.nom);
                             $(listA).append('<div value"'+value.name+'">'+value.name+value.postcode+'</div>')//on ajoute
                         })
                     } else {
                         if ($(adresse).val()) {
                             console.log("Erreur de code postal.");
-                            $(errorMessage).text('Aucune commune avec ce code postal.').show();
+                            $(errorMessage).text('Aucune rue avec ce nom.').show();
                         } else {
                             $(errorMessage).text('').hide();
                         }
@@ -110,6 +111,7 @@
                     console.log(err)
                     $(listA).find('option').remove();
                  })
+                }
             })
 
             
