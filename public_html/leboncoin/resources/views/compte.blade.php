@@ -23,7 +23,7 @@
                     pg_query("SET search_path TO leboncoin");
 
                     $query = "SELECT civilite FROM particulier 
-                    ";
+                    WHERE ";
 
                     if(($civilite) == true)
                     {

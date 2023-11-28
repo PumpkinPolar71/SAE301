@@ -56,7 +56,7 @@
     </body>
     <script>
                      $(document).ready(function() {
-                       alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
+                       alert("Attention: Yanisse pose des bombs dans tout le site !\nETAT ERROR = '💣'");
                      })
         </script>
 </html>
