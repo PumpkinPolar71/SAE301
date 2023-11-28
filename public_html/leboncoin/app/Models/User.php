@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
+use App\Models\Ville;
 
 class User extends Authenticatable
 {
@@ -19,6 +20,19 @@ class User extends Authenticatable
     protected $primaryKey = "idcompte";
     use HasApiTokens, HasFactory, Notifiable;
     
+    public function compte()
+    {
+        return $this->belongsTo(Compte::class, 'idcompte');
+    }
+    public function particulier()
+    {
+        return $this->belongsTo(Particulier::class, 'idcompte', 'idcompte');
+    }
+    public function ville()
+    {
+        return $this->belongsTo(ville::class, 'idville', 'idville');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

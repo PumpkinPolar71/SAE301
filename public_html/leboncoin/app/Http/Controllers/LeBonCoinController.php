@@ -23,6 +23,9 @@ class LeBonCoinController extends Controller
     public function connect() {
       return view("connect");
     }
+    public function compte() {
+      return view("compte");
+    }
     public function createaccount() {
       return view("createaccount");
     }
@@ -33,8 +36,13 @@ class LeBonCoinController extends Controller
       $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
   
       return view("annonce", compact('annonce', 'photos', 'criteres'));
-  }
-
+    }
+    public function proprio($id) {
+    $annonces = LeBonCoin::find($id);
+    //$proprio = Compte::find($id);
+    $proprio = Particulier::find($id);
+    return view("proprio", compact('annonces', 'proprio'));
+    }
     public function search() {
       return view("search");
     }
@@ -94,7 +102,7 @@ class LeBonCoinController extends Controller
         $b->datenaissanceparticulier = $date;
         $b->etatcompte = 0;
         $b->save();
-        return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte créé');
+        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=')->withInput()->with("compte",'compte créé');
       } 
     }
 
@@ -130,7 +138,7 @@ class LeBonCoinController extends Controller
         $b->societe = $request->input("nom");
         $b->siret = $request->input("siret");
         $b->save();
-        return redirect('/annonce-filtres?ville=&type_hebergement=')->withInput()->with("compte",'compte professionnel créé');
+        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=')->withInput()->with("compte",'compte professionnel créé');
       } 
     }
     

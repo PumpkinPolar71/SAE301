@@ -7,7 +7,7 @@ function checkInteraction() {
 }
 function testerDate() {
 	// Récupérez la valeur du champ de date
-	let datePickerValue = document.getElementById("datePicker_datedebut").value;
+	let datePickerValue = document.getElementById("datedebut").value;
 
 	
 	// Vérifiez si une date a été sélectionnée

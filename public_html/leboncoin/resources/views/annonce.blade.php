@@ -8,6 +8,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section('content')
+
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         @if ($photos->isNotEmpty())
@@ -40,17 +41,7 @@
         <li id="crit">{{ $critere }}</li>
     @endforeach
 </ul>
-</div>
-<script>
-    $(document).ready(function() {
-        const crit = document.getElementById("crit").innerHTML;
-        const crite = document.getElementById("crit");
-        const char = crit.split(" ")
-        //console.log(crit, crite) 
-        //console.log(char[0],char[1],char[2])
-        crite.innerHTML = "Nombre d'étoile : "+char[0]+"/5"+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
-    })
-</script>
+
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
 <!--<p class="proprio">{{ $annonce->idcompte }}</p>-->
@@ -69,7 +60,7 @@ pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
 pg_query("set names 'UTF8'");
 pg_query("SET search_path TO leboncoin");
 
-$query = "SELECT nomparticulier, prenomparticulier FROM particulier p
+$query = "SELECT nomparticulier, prenomparticulier, p.idcompte FROM particulier p
 JOIN annonce a ON a.idcompte=p.idcompte
 WHERE p.idcompte = {$annonce->idannonce}";
 
@@ -80,12 +71,23 @@ $data = pg_fetch_assoc($text);
 if($data){
     $nomparticulier = $data['nomparticulier'];
     $prenomparticulier = $data['prenomparticulier'];
-
+    echo "<a href=/proprio/".$data['idcompte'].">";
+    echo "voir";
+    echo "</a>";
     echo "Nom : $nomparticulier\n<br> Prenom : $prenomparticulier";
 }
 
 ?>
-
+<script>
+    $(document).ready(function() {
+        const crit = document.getElementById("crit").innerHTML;
+        const crite = document.getElementById("crit");
+        const char = crit.split(" ")
+        //console.log(crit, crite) 
+        //console.log(char[0],char[1],char[2])
+        crite.innerHTML = "Nombre d'étoile : "+char[0]+"/5"+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
+    })
+</script>
 
 <!-- <h2>Critères</h2>
 <@if (!empty($criteresIds))
@@ -99,4 +101,6 @@ if($data){
     <p>Aucun critère trouvé pour cette annonce.</p>
 @endif -->
 
+
+</div>
 @endsection

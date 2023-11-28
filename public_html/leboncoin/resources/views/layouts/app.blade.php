@@ -22,7 +22,7 @@
         @section('nav')
         <div class=""></div>
             <ul id="topnav">
-                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=") }}">LeBonCoin</a></li>
+                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}">LeBonCoin</a></li>
                 <li><a class="depo" href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
                 <li>
                     <div>
@@ -35,7 +35,11 @@
                 <li><a href="{{ url("/") }}">Mes recherches</a></li>
                 <li><a class="fav" href="{{ url("/") }}">Favoris</a></li>
                 <li><a class="mess" href="{{ url("/") }}">Message</a></li>
+                @auth
+                <li><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
+                @else
                 <li><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
+                @endauth
             </ul><br>
         @show
 
@@ -51,8 +55,8 @@
 
     </body>
     <script>
-                  /*  $(document).ready(function() {
-                        alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
-                    })*/
+                    // $(document).ready(function() {
+                    //     alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
+                    // })
         </script>
 </html>

@@ -7,6 +7,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\LoginController;
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,9 +51,14 @@ Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce
 
 Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
 
-
 Route::get("/login",[LoginController::class, "authenticate" ]);
 
+Route::get("/proprio/{id}",[LeBonCoinController::class, "proprio" ]);
 
+Route::get("/compte",[LeBonCoinController::class, "compte" ]);
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
+})->name('logout');
 
 

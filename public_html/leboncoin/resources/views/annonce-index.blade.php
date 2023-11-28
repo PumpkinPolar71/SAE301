@@ -24,17 +24,44 @@
             <!-- {{$ThSelectionnee = isset($_GET['type_hebergement']) ? $_GET['type_hebergement'] : null;}} -->
             <option value="{{ $id+1 }}" {{  ($id + 1 == $ThSelectionnee) ? 'selected' : '' }}>{{ $type_hebergement->type }}</option>
         @endforeach
-        
     </select>
     
     <!-- Choisir une période de disponibilité -->
+     
     <label id="datePicker_datedebut" for="datedebut">Date de début :</label>
-    <input type="date" name="datedebut" id="datedebut">
+    <input type="date" name="datedebut" id="datedebut" value="<?php echo ($_GET['datedebut']) ?> ">
+    <script>
+    // Récupère le date picker par son ID
+    const datePicker = document.getElementById('datedebut');
+    
+    // Vérifie s'il y a une valeur sauvegardée dans le local storage
+    const savedDate = localStorage.getItem('savedDate');
+    if (savedDate) {
+        // Si une date est sauvegardée, utilise-la dans le date picker
+        datePicker.value = savedDate;
+    }
+
+    // Fonction pour sauvegarder la valeur du date picker lors de son changement
+    datePicker.addEventListener('change', function() {
+        localStorage.setItem('savedDate', this.value);
+    });
+</script>
 
     <label for="datefin">Date de fin :</label>
     <input type="date" name="datefin" id="datefin">
+    <script>
+    const datePickerFin = document.getElementById('datefin');
     
-    <button type="submit" /*onclick="testerDate()"*/ onkeypress="handleKeyPress(event)">Rechercher</button>
+    const savedDateFin = localStorage.getItem('savedDateFin');
+    if (savedDateFin) {
+        datePickerFin.value = savedDateFin;
+    }
+
+    datePickerFin.addEventListener('change', function() {
+        localStorage.setItem('savedDateFin', this.value);
+    });
+</script>
+    <button type="submit" /*onclick="testerDate()"*/ /*onkeypress="handleKeyPress(event)"*/>Rechercher</button>
 </form>
 <h2>Résultats de la recherche pour :</h2>
     <?php
@@ -54,85 +81,71 @@
         pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
-        if ($_GET['ville']== "" && $_GET['type_hebergement']== "") {
-            $query = "SELECT idannonce FROM annonce
-            WHERE idannonce >= 0";
-            $queryid1="SELECT idannonce FROM annonce";
+        
+        $query = "";
 
-            
-        } elseif ($_GET['ville']== "" && $_GET['type_hebergement']!= "") {
-            $test = $_GET['type_hebergement'];
-            $query = "SELECT idannonce FROM annonce a 
-            Join type_hebergement t on t.idtype = a.idtype
-            WHERE a.idtype = $test";
-        }
-        elseif ($_GET['ville']!= "" && $_GET['type_hebergement']== ""){
-            $test = $_GET['ville'];
-            $query = "SELECT idannonce FROM annonce a 
-            Join ville v on v.idville = a.idville
-            WHERE a.idville = $test";
-        }
-        elseif ($_GET['ville']!= "" && $_GET['type_hebergement']!= ""){
-            $test = $_GET['ville'];
-            $test2 = $_GET['type_hebergement'];
-            $query = "SELECT idannonce FROM annonce a 
-            Join ville v on v.idville = a.idville
-            Join type_hebergement t on t.idtype = a.idtype
-            WHERE a.idville = $test AND a.idtype = $test2";
-        }
-        elseif ($_GET['ville']== "" && $_GET['type_hebergement']== "" && $_GET['datedebut']!= "" && $_GET['datefin']== "") {
-            $datedebutExist = $_GET['datedebut'];
-            $query = "SELECT a.idannonce, r.datedebut FROM annonce a
-            JOIN reservation r ON r.idannonce = a.idannonce
-            WHERE $datedebutExist <= datedebut
-            GROUP BY 1,2";
-
-            //var_dump(pg_fetch_assoc($text));
-            $text = pg_query($query);
-            if (pg_fetch_assoc($text)/*!=0*/) {
-                while ($row = pg_fetch_assoc($text)) {
-                    foreach($row as $key=>$value)
-                        foreach ($annonces as $ann) {
-                            if ($ann->idannonce == $value) {
-                                
-                            if($datedebutExist < $query)
-                            {
-                                //---------------------------------------------datedebut de disponibilité
-                                $query = "SELECT a.idannonce FROM annonce a
-                                JOIN reservation r ON r.idannonce = a.idannonce
-                                WHERE $datedebutExist <= datedebut";
-                                //------------------------------------------------------------------------
-                            }
-                            elseif ($datedebutExist != $query)
-                            {
-                                $query = 0;
-                            }
-                            else{
-                                $query=0;
-                            }
-                        }
-                        }
-                    }
+        if($_GET['ville']== ""){ //ville vide
+            if($_GET['type_hebergement'] == ""){ //ville et hebergement sont  vides
+                
+                if($_GET['datedebut']==""){//ville et hebergement et date debut vides
+                    $query = "SELECT a.idannonce FROM annonce a WHERE a.idannonce >= 0";
+                }
+                else{//ville et hebergement vides et date debut renseignée
+                    $query = "SELECT a.idannonce FROM annonce a
+                    JOIN reservation r ON r.idannonce = a.idannonce
+                    WHERE  r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD')";
+                }
             }
-            else {
-                echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
-            }
-            
-            /*---------------------------*/
-            $selectedVille = $request->input('ville');
-            $selectedTypeHebergement = $request->input('type_hebergement');
-            $query = VilleTypeHebergement::query();
-            if ($selectedVille) {
-                $query->where('idville', $selectedVille);
-            }
-
-            if ($selectedTypeHebergement) {
-                $query->where('idtype', $selectedTypeHebergement);
+            else{//ville vide hébergement renseigné
+                if($_GET['datedebut']==""){//ville vide hebergement renseigne et date debut vide
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join type_hebergement t on t.idtype = a.idtype
+                    WHERE a.idtype = ".$_GET['type_hebergement'];
+                }
+                else{//ville vide et hebergement renseigne et date debut renseignée
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join type_hebergement t on t.idtype = a.idtype
+                    JOIN reservation r ON r.idannonce = a.idannonce
+                    WHERE a.idtype = ".$_GET['type_hebergement']." and r.datedebut > ".$_GET['datedebut'];
+                }
             }
         }
-        else {
+        else{//ville renseignee
+            if($_GET['type_hebergement'] == ""){//ville renseignee et hebergement vide
+                if($_GET['datedebut']==""){//ville renseignee et hebergement vide et date_debut vide
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join ville v on v.idville = a.idville
+                    
+                    WHERE a.idville = ".$_GET['ville'];
+                }
+                else{//ville renseignee et hebergement vide et date_debut renseignee
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join ville v on v.idville = a.idville
+                    JOIN reservation r ON r.idannonce = a.idannonce
+                    WHERE a.idville = ".$_GET['ville']." and r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD')";
+                }
+            }
+            else{//ville renseignee hebergement renseigne
+                if($_GET['datedebut']==""){//ville renseignee hebergement renseigne et date debut vide
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join ville v on v.idville = a.idville
+                    Join type_hebergement t on t.idtype = a.idtype
+                    WHERE a.idville = ".$_GET['ville']." AND a.idtype = ".$_GET['type_hebergement'];
+                }
+                else{//ville renseignee hebergement renseigne et date debut renseigne
+                    $query = "SELECT a.idannonce FROM annonce a 
+                    Join ville v on v.idville = a.idville
+                    Join type_hebergement t on t.idtype = a.idtype
+                    JOIN reservation r ON r.idannonce = a.idannonce
+                    WHERE a.idville = ".$_GET['ville']." AND a.idtype = ".$_GET['type_hebergement']." and r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD')";
+                }
+            }
 
         }
+
+
+
+
         $text = pg_query($query);
         echo "<table>";
         if (pg_fetch_assoc($text)/*!=0*/) {

@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('create.css')}}"/> 
 <div class="flecheretour" onclick="history.back()">←</div>
-<div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=") }}"><b>LeBonCoin</b></a></div>
+<div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
 <style>
     body {
         width: 100%;
