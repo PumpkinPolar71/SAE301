@@ -83,39 +83,38 @@
         pg_query("SET search_path TO leboncoin");
         
         $query = "";
-
+        if (isset($_GET['ville']) && isset($_GET['type_hebergement']) && isset($_GET['datedebut']) && isset($_GET['datefin'])) {
         if($_GET['ville']== ""){ //ville vide
             if($_GET['type_hebergement'] == ""){ //ville et hebergement sont  vides
                 
-                if($_GET['datedebut']==""){//ville et hebergement et date debut vides
+                if($_GET['datedebut']=="" and $_GET['datefin']==""){//ville et hebergement et date debut vides
                     $query = "SELECT a.idannonce FROM annonce a WHERE a.idannonce >= 0";
                 }
-                else{//ville et hebergement vides et date debut renseignée
+                else{//ville et hebergement vides et date renseignée
                     $query = "SELECT a.idannonce FROM annonce a
                     JOIN reservation r ON r.idannonce = a.idannonce
-                    WHERE  r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD')";
+                    WHERE  r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD') and r.datefin < to_date('".$_GET['datefin']."','YYYY-MM-DD')";
                 }
             }
             else{//ville vide hébergement renseigné
-                if($_GET['datedebut']==""){//ville vide hebergement renseigne et date debut vide
+                if($_GET['datedebut']=="" and $_GET['datefin']==""){//ville vide hebergement renseigne et date debut vide
                     $query = "SELECT a.idannonce FROM annonce a 
                     Join type_hebergement t on t.idtype = a.idtype
                     WHERE a.idtype = ".$_GET['type_hebergement'];
                 }
-                else{//ville vide et hebergement renseigne et date debut renseignée
+                else{//ville vide et hebergement renseigne et date renseignée
                     $query = "SELECT a.idannonce FROM annonce a 
                     Join type_hebergement t on t.idtype = a.idtype
                     JOIN reservation r ON r.idannonce = a.idannonce
-                    WHERE a.idtype = ".$_GET['type_hebergement']." and r.datedebut > ".$_GET['datedebut'];
+                    WHERE a.idtype = ".$_GET['type_hebergement']." and r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD') and r.datefin < to_date('".$_GET['datefin']."','YYYY-MM-DD')";
                 }
             }
         }
         else{//ville renseignee
             if($_GET['type_hebergement'] == ""){//ville renseignee et hebergement vide
-                if($_GET['datedebut']==""){//ville renseignee et hebergement vide et date_debut vide
+                if($_GET['datedebut']=="" and $_GET['datefin']==""){//ville renseignee et hebergement vide et date vide
                     $query = "SELECT a.idannonce FROM annonce a 
-                    Join ville v on v.idville = a.idville
-                    
+                    Join ville v on v.idville = a.idville        
                     WHERE a.idville = ".$_GET['ville'];
                 }
                 else{//ville renseignee et hebergement vide et date_debut renseignee
@@ -126,7 +125,7 @@
                 }
             }
             else{//ville renseignee hebergement renseigne
-                if($_GET['datedebut']==""){//ville renseignee hebergement renseigne et date debut vide
+                if($_GET['datedebut']=="" and $_GET['datefin']==""){//ville renseignee hebergement renseigne et date debut vide
                     $query = "SELECT a.idannonce FROM annonce a 
                     Join ville v on v.idville = a.idville
                     Join type_hebergement t on t.idtype = a.idtype
@@ -137,11 +136,12 @@
                     Join ville v on v.idville = a.idville
                     Join type_hebergement t on t.idtype = a.idtype
                     JOIN reservation r ON r.idannonce = a.idannonce
-                    WHERE a.idville = ".$_GET['ville']." AND a.idtype = ".$_GET['type_hebergement']." and r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD')";
+                    WHERE a.idville = ".$_GET['ville']." AND a.idtype = ".$_GET['type_hebergement']." and r.datedebut > to_date('".$_GET['datedebut']."','YYYY-MM-DD') and r.datefin < to_date('".$_GET['datefin']."','YYYY-MM-DD')";
                 }
             }
 
         }
+    
 
 
 
@@ -185,6 +185,7 @@
         else {
             echo "<p>Désolé, nous n’avons pas ça sous la main !</p><p>Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
         }
+    }
     ?>
         
 

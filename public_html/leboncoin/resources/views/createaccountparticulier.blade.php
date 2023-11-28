@@ -15,7 +15,7 @@
     <div>Prenom</div>
     <input name="prenom" type="">
     <div>Email</div>
-    <input name="email" type="">
+    <input id="email" name="email" type="">
     <div style="color:red;" id="messageErreurEmail"></div>
     <div>Sexe de naissance</div>
     <input type="radio" value="Homme" name="sexe">
@@ -46,7 +46,7 @@
         $("#mdp").on("blur", function() {
             console.log("test blur")
             var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
-            const motDePasse = document.getElementById("mdp").value;
+            const motDePasse = document.getElementById("mdp").val();
             const messageErreur = document.getElementById("messageErreur");
             if (!Reg.test(motDePasse)) {
             messageErreur.textContent = "Le mot de passe doit comporter au moins 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux.";

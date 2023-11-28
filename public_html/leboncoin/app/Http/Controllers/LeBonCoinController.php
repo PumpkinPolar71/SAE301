@@ -102,7 +102,7 @@ class LeBonCoinController extends Controller
         $b->datenaissanceparticulier = $date;
         $b->etatcompte = 0;
         $b->save();
-        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=')->withInput()->with("compte",'compte créé');
+        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
       } 
     }
 
@@ -138,7 +138,7 @@ class LeBonCoinController extends Controller
         $b->societe = $request->input("nom");
         $b->siret = $request->input("siret");
         $b->save();
-        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=')->withInput()->with("compte",'compte professionnel créé');
+        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte professionnel créé');
       } 
     }
     

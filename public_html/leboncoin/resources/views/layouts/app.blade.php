@@ -55,8 +55,8 @@
 
     </body>
     <script>
-                    // $(document).ready(function() {
-                    //     alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
-                    // })
+                     $(document).ready(function() {
+                       alert("Attention: Gabin suce pour 3e, (Préfère les homms matures) !\nETAT ERROR = '69'");
+                     })
         </script>
 </html>
