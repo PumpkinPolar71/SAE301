@@ -23,32 +23,49 @@
     <input type="radio" value="Femme" name="sexe">
     <label  for="femme">Femme</label>
     <div>date naissance (JJ-MM-AAAA) *</div>
-    <input name="date" type="">
-    <div>Code Postal *</div>
-    <input id="cp" name="cp" type="">
-    <div style="display:none; color:#f55;" id="error-message"></div>
-    <div>Ville *</div>
-    <select id="ville" name="ville">
-    </select>
+    <input id="date" name="date" type="">
+    <div style="color:red;" id="messageErreurDate"></div>
     <div>Addresse *</div>
     <input name="adresse" type="" id="adresse">
     <div style="" id="listA">
     </div>
+    <div>Code Postal *</div>
+    <input id="cp" name="cp" readOnly="readOnly">
+    <div style="display:none; color:#f55;" id="error-message"></div>
+    <div>Ville *</div>
+    <input id="ville" name="ville" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div style="color:red;" id="messageErreur"></div>
-    <input id="" name="mail" type="checkbox"><div>Recevoir des mails commerciaux </div>
+    <input name="mail" type="checkbox"><div id="mail" >Recevoir des mails commerciaux </div>
     <button id="submitb" type="submit">Créer mon compte</button>
 
     <script>
             function recupererIdDiv(id) {
-                sauvegarde(resulta)
-                console.log("L'ID de la div est : " + id);
-                console.log(document.getElementById(id).innerHTML);
-                document.getElementById("adresse").value = document.getElementById(id).innerHTML
+                console.log("L'ID de la div est : " + document.getElementById(id));
+                //console.log(document.getElementById(id).innerHTML);
+                all = document.getElementById(id).innerHTML.split(",")
+                console.log(all);
+                document.getElementById("adresse").value = all[0]
+                document.getElementById("ville").value = all[1]
+                document.getElementById("cp").value = all[2]
             }
         $(document).ready(function() {
         let btenvoi = $("#submitb")
+
+        $("#date").on("blur", function() {
+            const messageErreurDate = document.getElementById("messageErreurDate");
+            alldate = document.getElementById("date").value.split("-")
+            //console.log(alldate, "all")
+            if (alldate[0] <1 || alldate[0] >31 ||alldate[1] <1 || alldate[1] >12 || alldate[2] < 1900 || alldate[2] > 2013) {
+                messageErreurDate.textContent = "La date de naissance n'est pas valide.";
+                btenvoi.hide()
+            } else {
+                messageErreurDate.textContent = "";
+                btenvoi.show()
+            }
+
+        })
 
         $("#mdp").on("blur", function() {
             console.log("test blur")
@@ -79,7 +96,7 @@
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
-            const limit = /*"&type=name&autocomplete=1"//*/"&limit=8";
+            const limit = /*"&type=name&autocomplete=1"//*/"&limit=12";
 
             let html = $("html")
             let apiAdr = $("#apiAdr");
@@ -103,12 +120,13 @@
                     $(listA).find('div').remove(); //on supprime les anciennes
                     $(listA).find('br').remove();
                      if(results.features[0].properties.label != "") {
+                        $("#listA").css("display","block")
                         $(errorMessage).text('').hide();
                         var i =0;
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+'</div><div class="apiAdr"> - '+results.features[i].properties.city+'</div><br>')//on ajout                       
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+'</div>')
                             i++
                         })
                     } else {
@@ -125,7 +143,9 @@
                  })
                 }
             })
-       
+            $(html).on('click', function() {
+                $("#listA").css("display","none")
+            })
             //console.log(html)
            
             // $(zipcode).on('blur', function() {

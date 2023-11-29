@@ -4,6 +4,10 @@
 }
 html {
     background-color: rgb(45, 151, 107);
+    background-image: url("Captu.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*----------------welcome--------------*/
 .welcome h2 {
@@ -12,32 +16,37 @@ html {
 }
 /*----------------layout--------------*/
 body {
-    margin-left: 10%;
-    margin-top: 10%;
-    width: 80%; /*68*/
-    background-color: aliceblue;
+    /*-margin-left: 15%;-*/
+    margin-top: 12.5%;
+    width: 100vh; /*68*/
+    background-color: rgb(255, 255, 255);
     padding:  0% 2% 0% 2%;
     font-family: sans-serif;
 }
 #topnav {
-    padding: 0% 0% 4% 0%;
+    padding: 0% 0% 0% 0%;
     text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #topnav li {
     display: block;
     float: left;
-    padding: 2% 2% 2% 2%;
+    padding: 2% 1% 2% 1%;
     list-style: none;
 }
 .logo {
     font-family: cursive;
-    font-size: larger;
+    font-size: 188%;
     color: orange;
 }
 .depo {
     color: aliceblue;
     background-color: orange;
     border-radius: 5px;
+    padding: 3%;
 }
 a {
     text-decoration: none;
@@ -102,16 +111,16 @@ td {
     margin-bottom: 1%;
 }
 .temp {
-    height: 100%;
-    width: 20%;
+    height: 150%;
+    width: 32%;
 }
 #crit {
     list-style: none;
 }
 .titre {
-    margin-left: 27%;
-    margin-top: -7%;
-    margin-bottom: 6%;
+    margin-left: 34%;
+    margin-top: -12%;
+    margin-bottom: 10%;
 }
 /*----------------proprio------------------*/
 .bandeau {

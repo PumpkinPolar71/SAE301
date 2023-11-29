@@ -17,26 +17,29 @@
     <input name="nom" type="">
     <div>Secteur d'activité *</div>
     <input name="secteur" type="">
-    <div>Code Postal *</div>
-    <input id="cp" name="cp" type="">
-    <div style="display:none; color:#f55;" id="error-message"></div>
-    <div>Ville *</div>
-    <select id="ville" name="ville">
-    </select>
     <div>Addresse *</div>
     <input name="adresse" type="" id="adresse">
     <div style="" id="listA">
     </div>
+    <div>Code Postal *</div>
+    <input id="cp" name="cp" readOnly="readOnly">
+    <div style="display:none; color:#f55;" id="error-message"></div>
+    <div>Ville *</div>
+    <input id="ville" name="ville" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div style="color:red;" id="messageErreur"></div>
     <button id="submitbent" type="submit">Créer mon compte</button>
 
     <script>
-        function recupererIdDiv(id) {
-                console.log("L'ID de la div est : " + id);
-                console.log(document.getElementById(id).innerHTML);
-                document.getElementById("adresse").value = document.getElementById(id).innerHTML
+             function recupererIdDiv(id) {
+                console.log("L'ID de la div est : " + document.getElementById(id));
+                //console.log(document.getElementById(id).innerHTML);
+                all = document.getElementById(id).innerHTML.split(",")
+                console.log(all);
+                document.getElementById("adresse").value = all[0]
+                document.getElementById("ville").value = all[1]
+                document.getElementById("cp").value = all[2]
             }
         $(document).ready(function() {
         let btenvoi = $("#submitb")
@@ -71,8 +74,8 @@
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
-            const limit = /*"&type=name&autocomplete=1"//*/"&limit=8";
-
+            const limit = /*"&type=name&autocomplete=1"//*/"&limit=12";
+            let html = $("html");
             let adresse = $("#adresse");
             let zipcode =$("#cp"); 
             let city = $("#ville");
@@ -93,12 +96,13 @@
                     $(listA).find('div').remove(); //on supprime les anciennes
                     $(listA).find('br').remove();
                      if(results.features[0].properties.label != "") {
+                        $("#listA").css("display","block")
                         $(errorMessage).text('').hide();
                         var i =0;
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+'</div><div class="apiAdr"> - '+results.features[i].properties.city+'</div><br>')//on ajoute
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+'</div>')
                             i++
                         })
                     } else {
@@ -115,7 +119,9 @@
                  })
                 }
             })
-            
+            $(html).on('click', function() {
+                $("#listA").css("display","none")
+            })
             // $(zipcode).on('blur', function() {
             //     let code = $(this).val();
             //     let url = apiUrl+code+format; //url serveur

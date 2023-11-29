@@ -63,7 +63,7 @@
 </script>
     <button type="submit" /*onclick="testerDate()"*/ /*onkeypress="handleKeyPress(event)"*/>Rechercher</button>
 </form>
-<h2>Résultats de la recherche pour :</h2>
+<h2>Résultats de la recherche pour : location</h2>
     <?php
     //echo  $_GET['ville'];
 
