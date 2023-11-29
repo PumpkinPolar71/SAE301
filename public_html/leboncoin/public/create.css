@@ -37,6 +37,7 @@ form {
 .apiAdr {
     font-size: 1.2vh;
     margin-bottom: 2px;
+    display: inline-block;
 }
 .apiAdr:hover {
     background-color: #b3b3b3;

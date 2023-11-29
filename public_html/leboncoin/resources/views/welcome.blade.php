@@ -15,7 +15,8 @@
 
 
 @section('content')
-<h2>Bienvenue</h2>
+<div class="welcome">
+<h2>Pour un Noël plus abordable, plus chaud, logez vous sur leboncoin</h2>
 <script>
    /* $(document).ready(function() {
         let html = $("html");
@@ -25,6 +26,7 @@
         })
     })*/
 </script>
+</div>
 <?php
 
 ?>

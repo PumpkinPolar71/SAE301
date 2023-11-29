@@ -104,15 +104,16 @@ if($data){
 
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">
-    <h2>Annonces avec le même premier mot</h2>
+    <h2>Annonces Similaire</h2>
     <div class="row">
         @foreach($similarFirstWordAds as $ad)
             <div class="col-md-3">
                 <div class="card">
                     <img src="{{ $ad->photo }}" class="card-img-top" alt="...">
-                    <div class="card-body">
+                    <div class="card-body"><a href=/annonce/{{"$ad->idannonce"}}>
                         <h5 class="card-title">{{ $ad->titreannonce }}</h5>
-                        <!-- Autres détails de l'annonce si nécessaire -->
+                        <!-- Autres détails de l'annonce si nécessaire echo "<a href=/annonce/".$ann->idannonce.">";-->
+                        </a>
                     </div>
                 </div>
             </div>

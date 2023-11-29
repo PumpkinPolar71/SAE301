@@ -107,7 +107,7 @@
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+'</div><div class="apiAdr">'+results.features[i].properties.city+'</div><br>')//on ajoute
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+'</div><div class="apiAdr"> - '+results.features[i].properties.city+'</div><br>')//on ajoute
                             i++
                         })
                     } else {
