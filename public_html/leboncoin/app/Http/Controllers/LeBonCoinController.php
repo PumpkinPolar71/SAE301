@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\LeBonCoin;
 use App\Models\Particulier;
 use App\Models\Entreprise;
@@ -12,6 +13,7 @@ use App\Models\Departement;
 use App\Models\Photo;
 use App\Models\Critere;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LeBonCoinController extends Controller
 {
@@ -31,13 +33,21 @@ class LeBonCoinController extends Controller
       return view("createaccount");
     }
     public function one($id) {
-      
       $photos = Photo::where('idannonce', $id)->get();
       $annonce = LeBonCoin::find($id);
       $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
   
-      return view("annonce", compact('annonce', 'photos', 'criteres'));
-    }
+      // Récupérer le premier mot du titre de l'annonce principale
+      $words = explode(' ', $annonce->titreannonce);
+      $firstWord = strtolower($words[0]);
+  
+      // Récupérer les annonces ayant le même premier mot dans le titre
+      $similarFirstWordAds = LeBonCoin::whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
+                                      ->where('idannonce', '<>', $id) // Exclure l'annonce principale
+                                      ->get();
+  
+      return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds'));
+  }
     public function proprio($id) {
     $annonces = LeBonCoin::find($id);
     $compte = Compte::find($id);
@@ -57,6 +67,17 @@ class LeBonCoinController extends Controller
     }
     public function imgGP() {
       return view("imgGP");
+    }
+    public function updateEmail(Request $request)
+    {
+        $newEmail = $request->input('email');
+
+        // Mettez à jour l'e-mail dans la base de données, par exemple
+        // en utilisant le modèle Compte et la relation avec l'utilisateur actuel.
+        Auth::user()->compte->update(['email' => $newEmail]);
+
+        // Réponse JSON facultative pour informer le client que la mise à jour est terminée
+        return response()->json(['success' => true]);
     }
 
   public function save(Request $request)

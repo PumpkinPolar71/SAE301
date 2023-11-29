@@ -45,7 +45,7 @@
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
 <!--<p class="proprio">{{ $annonce->idcompte }}</p>-->
-</form>
+
 
 
 <?php
@@ -100,7 +100,27 @@ if($data){
 @else 
     <p>Aucun critère trouvé pour cette annonce.</p>
 @endif -->
+<hr>
 
+<!-- Section pour afficher les annonces avec le même premier mot -->
+<div class="similar-first-word-ads">
+    <h2>Annonces avec le même premier mot</h2>
+    <div class="row">
+        @foreach($similarFirstWordAds as $ad)
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="{{ $ad->photo }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $ad->titreannonce }}</h5>
+                        <!-- Autres détails de l'annonce si nécessaire -->
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+</form>
 
 </div>
 @endsection

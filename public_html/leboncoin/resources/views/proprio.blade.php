@@ -59,13 +59,18 @@
 
         $result = pg_query($query);
 
-        if ($result) {
+        if ($result !== false) {
             $row = pg_fetch_assoc($result);
-            $dep = $row['nomdepartement'];
-            echo "<h1>Département : $dep</h1>";
+            if ($row !== false && isset($row['nomdepartement'])) {
+                $dep = $row['nomdepartement'];
+                echo "<h1>Département : $dep</h1>";
+            } else {
+                echo "<h1>Département non défini</h1>";
+            }
         } else {
-            echo "<h1>Département non défini</h1>";
+            echo "<h1>Erreur dans la requête SQL</h1>";
         }
+    
     ?>
     <h1>{{$proprio->nomville}}
 

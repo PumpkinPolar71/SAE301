@@ -6,6 +6,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\LoginController;
+use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,7 @@ Route::get('/', function () {
 });
 Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
-Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
+Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]); //la
 
 Route::get("/annonce/add",[ LeBonCoinController::class, "add" ]);
 
@@ -60,4 +61,4 @@ Route::post('/logout', function () {
     return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
 })->name('logout');
 
-
+Route::post('/update-email', 'LeBonCoinController@updateEmail')->name('update-email');

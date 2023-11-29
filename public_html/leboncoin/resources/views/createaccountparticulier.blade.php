@@ -41,7 +41,13 @@
     <button id="submitb" type="submit">Créer mon compte</button>
 
     <script>
+            function recupererIdDiv(id) {
+                console.log("L'ID de la div est : " + id);
+                console.log(document.getElementById(id).innerHTML);
+                document.getElementById("adresse").value = document.getElementById(id).innerHTML
+            }
         $(document).ready(function() {
+            
         let btenvoi = $("#submitb")
         $("#mdp").on("blur", function() {
             console.log("test blur")
@@ -72,8 +78,10 @@
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
-            const limit = "&type=name&autocomplete=1"//&limit=15";
+            const limit = /*"&type=name&autocomplete=1"//*/"&limit=8";
 
+            let html = $("html")
+            let apiAdr = $("#apiAdr");
             let adresse = $("#adresse");
             let zipcode =$("#cp"); 
             let city = $("#ville");
@@ -82,7 +90,7 @@
 
             $(adresse).on('keyup', function() {
                 let codeA = $(this).val(); 
-                let urlA = apiUrlAdresse+codeA//+limit//+format; //url serveur
+                let urlA = apiUrlAdresse+codeA+limit//+format; //url serveur
                 if (codeA.length < 3) {} else {
                 for (lettre in codeA) {
                     urlA = urlA.replace(' ','%20');
@@ -90,18 +98,21 @@
                 console.log(urlA);
                 //urlA ="https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&limit=15"
                 fetch(urlA, {method: 'get'}).then(response => response.json()).then(results => { //requet
-                    console.log(results.features[0].properties.label)
-                    //$(city).find('option').remove(); //on supprime les anciennes
-                     if(true/*results.length*/) {
+                    //console.log(results.features[0].properties.label)
+                    $(listA).find('div').remove(); //on supprime les anciennes
+                    $(listA).find('br').remove();
+                     if(results.features[0].properties.label != "") {
                         $(errorMessage).text('').hide();
-                        $.each(results, function(key, value) {
-                            //console.log(value);
-                            console.log(value.nom);
-                            $(listA).append('<div value"'+value.name+'">'+value.name+value.postcode+'</div>')//on ajoute
+                        var i =0;
+                        $.each(results.features, function(key, value) {
+                            console.log(results, "results");
+                            //console.log(value, key, "value et kes"/*value.features.properties.label*/);
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+'</div><div class="apiAdr">'+results.features[i].properties.city+'</div><br>')//on ajoute
+                            i++
                         })
                     } else {
                         if ($(adresse).val()) {
-                            console.log("Erreur de code postal.");
+                            console.log("Erreur de rue.");
                             $(errorMessage).text('Aucune rue avec ce nom.').show();
                         } else {
                             $(errorMessage).text('').hide();
@@ -113,8 +124,8 @@
                  })
                 }
             })
-
-            
+            //console.log(html)
+           
             $(zipcode).on('blur', function() {
                 let code = $(this).val();
                 let url = apiUrl+code+format; //url serveur

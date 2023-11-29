@@ -47,9 +47,9 @@
     });
 </script>
 
-    <!-- <label for="datefin">Date de fin :</label> -->
-    <!-- <input type="date" name="datefin" id="datefin"> -->
-    <!--<script>
+    <label for="datefin">Date de fin :</label> 
+    <input type="date" name="datefin" id="datefin"> 
+    <script>
     const datePickerFin = document.getElementById('datefin');
     
     const savedDateFin = localStorage.getItem('savedDateFin');
@@ -60,7 +60,7 @@
     datePickerFin.addEventListener('change', function() {
         localStorage.setItem('savedDateFin', this.value);
     });
-</script> -->
+</script>
     <button type="submit" /*onclick="testerDate()"*/ /*onkeypress="handleKeyPress(event)"*/>Rechercher</button>
 </form>
 <h2>Résultats de la recherche pour :</h2>
