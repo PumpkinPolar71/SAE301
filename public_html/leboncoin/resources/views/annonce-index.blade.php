@@ -172,7 +172,7 @@
                             //     echo "Oups... Il semblerait que cette annonce ne contienne aucune image.";
                             // }
                         }
-                        echo $ann->titreannonce;
+                        echo "<div class='titre'>$ann->titreannonce</div>";
                         //echo $ann->idphoto;
                         echo "</a>";
                         echo "</td>";

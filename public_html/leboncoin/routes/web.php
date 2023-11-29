@@ -39,6 +39,8 @@ Route::get("/connect", [ LeBonCoinController::class, "connect"]);
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
+Route::post('/update-user-info', 'LeBonCoinController@updateUserInfo')->name('updateUserInfo');
+
 Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
 
 Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createaccountentreprise"]);

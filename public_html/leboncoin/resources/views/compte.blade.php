@@ -96,16 +96,13 @@
             </script>
             <button id="saveChanges">Enregistrer les modifications</button>
 
+<!-- Le script jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Votre code existant pour la modification des champs...
-
         $('#saveChanges').on('click', function () {
-            var newEmail = $('#email').val();
-            var newAddress = $('#adresse').val();
-            var newName = $('#nom').val();
-            var newSurname = $('#prenom').val();
+            var newEmail = $('.valeuremail').val();
+            var newAddress = $('.valeuradresse').text(); // Récupère la valeur de l'adresse
 
             // Requête AJAX pour envoyer les données modifiées au serveur
             $.ajax({
@@ -114,8 +111,6 @@
                 data: {
                     email: newEmail,
                     address: newAddress,
-                    name: newName,
-                    surname: newSurname,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function (response) {
@@ -131,6 +126,7 @@
         });
     });
 </script>
+
             <?php
                 // $nomDB = Config::get('database.connections.pgsql.database');
                 // $userDB = Config::get('database.connections.pgsql.username');

@@ -12,10 +12,12 @@ html {
 }
 /*----------------layout--------------*/
 body {
-    margin-left: 20%;
+    margin-left: 10%;
     margin-top: 10%;
-    width: 60%; /*68*/
+    width: 80%; /*68*/
     background-color: aliceblue;
+    padding:  0% 2% 0% 2%;
+    font-family: sans-serif;
 }
 #topnav {
     padding: 0% 0% 4% 0%;
@@ -47,7 +49,6 @@ title {
 /*----------------annonce------------------*/
 .annoncedetail {
     width: 100%;
-   
     margin-top: 2%;
 }
 h1 {
@@ -106,6 +107,11 @@ td {
 }
 #crit {
     list-style: none;
+}
+.titre {
+    margin-left: 27%;
+    margin-top: -7%;
+    margin-bottom: 6%;
 }
 /*----------------proprio------------------*/
 .bandeau {

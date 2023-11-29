@@ -79,6 +79,32 @@ class LeBonCoinController extends Controller
         // Réponse JSON facultative pour informer le client que la mise à jour est terminée
         return response()->json(['success' => true]);
     }
+    public function updateUserInfo(Request $request)
+{
+    try {
+        $user = Auth::user();
+        
+        $updated = $user->compte->update([
+            'email' => $request->input('email'),
+            'address' => $request->input('adressrueparticulier'),
+            // Autres champs à mettre à jour
+        ]);
+
+        if ($updated) {
+            // Mise à jour réussie
+            return response()->json(['success' => true]);
+        } else {
+            // Échec de la mise à jour
+            return response()->json(['success' => false, 'message' => 'Échec de la mise à jour']);
+        }
+    } catch (\Exception $e) {
+        // Capturer les éventuelles erreurs et les afficher pour le débogage
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+    
+
+
 
   public function save(Request $request)
     {

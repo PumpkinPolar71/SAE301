@@ -74,7 +74,7 @@ if($data){
     echo "<a href=/proprio/".$data['idcompte'].">";
     echo "voir";
     echo "</a>";
-    echo "Nom : $nomparticulier\n<br> Prenom : $prenomparticulier";
+   // echo "Nom : $nomparticulier\n<br> Prenom : $prenomparticulier";
 }
 
 ?>
