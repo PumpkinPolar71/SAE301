@@ -64,6 +64,7 @@ class LeBonCoinController extends Controller
     $ville = Ville::find($id);
     $departement = Departement::find($id);
     $proprio = Particulier::find($id);
+    $particuiler = Particulier::find($id);
     return view("proprio", compact('annonces', 'compte', 'ville', 'departement', 'proprio'));
     }
     public function search() {
