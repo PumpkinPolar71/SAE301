@@ -48,6 +48,8 @@
 
 
 
+
+
 <?php
 use Illuminate\Support\Facades\Config;
 
@@ -62,7 +64,7 @@ pg_query("SET search_path TO leboncoin");
 
 $query = "SELECT nomparticulier, prenomparticulier, p.idcompte FROM particulier p
 JOIN annonce a ON a.idcompte=p.idcompte
-WHERE p.idcompte = {$annonce->idannonce}";
+WHERE p.idcompte = {$annonce->idcompte}";
 
 $text = pg_query($query);
 
@@ -100,6 +102,29 @@ if($data){
 @else 
     <p>Aucun critère trouvé pour cette annonce.</p>
 @endif -->
+<h2>Avis sur cette annonce</h2>
+@if ($avis)
+    <ul>
+        @foreach ($avis as $commentaire)
+            <li>
+                <p>Commentaire : {{ $commentaire }}</p>
+                <!-- Autres détails de l'avis -->
+            </li>
+        @endforeach
+    </ul>
+@else
+    <p>Aucun avis pour cette annonce pour le moment.</p>
+@endif
+<h2>Équipements pour cette annonce</h2>
+@if ($equipements)
+    <ul>
+        @foreach ($equipements as $equipement)
+            <li>{{ $equipement }}</li>
+        @endforeach
+    </ul>
+@else
+    <p>Aucun équipement pour cette annonce pour le moment.</p>
+@endif
 <hr>
 
 <!-- Section pour afficher les annonces avec le même premier mot -->

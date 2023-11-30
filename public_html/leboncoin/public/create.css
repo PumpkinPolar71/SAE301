@@ -153,3 +153,6 @@ section {
     text-align: left;
     display: block;
 }
+.connectsec input {
+    height: auto;
+}

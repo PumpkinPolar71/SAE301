@@ -19,7 +19,15 @@ class LeBonCoin extends Model
     {
         return $this->hasMany(Critere::class, 'idcritere');
     }
-    
+    public function avis()
+    {
+        return $this->hasMany(Avis::class, 'idannonce', 'idannonce');
+    }
+
+    public function equipements()
+    {
+        return $this->belongsToMany(Equipement::class, 'recueille', 'idannonce', 'idequipement');
+    }
     
 }
 

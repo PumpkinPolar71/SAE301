@@ -4,11 +4,30 @@
 }
 html {
     background-color: rgb(45, 151, 107);
-    background-image: url("captu2.png");
-    background-size: contain;
+
+}
+.encart-publicitaire {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-image: url("Captur.PNG");
+    background-size: cover;
+    z-index: -1;
+}
+.allflex {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+.all {
+    margin-top: 12.5vw;
+    width: 135vh; /*68*/
+    background-color: rgb(255, 255, 255);
+    padding:  0% 2% 0% 2%;
+    font-family: sans-serif;
+    z-index: 1;
 }
 /*----------------welcome--------------*/
 .welcome h2 {
@@ -18,11 +37,7 @@ html {
 /*----------------layout--------------*/
 body {
     /*-margin-left: 15%;-*/
-    margin-top: 16%;
-    width: 135vh; /*68*/
-    background-color: rgb(255, 255, 255);
-    padding:  0% 2% 0% 2%;
-    font-family: sans-serif;
+
 }
 #topnav {
     padding: 0% 0% 0% 0%;
@@ -153,8 +168,21 @@ td {
     z-index: 1;
     position: relative;
 }
-
-
+/*------------compte-------------*/
+.compte-block {
+    margin: 2% 2% 2% 0;
+    padding: 6% 2% 0% 2%;
+    width: 20%;
+    height: 10vh;
+    border-radius: 10px;
+    box-shadow: 0px 3px 7px rgb(95, 95, 95);
+    font-size: x-large;
+    display: inline-block;
+}
+p {
+    color: #858585;
+    font-size: medium;
+}
 
 
 

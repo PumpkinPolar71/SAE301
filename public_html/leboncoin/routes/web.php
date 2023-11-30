@@ -63,4 +63,8 @@ Route::post('/logout', function () {
     return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
 })->name('logout');
 
-Route::post('/update-email', 'LeBonCoinController@updateEmail')->name('update-email');
+Route::post('/update-user-info', [LeBonCoinController::class, 'updateUserInfo'])->name('updateUserInfo');
+
+Route::get("/reservations",[LeBonCoinController::class, "indexres" ]);
+
+Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);

@@ -12,6 +12,7 @@ use App\Models\Ville;
 use App\Models\Departement;
 use App\Models\Photo;
 use App\Models\Critere;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,17 +37,26 @@ class LeBonCoinController extends Controller
       $photos = Photo::where('idannonce', $id)->get();
       $annonce = LeBonCoin::find($id);
       $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
-  
+      $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
+      /*$avis = $annonce->avis->pluck('commentaire')->toArray();*/
+      /*$equipement = $annonce->equipement->pluck('nomequipement')->toArray();*/
       // Récupérer le premier mot du titre de l'annonce principale
       $words = explode(' ', $annonce->titreannonce);
       $firstWord = strtolower($words[0]);
-  
+      $avis = $annonce->avis->pluck('commentaire')->toArray();
+
+    // Récupérer les équipements liés à cette annonce
+      //$equipement = $annonce->equipement()->pluck('nomequipement')->toArray();
       // Récupérer les annonces ayant le même premier mot dans le titre
       $similarFirstWordAds = LeBonCoin::whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
                                       ->where('idannonce', '<>', $id) // Exclure l'annonce principale
                                       ->get();
   
-      return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds'));
+      return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+  }
+  public function reservation($id) {
+    $reservations = Reservation::where('idreservation', $id)->get();
+    return view("reservation", compact('reservations'));
   }
     public function proprio($id) {
     $annonces = LeBonCoin::find($id);
@@ -80,28 +90,32 @@ class LeBonCoinController extends Controller
         return response()->json(['success' => true]);
     }
     public function updateUserInfo(Request $request)
-{
-    try {
-        $user = Auth::user();
-        
-        $updated = $user->compte->update([
-            'email' => $request->input('email'),
-            'address' => $request->input('adressrueparticulier'),
-            // Autres champs à mettre à jour
-        ]);
+    {
+        $nouvelEmail = $request->input('nouvelEmail');
+        $nouvelleRue = $request->input('nouvelleRue');
+        $nouveauCP = $request->input('nouveauCP');
+        $nouvelleVille = $request->input('nouvelleVille');
+        $nouveauNom = $request->input('nouveauNom');
+        $nouveauPrenom = $request->input('nouveauPrenom');
 
-        if ($updated) {
-            // Mise à jour réussie
-            return response()->json(['success' => true]);
-        } else {
-            // Échec de la mise à jour
-            return response()->json(['success' => false, 'message' => 'Échec de la mise à jour']);
-        }
-    } catch (\Exception $e) {
-        // Capturer les éventuelles erreurs et les afficher pour le débogage
-        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        // Mettez en œuvre la logique de sauvegarde dans la base de données ici
+        // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
+
+        $compte = Auth::user()->compte;
+        $compte->email = $nouvelEmail;
+        $compte->adresseruecompte = $nouvelleRue;
+        $compte->adressecpcompte = $nouveauCP;
+        $ville->nomville = $nouvelleVille;
+        $particulier->nomparticulier = $nouveauNom;
+        $particuiler->prenomparticulier = $nouveauPrenom;
+        $compte->save();
+
+        // Ajoutez la logique pour mettre à jour d'autres informations, si nécessaire
+
+        // Redirigez ou renvoyez une réponse
+        return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     }
-}
+
     
 
 
