@@ -21,6 +21,9 @@ class LeBonCoinController extends Controller
     public function index() {
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
+    public function indexres() {
+      return view ("reservations-list", ['reservations'=>Reservation::all() ]);
+  }
     public function add() {
         return view("annonce-add");
     }

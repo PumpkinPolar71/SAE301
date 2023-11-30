@@ -58,7 +58,9 @@
                    
                     // Au chargement de la page, affiche le label et cache l'input
                     $('#email').hide();
-                    $('#adresse').hide();
+                    $('#adresserue').hide();
+                    $('#adressecp').hide();
+                    $('#adresseville').hide();
                     $('#nom').hide();
                     $('#prenom').hide();
                 
@@ -73,17 +75,17 @@
                     $('#modifieradresserue').on('click', function () {
                         // Cache le label et affiche l'input
                         $('.valeuradresserue').hide();
-                        $('#adresse').show().val($('.valeuradresserue').text()).focus();
+                        $('#adresserue').show().val($('.valeuradresserue').text()).focus();
                     });
                     $('#modifieradressecp').on('click', function () {
                         // Cache le label et affiche l'input
                         $('.valeuradressecp').hide();
-                        $('#adresse').show().val($('.valeuradressecp').text()).focus();
+                        $('#adressecp').show().val($('.valeuradressecp').text()).focus();
                     });
                     $('#modifieradresseville').on('click', function () {
                         // Cache le label et affiche l'input
                         $('.valeuradresseville').hide();
-                        $('#adresse').show().val($('.valeuradresseville').text()).focus();
+                        $('#adresseville').show().val($('.valeuradresseville').text()).focus();
                     });
                     //----------------------------------------------Nom
                     $('#modifiernom').on('click', function () {
