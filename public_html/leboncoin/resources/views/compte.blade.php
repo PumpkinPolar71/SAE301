@@ -12,44 +12,63 @@
                     <span class="valeuremail">{{ Auth::user()->compte ? Auth::user()->compte->email : 'Non défini' }}</span>
                     <input type="text" name="nouvelEmail" id="email" style="display: none;">
                     <button type="button" id="modifieremail">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
+            </form>
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf
                 <div id="container">
                     <h1></h1><br>
                     <label for="adresserue">Votre adresse rue : </label>
                     <span class="valeuradresserue">{{ Auth::user()->compte ? Auth::user()->compte->adresseruecompte : 'Non défini' }}</span>
                     <input type="text" id="adresserue" name="nouvelleRue" style="display: none;">
                     <button type="button" id="modifieradresserue">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
+            </form>
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf
                 <div id="container">
                     <h1></h1><br>
                     <label for="adressecp">Votre adresse code postal : </label>
                     <span class="valeuradressecp">{{ Auth::user()->compte ? Auth::user()->compte->adressecpcompte : 'Non défini' }}</span>
                     <input type="text" id="adressecp" name="nouveauCP" style="display: none;">
                     <button type="button" id="modifieradressecp">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
+            </form>
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf
                 <div id="container">
                     <h1></h1><br>
                     <label for="adresseville">Votre ville : </label>
                     <span class="valeuradresseville">{{ Auth::user()->ville ? Auth::user()->ville->nomville : 'Non défini' }}</span>
                     <input type="text" id="adresseville" name="nouvelleVille" style="display: none;">
                     <button type="button" id="modifieradresseville">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
+            </form> 
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf
                 <div id="container">
                     <h1></h1><br>
                     <label for="nom">Votre nom : </label>
                     <span class="valeurnom">{{ Auth::user()->particulier->nomparticulier ? Auth::user()->particulier->nomparticulier : 'Non défini'}}</span>
                     <input type="text" id="nom" name="nouveauNom" style="display: none;">
                     <button type="button" id="modifiernom">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
+            </form>
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf 
                 <div id="container">
                     <h1></h1><br>
                     <label for="prenom">Votre prénom : </label>
                     <span class="valeurprenom">{{ Auth::user()->particulier->prenomparticulier ? Auth::user()->particulier->prenomparticulier : 'Non défini'}}</span>
                     <input type="text" id="prenom" name="nouveauPrenom" style="display: none;">
                     <button type="button" id="modifierprenom">Modifier</button>
+                    <button type="submit">Envoyer</button>
                 </div>
-                <button type="submit">Envoyer</button>
-                
             </form>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
@@ -139,7 +158,7 @@
 
                     
             </script>
-            <button type="submit" id="saveChanges">Enregistrer les modifications</button>
+            <!-- <button type="submit" id="saveChanges">Enregistrer les modifications</button> -->
 
             
         </div>

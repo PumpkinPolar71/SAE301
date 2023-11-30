@@ -105,14 +105,33 @@ class LeBonCoinController extends Controller
         // Mettez en œuvre la logique de sauvegarde dans la base de données ici
         // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
 
+
         $compte = Auth::user()->compte;
-        $compte->email = $nouvelEmail;
-        $compte->adresseruecompte = $nouvelleRue;
-        $compte->adressecpcompte = $nouveauCP;
-        $ville->nomville = $nouvelleVille;
-        $particulier->nomparticulier = $nouveauNom;
-        $particuiler->prenomparticulier = $nouveauPrenom;
+        if($nouvelEmail != ""){
+          $compte->email = $nouvelEmail;
+        }
+        if($nouvelleRue != ""){
+          $compte->adresseruecompte = $nouvelleRue;
+        }
+        if($nouveauCP != ""){
+          $compte->adressecpcompte = $nouveauCP;
+        }
         $compte->save();
+
+        $ville = Auth::user()->ville;
+        if($nouvelleVille != ""){
+          $ville->nomville = $nouvelleVille;
+        }
+        $ville->save();
+
+        $particulier = Auth::user()->particulier; 
+        if($nouveauNom != ""){
+          $particulier->nomparticulier = $nouveauNom;
+        }
+        if($nouveauPrenom != ""){
+          $particulier->prenomparticulier = $nouveauPrenom; 
+        }
+        $particulier->save();
 
         // Ajoutez la logique pour mettre à jour d'autres informations, si nécessaire
 
