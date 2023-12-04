@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('title', 'LeBonCoin')
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @section('content')
-
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         @if ($photos->isNotEmpty())
@@ -26,16 +28,30 @@
         @endif
     </div>
 </div>
-<h1>{{ $annonce->titreannonce }}</h1>
-<p class="dateannonce">{{ $annonce->dateannonce }}</p>
-<h2>Description</h2>
-<p class="descr">{{ $annonce->description }}</p>
-<h2>Critère</h2>
-<ul>
-    @foreach($criteres as $critere)
-        <li id="crit">{{ $critere }}</li>
-    @endforeach
-</ul>
+<p class="">{{ $reservation->datedebut }} - {{ $reservation->datefin }}</p>
+<h1>{{$annonce->titreannonce}}</h1>
+<h1>Caractéristique</h1>
+<div>Nombre d'adulte : {{ $reservation->nbadulte }}</div>
+<div>Nombre d'enfant : {{ $reservation->nbenfant }}</div>
+<div>Nombre de bébé : {{ $reservation->nbbebe }}</div>
+<div>Nombre d'animaux : {{ $reservation->nbanimaux }}</div>
+<div>Nombre de nuit : {{ $reservation->nbnuitee }}</div>
+<h2>Commentaire</h2>
+<p class="descr">{{ $reservation->message }}</p>
+<h2>Signaler un problème</h2>
+
+    <form method="POST" action="{{ url('/incidentsave') }}">
+        @csrf
+
+
+
+        <div>
+            <label for="commentaire">Commentaire :</label><br>
+            <textarea name="commentaire" id="commentaire" rows="4" cols="50"></textarea>
+        </div>
+
+        <button type="submit">Envoyer</button>
+    </form>
 
 @endsection
 

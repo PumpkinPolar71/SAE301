@@ -3,9 +3,9 @@
 @section('title', 'LeBonCoin')
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section('content')
 
@@ -91,17 +91,6 @@ if($data){
     })
 </script>
 
-<!-- <h2>Critères</h2>
-<@if (!empty($criteresIds))
-    <ul>
-        <li>{{ criteres }}</li>
-        /* @foreach ($criteresIds as $critereId)
-            <li>{{ $criteresLabels[$critereId] ?? 'Libellé non défini' }}</li>
-        @endforeach */
-    </ul>
-@else 
-    <p>Aucun critère trouvé pour cette annonce.</p>
-@endif -->
 <h2>Avis sur cette annonce</h2>
 @if ($avis)
     <ul>

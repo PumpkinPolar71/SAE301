@@ -58,17 +58,7 @@
             });
         });
     </script>
-    <?php
-        // pg_connect("host=localhost dbname=s224 user=s224 password=1s9yiZ");
-        // pg_query("set names 'UTF8'");
-        // pg_query("SET search_path TO leboncoin");
-
-        // $img = $_POST['image-container'];
-
-        // $query = "INSERT INTO photo (photo) VALUES ('$img')";
-
-
-    ?>
+    
 </body>
 </html>
 
@@ -76,9 +66,6 @@
 
 
 
-
-
-</form>
 
 
 @endsection

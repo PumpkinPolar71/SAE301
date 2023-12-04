@@ -34,9 +34,29 @@ class LeBonCoinController extends Controller
         'critere1' => 'required|integer',
         'critere2' => 'required|integer',
     ]);
-
     // Traitez les données une fois qu'elles ont été validées avec succès
 }
+public function incidentsave(Request $request)
+    {
+        $validatedData = $request->validate([
+            'idannonce' => 'required|exists:le_bon_coin,id',
+            'remboursement' => 'nullable|boolean',
+            'commentaire' => 'nullable|string|max:255',
+            'procedurejuridique' => 'nullable|boolean',
+            'resolu' => 'nullable|boolean',
+        ]);
+
+        $incident = new Incident();
+        $incident->idannonce = $request->input('idannonce');
+        $incident->remboursement = $request->input('remboursement', false); // Par défaut, faux si non fourni
+        $incident->commentaire = $request->input('commentaire');
+        $incident->procedurejuridique = $request->input('procedurejuridique', false); // Par défaut, faux si non fourni
+        $incident->resolu = $request->input('resolu', false); // Par défaut, faux si non fourni
+        $incident->idparticulier = Auth::id();
+        $incident->save();
+
+        return redirect('compte')->with('success', 'Problème signalé avec succès.');
+    }
     public function connect() {
       return view("connect");
     }
@@ -66,12 +86,14 @@ class LeBonCoinController extends Controller
     return view("reservationlist", compact('id'));
 }
   public function reservation($id) {
-    $reservations = Reservation::where('idreservation', $id)->get();
-    $photos = Photo::join('photo', 'photo.idannonce', '=', 'annonce.idannonce')
-                    ->join('annonce', 'reservation.idreservation', '=', 'annonce.idreservation')
+    $reservation = Reservation::find($id);
+    $annonce = LeBonCoin::find($reservation->idannonce); // Récupérer l'annonce associée à la réservation
+
+    $photos = Photo::join('annonce', 'photo.idannonce', '=', 'annonce.idannonce')
+                    ->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
                     ->where('idreservation', $id)
                     ->get();
-    return view("reservation", compact('reservations','photos'));
+    return view("reservation", compact('reservation', 'annonce', 'photos'));
   }
     public function proprio($id) {
     $annonces = LeBonCoin::find($id);
@@ -107,6 +129,7 @@ class LeBonCoinController extends Controller
     }
     public function updateUserInfo(Request $request)
     {
+        $nouvellePdp = $request->input('nouvellePdp');
         $nouvelEmail = $request->input('nouvelEmail');
         $nouvelleRue = $request->input('nouvelleRue');
         $nouveauCP = $request->input('nouveauCP');
@@ -116,9 +139,13 @@ class LeBonCoinController extends Controller
 
         // Mettez en œuvre la logique de sauvegarde dans la base de données ici
         // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
-
+        
 
         $compte = Auth::user()->compte;
+        if($nouvellePdp != ""){
+          $compte->pdp = $nouvellePdp;
+
+        }
         if($nouvelEmail != ""){
           $compte->email = $nouvelEmail;
         }
@@ -209,6 +236,36 @@ class LeBonCoinController extends Controller
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
       } 
+      $annonce = new Annonce();
+      // Attribuez les valeurs des champs de l'annonce depuis le formulaire
+      $annonce = new LeBonCoin();
+      $annonce->titreannonce = $request->input("titreannonce");
+      $annonce->date_arrivee = $request->input("apagnyan1");
+      $annonce->date_depart = $request->input("apagnyan1");
+      $annonce->fumeur = $request->has("apagnyan") ? 1 : 0;
+      $annonce->animaux_acceptes = $request->has("apagnyan2") ? 1 : 0;
+      $annonce->ville = $request->input("ville");
+      $annonce->capacite = $request->input("critere2");
+      $annonce->nombre_chambres = $request->input("critere2");
+      $annonce->description = $request->input("description");
+      $annonce->date = $request->input("date");
+      $annonce->prix = $request->input("prix");
+      $annonce->lien_photo = $request->input("lien_photo");
+      $annonce->save();
+  
+      // Sauvegardez l'annonce dans la base de données
+      $annonce->save();
+  
+      // Récupérez le lien de la photo depuis le formulaire
+      $lienPhoto = $request->input('lien_photo');
+  
+      // Créez une nouvelle entrée dans la table Photo associée à l'annonce
+      $photo = new Photo();
+      $photo->lien_photo = $lienPhoto;
+      $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
+      $photo->save();
+  
+      return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
     }
 
     public function saveent(Request $request)

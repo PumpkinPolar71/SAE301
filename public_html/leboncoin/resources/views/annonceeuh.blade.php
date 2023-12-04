@@ -80,7 +80,7 @@
 @endif        
 <div>
     <label for="lien_photo">Lien de la photo :</label><br>
-    <input type="text" name="lien_photo" id="lien_photo">
+    <input type="text" name="lien_photo" id="idphoto">
 </div>
         <!-- Bouton pour soumettre le formulaire -->
         <button id="submitb" type="submit">Créer annonce</button>

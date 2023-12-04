@@ -47,7 +47,7 @@ Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createacc
 
 Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createaccountentreprise"]);
 
-
+Route::post('/incident/save', [LeBonCoinController::class, 'incidentsave']);
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);
 Route::post('/search', [SearchController::class, 'search'])->name('search');
