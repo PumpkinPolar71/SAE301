@@ -9,6 +9,7 @@ use App\Models\Ville;
 use App\Models\LeBonCoin;
 use App\Models\Photo;
 use App\Models\Reservation;
+use App\Models\Compte;
 use carbon\carbon;
 
 class CityController extends Controller
@@ -29,5 +30,4 @@ class CityController extends Controller
         return response($r, 200)
         ->header('Content-Type', 'application/json');
     }
-    
 }

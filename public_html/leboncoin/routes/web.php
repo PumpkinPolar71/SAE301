@@ -65,6 +65,6 @@ Route::post('/logout', function () {
 
 Route::post('/update-user-info', [LeBonCoinController::class, 'updateUserInfo'])->name('updateUserInfo');
 
-Route::get("/reservations",[LeBonCoinController::class, "indexres" ]);
+Route::get("/reservationlist/{id}",[LeBonCoinController::class, "oneres" ]);
 
 Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);

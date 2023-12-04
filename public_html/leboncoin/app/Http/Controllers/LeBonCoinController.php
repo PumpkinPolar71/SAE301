@@ -21,9 +21,6 @@ class LeBonCoinController extends Controller
     public function index() {
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
-    public function indexres() {
-      return view ("reservations-list", ['reservations'=>Reservation::all() ]);
-  }
     public function add() {
         return view("annonce-add");
     }
@@ -41,22 +38,20 @@ class LeBonCoinController extends Controller
       $annonce = LeBonCoin::find($id);
       $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
       $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
-      /*$avis = $annonce->avis->pluck('commentaire')->toArray();*/
-      /*$equipement = $annonce->equipement->pluck('nomequipement')->toArray();*/
-      // Récupérer le premier mot du titre de l'annonce principale
       $words = explode(' ', $annonce->titreannonce);
       $firstWord = strtolower($words[0]);
       $avis = $annonce->avis->pluck('commentaire')->toArray();
-
-    // Récupérer les équipements liés à cette annonce
-      //$equipement = $annonce->equipement()->pluck('nomequipement')->toArray();
-      // Récupérer les annonces ayant le même premier mot dans le titre
       $similarFirstWordAds = LeBonCoin::whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
                                       ->where('idannonce', '<>', $id) // Exclure l'annonce principale
                                       ->get();
-  
       return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
   }
+  public function oneres($id) {
+    $reservations = Reservation::all();//find($id)
+    // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
+    // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
+    return view("reservationlist", compact('reservations',));
+}
   public function reservation($id) {
     $reservations = Reservation::where('idreservation', $id)->get();
     return view("reservation", compact('reservations'));
@@ -116,12 +111,18 @@ class LeBonCoinController extends Controller
         if($nouveauCP != ""){
           $compte->adressecpcompte = $nouveauCP;
         }
-        $compte->save();
+        
 
-        $ville = Auth::user()->ville;
+        $ville = Auth::user()->compte;
         if($nouvelleVille != ""){
-          $ville->nomville = $nouvelleVille;
+           $villeAll = Ville::all();
+           foreach ($villeAll as $vile) { 
+             if ( $nouvelleVille == $vile->nomville) {
+                 $ville->idville = $vile->idville;
+             } //A REFAIRE
+             else {/*ca plante*/}
         }
+        $compte->save();
         $ville->save();
 
         $particulier = Auth::user()->particulier; 
@@ -138,7 +139,7 @@ class LeBonCoinController extends Controller
         // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     }
-
+  }
     
 
 

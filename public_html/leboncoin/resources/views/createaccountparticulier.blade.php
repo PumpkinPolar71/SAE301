@@ -25,7 +25,7 @@
     <div>date naissance (JJ-MM-AAAA) *</div>
     <input id="date" name="date" type="">
     <div style="color:red;" id="messageErreurDate"></div>
-    <div>Addresse *</div>
+    <div>Adresse *</div>
     <input name="adresse" type="" id="adresse">
     <div style="" id="listA">
     </div>
@@ -86,7 +86,7 @@
             const email = document.getElementById("email").value;
             const messageErreur = document.getElementById("messageErreurEmail");
             if (!Reg.test(email))   {
-                messageErreur.textContent = "L'adresse email n'est pas valide'.";
+                messageErreur.textContent = "L'adresse email n'est pas valide.";
                 btenvoi.hide()
             } else {
                 messageErreur.textContent = "";

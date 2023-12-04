@@ -11,8 +11,9 @@
                     <label for="email">Votre email : </label>
                     <span class="valeuremail">{{ Auth::user()->compte ? Auth::user()->compte->email : 'Non défini' }}</span>
                     <input type="text" name="nouvelEmail" id="email" style="display: none;">
+                    <div style="color:red;" id="messageErreurEmail"></div>
                     <button type="button" id="modifieremail">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
@@ -23,7 +24,7 @@
                     <span class="valeuradresserue">{{ Auth::user()->compte ? Auth::user()->compte->adresseruecompte : 'Non défini' }}</span>
                     <input type="text" id="adresserue" name="nouvelleRue" style="display: none;">
                     <button type="button" id="modifieradresserue">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
@@ -34,7 +35,7 @@
                     <span class="valeuradressecp">{{ Auth::user()->compte ? Auth::user()->compte->adressecpcompte : 'Non défini' }}</span>
                     <input type="text" id="adressecp" name="nouveauCP" style="display: none;">
                     <button type="button" id="modifieradressecp">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
@@ -45,7 +46,7 @@
                     <span class="valeuradresseville">{{ Auth::user()->ville ? Auth::user()->ville->nomville : 'Non défini' }}</span>
                     <input type="text" id="adresseville" name="nouvelleVille" style="display: none;">
                     <button type="button" id="modifieradresseville">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form> 
             <form method="POST" action="{{ route('updateUserInfo') }}">
@@ -56,7 +57,7 @@
                     <span class="valeurnom">{{ Auth::user()->particulier->nomparticulier ? Auth::user()->particulier->nomparticulier : 'Non défini'}}</span>
                     <input type="text" id="nom" name="nouveauNom" style="display: none;">
                     <button type="button" id="modifiernom">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
@@ -67,14 +68,14 @@
                     <span class="valeurprenom">{{ Auth::user()->particulier->prenomparticulier ? Auth::user()->particulier->prenomparticulier : 'Non défini'}}</span>
                     <input type="text" id="prenom" name="nouveauPrenom" style="display: none;">
                     <button type="button" id="modifierprenom">Modifier</button>
-                    <button type="submit">Envoyer</button>
+                    <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
                 
                 $(document).ready(function () {
-                   
+                    let btenvoi = $("#submit")
                     // Au chargement de la page, affiche le label et cache l'input
                     $('#email').hide();
                     $('#adresserue').hide();
@@ -125,6 +126,18 @@
                         // Cache l'input et affiche le label
                         $('.valeuremail').show().text($(this).val());
                         $(this).hide();
+                        //code erreur quand non-respect des champs
+                        console.log("test blur")
+                        var Reg = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);        
+                        const email = document.getElementById("email").value;
+                        const messageErreur = document.getElementById("messageErreurEmail");
+                        if (!Reg.test(email))   {
+                            messageErreur.textContent = "L'adresse email n'est pas valide.";
+                            btenvoi.hide()
+                        } else {
+                            messageErreur.textContent = "";
+                            btenvoi.show()
+                        }
                     });
                     //----------------------------------------------Adresse
                     $('#adresserue').on('blur', function () {
@@ -154,18 +167,19 @@
                         $('.valeurprenom').show().text($(this).val());
                         $(this).hide();
                     });
+                    
                 });
-
+                    
                     
             </script>
-            <!-- <button type="submit" id="saveChanges">Enregistrer les modifications</button> -->
+            <!-- <button type="submit" id="saveChanges">Enregistrer les modifications</button> <a href="/reservation/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Réservation</b>-->
 
             
         </div>
         <a href="/annonce/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Annonce</b>
                 <p>Gérer mes annonces déposées</p>
         </div></a>
-        <a href="/reservation/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Réservation</b>
+        <a href="/reservationlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Réservation</b>
                 <p>Retrouver vos réservations</p>
         </div></a>
         <form action="{{ route('logout') }}" method="post">

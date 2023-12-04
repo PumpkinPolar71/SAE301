@@ -4,15 +4,16 @@
 
 @section('content')
 
-{{ session()->get("compte") }}
+<h1>{{ $reservations->idreservation }}</h1>
 <?php
-$reservations = $reservations->get();
+//$reservations = $reservations->get();
 
 if ($reservations->isEmpty()) {
     echo "<p>Vous n'avez aucune réservation</p>";
 } else {
     echo "<table>";
     foreach ($reservations as $reservation) {
+        if ($reservation->idparticulier == Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini') {
         echo "<tr>";
         echo "<td>";
         echo "<a href='/reservation/{$reservation->idreservation}'>";
@@ -24,10 +25,11 @@ if ($reservations->isEmpty()) {
         //     }
         // }
         
-        echo "<div class='titre'>{$reservations->idreservation}</div>";
+        echo "<div class='titre'>{$reservation->message}</div>";
         echo "</a>";
         echo "</td>";
         echo "</tr>";
+        } else {echo "<p>Vous n'avez aucune réservation</p>";}
     }
     echo "</table>";
 }
