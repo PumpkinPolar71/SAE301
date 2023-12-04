@@ -97,7 +97,8 @@
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
                 $(document).ready(function () {
-                    var popupop = $(".popupop")
+                    //var popupop = $(".popupop")
+                    var i=0;
                     let btenvoi = $("#submit")
                     // Au chargement de la page, affiche le label et cache l'input
                     $('#pdp').hide();
@@ -107,7 +108,16 @@
                     $('#adresseville').hide();
                     $('#nom').hide();
                     $('#prenom').hide();
-                
+
+                    $('.popupop').hide();
+                    $('#modifierpdp').on('click', function () {
+                        i++
+                        if (i%2 == 0) {
+                            $('.popupop').css("display" , "none");
+                        } else {
+                            $('.popupop').css("display" , "block");
+                        }
+                    })
                     // Gestion du clic sur le bouton "Modifier"
                     //----------------------------------------------Pdp
                     $('#modifierpdp').on('click', function () {

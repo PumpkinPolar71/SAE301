@@ -166,6 +166,7 @@ td {
     text-align: center;
     font-size: xx-large;
     z-index: 1;
+    background-color: magenta;
     position: relative;
 }
 /*------------compte-------------*/

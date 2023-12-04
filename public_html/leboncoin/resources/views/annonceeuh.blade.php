@@ -78,7 +78,10 @@
 @if ($errors->has('critere2'))
     <span class="error">{{ $errors->first('critere2') }}</span>
 @endif        
-
+<div>
+    <label for="lien_photo">Lien de la photo :</label><br>
+    <input type="text" name="lien_photo" id="lien_photo">
+</div>
         <!-- Bouton pour soumettre le formulaire -->
         <button id="submitb" type="submit">Créer annonce</button>
     </form>
