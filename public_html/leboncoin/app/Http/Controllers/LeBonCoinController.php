@@ -22,7 +22,8 @@ class LeBonCoinController extends Controller
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
     public function add() {
-        return view("annonceuh-add");
+      $villes = Ville::all();
+        return view("annonceeuh",compact('villes'));
     }
     public function connect() {
       return view("connect");
