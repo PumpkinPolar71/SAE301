@@ -9,17 +9,23 @@
 @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
     <form method="post" action="{{ url("/annonce/save") }}">
         @csrf <!-- Ajoute un token CSRF pour la sécurité -->
-
+        <!-- Titre de l'annonce -->
+        <div>
+            <label for="titreannonce">Titre de l'annonce :</label><br>
+            <input type="text" name="titreannonce" id="titreannonce">
+        </div>
         <!-- Champs pour le formulaire de création d'annonce -->
         <div>
         <label>Condition hébergement</label><br>
-            <input type="DatePicker" name="apagnyan1" id="idconditionh">
-            <label for="apagnyan1">Date arrivé</label><br>
-            <input type="DatePicker" name="apagnyan1" id="idconditionh">
-            <label for="apagnyan1">Date départ</label><br>
-            <input type="checkbox" name="apagnyan" id="idconditionh">
+            <label for="apagnyan1">Date arrivé :</label><br>
+            <input type="time" name="apagnyan1" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+            <label for="apagnyan1">Date départ :</label><br>
+            <input type="time" name="apagnyan1" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
             <label for="apagnyan">fumeur</label><br>
-            <label for="apagnyan">animaux accéptés ?</label><br>
+            <input type="checkbox" name="apagnyan" id="idconditionh"><br>
+            <label for="apagnyan2">animaux accéptés ?</label><br>
+            <input type="checkbox" name="apagnyan2" id="idconditionh"><br>
+            
             </select>
         </div>
 
@@ -37,9 +43,11 @@
 
         <!-- Cases à cocher pour les critères -->
         <div>
-            <label>Critères :</label><br>
-            <input type="checkbox" name="critere_1" id="critere_1">
-            <label for="critere_1">Critère 1</label><br>
+            <label>Capacité(nombres de personnes pouvant etre accueillies) :</label><br>
+            <input type="textbox" name="critere2" id="idcritere"><br>
+            <label>Nombres de chambres :</label><br>
+            <input type="textbox" name="critere2" id="idcritere"><br>
+            
             <!-- Ajoute les autres cases à cocher pour les critères -->
         </div>
 
@@ -54,12 +62,22 @@
             <label for="date">Date :</label><br>
             <input type="date" name="date" id="date" value="{{ date('Y-m-d') }}">
         </div>
+        <form method="POST" action="{{ route('process-form') }}">
+    @csrf
+    <label for="prix">Prix :</label>
+    <input type="number" step="10" name="prix" id="prix" required>
+    <button type="submit">Soumettre</button>
+</form><br>
+@if ($errors->has('prix'))
+    <span class="error">{{ $errors->first('prix') }}</span>
+@endif
+@if ($errors->has('critere1'))
+    <span class="error">{{ $errors->first('critere1') }}</span>
+@endif
 
-        <!-- Titre de l'annonce -->
-        <div>
-            <label for="titreannonce">Titre de l'annonce :</label><br>
-            <input type="text" name="titreannonce" id="titreannonce">
-        </div>
+@if ($errors->has('critere2'))
+    <span class="error">{{ $errors->first('critere2') }}</span>
+@endif        
 
         <!-- Bouton pour soumettre le formulaire -->
         <button id="submitb" type="submit">Créer annonce</button>

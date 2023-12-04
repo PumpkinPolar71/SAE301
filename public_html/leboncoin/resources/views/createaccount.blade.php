@@ -5,8 +5,3 @@
     <form id="formaccount" action="{{ url('/createaccountparticulier') }}" method="get"><div><input id="inputaccount" type="submit" value="" > Pour vous</div></form>
     <form id="formaccount" action="{{ url('/createaccountentreprise') }}" method="get"><div><input id="inputaccount" type="submit" value="" > Pour votre entreprise</div></form>
 </section>
-<script>
-                    //$(document).ready(function() {
-                        alert("Attention: Entreprise ne marche plus");
-                    //})
-        </script>

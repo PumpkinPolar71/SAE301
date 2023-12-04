@@ -20,7 +20,7 @@
         $premiereLettreNom = substr($nom, 0, 1);
         $premiereLettrePrenom = substr($prenom, 0, 1);
 
-        echo "<div class='pdp'><p class='pDeMrd'>$premiereLettrePrenom</p></div><br>";
+        echo "<div class='pdp'><p class='pPseudo'>$premiereLettrePrenom</p></div><br>";
         
         //---------------------------------------------------------Pseudo
         // Afficher les premières lettres

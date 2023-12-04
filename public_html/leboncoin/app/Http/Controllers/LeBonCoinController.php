@@ -18,13 +18,25 @@ use Illuminate\Support\Facades\Auth;
 
 class LeBonCoinController extends Controller
 {
+
     public function index() {
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
     public function add() {
       $villes = Ville::all();
+      
         return view("annonceeuh",compact('villes'));
     }
+    public function processForm(Request $request)
+{
+    $validatedData = $request->validate([
+        'prix' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+        'critere1' => 'required|integer',
+        'critere2' => 'required|integer',
+    ]);
+
+    // Traitez les données une fois qu'elles ont été validées avec succès
+}
     public function connect() {
       return view("connect");
     }
@@ -55,7 +67,11 @@ class LeBonCoinController extends Controller
 }
   public function reservation($id) {
     $reservations = Reservation::where('idreservation', $id)->get();
-    return view("reservation", compact('reservations'));
+    $photos = Photo::join('photo', 'photo.idannonce', '=', 'annonce.idannonce')
+                    ->join('annonce', 'reservation.idreservation', '=', 'annonce.idreservation')
+                    ->where('idreservation', $id)
+                    ->get();
+    return view("reservation", compact('reservations','photos'));
   }
     public function proprio($id) {
     $annonces = LeBonCoin::find($id);
@@ -218,6 +234,7 @@ class LeBonCoinController extends Controller
         $a->motdepasse =  password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
+        $a->siret = $request->input("siret");
         $a->codeetatcompte = 1;
         $a->save();
      
@@ -225,7 +242,6 @@ class LeBonCoinController extends Controller
         $b->idcompte = $a->idcompte;
         $b->secteuractivite = $request->input("secteur");
         $b->societe = $request->input("nom");
-        $b->siret = $request->input("siret");
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte professionnel créé');
       } 

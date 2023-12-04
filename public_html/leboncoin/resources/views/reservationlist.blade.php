@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+
 <?php
 $reservations = DB::table('reservation');
 
@@ -16,6 +18,7 @@ $reservations = $reservations->get();
 if ($reservations->isEmpty()) {
     echo "<p>Vous n'avez aucune réservation</p>";
 } else {
+    echo "<h1>Vos réservations</h1>";
     //echo $reservations;
     echo "<table>";
     foreach ($reservations as $reservation) {

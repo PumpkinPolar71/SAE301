@@ -3,7 +3,19 @@
 @section('content')
     @auth
         <div class="bandeau">
-            <div class="pdp"><p class="pDeMrd"></p></div><br>
+            <div class="popupop"></div>
+            <div class="pdp"><p class="pPseudo"></p></div><br>
+            <form method="POST" action="{{ route('updateUserInfo') }}">
+                @csrf
+                <div id="container">
+                    <h1></h1><br>
+                    <label for="pdp">Votre photo de profil : </label>
+                    <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
+                    <button type="button" id="modifierpdp">Modifier</button>
+                    
+                    <button type="submit" id="submit">Envoyer</button>
+                </div>
+            </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
                 <div id="container">
@@ -71,12 +83,24 @@
                     <button type="submit" id="submit">Envoyer</button>
                 </div>
             </form>
+            
+
+            <div id="modal">
+            	<div class="mask">jhjghjhk</div>
+            	<div class="container auto">ghb;,ng;
+            		<div class="message">ygjghdgkjhjdg</div>
+            		<a href="#" class="close">&times;</a>
+            	</div>
+            </div>
+
+
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
-                
                 $(document).ready(function () {
+                    var popupop = $(".popupop")
                     let btenvoi = $("#submit")
                     // Au chargement de la page, affiche le label et cache l'input
+                    $('#pdp').hide();
                     $('#email').hide();
                     $('#adresserue').hide();
                     $('#adressecp').hide();
@@ -85,6 +109,12 @@
                     $('#prenom').hide();
                 
                     // Gestion du clic sur le bouton "Modifier"
+                    //----------------------------------------------Pdp
+                    $('#modifierpdp').on('click', function () {
+                        // Cache le label et affiche l'input
+                        $('.valeurpdp').hide();
+                        $('#pdp').show().val($('.valeurpdp').text()).focus();
+                    });
                     //----------------------------------------------Email
                     $('#modifieremail').on('click', function () {
                         // Cache le label et affiche l'input
@@ -121,6 +151,12 @@
                     });
                 
                     // Gestion du changement de focus sur l'input
+                    //----------------------------------------------Pdp
+                    $('#adresserue').on('blur', function () {
+                        // Cache l'input et affiche le label
+                        $('.valeuradresserue').show().text($(this).val());
+                        $(this).hide();
+                    });
                     //----------------------------------------------Email
                     $('#email').on('blur', function () {
                         // Cache l'input et affiche le label
@@ -176,12 +212,16 @@
 
             
         </div>
-        <a href="/annonce/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Annonce</b>
+        <a href="/annonce/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+            <div class="compte-block"><b>Annonce</b>
                 <p>Gérer mes annonces déposées</p>
-        </div></a>
-        <a href="/reservationlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Réservation</b>
+            </div>
+        </a>
+        <a href="/reservationlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+            <div class="compte-block"><b>Réservation</b>
                 <p>Retrouver vos réservations</p>
-        </div></a>
+            </div>
+        </a>
         <form action="{{ route('logout') }}" method="post">
         @csrf
         <button type="submit">Déconnexion</button>
