@@ -22,7 +22,7 @@ class LeBonCoinController extends Controller
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
     public function add() {
-        return view("annonce-add");
+        return view("annonceuh-add");
     }
     public function connect() {
       return view("connect");
@@ -47,10 +47,10 @@ class LeBonCoinController extends Controller
       return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
   }
   public function oneres($id) {
-    $reservations = Reservation::all();//find($id)
+    $id = $id;//find($id)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
     // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
-    return view("reservationlist", compact('reservations',));
+    return view("reservationlist", compact('id'));
 }
   public function reservation($id) {
     $reservations = Reservation::where('idreservation', $id)->get();

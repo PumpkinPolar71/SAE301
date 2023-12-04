@@ -10,7 +10,7 @@ html {
     width: 100%;
     height: 100%;
     position: fixed;
-    background-image: url("Captur.PNG");
+    background-image: url("captu2.png");
     background-size: cover;
     z-index: -1;
 }
@@ -56,11 +56,11 @@ body {
 .logo {
     font-family: cursive;
     font-size: 188%;
-    color: orange;
+    color: #EC5A13;
 }
 .depo {
     color: aliceblue;
-    background-color: orange;
+    background-color:#EC5A13;
     border-radius: 5px;
     padding: 3%;
 }
@@ -78,7 +78,8 @@ title {
 }
 .bottom {
     width: 100%;
-    height: 20%;
+    height: 30vh;
+    margin-bottom: 3.5vh;
     background-color: #858585;
 }
 /*----------------annonce------------------*/
@@ -154,7 +155,7 @@ td {
     border-radius: 20px;
 }
 .pdp {
-    background-color: orange;
+    background-color:#EC5A13;
     border-radius: 100%;
     height: 55px;
     width: 55px;

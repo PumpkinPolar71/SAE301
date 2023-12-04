@@ -15,16 +15,13 @@
 
     <body>
         <script src="/search.js" defer></script>
-        <div class="encart-publicitaire"></div> 
+        <a href="http://licorn--projekt.000webhostapp.com/"><div class="encart-publicitaire"></div></a>
         <div class="allflex">
-        <div class="all">
-
-    	<header>
-    		<!-- <h1>@yield('title')</h1> -->
-    	</header>
-
-        @section('nav')
-        <div class=""></div>
+            <div class="all">
+    	    <header>
+    		    <!-- <h1>@yield('title')</h1> -->
+    	    </header>
+            @section('nav')
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}">LeBonCoin</a></li>
                 <li><a class="depo" href="{{ url("/annonce/add") }}">Déposer une annonce</a></li>
@@ -45,21 +42,17 @@
                 <li><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
                 @endauth
             </ul><br>
-        @show
-
-        @section('nav2')
-            
-        @show
+            @show
+            @section('nav2')
         
-        <div class="container">
+            @show
+             
+            <div class="container">
             @yield('content')
-        </div>
-
-        <div class="bottom-text">Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans nos catégories immobilier, etc… Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
-        <div class="bottom">
-
-        </div>
-        </div>
+            </div>
+            <div class="bottom-text">Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans nos catégories immobilier, etc… Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
+            <div class="bottom"></div>
+            </div>
         </div>
     </body>
     <script>
