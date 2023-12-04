@@ -166,7 +166,6 @@ td {
     text-align: center;
     font-size: xx-large;
     z-index: 1;
-    background-color: magenta;
     position: relative;
 }
 /*------------compte-------------*/
@@ -185,10 +184,11 @@ p {
     font-size: medium;
 }
 .popupop {
-    width: 80%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     position: absolute;
     z-index: 1;
+    background-color: magenta;
     display: none;
 }
 /*---fenetre-popup---*/

@@ -3,7 +3,14 @@
 @section('content')
     @auth
         <div class="bandeau">
-            <div class="popupop"></div>
+            <div class="popupop">
+                
+
+
+
+
+
+            </div>
             <div class="pdp"><p class="pPseudo"></p></div><br>
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
@@ -110,6 +117,14 @@
                     $('#prenom').hide();
 
                     $('.popupop').hide();
+                    $('.popupop').on('click', function () {
+                        i++
+                        if (i%2 != 0) {
+                            $('.popupop').css("display" , "none");
+                        } else {
+                            $('.popupop').css("display" , "block");
+                        }
+                    })
                     $('#modifierpdp').on('click', function () {
                         i++
                         if (i%2 == 0) {
