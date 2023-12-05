@@ -29,43 +29,46 @@ class LeBonCoinController extends Controller
         return view("annonceeuh",compact('villes'));
     }
     public function processForm(Request $request)
-{
+    {
     $validatedData = $request->validate([
         'prix' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
         'critere1' => 'required|integer',
         'critere2' => 'required|integer',
     ]);
     // Traitez les données une fois qu'elles ont été validées avec succès
-}
-public function incidentsave(Request $request,  $id)
-{
-  $validatedData = $request->validate([
-      'commentaire' => 'nullable|string|max:255',
-  ]);
-
+    }
+    public function incidentsave(Request $request)
+    {
+  // $validatedData = $request->validate([
+  //     'commentaire' => 'nullable|string|max:255',
+  // ]);
   // Récupérer les données nécessaires à partir de la réservation
-  $incidentData = Reservation::join('annonces', 'reservations.idannonce', '=', 'annonces.id')
-      ->join('incidents', 'annonces.id', '=', 'incidents.id_annonce')
-      ->where('reservations.id', $id)
-      ->select('incidents.*')
-      ->first(); // Vous pouvez choisir les colonnes nécessaires ici
+  // $incidentData = Reservation::join('annonces', 'reservations.idannonce', '=', 'annonces.id')
+  //     ->join('incidents', 'annonces.id', '=', 'incidents.id_annonce')
+  //     ->where('reservations.id', $id)
+  //     ->select('incidents.*')
+  //     ->first(); // Vous pouvez choisir les colonnes nécessaires ici
+  // if (!$incidentData) {
+  //     // Gérer la situation où les données de l'incident ne sont pas trouvées
+  // }
+  // // Créer une nouvelle instance d'incident
+  // $incident = new Incident();
+  // $incident->fill($incidentData->toArray()); // Remplir les données de l'incident à partir de la réservation
+  // // Remplacer le commentaire si une valeur est fournie dans le formulaire
+  // $incident->commentaire = $validatedData['commentaire'] ?? $incident->commentaire;
+  // // Sauvegarder les modifications ou la nouvelle entrée d'incident
+  // $incident->save();
 
-  if (!$incidentData) {
-      // Gérer la situation où les données de l'incident ne sont pas trouvées
-  }
-
-  // Créer une nouvelle instance d'incident
-  $incident = new Incident();
-  $incident->fill($incidentData->toArray()); // Remplir les données de l'incident à partir de la réservation
-
-  // Remplacer le commentaire si une valeur est fournie dans le formulaire
-  $incident->commentaire = $validatedData['commentaire'] ?? $incident->commentaire;
-
-  // Sauvegarder les modifications ou la nouvelle entrée d'incident
-  $incident->save();
-
-  return redirect()->back()->with('success', 'Problème signalé avec succès.');
-}
+      $incident = new Incident();
+      $incident->idannonce = $request->input("ids");
+      $incident->remboursement = FALSE;
+      $incident->procedurejuridique = FALSE;
+      $incident->resolu = FALSE;
+      $incident->commentaire = $request->input("commentaire");
+      $incident->save();
+      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
+      //return redirect()->back()->with('success', 'Problème signalé avec succès.');
+    }
     public function connect() {
       return view("connect");
     }
@@ -94,13 +97,13 @@ public function incidentsave(Request $request,  $id)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
     // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
     return view("reservationlist", compact('id'));
-}
-public function oneann($id) {
-  $id = $id;//find($id)
+  }
+  public function oneann($id) {
+    $id = $id;//find($id)
   // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
   // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
   return view("annoncelist", compact('id'));
-}
+  }
   public function reservation($id) {
     $reservation = Reservation::find($id);
     $annonce = LeBonCoin::find($reservation->idannonce); // Récupérer l'annonce associée à la réservation
@@ -145,7 +148,7 @@ public function oneann($id) {
     }
     public function updateUserInfo(Request $request)
     {
-        // $nouvellePdp = $request->input('nouvellePdp');
+        $nouvellePdp = $request->input('nouvellePdp');
         $nouvelEmail = $request->input('nouvelEmail');
         $nouvelleRue = $request->input('nouvelleRue');
         $nouveauCP = $request->input('nouveauCP');
@@ -157,9 +160,9 @@ public function oneann($id) {
         // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
         
         $compte = Auth::user()->compte;
-        // if($nouvellePdp != ""){
-        //   $compte->pdp = $nouvellePdp;
-        // }
+        if($nouvellePdp != ""){
+          $compte->pdp = $nouvellePdp;
+        }
         if($nouvelEmail != ""){
           $compte->email = $nouvelEmail;
         }
@@ -179,6 +182,7 @@ public function oneann($id) {
                  $ville->idville = $vile->idville;
              } //A REFAIRE
              else {/*ca plante*/}
+            }
         }
         $compte->save();
         $ville->save();
@@ -192,11 +196,10 @@ public function oneann($id) {
         }
         $particulier->save();
 
-        // Ajoutez la logique pour mettre à jour d'autres informations, si nécessaire
 
         // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
-    }
+    
   }
     
 

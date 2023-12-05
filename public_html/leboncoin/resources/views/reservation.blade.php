@@ -40,14 +40,12 @@
 <p class="descr">{{ $reservation->message }}</p>
 <h2>Signaler un problème</h2>
 
-    <form method="POST" action="{{ route('incidentsave') }}">
+    <form method="get" action="{{ url("/annonce/incidentsave") }}">
         @csrf
-
-
-
         <div>
             <label for="commentaire">Commentaire :</label><br>
             <textarea name="commentaire" id="commentaire" rows="4" cols="50"></textarea>
+            <textarea style="position:hidden;" name="idi" id="idi" value="{{ $annonce->idannonce }}"></textarea>
         </div>
 
         <button type="submit">Envoyer</button>

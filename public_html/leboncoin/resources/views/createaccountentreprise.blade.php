@@ -9,7 +9,7 @@
 <form method="post" action="{{ url("/annonce/saveent") }}">
 @csrf
   {{ session()->get("error") }}
-
+    <div>Les champs avec un * sont obligatoires</div>
     <div>SIRET *</div>
     <input id="siret" name="siret" type="">
     <div style="color:red;" id="messageErreurSir"></div>
@@ -28,7 +28,7 @@
     <input id="ville" name="ville" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
-    <div style="color:red;" id="messageErreur"></div>
+    <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
     <button id="submitbent" type="submit">Créer mon compte</button>
 
     <script>
@@ -42,9 +42,9 @@
                 document.getElementById("cp").value = all[2]
             }
         $(document).ready(function() {
-        let btenvoi = $("#submitb")
+        let btenvoi = $("#submitbent")
 
-        $('#siret').on("blur", function() {
+        $('#siret').on("keyup", function() {
             var Reg = new RegExp(/^\d{14}$/);
             const siret = document.getElementById("siret").value;
             const messageErreurSir = document.getElementById("messageErreurSir");
@@ -58,16 +58,16 @@
         console.log(siret)
         })
 
-        $("#mdp").on("blur", function() {
+        $("#mdp").on("keyup", function() {
             console.log("test blur")
             var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
             const motDePasse = document.getElementById("mdp").value;
-            const messageErreur = document.getElementById("messageErreur");
+            console.log(motDePasse,!Reg.test(motDePasse))
             if (!Reg.test(motDePasse)) {
-            messageErreur.textContent = "Le mot de passe doit comporter au moins 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux.";
+            $("#messageErreur").css("color","red")
             btenvoi.hide()
         } else {
-            messageErreur.textContent = "";
+            $("#messageErreur").css("color","black")
             btenvoi.show()
         }
         })

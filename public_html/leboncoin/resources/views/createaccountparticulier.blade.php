@@ -9,7 +9,7 @@
 <form method="post" action="{{ url("/annonce/save") }}">
 @csrf
   {{ session()->get("error") }}
-
+    <div>Les champs avec un * sont obligatoires</div>
     <div>Nom *</div>
     <input name="nom" type="">
     <div>Prenom *</div>
@@ -36,7 +36,7 @@
     <input id="ville" name="ville" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
-    <div style="color:red;" id="messageErreur"></div>
+    <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
     <input name="mail" type="checkbox"><div id="mail" >Recevoir des mails commerciaux </div>
     <button id="submitb" type="submit">Créer mon compte</button>
 
@@ -53,7 +53,7 @@
         $(document).ready(function() {
         let btenvoi = $("#submitb")
 
-        $("#date").on("blur", function() {
+        $("#date").on("keyup", function() {
             const messageErreurDate = document.getElementById("messageErreurDate");
             alldate = document.getElementById("date").value.split("-")
             //console.log(alldate, "all")
@@ -67,16 +67,16 @@
 
         })
 
-        $("#mdp").on("blur", function() {
+        $("#mdp").on("keyup", function() {
             console.log("test blur")
             var Reg = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/);
             const motDePasse = document.getElementById("mdp").value;
-            const messageErreur = document.getElementById("messageErreur");
+            console.log(motDePasse,!Reg.test(motDePasse))
             if (!Reg.test(motDePasse)) {
-            messageErreur.textContent = "Le mot de passe doit comporter au moins 12 caractères comprenant des majuscules, des minuscules, des chiffres et des caractères spéciaux.";
+            $("#messageErreur").css("color","red")
             btenvoi.hide()
         } else {
-            messageErreur.textContent = "";
+            $("#messageErreur").css("color","black")
             btenvoi.show()
         }
         })
