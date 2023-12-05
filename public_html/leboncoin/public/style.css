@@ -188,55 +188,13 @@ p {
     height: 50%;
     position: absolute;
     z-index: 1;
-    background-color: magenta;
+    border: #EC5A13 solid 6px;
+    background-color: white;
     display: none;
 }
-/*---fenetre-popup---*/
-#modal{
-	position: fixed;
-	z-index: 99999;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	display: none;
+.bandeau {
+    border-radius: 10px;
+    box-shadow: 0px 3px 7px rgb(95, 95, 95);
+    padding: 4% 2% 4% 2%;
+    border: none;
 }
-#modal.open{
-	display: block;
-}
-#modal .mask{
-	background: black;
-	opacity: 0.8;
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-#modal .container{
-	position: relative;
-	background: white;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	width: 300px;
-	height: auto;
-	min-height: 50px;
-}
-#modal .container .message{
-	padding: 5% 15% 5% 5%;
-}
-#modal .container a.close{
-	position: absolute;
-	right: 5%;
-	top:5%;
-	color: #444;
-	font-size: 30px;
-}
-#modal .container a.close:hover{		
-	color: black;
-}
-
-
-
-

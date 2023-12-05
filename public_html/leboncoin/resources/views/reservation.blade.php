@@ -40,7 +40,7 @@
 <p class="descr">{{ $reservation->message }}</p>
 <h2>Signaler un problème</h2>
 
-    <form method="POST" action="{{ url('/incidentsave') }}">
+    <form method="POST" action="{{ route('incidentsave') }}">
         @csrf
 
 

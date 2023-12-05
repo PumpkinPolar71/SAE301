@@ -15,9 +15,18 @@ class Incident extends Model
         'remboursement',
         'commentaire',
         'procedurejuridique',
-        'resolu',
+        'resolu'];
         // ... autres champs
-    ];
+        public function annonces()
+    {
+        return $this->belongsTo(Annonce::class, 'idannonce');
+    }
+
+    public function incidents()
+    {
+        return $this->hasMany(Incident::class, 'idreservation');
+    }
+    
 
     // Si tu veux définir les relations avec d'autres modèles, tu peux le faire ici
     // Par exemple :

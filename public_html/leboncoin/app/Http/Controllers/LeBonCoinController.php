@@ -9,6 +9,7 @@ use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
+use App\Models\Incident;
 use App\Models\Departement;
 use App\Models\Photo;
 use App\Models\Critere;
@@ -36,27 +37,35 @@ class LeBonCoinController extends Controller
     ]);
     // Traitez les données une fois qu'elles ont été validées avec succès
 }
-public function incidentsave(Request $request)
-    {
-        $validatedData = $request->validate([
-            'idannonce' => 'required|exists:le_bon_coin,id',
-            'remboursement' => 'nullable|boolean',
-            'commentaire' => 'nullable|string|max:255',
-            'procedurejuridique' => 'nullable|boolean',
-            'resolu' => 'nullable|boolean',
-        ]);
+public function incidentsave(Request $request,  $id)
+{
+  $validatedData = $request->validate([
+      'commentaire' => 'nullable|string|max:255',
+  ]);
 
-        $incident = new Incident();
-        $incident->idannonce = $request->input('idannonce');
-        $incident->remboursement = $request->input('remboursement', false); // Par défaut, faux si non fourni
-        $incident->commentaire = $request->input('commentaire');
-        $incident->procedurejuridique = $request->input('procedurejuridique', false); // Par défaut, faux si non fourni
-        $incident->resolu = $request->input('resolu', false); // Par défaut, faux si non fourni
-        $incident->idparticulier = Auth::id();
-        $incident->save();
+  // Récupérer les données nécessaires à partir de la réservation
+  $incidentData = Reservation::join('annonces', 'reservations.idannonce', '=', 'annonces.id')
+      ->join('incidents', 'annonces.id', '=', 'incidents.id_annonce')
+      ->where('reservations.id', $id)
+      ->select('incidents.*')
+      ->first(); // Vous pouvez choisir les colonnes nécessaires ici
 
-        return redirect('compte')->with('success', 'Problème signalé avec succès.');
-    }
+  if (!$incidentData) {
+      // Gérer la situation où les données de l'incident ne sont pas trouvées
+  }
+
+  // Créer une nouvelle instance d'incident
+  $incident = new Incident();
+  $incident->fill($incidentData->toArray()); // Remplir les données de l'incident à partir de la réservation
+
+  // Remplacer le commentaire si une valeur est fournie dans le formulaire
+  $incident->commentaire = $validatedData['commentaire'] ?? $incident->commentaire;
+
+  // Sauvegarder les modifications ou la nouvelle entrée d'incident
+  $incident->save();
+
+  return redirect()->back()->with('success', 'Problème signalé avec succès.');
+}
     public function connect() {
       return view("connect");
     }
@@ -74,8 +83,9 @@ public function incidentsave(Request $request)
       $words = explode(' ', $annonce->titreannonce);
       $firstWord = strtolower($words[0]);
       $avis = $annonce->avis->pluck('commentaire')->toArray();
-      $similarFirstWordAds = LeBonCoin::whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
-                                      ->where('idannonce', '<>', $id) // Exclure l'annonce principale
+      $similarFirstWordAds = LeBonCoin::join('photo', 'photo.idannonce', '=', 'annonce.idannonce')
+                                      ->whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
+                                      ->where('annonce.idannonce', '<>', $id) // Exclure l'annonce principale
                                       ->get();
       return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
   }
@@ -84,6 +94,12 @@ public function incidentsave(Request $request)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
     // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
     return view("reservationlist", compact('id'));
+}
+public function oneann($id) {
+  $id = $id;//find($id)
+  // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
+  // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
+  return view("annoncelist", compact('id'));
 }
   public function reservation($id) {
     $reservation = Reservation::find($id);
@@ -129,7 +145,7 @@ public function incidentsave(Request $request)
     }
     public function updateUserInfo(Request $request)
     {
-        $nouvellePdp = $request->input('nouvellePdp');
+        // $nouvellePdp = $request->input('nouvellePdp');
         $nouvelEmail = $request->input('nouvelEmail');
         $nouvelleRue = $request->input('nouvelleRue');
         $nouveauCP = $request->input('nouveauCP');
@@ -140,12 +156,10 @@ public function incidentsave(Request $request)
         // Mettez en œuvre la logique de sauvegarde dans la base de données ici
         // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
         
-
         $compte = Auth::user()->compte;
-        if($nouvellePdp != ""){
-          $compte->pdp = $nouvellePdp;
-
-        }
+        // if($nouvellePdp != ""){
+        //   $compte->pdp = $nouvellePdp;
+        // }
         if($nouvelEmail != ""){
           $compte->email = $nouvelEmail;
         }

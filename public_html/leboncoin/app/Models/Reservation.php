@@ -14,4 +14,15 @@ class Reservation extends Model
     public $timestamps = false;
     protected $datedebut = ['datedebut'];
     protected $datefin = ['datefin'];
+    
+
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class, 'idannonce');
+    }
+
+    public function incidents()
+    {
+        return $this->hasMany(Incident::class, 'idreservation');
+    }
 }

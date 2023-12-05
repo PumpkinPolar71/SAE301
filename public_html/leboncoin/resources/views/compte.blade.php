@@ -3,92 +3,9 @@
 @section('content')
     @auth
         <div class="bandeau">
-            <form method="POST" action="{{ route('updateUserInfo') }}">
-                @csrf
-                <div class="popupop">
-
-
-                <h2>Glisser deposer</h2>
-                    <style>
-                        #drop-zone {
-                            border: 2px dashed #ccc;
-                            padding: 20px;
-                            text-align: center;
-                        }
-                    
-                        #image-container {
-                            margin-top: 20px;
-                        }
-                    </style>
-                </head>
-                <body>
-                    
-                    <div id="drop-zone">
-                        <p>Faites glisser et déposez des images PNG ou JPG ici.</p>
-                    </div>
-                    
-                    <form id="formImgC" method="post">
-                        <div id="image-container"></div>
-                        <div id="valeurpdp"></div>
-                    </form>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            var dropZone = document.getElementById('drop-zone');
-                            var imageContainer = document.getElementById('image-container');
-                            var imageUrlContainer = document.getElementById('valeurpdp');
-                            let valeurpdp = document.querySelector('#valeurpdp')
-
-                            // Empêcher le comportement par défaut pour éviter le chargement du fichier dans le navigateur
-                            dropZone.addEventListener('dragover', function (e) {
-                                e.preventDefault();
-                            });
-                        
-                            // Gérer l'événement de glisser
-                            dropZone.addEventListener('drop', function (e) {
-                                e.preventDefault();
-                            
-                                var files = e.dataTransfer.files;
-
-                                for (var i = 0; i < files.length; i++) {
-                                    var file = files[i];
-                                    console.log(file.name);
-                                    // Vérifier si le fichier est une image PNG ou JPG
-                                    if (file.type === 'image/png' || file.type === 'image/jpeg') {
-                                        // Créer un élément image et l'ajouter à la page
-                                        var imgElement = document.createElement('img');
-                                        imgElement.src = URL.createObjectURL(file);
-                                        imgElement.alt = 'Image';
-                                        console.log(imgElement.src);
-                                        imageContainer.appendChild(imgElement);
-                                        // imageUrlContainer.appendChild(imgElement.src);
-                                        imageUrlContainer = URL.createObjectURL(file);
-                                        console.log(imageUrlContainer);
-                                        valeurpdp.innerHTML = imageUrlContainer;    
-
-                                    }
-                                }
-                            
-                            });
-                        });
-                    </script>
-
-
-
-                    <button type="submit" id="submit">Envoyer</button>
-                </div>
-            </form>
-                <form method="POST" action="{{ route('updateUserInfo') }}">
-                @csrf
-                <div class="pdp"><p class="pPseudo"></p></div><br> 
-                <div id="container">
-                    <h1></h1><br>
-                    <label for="pdp">Votre photo de profil : </label>
-                    <span id="valeurpdp" ></span>
-                    <button type="button" id="modifierpdp">Modifier</button>
-                    
-                    
-                </div>
-            </form>
+            <div class="pdp"><p class="pPseudo"></p></div><br> 
+            
+                
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
                 <div id="container">
@@ -158,13 +75,6 @@
             </form>
             
 
-            <div id="modal">
-            	<div class="mask">jhjghjhk</div>
-            	<div class="container auto">ghb;,ng;
-            		<div class="message">ygjghdgkjhjdg</div>
-            		<a href="#" class="close">&times;</a>
-            	</div>
-            </div>
 
 
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -181,23 +91,23 @@
                     $('#nom').hide();
                     $('#prenom').hide();
 
-                    $('.popupop').hide();
-                    $('.popupop').on('click', function () {
-                        i++
-                        if (i%2 != 0) {
-                            $('.popupop').css("display" , "none");
-                        } else {
-                            $('.popupop').css("display" , "block");
-                        }
-                    })
-                    $('#modifierpdp').on('click', function () {
-                        i++
-                        if (i%2 == 0) {
-                            $('.popupop').css("display" , "none");
-                        } else {
-                            $('.popupop').css("display" , "block");
-                        }
-                    })
+                    // $('.popupop').hide();
+                    // $('.popupop').on('click', function () {
+                    //     i++
+                    //     if (i%2 != 0) {
+                    //         $('.popupop').css("display" , "none");
+                    //     } else {
+                    //         $('.popupop').css("display" , "block");
+                    //     }
+                    // })
+                    // $('#modifierpdp').on('click', function () {
+                    //     i++
+                    //     if (i%2 == 0) {
+                    //         $('.popupop').css("display" , "none");
+                    //     } else {
+                    //         $('.popupop').css("display" , "block");
+                    //     }
+                    // })
                     // Gestion du clic sur le bouton "Modifier"
                     //----------------------------------------------Email
                     $('#modifieremail').on('click', function () {
@@ -290,7 +200,7 @@
 
             
         </div>
-        <a href="/annonce/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+        <a href="/annoncelist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
             <div class="compte-block"><b>Annonce</b>
                 <p>Gérer mes annonces déposées</p>
             </div>
