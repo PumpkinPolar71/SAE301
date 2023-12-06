@@ -115,8 +115,8 @@
                             die("Erreur de connexion à la base de données");
                         }
                         
-                        // Chemin vers l'image que vous souhaitez insérer
-                        $imagePath = "chemin/vers/votre/image.jpg";
+                        // Chemin vers l'image 
+                        $imagePath = "public\pdp\image.jpg";
                         
                         // Lecture du contenu de l'image en tant que données binaires
                         $imageData = file_get_contents($imagePath);
@@ -125,8 +125,8 @@
                         $escapedImageData = pg_escape_bytea($conn, $imageData);
                         
                         // Nom de la table et colonne dans laquelle vous souhaitez insérer l'image
-                        $tableName = "votre_table";
-                        $columnName = "votre_colonne_bytea";
+                        $tableName = "compte";
+                        $columnName = "pdp";
                         
                         // Requête SQL pour insérer l'image dans la base de données
                         $query = "INSERT INTO $tableName ($columnName) VALUES ('$escapedImageData')";
