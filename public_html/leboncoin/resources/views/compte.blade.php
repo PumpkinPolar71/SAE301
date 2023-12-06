@@ -125,11 +125,12 @@
                         $escapedImageData = pg_escape_bytea($conn, $imageData);
                         
                         // Nom de la table et colonne dans laquelle on insère l'image
+                        $schemaName = "leboncoin";
                         $tableName = "compte";
                         $columnName = "pdp";
                         
                         // Requête SQL pour insérer l'image dans la base de données
-                        $query = "INSERT INTO $tableName ($columnName) VALUES ('$escapedImageData')";
+                        $query = "INSERT INTO $schemaName.$tableName ($columnName) VALUES ('$escapedImageData')";
                         
                         $result = pg_query($conn, $query);
                         

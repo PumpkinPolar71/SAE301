@@ -268,7 +268,7 @@ class LeBonCoinController extends Controller
         $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
-        $a->codeetatcompte = 1;
+        $a->codeetatcompte = 9;
         $a->email = $request->input("email");
         $a->save();
      
@@ -364,7 +364,7 @@ class LeBonCoinController extends Controller
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
         $a->siret = $request->input("siret");
-        $a->codeetatcompte = 1;
+        $a->codeetatcompte = 2;
         $a->save();
      
         $b = new Entreprise();
