@@ -183,7 +183,46 @@ class LeBonCoinController extends Controller
         }
         $particulier->save();
 
-
+        // Connexion à la base de données
+        $host = "localhost";
+                        
+        $nomDB = Config::get('database.connections.pgsql.database');
+        $userDB = Config::get('database.connections.pgsql.username');
+        $password = Config::get('database.connections.pgsql.password');
+        
+        $conn = pg_connect("host=$host dbname=$nomDB user=$userDB password=$password");
+        
+        if (!$conn) {
+            die("Erreur de connexion à la base de données");
+        }
+        
+        // Chemin vers l'image 
+        $imagePath = "pdp/hehe.jpeg";
+        
+        // Lecture du contenu de l'image en tant que données binaires
+        $imageData = file_get_contents($imagePath);
+        
+        // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
+        $escapedImageData = pg_escape_bytea($conn, $imageData);
+        
+        // Nom de la table et colonne dans laquelle on insère l'image
+        $schemaName = "leboncoin";
+        $tableName = "compte";
+        $columnName = "pdp";
+        
+        // Requête SQL pour insérer l'image dans la base de données
+        $query = "INSERT INTO $schemaName.$tableName ($columnName) VALUES ('$escapedImageData')";
+        
+        $result = pg_query($conn, $query);
+        
+        if ($result) {
+            echo "L'image a été insérée avec succès dans la base de données.";
+        } else {
+            echo "Erreur lors de l'insertion de l'image dans la base de données : " . pg_last_error($conn);
+        }
+        
+        // Fermeture de la connexion
+        pg_close($conn);
 
         // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
