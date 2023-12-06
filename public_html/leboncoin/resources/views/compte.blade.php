@@ -7,10 +7,13 @@
             
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
-                    <h1></h1><br>
-                    <label for="pdp">Votre photo de profil : </label>
-                    <span class="valeurpdp"></span>
-                    <button type="button" id="modifierpdp">Modifier</button>
+                    <div id="container">
+                        <h1></h1><br>
+                        <label for="pdp">Votre photo de profil : </label>
+                        <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
+                        <input class="valeurpdp" type="text" name="nouvellePdp" id="pdp" style="display: none;">
+                        <button type="button" id="modifierpdp">Modifier</button>
+                    </div>
                 <div class="popupop">
                 <h2>Glisser deposer</h2>
                     <style>
@@ -38,7 +41,7 @@
                             var dropZone = document.getElementById('drop-zone');
                             // var imageContainer = document.getElementById('image-container');
                             // var imageUrlContainer = document.getElementById('valeurpdp');
-                            let valeurpdp = document.querySelector('#valeurpdp')
+                            let valeurpdp = document.querySelector('.valeurpdp')
 
                             // Empêcher le comportement par défaut pour éviter le chargement du fichier dans le navigateur
                             dropZone.addEventListener('dragover', function (e) {
@@ -157,6 +160,7 @@
                     var i=0;
                     let btenvoi = $("#submit")
                     // Au chargement de la page, affiche le label et cache l'input
+                    $('#pdp').hide();
                     $('#email').hide();
                     $('#adresserue').hide();
                     $('#adressecp').hide();
@@ -182,6 +186,12 @@
                         }
                     })
                     // Gestion du clic sur le bouton "Modifier"
+                    //----------------------------------------------Pdp
+                    $('#modifierpdp').on('click', function () {
+                        // Cache le label et affiche l'input
+                        $('.valeurpdp').hide();
+                        $('#pdp').show().val($('.valeurpdp').text()).focus();
+                    });
                     //----------------------------------------------Email
                     $('#modifieremail').on('click', function () {
                         // Cache le label et affiche l'input
@@ -218,6 +228,12 @@
                     });
                 
                     // Gestion du changement de focus sur l'input
+                    //----------------------------------------------Pdp
+                    $('#pdp').on('blur', function () {
+                        // Cache l'input et affiche le label
+                        $('.valeurpdp').show().text($(this).val());
+                        $(this).hide();
+                    });
                     //----------------------------------------------Email
                     $('#email').on('blur', function () {
                         // Cache l'input et affiche le label
@@ -269,8 +285,7 @@
                     
                     
             </script>
-            <!-- <button type="submit" id="saveChanges">Enregistrer les modifications</button> <a href="/reservation/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}"><div class="compte-block"><b>Réservation</b>-->
-
+            
             
         </div>
         <a href="/annoncelist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">

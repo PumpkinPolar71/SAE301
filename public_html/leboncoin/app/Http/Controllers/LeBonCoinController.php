@@ -11,6 +11,7 @@ use App\Models\Compte;
 use App\Models\Ville;
 use App\Models\Incident;
 use App\Models\Departement;
+use App\Models\Region;
 use App\Models\Photo;
 use App\Models\Critere;
 use App\Models\Reservation;
@@ -37,38 +38,17 @@ class LeBonCoinController extends Controller
     ]);
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
-    public function incidentsave(Request $request)
-    {
-  // $validatedData = $request->validate([
-  //     'commentaire' => 'nullable|string|max:255',
-  // ]);
-  // Récupérer les données nécessaires à partir de la réservation
-  // $incidentData = Reservation::join('annonces', 'reservations.idannonce', '=', 'annonces.id')
-  //     ->join('incidents', 'annonces.id', '=', 'incidents.id_annonce')
-  //     ->where('reservations.id', $id)
-  //     ->select('incidents.*')
-  //     ->first(); // Vous pouvez choisir les colonnes nécessaires ici
-  // if (!$incidentData) {
-  //     // Gérer la situation où les données de l'incident ne sont pas trouvées
-  // }
-  // // Créer une nouvelle instance d'incident
-  // $incident = new Incident();
-  // $incident->fill($incidentData->toArray()); // Remplir les données de l'incident à partir de la réservation
-  // // Remplacer le commentaire si une valeur est fournie dans le formulaire
-  // $incident->commentaire = $validatedData['commentaire'] ?? $incident->commentaire;
-  // // Sauvegarder les modifications ou la nouvelle entrée d'incident
-  // $incident->save();
-
+    public function incidentsave(Request $request, $id) {
       $incident = new Incident();
-      $incident->idannonce = $request->input("ids");
-      $incident->remboursement = FALSE;
-      $incident->procedurejuridique = FALSE;
-      $incident->resolu = FALSE;
-      $incident->commentaire = $request->input("commentaire");
-      $incident->save();
-      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
-      //return redirect()->back()->with('success', 'Problème signalé avec succès.');
-    }
+      $incident->idannonce = $id;
+    $incident->remboursement = false;
+    $incident->procedurejuridique = false;
+    $incident->resolu = false;
+    $incident->commentaire = $request->input("commentaire");
+    $incident->save();
+
+    return redirect('/compte')->withInput()->with("incident", 'signalement créé');
+}
     public function connect() {
       return view("connect");
     }
@@ -92,6 +72,12 @@ class LeBonCoinController extends Controller
                                       ->get();
       return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
   }
+  
+  public function show($id) {
+    $annonce = LeBonCoin::find($id); // Récupération de l'annonce avec l'ID fourni
+    // ...
+    return view('incidentsave')->with('annonce', $annonce);
+}
   public function oneres($id) {
     $id = $id;//find($id)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
@@ -135,17 +121,15 @@ class LeBonCoinController extends Controller
     public function imgGP() {
       return view("imgGP");
     }
-    public function updateEmail(Request $request)
-    {
-        $newEmail = $request->input('email');
+    // public function updateEmail(Request $request)
+    // {
+    //     $newEmail = $request->input('email');
 
-        // Mettez à jour l'e-mail dans la base de données, par exemple
-        // en utilisant le modèle Compte et la relation avec l'utilisateur actuel.
-        Auth::user()->compte->update(['email' => $newEmail]);
+    //     Auth::user()->compte->update(['email' => $newEmail]);
 
-        // Réponse JSON facultative pour informer le client que la mise à jour est terminée
-        return response()->json(['success' => true]);
-    }
+    //     // Réponse JSON facultative pour informer le client que la mise à jour est terminée
+    //     return response()->json(['success' => true]);
+    // }
     public function updateUserInfo(Request $request)
     {
         $nouvellePdp = $request->input('nouvellePdp');
@@ -156,8 +140,6 @@ class LeBonCoinController extends Controller
         $nouveauNom = $request->input('nouveauNom');
         $nouveauPrenom = $request->input('nouveauPrenom');
 
-        // Mettez en œuvre la logique de sauvegarde dans la base de données ici
-        // Assurez-vous de valider et sécuriser vos données avant de les enregistrer
         
         $compte = Auth::user()->compte;
         if($nouvellePdp != ""){
@@ -216,6 +198,8 @@ class LeBonCoinController extends Controller
         $request->input("ville") == "" ||
         $request->input("mdp") == "" ||
         $request->input("adresse") == "" ||
+        $request->input("region") == "" ||
+        $request->input("dept") == "" ||
         $request->input("cp") == "" ) {
           return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
     } else {
@@ -224,10 +208,41 @@ class LeBonCoinController extends Controller
         foreach ($villeAll as $vile) { 
           if ( $request->input("ville") == $vile->nomville) {
               $a->idville = $vile->idville;
-          } //A REFAIRE
-          else {/*ca plante*/}
+          } 
+          else {
+            $deptAll = Departement::all();
+            $regAll = Region::all();
+            $vile = new Ville();
+            $depart = new Departement();
+            foreach ($regAll as $regon) { 
+              if ( $request->input("region") == $regon->nomregion) {
+                $vile->nomregion = $request->input("region");
+                $depart->idregion = $regon->idregion;
+                break;
+              } else {
+
+              }
+            }
+            foreach ($deptAll as $depta) {
+              if ( $request->input("dept") == $depta->nomdepartement) {
+                $vile->iddepartement = $depta->iddepartement;
+                break;
+              } else {
+                $depart->nomregion = $request->input("region");
+                $depart->iddepartement = Departement::max('iddepartement')+1;
+                $depart->nomdepartement = $request->input("dept");
+                $depart->numdepartement = $request->input("cp");
+                $vile->iddepartement = Departement::max('iddepartement')+1;
+                $depart->save();
+                break;
+              }
+            }
+            $vile->nomville = $request->input("ville");
+            $vile->idville = Ville::max('idville')+1;
+            $vile->save();
+            break;
+          }
         }
-        // $a->motdepasse = Hash::make($request->input("mdp"));
         $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");

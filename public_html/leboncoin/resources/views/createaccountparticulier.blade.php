@@ -34,6 +34,8 @@
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville *</div>
     <input id="ville" name="ville" readOnly="readOnly">
+    <input style="display:block;" id="region" name="region" readOnly="readOnly">
+    <input style="display:block;" id="dept" name="dept" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
@@ -49,6 +51,8 @@
                 document.getElementById("adresse").value = all[0]
                 document.getElementById("ville").value = all[1]
                 document.getElementById("cp").value = all[2]
+                document.getElementById("dept").value = all[3]
+                document.getElementById("region").value = all[4]
             }
         $(document).ready(function() {
         let btenvoi = $("#submitb")
@@ -105,7 +109,6 @@
             let city = $("#ville");
             let listA = $("#listA");
             let errorMessage = $("#error-message");
-
             $(adresse).on('keyup', function() {
                 let codeA = $(this).val(); 
                 let urlA = apiUrlAdresse+codeA+limit//+format; //url serveur
@@ -126,7 +129,7 @@
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+'</div>')
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.context+'</div>')
                             i++
                         })
                     } else {
@@ -146,37 +149,6 @@
             $(html).on('click', function() {
                 $("#listA").css("display","none")
             })
-            //console.log(html)
-           
-            // $(zipcode).on('blur', function() {
-            //     let code = $(this).val();
-            //     let url = apiUrl+code+format; //url serveur
-            //     console.log("test "+url);
-            //      fetch(url, {method: 'get'}).then(response => response.json()).then(results => { //requet
-            //         //console.log(results)
-            //         $(city).find('option').remove(); //on supprime les anciennes
-            //         if(results.length) {
-            //             $(errorMessage).text('').hide();
-            //             $.each(results, function(key, value) {
-            //                 //console.log(value);
-            //                 //console.log(value.nom);
-            //                 $(city).append('<option value"'+value.nom+'">'+value.nom+'</option>')//on ajoute
-            //             })
-            //         } else {
-            //             if ($(zipcode).val()) {
-            //                 console.log("Erreur de code postal.");
-            //                 $(errorMessage).text('Aucune commune avec ce code postal.').show();
-            //             } else {
-            //                 $(errorMessage).text('').hide();
-            //             }
-            //         }
-            //      }).catch(err => {
-            //         console.log(err)
-            //         $(city).find('option').remove();
-            //      })
-            // })
         })
     </script>
-
-  
 </form>
