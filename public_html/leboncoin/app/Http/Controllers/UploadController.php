@@ -8,7 +8,7 @@ class UploadController extends Controller
 {
     public function showForm()
     {
-        return view('upload');
+        return view('compte');
     }
 
     public function upload(Request $request)
@@ -21,6 +21,6 @@ class UploadController extends Controller
 
         // Enregistrez le chemin dans la base de données ou effectuez toute autre opération que vous souhaitez.
 
-        return redirect('/upload')->with('success', 'Image téléchargée avec succès.');
+        return redirect('/compte')->with('success', 'Image téléchargée avec succès.');
     }
 }

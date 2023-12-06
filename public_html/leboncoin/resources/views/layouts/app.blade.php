@@ -14,7 +14,14 @@
 
     </head>
 
-
+    <script>
+    $(document).ready(function() {
+        rnd = Math.floor(Math.random() * 4)
+        console.log(rnd)
+        console.log($('.encart-publicitaire'))
+        $('.encart-publicitaire').css("background-image" , "url(pub/capture"+rnd+".png)")
+    })
+        </script>
     <body>
         <script src="/search.js" defer></script>
         <a href="http://licorn--projekt.000webhostapp.com/"><div class="encart-publicitaire"></div></a>
@@ -72,9 +79,4 @@
             </div>
         </div>
     </body>
-    <script>
-                     /*$(document).ready(function() {
-                       alert("Attention: Yanisse pose des bombs dans tout le site !\nETAT ERROR = '💣'");
-                     })*/
-        </script>
 </html>

@@ -1,16 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
+{{ session()->get("success") }}
     @auth
         <div class="bandeau">
             <div class="pdpT"><p class="pPseudo"></p></div><br>
             
             
-
+                    
                     
                     <?php
+
+
+
+                        echo "<script>";
+                        echo "    var files = e.dataTransfer.files;";
+
+                        echo "    for (var i = 0; i < files.length; i++) {";
+                        echo "        var file = files[i];";
+                        
+                        echo "        console.log(file.name);";
+                        echo "    // Vérifier si le fichier est une image PNG ou JPG";
+                        echo "    if (file.type === 'image/png' || file.type === 'image/jpeg' ) {";
+                        echo "                    // Créer un élément image et l'ajouter à la page";
+                        echo "                    var imgElement = document.createElement('img');";
+                        echo "                    imgElement.src = URL.createObjectURL(file);";
+                        echo "                    imgElement.alt = 'Image';";
+                        echo "                    console.log(imgElement.src);";
+                        echo "                    imageUrlContainer = URL.createObjectURL(file);";
+                           
+                        echo "                }";
+                        echo "            }";
+                        echo "</script>";
+                    
                         // Chemin vers l'image 
-                        $imagePath = "pdp/hehe.jpeg";
+                        $imagePath = "storage/uploads/";
 
                         // Lecture du contenu de l'image en tant que données binaires
                         $imageData = file_get_contents($imagePath);

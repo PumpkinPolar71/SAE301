@@ -89,4 +89,4 @@ Route::post('/service/validate', [ServiceController::class, 'validate']);
 
 Route::get('/upload', [UploadController::class, 'showForm']);
 
-Route::post('/upload', [UploadController::class, 'upload'])->name('upload');
+Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
