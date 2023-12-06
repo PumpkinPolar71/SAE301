@@ -102,32 +102,47 @@
                         });
                     </script>
                     <?php
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            // Vérifie si un fichier a été téléchargé
-                            if (isset($_FILES['nouvellePdp']) && $_FILES['nouvellePdp']['error'] === UPLOAD_ERR_OK) {
-                                $imagePath = $_FILES['nouvellePdp']['tmp_name'];
+                        // Connexion à la base de données
+                        $host = "localhost";
                         
-                                // Convertit l'image en données binaires
-                                $imageData = file_get_contents($imagePath);
+                        $nomDB = Config::get('database.connections.pgsql.database');
+                        $userDB = Config::get('database.connections.pgsql.username');
+                        $motDePasse = Config::get('database.connections.pgsql.password');
                         
-                                // Connexion à la base de données (remplacez les paramètres par les vôtres)
-                                $nomDB = Config::get('database.connections.pgsql.database');
-                                $userDB = Config::get('database.connections.pgsql.username');
-                                $motDePasse = Config::get('database.connections.pgsql.password');
-
-                                $conn = new PDO('pgsql:host=localhost;dbname=s224', '$s224', '1s9yiZ');
+                        $conn = pg_connect("host=$host dbname=$dbname user=$user password=$password");
                         
-                                // Préparez et exécutez la requête SQL pour insérer l'image
-                                $stmt = $conn->prepare("INSERT INTO your_table (image_data) VALUES (:image_data)");
-                                $stmt->bindParam(':image_data', $imageData, PDO::PARAM_LOB);
-                                $stmt->execute();
-                        
-                                echo "Image téléchargée avec succès.";
-                            } else {
-                                echo "Erreur lors du téléchargement de l'image.";
-                            }
+                        if (!$conn) {
+                            die("Erreur de connexion à la base de données");
                         }
-                    ?>
+                        
+                        // Chemin vers l'image que vous souhaitez insérer
+                        $imagePath = "chemin/vers/votre/image.jpg";
+                        
+                        // Lecture du contenu de l'image en tant que données binaires
+                        $imageData = file_get_contents($imagePath);
+                        
+                        // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
+                        $escapedImageData = pg_escape_bytea($conn, $imageData);
+                        
+                        // Nom de la table et colonne dans laquelle vous souhaitez insérer l'image
+                        $tableName = "votre_table";
+                        $columnName = "votre_colonne_bytea";
+                        
+                        // Requête SQL pour insérer l'image dans la base de données
+                        $query = "INSERT INTO $tableName ($columnName) VALUES ('$escapedImageData')";
+                        
+                        $result = pg_query($conn, $query);
+                        
+                        if ($result) {
+                            echo "L'image a été insérée avec succès dans la base de données.";
+                        } else {
+                            echo "Erreur lors de l'insertion de l'image dans la base de données : " . pg_last_error($conn);
+                        }
+                        
+                        // Fermeture de la connexion
+                        pg_close($conn);
+                        ?>
+                        
 
                     <button type="submit" id="submit">Envoyer</button>
                 </div>

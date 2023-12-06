@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Incident extends Model
 {
-    protected $table = 'incidents';
+    protected $table = 'incident';
     protected $primaryKey = 'idincident';
 
     protected $fillable = [

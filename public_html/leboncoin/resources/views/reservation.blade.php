@@ -40,8 +40,9 @@
 <p class="descr">{{ $reservation->message }}</p>
 <h2>Signaler un problème</h2>
 
-<form method="get" action="{{ url("/annonce/incidentsave/{$annonce->id}") }}">
-  
+<form method="post" action="{{ url("/annonce/incidentsave/") }}">
+    @csrf
+    <input type='hidden' name = 'id' value = '{{$reservation->idannonce}}' >
     <!-- Autres champs de formulaire -->
     <input type="text" name="commentaire" placeholder="Commentaire">
     <button type="submit">Soumettre</button>

@@ -24,7 +24,7 @@ class CorsMiddleware
     // Si la route n'est pas 'annonce/incidentsave/{id}', ajoutez les en-têtes CORS
     return $next($request)
         ->header('Access-Control-Allow-Origin', '*')
-        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->header('Access-Control-Allow-Methods', '*')
         ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With');
 }
     

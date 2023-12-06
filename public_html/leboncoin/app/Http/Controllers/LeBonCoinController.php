@@ -38,18 +38,18 @@ class LeBonCoinController extends Controller
     ]);
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
-    public function incidentsave(Request $request, $id) {
-      $commentaire = $request->query("commentaire");
+    public function incidentsave(Request $request) {
+    $commentaire = $request->input("commentaire");
 
     // Utilisez ensuite $commentaire comme vous le faisiez auparavant
     $incident = new Incident();
-    $incident->idannonce = $id;
-    $incident->remboursement = false;
-    $incident->procedurejuridique = false;
-    $incident->resolu = false;
+    $incident->idannonce = $request->input('id');
+    $incident->remboursement = FALSE;
+    $incident->procedurejuridique = FALSE;
+    $incident->resolu = FALSE;
     $incident->commentaire = $commentaire;
     $incident->save();
-
+    echo 'oe';
     return redirect('/compte')->withInput()->with("incident", 'signalement créé');
     }
     public function connect() {
