@@ -76,3 +76,9 @@ Route::get("/reservationlist/{id}",[LeBonCoinController::class, "oneres" ]);
 Route::get("/annoncelist/{id}",[LeBonCoinController::class, "oneann" ]);
 
 Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);
+
+Route::get('/incidents', [LeBonCoinController::class, 'indexIncident']);
+
+Route::get('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
+
+Route::get('/serviceimmobilier', [LeBonCoinController::class, 'serviceimmobilier']);

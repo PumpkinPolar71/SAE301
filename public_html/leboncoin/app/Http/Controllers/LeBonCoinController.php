@@ -24,6 +24,9 @@ class LeBonCoinController extends Controller
     public function index() {
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
+    public function serviceimmobilier() {
+      return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
+  }
     public function add() {
       $villes = Ville::all();
       
@@ -39,17 +42,17 @@ class LeBonCoinController extends Controller
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
     public function incidentsave(Request $request) {
-    $commentaire = $request->input("commentaire");
-
-    // Utilisez ensuite $commentaire comme vous le faisiez auparavant
-    $incident = new Incident();
-    $incident->idannonce = $request->input('id');
-    $incident->remboursement = FALSE;
-    $incident->procedurejuridique = FALSE;
-    $incident->resolu = FALSE;
-    $incident->commentaire = $commentaire;
-    $incident->save();
-    echo 'oe';
+      $commentaire = $request->input("commentaire");
+  
+      // Utilisez ensuite $commentaire comme vous le faisiez auparavant
+      $incident = new Incident();
+      $incident->idannonce = $request->input('id');
+      $incident->remboursement = FALSE;
+      $incident->procedurejuridique = FALSE;
+      $incident->resolu = FALSE;
+      $incident->commentaire = $commentaire;
+      $incident->save();
+      echo 'oe';
     return redirect('/compte')->withInput()->with("incident", 'signalement créé');
     }
     public function connect() {
@@ -288,73 +291,7 @@ class LeBonCoinController extends Controller
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
     }
   } 
-      
-  public function ajouterAnnonce(Request $request)
-  {
-    
-      $idVille = $request->input('ville');
-      $idTypeHebergement = $request->input('type_hebergement');
-      // Récupérer les valeurs de la partie "condition hébergement" de la requête GET
-      $dateArrivee = $request->query('apagnyan1');
-      $dateDepart = $request->query('apagnyan3');
-      $fumeur = $request->has('apagnyan') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
-      $animauxAcceptes = $request->has('apagnyan2') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
-      $critereetoile = 0;
-      $criterecapa = $request->input('critere1');
-      $criterenbpers = $request->input('critere2');
-  
-      // Créer la chaîne représentant les conditions d'hébergement
-      $libelleCondition = "$dateArrivee $dateDepart $fumeur $animauxAcceptes";
-      $critereetoile = '0 ' . $critereetoile;
-
-    // Concaténer les valeurs des critères pour former le libellé complet
-      $libelleCritere = "$critereetoile $criterecapa $criterenbpers";
-      $idUserConnecte = Auth::id();
-      // Créer une nouvelle entrée dans la table condition_hebergement
-      $conditionHebergement = new ConditionHebergement();
-      $conditionHebergement->libellecondition = $libelleCondition;
-      $conditionHebergement->save();
-
-      $critere = new Critere();
-      $critere->libelle = $libelleCritere;
-      $critere->save();
-
-      $idCritere = $critere->id;
-
-  
-      // Récupérer l'id condition hébergement nouvellement créé
-        $idConditionHebergement = $conditionHebergement->idconditionh;
-
-
-        $annonce = new Annonce();
-        $annonce->idconditionh = $idConditionHebergement;
-        $annonce->idcompte = $idUserConnecte; // Associer l'annonce à l'utilisateur connecté
-        $annonce->identreprise = false;
-        $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
-        $annonce->idtype = $idTypeHebergement;
-        $annonce->titreannonce = $request->input("titreannonce");
-        $annonce->idcritere = $idCritere;
-        $annonce->description = $request->input("description");
-        $annonce->date = $request->input("date");
-        $annonce->prix = $request->input("prix");
-        $annonce->lien_photo = $request->input("lien_photo");
-        $annonce->save();
-    
-        // Sauvegardez l'annonce dans la base de données
-        $annonce->save();
-    
-        // Récupérez le lien de la photo depuis le formulaire
-        $lienPhoto = $request->input('lien_photo');
-    
-        // Créez une nouvelle entrée dans la table Photo associée à l'annonce
-        $photo = new Photo();
-        $photo->lien_photo = $lienPhoto;
-        $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
-        $photo->save();
-    
-        return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
-      }
-    public function saveent(Request $request)
+  public function saveent(Request $request)
     {
       if (
         $request->input("nom") == "" || 
@@ -439,6 +376,104 @@ class LeBonCoinController extends Controller
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte professionnel créé');
       }
     }
-  }
+      
+  public function ajouterAnnonce(Request $request)
+  {
+    
+      $idVille = $request->input('ville');
+      $idTypeHebergement = $request->input('type_hebergement');
+      // Récupérer les valeurs de la partie "condition hébergement" de la requête GET
+      $dateArrivee = $request->query('apagnyan1');
+      $dateDepart = $request->query('apagnyan3');
+      $fumeur = $request->has('apagnyan') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $animauxAcceptes = $request->has('apagnyan2') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $critereetoile = 0;
+      $criterecapa = $request->input('critere1');
+      $criterenbpers = $request->input('critere2');
+  
+      // Créer la chaîne représentant les conditions d'hébergement
+      $libelleCondition = "$dateArrivee $dateDepart $fumeur $animauxAcceptes";
+      $critereetoile = '0 ' . $critereetoile;
+
+    // Concaténer les valeurs des critères pour former le libellé complet
+      $libelleCritere = "$critereetoile $criterecapa $criterenbpers";
+      $idUserConnecte = Auth::id();
+      // Créer une nouvelle entrée dans la table condition_hebergement
+      $conditionHebergement = new ConditionHebergement();
+      $conditionHebergement->libellecondition = $libelleCondition;
+      $conditionHebergement->save();
+
+      $critere = new Critere();
+      $critere->libelle = $libelleCritere;
+      $critere->save();
+
+      $idCritere = $critere->id;
+
+  
+      // Récupérer l'id condition hébergement nouvellement créé
+        $idConditionHebergement = $conditionHebergement->idconditionh;
+
+
+        $annonce = new Annonce();
+        $annonce->idconditionh = $idConditionHebergement;
+        $annonce->idcompte = $idUserConnecte; // Associer l'annonce à l'utilisateur connecté
+        $annonce->identreprise = false;
+        $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
+        $annonce->idtype = $idTypeHebergement;
+        $annonce->titreannonce = $request->input("titreannonce");
+        $annonce->idcritere = $idCritere;
+        $annonce->description = $request->input("description");
+        $annonce->date = $request->input("date");
+        $annonce->prix = $request->input("prix");
+        $annonce->lien_photo = $request->input("lien_photo");
+        $annonce->save();
+    
+        // Sauvegardez l'annonce dans la base de données
+        $annonce->save();
+    
+        // Récupérez le lien de la photo depuis le formulaire
+        $lienPhoto = $request->input('lien_photo');
+    
+        // Créez une nouvelle entrée dans la table Photo associée à l'annonce
+        $photo = new Photo();
+        $photo->lien_photo = $lienPhoto;
+        $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
+        $photo->save();
+    
+        return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
+      }
+
+
+
+    
+
+      
+      public function indexIncident()
+      {
+        $incidents = Incident::all();
+        return view('incidents.index', compact('incidents'));
+      }
+
+      public function classementSansSuite($id)
+      {
+        $incident = Incident::find($id);
+        $incident->statut = 'sans_suite';
+        $incident->save();
+        return redirect('/incidents');
+      }
+
+      public function resolution($id)
+      {
+          $incident = Incident::find($id);
+          $incident->resolu = true;
+          $incident->save();
+        return redirect('/incidents');
+      }
+
+
+
+
+    }
+  
 
     

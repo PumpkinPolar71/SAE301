@@ -107,16 +107,16 @@
                         
                         $nomDB = Config::get('database.connections.pgsql.database');
                         $userDB = Config::get('database.connections.pgsql.username');
-                        $motDePasse = Config::get('database.connections.pgsql.password');
+                        $password = Config::get('database.connections.pgsql.password');
                         
-                        $conn = pg_connect("host=$host dbname=$dbname user=$user password=$password");
+                        $conn = pg_connect("host=$host dbname=$nomDB user=$userDB password=$password");
                         
                         if (!$conn) {
                             die("Erreur de connexion à la base de données");
                         }
                         
                         // Chemin vers l'image 
-                        $imagePath = "public\pdp\image.jpg";
+                        $imagePath = "pdp/hehe.jpeg";
                         
                         // Lecture du contenu de l'image en tant que données binaires
                         $imageData = file_get_contents($imagePath);
@@ -124,7 +124,7 @@
                         // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
                         $escapedImageData = pg_escape_bytea($conn, $imageData);
                         
-                        // Nom de la table et colonne dans laquelle vous souhaitez insérer l'image
+                        // Nom de la table et colonne dans laquelle on insère l'image
                         $tableName = "compte";
                         $columnName = "pdp";
                         
