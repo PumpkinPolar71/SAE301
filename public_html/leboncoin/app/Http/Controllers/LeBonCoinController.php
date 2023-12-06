@@ -181,13 +181,6 @@ class LeBonCoinController extends Controller
         $particulier->save();
 
 
-        echo "function pdpContain(imageUrlContainer){
-	
-          document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
-        }";
-
-        echo "function pdpContain($compte->pdp)";
-
 
         // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');

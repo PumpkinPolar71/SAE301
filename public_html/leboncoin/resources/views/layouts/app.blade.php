@@ -53,7 +53,19 @@
             @yield('content')
             </div>
             <div class="bottom-text">Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans nos catégories immobilier, etc… Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
-            <div class="bottom"></div>
+            <div class="bottom">
+                <div>A PROPOS DU BONCOIN
+                    <div class=""></div>
+                </div>
+                <div>INFORMATION LEGALES
+                    <div class=""></div>
+                </div>
+                <div>NOS SOLUTIONS PROS
+                    <div class=""></div>
+                </div>
+                <div>DES QUESTIONS ?
+                    <div class=""></div>
+                </div>
             </div>
         </div>
     </body>

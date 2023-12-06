@@ -3,14 +3,14 @@
 @section('content')
     @auth
         <div class="bandeau">
-            <div class="pdpT"><p class="pPseudo"></p></div><br> 
+            <div class="pdpT"><p class="pPseudo"></p></div><br>
             
-            <form method="POST" action="{{ route('updateUserInfo') }}">
+            <form method="POST" action="{{ route('updateUserInfo') }}" enctype="multipart/form-data">
                 @csrf
                     <div id="container">
                         <h1></h1><br>
                         <label for="pdp">Votre photo de profil : </label>
-                        <input class="valeurpdp" type="text" name="nouvellePdp" id="pdp" style="display: none;">
+                        <input type="file" accept="image/*" class="valeurpdp" name="nouvellePdp" id="pdp" style="display: none;">
                         <span class="valeurpdpText" style="display: none;">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
                         <button type="button" id="modifierpdp">Modifier</button>
                     </div>
@@ -50,11 +50,17 @@
                     </form>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
+                            let valeurpdpText = document.querySelector('.valeurpdpText')
+                            $('.pdpT').css("background-image","url("+ valeurpdpText.textContent + ")")
+
+
+
                             var dropZone = document.getElementById('drop-zone');
                             var imageContainer = document.getElementById('image-container');
                             // var imageUrlContainer = document.getElementById('valeurpdp');
                             let valeurpdp = document.querySelector('.valeurpdp')
-                            let valeurpdpText = document.querySelector('.valeurpdpText')
+                            var btenvoi = $("#submit");
+                            
 
                             // Empêcher le comportement par défaut pour éviter le chargement du fichier dans le navigateur
                             dropZone.addEventListener('dragover', function (e) {
@@ -69,6 +75,7 @@
 
                                 for (var i = 0; i < files.length; i++) {
                                     var file = files[i];
+
                                     console.log(file.name);
                                     // Vérifier si le fichier est une image PNG ou JPG
                                     if (file.type === 'image/png' || file.type === 'image/jpeg') {
@@ -80,17 +87,47 @@
                                         imageContainer.appendChild(imgElement);
                                         // imageUrlContainer.appendChild(imgElement.src);
                                         imageUrlContainer = URL.createObjectURL(file);
-                                        console.log(imageUrlContainer);
-                                        valeurpdp.value = imageUrlContainer;
-                                        valeurpdpText = imageUrlContainer;
-                                        document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
-                                        document.documentElement.style.setProperty('--jpp', 'url(' + valeurpdpText + ')');
+
+                                        valeurpdpText.textContent = URL.createObjectURL(file);
+                                        // document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
+                                        $('.pdpT').css("background-image","url("+ valeurpdpText.textContent + ")")
+                                        //document.documentElement.style.setProperty('--jpp', 'url(' + valeurpdpText.textContent + ')');
+
+                                        console.log('valeurpdpText:', valeurpdpText.textContent);
+                                        console.log('--jpp:', valeurpdpText.textContent);
                                     }
                                 }
                             
                             });
                         });
                     </script>
+                    <?php
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            // Vérifie si un fichier a été téléchargé
+                            if (isset($_FILES['nouvellePdp']) && $_FILES['nouvellePdp']['error'] === UPLOAD_ERR_OK) {
+                                $imagePath = $_FILES['nouvellePdp']['tmp_name'];
+                        
+                                // Convertit l'image en données binaires
+                                $imageData = file_get_contents($imagePath);
+                        
+                                // Connexion à la base de données (remplacez les paramètres par les vôtres)
+                                $nomDB = Config::get('database.connections.pgsql.database');
+                                $userDB = Config::get('database.connections.pgsql.username');
+                                $motDePasse = Config::get('database.connections.pgsql.password');
+
+                                $conn = new PDO('pgsql:host=localhost;dbname=s224', '$s224', '1s9yiZ');
+                        
+                                // Préparez et exécutez la requête SQL pour insérer l'image
+                                $stmt = $conn->prepare("INSERT INTO your_table (image_data) VALUES (:image_data)");
+                                $stmt->bindParam(':image_data', $imageData, PDO::PARAM_LOB);
+                                $stmt->execute();
+                        
+                                echo "Image téléchargée avec succès.";
+                            } else {
+                                echo "Erreur lors du téléchargement de l'image.";
+                            }
+                        }
+                    ?>
 
                     <button type="submit" id="submit">Envoyer</button>
                 </div>
