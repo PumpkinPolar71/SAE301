@@ -49,7 +49,7 @@ Route::get('/annonce/{id}', [LeBonCoinController::class, 'show']);
 
 Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createaccountentreprise"]);
 
-Route::post('/annonce/incidentsave/{id}', [LeBonCoinController::class, 'incidentsave']);
+Route::get('/annonce/incidentsave/{id}', [LeBonCoinController::class, 'incidentsave']);
 
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);

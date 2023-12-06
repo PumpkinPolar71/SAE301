@@ -39,15 +39,18 @@ class LeBonCoinController extends Controller
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
     public function incidentsave(Request $request, $id) {
-      $incident = new Incident();
-      $incident->idannonce = $id;
-        $incident->remboursement = false;
-        $incident->procedurejuridique = false;
-        $incident->resolu = false;
-        $incident->commentaire = $request->input("commentaire");
-        $incident->save();
-        
-        return redirect('/compte')->withInput()->with("incident", 'signalement créé');
+      $commentaire = $request->query("commentaire");
+
+    // Utilisez ensuite $commentaire comme vous le faisiez auparavant
+    $incident = new Incident();
+    $incident->idannonce = $id;
+    $incident->remboursement = false;
+    $incident->procedurejuridique = false;
+    $incident->resolu = false;
+    $incident->commentaire = $commentaire;
+    $incident->save();
+
+    return redirect('/compte')->withInput()->with("incident", 'signalement créé');
     }
     public function connect() {
       return view("connect");
@@ -213,51 +216,50 @@ class LeBonCoinController extends Controller
             break;
           }
         }
-          if ($testville = false) {
-            $deptAll = Departement::all();
-            $regAll = Region::all();
-            $vile = new Ville();
-            $vile->idville = Ville::max('idville')+1;
-            $a->idville = Ville::max('idville')+1;
-            $vile->nomville = $request->input("ville");
-            $depart = new Departement();
-          
-            foreach ($regAll as $regon) { 
-              if ( $request->input("region") == $regon->nomregion) {
-                $vile->nomregion = $request->input("region");
-                $depart->idregion = $regon->idregion;
-                $testregion = true;
-                break;
-              } 
-            }
-            if ($testregion = false) {
-                ///creer
-                // $depart->nomregion = $request->input("region");
-                // $depart->iddepartement = Departement::max('iddepartement')+1;
-                // $depart->nomdepartement = $request->input("dept");
-                // $depart->numdepartement = $request->input("cp");
-                // $vile->iddepartement = Departement::max('iddepartement')+1;
-                // $depart->save();
-              }
-            
-            foreach ($deptAll as $depta) {
-              if ( $request->input("dept") == $depta->nomdepartement) {
-                $vile->iddepartement = $depta->iddepartement;
-                $testdept = true;
-                $vile->save();
-                break;
-              } 
-            }
-            if ($testdept = false) {
-              $depart->nomregion = $request->input("region");
-              $depart->iddepartement = Departement::max('iddepartement')+1;
-              $depart->nomdepartement = $request->input("dept");
-              $depart->numdepartement = $request->input("cp");
-              $vile->iddepartement = Departement::max('iddepartement')+1;
-              $depart->save();
-              $vile->save();
-            }
+        if ($testville == false) {
+          $deptAll = Departement::all();
+          $regAll = Region::all();
+          $vile = new Ville();
+          $vile->idville = Ville::max('idville')+1;
+          $a->idville = Ville::max('idville')+1;
+          $vile->nomville = $request->input("ville");
+          $depart = new Departement();
+          foreach ($regAll as $regon) { 
+            if ( $request->input("region") == $regon->nomregion) {
+              $vile->nomregion = $request->input("region");
+              $depart->idregion = $regon->idregion;
+              $testregion = true;
+              break;
+            } 
           }
+          if ($testregion == false) {
+              ///creer
+              // $depart->nomregion = $request->input("region");
+              // $depart->iddepartement = Departement::max('iddepartement')+1;
+              // $depart->nomdepartement = $request->input("dept");
+              // $depart->numdepartement = $request->input("cp");
+              // $vile->iddepartement = Departement::max('iddepartement')+1;
+              // $depart->save();
+            }
+          
+          foreach ($deptAll as $depta) {
+            if ( $request->input("dept") == $depta->nomdepartement) {
+              $vile->iddepartement = $depta->iddepartement;
+              $testdept = true;
+              $vile->save();
+              break;
+            } 
+          }
+          if ($testdept == false) {
+            $depart->nomregion = $request->input("region");
+            $depart->iddepartement = Departement::max('iddepartement')+1;
+            $depart->nomdepartement = $request->input("dept");
+            $depart->numdepartement = $request->input("cp");
+            $vile->iddepartement = Departement::max('iddepartement')+1;
+            $depart->save();
+            $vile->save();
+          }
+        }
           
         /*-----------------compte------------------*/
         $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);

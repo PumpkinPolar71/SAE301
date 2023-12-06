@@ -40,13 +40,13 @@
 <p class="descr">{{ $reservation->message }}</p>
 <h2>Signaler un problème</h2>
 
-<form method="post" action="{{ url("/annonce/incidentsave/{$annonce->id}") }}">
-    @csrf
+<form method="get" action="{{ url("/annonce/incidentsave/{$annonce->id}") }}">
+  
     <!-- Autres champs de formulaire -->
-    <textarea name="commentaire" id="commentaire" rows="4" cols="50"></textarea>
-    <!-- ... -->
-    <button type="submit">Envoyer</button>
+    <input type="text" name="commentaire" placeholder="Commentaire">
+    <button type="submit">Soumettre</button>
 </form>
+
 
 @endsection
 

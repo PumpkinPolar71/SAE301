@@ -10,7 +10,7 @@
                     <div id="container">
                         <h1></h1><br>
                         <label for="pdp">Votre photo de profil : </label>
-                        <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
+                        <!-- <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span> -->
                         <input class="valeurpdp" type="text" name="nouvellePdp" id="pdp" style="display: none;">
                         
                         <button type="button" id="modifierpdp">Modifier</button>
@@ -69,8 +69,7 @@
                                         // imageUrlContainer.appendChild(imgElement.src);
                                         imageUrlContainer = URL.createObjectURL(file);
                                         console.log(imageUrlContainer);
-                                        valeurpdp.innerHTML = imageUrlContainer;    
-                                        console.log(valeurpdp.innerHTML);
+                                        valeurpdp.value = imageUrlContainer;
 
                                     }
                                 }
