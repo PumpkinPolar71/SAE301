@@ -12,6 +12,7 @@
                         <label for="pdp">Votre photo de profil : </label>
                         <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
                         <input class="valeurpdp" type="text" name="nouvellePdp" id="pdp" style="display: none;">
+                        
                         <button type="button" id="modifierpdp">Modifier</button>
                     </div>
                 <div class="popupop">
@@ -32,14 +33,14 @@
                         <p>Faites glisser et déposez des images PNG ou JPG ici.</p>
                     </div>
                     <form id="formImgC" method="post">
-                        <!-- <div id="image-container"></div> -->
+                        <div id="image-container"></div>
                         <div id="valeurpdp"></div>
                         <!-- <div class="valeurpdp"></div> -->
                     </form>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             var dropZone = document.getElementById('drop-zone');
-                            // var imageContainer = document.getElementById('image-container');
+                            var imageContainer = document.getElementById('image-container');
                             // var imageUrlContainer = document.getElementById('valeurpdp');
                             let valeurpdp = document.querySelector('.valeurpdp')
 
@@ -64,7 +65,7 @@
                                         imgElement.src = URL.createObjectURL(file);
                                         imgElement.alt = 'Image';
                                         console.log(imgElement.src);
-                                        // imageContainer.appendChild(imgElement);
+                                        imageContainer.appendChild(imgElement);
                                         // imageUrlContainer.appendChild(imgElement.src);
                                         imageUrlContainer = URL.createObjectURL(file);
                                         console.log(imageUrlContainer);

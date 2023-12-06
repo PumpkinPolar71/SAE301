@@ -41,14 +41,14 @@ class LeBonCoinController extends Controller
     public function incidentsave(Request $request, $id) {
       $incident = new Incident();
       $incident->idannonce = $id;
-    $incident->remboursement = false;
-    $incident->procedurejuridique = false;
-    $incident->resolu = false;
-    $incident->commentaire = $request->input("commentaire");
-    $incident->save();
-
-    return redirect('/compte')->withInput()->with("incident", 'signalement créé');
-}
+        $incident->remboursement = false;
+        $incident->procedurejuridique = false;
+        $incident->resolu = false;
+        $incident->commentaire = $request->input("commentaire");
+        $incident->save();
+        
+        return redirect('/compte')->withInput()->with("incident", 'signalement créé');
+    }
     public function connect() {
       return view("connect");
     }
@@ -140,7 +140,7 @@ class LeBonCoinController extends Controller
         $nouveauNom = $request->input('nouveauNom');
         $nouveauPrenom = $request->input('nouveauPrenom');
 
-        
+        // $nouvellePdp="j'aime le fil";
         $compte = Auth::user()->compte;
         if($nouvellePdp != ""){
           $compte->pdp = $nouvellePdp;
@@ -154,7 +154,7 @@ class LeBonCoinController extends Controller
         if($nouveauCP != ""){
           $compte->adressecpcompte = $nouveauCP;
         }
-        
+        $compte->save();
 
         $ville = Auth::user()->compte;
         if($nouvelleVille != ""){
@@ -166,7 +166,6 @@ class LeBonCoinController extends Controller
              else {/*ca plante*/}
             }
         }
-        $compte->save();
         $ville->save();
 
         $particulier = Auth::user()->particulier; 
@@ -200,49 +199,67 @@ class LeBonCoinController extends Controller
         $request->input("adresse") == "" ||
         $request->input("region") == "" ||
         $request->input("dept") == "" ||
-        $request->input("cp") == "" ) {
-          return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
+        $request->input("cp") == "" ) {return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
     } else {
-        $a = new Compte();
-        $villeAll = Ville::all();
-        foreach ($villeAll as $vile) { 
-          if ( $request->input("ville") == $vile->nomville) {
-              $a->idville = $vile->idville;
-          } 
-          else {
+      $testville = false;
+      $testregion = false;
+      $testdept = false;
+      $a = new Compte();
+      $villeAll = Ville::all();
+      foreach ($villeAll as $vile) { 
+        if ( $request->input("ville") == $vile->nomville) {
+            $a->idville = $vile->idville;
+            $testville = true;
+            break;
+          }
+        }
+          if ($testville = false) {
             $deptAll = Departement::all();
             $regAll = Region::all();
             $vile = new Ville();
+            $vile->idville = Ville::max('idville')+1;
+            $a->idville = Ville::max('idville')+1;
+            $vile->nomville = $request->input("ville");
             $depart = new Departement();
+          
             foreach ($regAll as $regon) { 
               if ( $request->input("region") == $regon->nomregion) {
                 $vile->nomregion = $request->input("region");
                 $depart->idregion = $regon->idregion;
+                $testregion = true;
                 break;
-              } else {
-
-              }
+              } 
             }
+            if ($testregion = false) {
+                ///creer
+                // $depart->nomregion = $request->input("region");
+                // $depart->iddepartement = Departement::max('iddepartement')+1;
+                // $depart->nomdepartement = $request->input("dept");
+                // $depart->numdepartement = $request->input("cp");
+                // $vile->iddepartement = Departement::max('iddepartement')+1;
+                // $depart->save();
+              }
+            
             foreach ($deptAll as $depta) {
               if ( $request->input("dept") == $depta->nomdepartement) {
                 $vile->iddepartement = $depta->iddepartement;
+                $testdept = true;
+                $vile->save();
                 break;
-              } else {
-                $depart->nomregion = $request->input("region");
-                $depart->iddepartement = Departement::max('iddepartement')+1;
-                $depart->nomdepartement = $request->input("dept");
-                $depart->numdepartement = $request->input("cp");
-                $vile->iddepartement = Departement::max('iddepartement')+1;
-                $depart->save();
-                break;
-              }
+              } 
             }
-            $vile->nomville = $request->input("ville");
-            $vile->idville = Ville::max('idville')+1;
-            $vile->save();
-            break;
+            if ($testdept = false) {
+              $depart->nomregion = $request->input("region");
+              $depart->iddepartement = Departement::max('iddepartement')+1;
+              $depart->nomdepartement = $request->input("dept");
+              $depart->numdepartement = $request->input("cp");
+              $vile->iddepartement = Departement::max('iddepartement')+1;
+              $depart->save();
+              $vile->save();
+            }
           }
-        }
+          
+        /*-----------------compte------------------*/
         $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
@@ -267,7 +284,8 @@ class LeBonCoinController extends Controller
         $b->etatcompte = 0;
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
-      } 
+    }
+       
       $annonce = new Annonce();
       // Attribuez les valeurs des champs de l'annonce depuis le formulaire
       $annonce = new LeBonCoin();
