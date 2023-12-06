@@ -2,12 +2,14 @@
 
 @section('title', 'LeBonCoin')
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section('content')
+
+{{ session()->get("incident") }}
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -115,7 +117,21 @@ if($data){
     <p>Aucun équipement pour cette annonce pour le moment.</p>
 @endif
 <hr>
-
+@auth
+    @if (Auth::user()->compte ? Auth::user()->compte->codeetatcompte : 'Non défini' == 9 )
+    <h2>Valider l'annonce</h2>
+    <form method="POST" action="{{ url("/service/validate") }}">
+        <div>Annonce comforme</div>
+        <input type="radio" value="oui" name="annval">
+        <label  for="oui">Oui</label><br>
+        <input type="radio" value="non" name="annval">
+        <label  for="non">Non</label><br>
+        <input type="radio" value="expert" name="annval">
+        <label  for="expert">Besoin avis expert</label><br>
+        <button id="submitb" type="submit">Valider choix</button>
+    </form>
+    @endif
+@endauth
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">
     <h2>Annonces Similaire</h2>

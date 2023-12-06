@@ -51,8 +51,8 @@
                 document.getElementById("adresse").value = all[0]
                 document.getElementById("ville").value = all[1]
                 document.getElementById("cp").value = all[2]
-                document.getElementById("dept").value = all[3]
-                document.getElementById("region").value = all[4]
+                document.getElementById("dept").value = all[4]
+                document.getElementById("region").value = all[5]
             }
         $(document).ready(function() {
         let btenvoi = $("#submitb")
@@ -128,7 +128,7 @@
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.context+'</div>')
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+','+results.features[i].properties.context+'</div>')
                             i++
                         })
                     } else {

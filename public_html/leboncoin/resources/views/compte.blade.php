@@ -5,148 +5,31 @@
         <div class="bandeau">
             <div class="pdpT"><p class="pPseudo"></p></div><br>
             
-            <form method="POST" action="{{ route('updateUserInfo') }}" enctype="multipart/form-data">
-                @csrf
-                    <div id="container">
-                        <h1></h1><br>
-                        <label for="pdp">Votre photo de profil : </label>
-                        <input type="file" accept="image/*" class="valeurpdp" name="nouvellePdp" id="pdp" style="display: none;">
-                        <span class="valeurpdpText" style="display: none;">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
-                        <button type="button" id="modifierpdp">Modifier</button>
-                    </div>
-                <div class="popupop">
-                <h2>Glisser deposer</h2>
-                    <style>
-                        #drop-zone {
-                            border: 2px dashed #ccc;
-                            padding: 20px;
-                            text-align: center;
-                        }
-                        #image-container {
-                            margin-top: 20px;
-                        }
-                        div .pdpT {
-                            background-color:#EC5A13;
-                            border-radius: 100%;
-                            height: 55px;
-                            width: 55px;
-                            z-index: 0;
-                            position: absolute;
+            
 
-                            background-image: var(--jpp);
-                            object-position: 50% 50%;
-                        }
-                        
-                    </style>
-                </head>
-                <body>
-                    <div id="drop-zone">
-                        <p>Faites glisser et déposez des images PNG ou JPG ici.</p>
-                    </div>
-                    <form id="formImgC" method="post">
-                        <div id="image-container"></div>
-                        <div id="valeurpdp"></div>
-                        <!-- <div class="valeurpdp"></div> -->
-                    </form>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            let valeurpdpText = document.querySelector('.valeurpdpText')
-                            $('.pdpT').css("background-image","url("+ valeurpdpText.textContent + ")")
-
-
-
-                            var dropZone = document.getElementById('drop-zone');
-                            var imageContainer = document.getElementById('image-container');
-                            // var imageUrlContainer = document.getElementById('valeurpdp');
-                            let valeurpdp = document.querySelector('.valeurpdp')
-                            var btenvoi = $("#submit");
-                            
-
-                            // Empêcher le comportement par défaut pour éviter le chargement du fichier dans le navigateur
-                            dropZone.addEventListener('dragover', function (e) {
-                                e.preventDefault();
-                            });
-                        
-                            // Gérer l'événement de glisser
-                            dropZone.addEventListener('drop', function (e) {
-                                e.preventDefault();
-                            
-                                var files = e.dataTransfer.files;
-
-                                for (var i = 0; i < files.length; i++) {
-                                    var file = files[i];
-
-                                    console.log(file.name);
-                                    // Vérifier si le fichier est une image PNG ou JPG
-                                    if (file.type === 'image/png' || file.type === 'image/jpeg') {
-                                        // Créer un élément image et l'ajouter à la page
-                                        var imgElement = document.createElement('img');
-                                        imgElement.src = URL.createObjectURL(file);
-                                        imgElement.alt = 'Image';
-                                        console.log(imgElement.src);
-                                        imageContainer.appendChild(imgElement);
-                                        // imageUrlContainer.appendChild(imgElement.src);
-                                        imageUrlContainer = URL.createObjectURL(file);
-
-                                        valeurpdpText.textContent = URL.createObjectURL(file);
-                                        // document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
-                                        $('.pdpT').css("background-image","url("+ valeurpdpText.textContent + ")")
-                                        //document.documentElement.style.setProperty('--jpp', 'url(' + valeurpdpText.textContent + ')');
-
-                                        console.log('valeurpdpText:', valeurpdpText.textContent);
-                                        console.log('--jpp:', valeurpdpText.textContent);
-                                    }
-                                }
-                            
-                            });
-                        });
-                    </script>
+                    
                     <?php
-                        // Connexion à la base de données
-                        $host = "localhost";
-                        
-                        $nomDB = Config::get('database.connections.pgsql.database');
-                        $userDB = Config::get('database.connections.pgsql.username');
-                        $password = Config::get('database.connections.pgsql.password');
-                        
-                        $conn = pg_connect("host=$host dbname=$nomDB user=$userDB password=$password");
-                        
-                        if (!$conn) {
-                            die("Erreur de connexion à la base de données");
-                        }
-                        
                         // Chemin vers l'image 
                         $imagePath = "pdp/hehe.jpeg";
-                        
+
                         // Lecture du contenu de l'image en tant que données binaires
                         $imageData = file_get_contents($imagePath);
                         
                         // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
-                        $escapedImageData = pg_escape_bytea($conn, $imageData);
-                        
-                        // Nom de la table et colonne dans laquelle on insère l'image
-                        $schemaName = "leboncoin";
-                        $tableName = "compte";
-                        $columnName = "pdp";
-                        
-                        // Requête SQL pour insérer l'image dans la base de données
-                        $query = "INSERT INTO $schemaName.$tableName ($columnName) VALUES ('$escapedImageData')";
-                        
-                        $result = pg_query($conn, $query);
-                        
-                        if ($result) {
-                            echo "L'image a été insérée avec succès dans la base de données.";
-                        } else {
-                            echo "Erreur lors de l'insertion de l'image dans la base de données : " . pg_last_error($conn);
-                        }
-                        
-                        // Fermeture de la connexion
-                        pg_close($conn);
-                        ?>
-                        
+                        $escapedImageData = pg_escape_bytea($imageData);
 
-                    <button type="submit" id="submit">Envoyer</button>
+                        
+                        ?>
+                        <input type="hidden" name="escapedImageData" value="{{ $escapedImageData }}">
+
+                    
+            <form action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
                 </div>
+                <button type="submit" id="submit">Envoyer</button>
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
@@ -222,9 +105,6 @@
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
                 $(document).ready(function () {
-                    //var popupop = $(".popupop")
-                    var i=0;
-                    let btenvoi = $("#submit")
                     // Au chargement de la page, affiche le label et cache l'input
                     $('#pdp').hide();
                     $('#email').hide();
@@ -234,23 +114,6 @@
                     $('#nom').hide();
                     $('#prenom').hide();
 
-                    $('.popupop').hide();
-                    $('.popupop').on('click', function () {
-                        i++
-                        if (i%2 != 0) {
-                            $('.popupop').css("display" , "none");
-                        } else {
-                            $('.popupop').css("display" , "block");
-                        }
-                    })
-                    $('#modifierpdp').on('click', function () {
-                        i++
-                        if (i%2 == 0) {
-                            $('.popupop').css("display" , "none");
-                        } else {
-                            $('.popupop').css("display" , "block");
-                        }
-                    })
                     // Gestion du clic sur le bouton "Modifier"
                     //----------------------------------------------Pdp
                     $('#modifierpdp').on('click', function () {

@@ -6,7 +6,9 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Response;
+use App\Http\Controllers\UploadController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -81,4 +83,10 @@ Route::get('/incidents', [LeBonCoinController::class, 'indexIncident']);
 
 Route::get('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
-Route::get('/serviceimmobilier', [LeBonCoinController::class, 'serviceimmobilier']);
+Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+
+Route::post('/service/validate', [ServiceController::class, 'validate']);
+
+Route::get('/upload', [UploadController::class, 'showForm']);
+
+Route::post('/upload', [UploadController::class, 'upload'])->name('upload');

@@ -17,6 +17,8 @@ use App\Models\Critere;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Config;
+use Illuminate\Support\Facades\Storage;
 
 class LeBonCoinController extends Controller
 {
@@ -24,9 +26,7 @@ class LeBonCoinController extends Controller
     public function index() {
         return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
-    public function serviceimmobilier() {
-      return view ("annonces-list", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
-  }
+
     public function add() {
       $villes = Ville::all();
       
@@ -42,17 +42,13 @@ class LeBonCoinController extends Controller
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
     public function incidentsave(Request $request) {
-      $commentaire = $request->input("commentaire");
-  
-      // Utilisez ensuite $commentaire comme vous le faisiez auparavant
       $incident = new Incident();
       $incident->idannonce = $request->input('id');
-      $incident->remboursement = FALSE;
-      $incident->procedurejuridique = FALSE;
-      $incident->resolu = FALSE;
-      $incident->commentaire = $commentaire;
+      $incident->remboursement = false;
+      $incident->procedurejuridique = false;
+      $incident->resolu = false;
+      $incident->commentaire = $request->input("commentaire");
       $incident->save();
-      echo 'oe';
     return redirect('/compte')->withInput()->with("incident", 'signalement créé');
     }
     public function connect() {
@@ -138,7 +134,7 @@ class LeBonCoinController extends Controller
     // }
     public function updateUserInfo(Request $request)
     {
-        $nouvellePdp = $request->input('nouvellePdp');
+        $nouvellePdp = $request->input('escapedImageData');
         $nouvelEmail = $request->input('nouvelEmail');
         $nouvelleRue = $request->input('nouvelleRue');
         $nouveauCP = $request->input('nouveauCP');
@@ -183,51 +179,20 @@ class LeBonCoinController extends Controller
         }
         $particulier->save();
 
-        // Connexion à la base de données
-        $host = "localhost";
-                        
-        $nomDB = Config::get('database.connections.pgsql.database');
-        $userDB = Config::get('database.connections.pgsql.username');
-        $password = Config::get('database.connections.pgsql.password');
-        
-        $conn = pg_connect("host=$host dbname=$nomDB user=$userDB password=$password");
-        
-        if (!$conn) {
-            die("Erreur de connexion à la base de données");
-        }
-        
-        // Chemin vers l'image 
-        $imagePath = "pdp/hehe.jpeg";
-        
-        // Lecture du contenu de l'image en tant que données binaires
-        $imageData = file_get_contents($imagePath);
-        
-        // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
-        $escapedImageData = pg_escape_bytea($conn, $imageData);
-        
-        // Nom de la table et colonne dans laquelle on insère l'image
-        $schemaName = "leboncoin";
-        $tableName = "compte";
-        $columnName = "pdp";
-        
-        // Requête SQL pour insérer l'image dans la base de données
-        $query = "INSERT INTO $schemaName.$tableName ($columnName) VALUES ('$escapedImageData')";
-        
-        $result = pg_query($conn, $query);
-        
-        if ($result) {
-            echo "L'image a été insérée avec succès dans la base de données.";
-        } else {
-            echo "Erreur lors de l'insertion de l'image dans la base de données : " . pg_last_error($conn);
-        }
-        
-        // Fermeture de la connexion
-        pg_close($conn);
-
-        // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     
-  }
+        }
+      private function create (Post $post, CreatePostRequest $request): array
+        {
+            $data = $request->validated();
+            /** @var UploadedFile|null $image */
+            $image = $request->validated('image');
+            $post->image = $image->store('blog', 'public');
+
+            if ($post->image) {
+              Storage::disk('public')->delete($post->image);
+          }
+        }
     
 
 
@@ -307,7 +272,7 @@ class LeBonCoinController extends Controller
         $a->motdepasse = password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
-        $a->codeetatcompte = 9;
+        $a->codeetatcompte = 0;
         $a->email = $request->input("email");
         $a->save();
      
@@ -490,7 +455,7 @@ class LeBonCoinController extends Controller
       public function indexIncident()
       {
         $incidents = Incident::all();
-        return view('incidents.index', compact('incidents'));
+        return view('incidentclass', compact('incidents'));
       }
 
       public function classementSansSuite($id)
