@@ -28,6 +28,10 @@ class LeBonCoin extends Model
     {
         return $this->belongsToMany(Equipement::class, 'recueille', 'idannonce', 'idequipement');
     }
+    public function conditionHebergement()
+    {
+        return $this->belongsTo(ConditionHebergement::class, 'idconditionh');
+    }
     
 }
 

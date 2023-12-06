@@ -27,4 +27,5 @@ function handleKeyPress(event) {
 
 
 
+
 //console.log("test recherche js");

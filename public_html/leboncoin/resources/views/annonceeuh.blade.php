@@ -19,8 +19,8 @@
         <label>Condition hébergement</label><br>
             <label for="apagnyan1">Date arrivé :</label><br>
             <input type="time" name="apagnyan1" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-            <label for="apagnyan1">Date départ :</label><br>
-            <input type="time" name="apagnyan1" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+            <label for="apagnyan3">Date départ :</label><br>
+            <input type="time" name="apagnyan3" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
             <label for="apagnyan">fumeur</label><br>
             <input type="checkbox" name="apagnyan" id="idconditionh"><br>
             <label for="apagnyan2">animaux accéptés ?</label><br>
@@ -40,11 +40,18 @@
         @endforeach
     </select>
         </div>
-
+<!-- Choisir un type d'hébergement -->
+<label for="type_hebergement">Choisir un type d'hébergement :</label>
+    <select name="type_hebergement" id="type_hebergement">
+        <option value="">Tous les types</option>
+        @foreach($typesHebergement as $type)
+            <option value="{{ $type->idtype }}" {{ request()->get('type_hebergement') == $type->idtype ? 'selected' : '' }}>{{ $type->type }}</option>
+        @endforeach
+    </select>
         <!-- Cases à cocher pour les critères -->
         <div>
             <label>Capacité(nombres de personnes pouvant etre accueillies) :</label><br>
-            <input type="textbox" name="critere2" id="idcritere"><br>
+            <input type="textbox" name="critere1" id="idcritere"><br>
             <label>Nombres de chambres :</label><br>
             <input type="textbox" name="critere2" id="idcritere"><br>
             

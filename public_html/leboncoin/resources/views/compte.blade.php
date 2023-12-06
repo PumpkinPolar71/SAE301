@@ -3,16 +3,15 @@
 @section('content')
     @auth
         <div class="bandeau">
-            <div class="pdp"><p class="pPseudo"></p></div><br> 
+            <div class="pdpT"><p class="pPseudo"></p></div><br> 
             
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
                     <div id="container">
                         <h1></h1><br>
                         <label for="pdp">Votre photo de profil : </label>
-                        <!-- <span class="valeurpdp">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span> -->
                         <input class="valeurpdp" type="text" name="nouvellePdp" id="pdp" style="display: none;">
-                        
+                        <span class="valeurpdpText" style="display: none;">{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}</span>
                         <button type="button" id="modifierpdp">Modifier</button>
                     </div>
                 <div class="popupop">
@@ -26,6 +25,18 @@
                         #image-container {
                             margin-top: 20px;
                         }
+                        div .pdpT {
+                            background-color:#EC5A13;
+                            border-radius: 100%;
+                            height: 55px;
+                            width: 55px;
+                            z-index: 0;
+                            position: absolute;
+
+                            background-image: var(--jpp);
+                            object-position: 50% 50%;
+                        }
+                        
                     </style>
                 </head>
                 <body>
@@ -43,6 +54,7 @@
                             var imageContainer = document.getElementById('image-container');
                             // var imageUrlContainer = document.getElementById('valeurpdp');
                             let valeurpdp = document.querySelector('.valeurpdp')
+                            let valeurpdpText = document.querySelector('.valeurpdpText')
 
                             // Empêcher le comportement par défaut pour éviter le chargement du fichier dans le navigateur
                             dropZone.addEventListener('dragover', function (e) {
@@ -70,14 +82,15 @@
                                         imageUrlContainer = URL.createObjectURL(file);
                                         console.log(imageUrlContainer);
                                         valeurpdp.value = imageUrlContainer;
-
+                                        valeurpdpText = imageUrlContainer;
+                                        document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
+                                        document.documentElement.style.setProperty('--jpp', 'url(' + valeurpdpText + ')');
                                     }
                                 }
                             
                             });
                         });
                     </script>
-                    
 
                     <button type="submit" id="submit">Envoyer</button>
                 </div>

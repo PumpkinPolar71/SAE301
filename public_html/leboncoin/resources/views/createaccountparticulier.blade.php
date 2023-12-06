@@ -34,8 +34,8 @@
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville *</div>
     <input id="ville" name="ville" readOnly="readOnly">
-    <input style="display:block;" id="region" name="region" readOnly="readOnly">
-    <input style="display:block;" id="dept" name="dept" readOnly="readOnly">
+    <input style="display:none;" id="region" name="region" readOnly="readOnly">
+    <input style="display:none;" id="dept" name="dept" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
@@ -68,7 +68,6 @@
                 messageErreurDate.textContent = "";
                 btenvoi.show()
             }
-
         })
 
         $("#mdp").on("keyup", function() {

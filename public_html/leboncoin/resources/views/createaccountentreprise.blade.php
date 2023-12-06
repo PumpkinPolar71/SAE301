@@ -26,13 +26,15 @@
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville *</div>
     <input id="ville" name="ville" readOnly="readOnly">
+    <input style="display:block;" id="region" name="region" readOnly="readOnly">
+    <input style="display:block;" id="dept" name="dept" readOnly="readOnly">
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password">
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
     <button id="submitbent" type="submit">Créer mon compte</button>
 
     <script>
-             function recupererIdDiv(id) {
+                function recupererIdDiv(id) {
                 console.log("L'ID de la div est : " + document.getElementById(id));
                 //console.log(document.getElementById(id).innerHTML);
                 all = document.getElementById(id).innerHTML.split(",")
@@ -40,6 +42,8 @@
                 document.getElementById("adresse").value = all[0]
                 document.getElementById("ville").value = all[1]
                 document.getElementById("cp").value = all[2]
+                document.getElementById("dept").value = all[4]
+                document.getElementById("region").value = all[5]
             }
         $(document).ready(function() {
         let btenvoi = $("#submitbent")
@@ -102,7 +106,7 @@
                         $.each(results.features, function(key, value) {
                             console.log(results, "results");
                             //console.log(value, key, "value et kes"/*value.features.properties.label*/);
-                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+'</div>')
+                            $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+','+results.features[i].properties.context+'</div>')
                             i++
                         })
                     } else {

@@ -9,6 +9,6 @@ class Entreprise extends Model
 {
     use HasFactory;
     protected $table = "entreprise";
-    protected $primaryKey = "siret";
+    protected $primaryKey = "identreprise";
     public $timestamps = false;
 }

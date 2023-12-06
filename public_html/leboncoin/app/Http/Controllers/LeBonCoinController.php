@@ -76,11 +76,11 @@ class LeBonCoinController extends Controller
       return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
   }
   
-  public function show($id) {
+  /*public function show($id) {
     $annonce = LeBonCoin::find($id); // Récupération de l'annonce avec l'ID fourni
     // ...
     return view('incidentsave')->with('annonce', $annonce);
-}
+}*/
   public function oneres($id) {
     $id = $id;//find($id)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
@@ -181,6 +181,14 @@ class LeBonCoinController extends Controller
         $particulier->save();
 
 
+        echo "function pdpContain(imageUrlContainer){
+	
+          document.documentElement.style.setProperty('--jpp', 'url(' + imageUrlContainer + ')');
+        }";
+
+        echo "function pdpContain($compte->pdp)";
+
+
         // Redirigez ou renvoyez une réponse
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     
@@ -233,13 +241,12 @@ class LeBonCoinController extends Controller
             } 
           }
           if ($testregion == false) {
-              ///creer
-              // $depart->nomregion = $request->input("region");
-              // $depart->iddepartement = Departement::max('iddepartement')+1;
-              // $depart->nomdepartement = $request->input("dept");
-              // $depart->numdepartement = $request->input("cp");
-              // $vile->iddepartement = Departement::max('iddepartement')+1;
-              // $depart->save();
+            $regi = new Region();
+            $vile->nomregion = $request->input("region");
+            $regi->nomregion = $request->input("region");
+            $regi->idregion = Region::max('idregion')+1;
+            $depart->idregion = Region::max('idregion')+1;
+            $regi->save();
             }
           
           foreach ($deptAll as $depta) {
@@ -287,39 +294,73 @@ class LeBonCoinController extends Controller
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte créé');
     }
-       
-      $annonce = new Annonce();
-      // Attribuez les valeurs des champs de l'annonce depuis le formulaire
-      $annonce = new LeBonCoin();
-      $annonce->titreannonce = $request->input("titreannonce");
-      $annonce->date_arrivee = $request->input("apagnyan1");
-      $annonce->date_depart = $request->input("apagnyan1");
-      $annonce->fumeur = $request->has("apagnyan") ? 1 : 0;
-      $annonce->animaux_acceptes = $request->has("apagnyan2") ? 1 : 0;
-      $annonce->ville = $request->input("ville");
-      $annonce->capacite = $request->input("critere2");
-      $annonce->nombre_chambres = $request->input("critere2");
-      $annonce->description = $request->input("description");
-      $annonce->date = $request->input("date");
-      $annonce->prix = $request->input("prix");
-      $annonce->lien_photo = $request->input("lien_photo");
-      $annonce->save();
+  } 
+      
+  public function ajouterAnnonce(Request $request)
+  {
+    
+      $idVille = $request->input('ville');
+      $idTypeHebergement = $request->input('type_hebergement');
+      // Récupérer les valeurs de la partie "condition hébergement" de la requête GET
+      $dateArrivee = $request->query('apagnyan1');
+      $dateDepart = $request->query('apagnyan3');
+      $fumeur = $request->has('apagnyan') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $animauxAcceptes = $request->has('apagnyan2') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $critereetoile = 0;
+      $criterecapa = $request->input('critere1');
+      $criterenbpers = $request->input('critere2');
   
-      // Sauvegardez l'annonce dans la base de données
-      $annonce->save();
-  
-      // Récupérez le lien de la photo depuis le formulaire
-      $lienPhoto = $request->input('lien_photo');
-  
-      // Créez une nouvelle entrée dans la table Photo associée à l'annonce
-      $photo = new Photo();
-      $photo->lien_photo = $lienPhoto;
-      $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
-      $photo->save();
-  
-      return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
-    }
+      // Créer la chaîne représentant les conditions d'hébergement
+      $libelleCondition = "$dateArrivee $dateDepart $fumeur $animauxAcceptes";
+      $critereetoile = '0 ' . $critereetoile;
 
+    // Concaténer les valeurs des critères pour former le libellé complet
+      $libelleCritere = "$critereetoile $criterecapa $criterenbpers";
+      $idUserConnecte = Auth::id();
+      // Créer une nouvelle entrée dans la table condition_hebergement
+      $conditionHebergement = new ConditionHebergement();
+      $conditionHebergement->libellecondition = $libelleCondition;
+      $conditionHebergement->save();
+
+      $critere = new Critere();
+      $critere->libelle = $libelleCritere;
+      $critere->save();
+
+      $idCritere = $critere->id;
+
+  
+      // Récupérer l'id condition hébergement nouvellement créé
+        $idConditionHebergement = $conditionHebergement->idconditionh;
+
+
+        $annonce = new Annonce();
+        $annonce->idconditionh = $idConditionHebergement;
+        $annonce->idcompte = $idUserConnecte; // Associer l'annonce à l'utilisateur connecté
+        $annonce->identreprise = false;
+        $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
+        $annonce->idtype = $idTypeHebergement;
+        $annonce->titreannonce = $request->input("titreannonce");
+        $annonce->idcritere = $idCritere;
+        $annonce->description = $request->input("description");
+        $annonce->date = $request->input("date");
+        $annonce->prix = $request->input("prix");
+        $annonce->lien_photo = $request->input("lien_photo");
+        $annonce->save();
+    
+        // Sauvegardez l'annonce dans la base de données
+        $annonce->save();
+    
+        // Récupérez le lien de la photo depuis le formulaire
+        $lienPhoto = $request->input('lien_photo');
+    
+        // Créez une nouvelle entrée dans la table Photo associée à l'annonce
+        $photo = new Photo();
+        $photo->lien_photo = $lienPhoto;
+        $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
+        $photo->save();
+    
+        return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
+      }
     public function saveent(Request $request)
     {
       if (
@@ -329,16 +370,65 @@ class LeBonCoinController extends Controller
         $request->input("ville") == "" ||
         $request->input("mdp") == "" ||
         $request->input("adresse") == "" ||
+        $request->input("region") == "" ||
+        $request->input("dept") == "" ||
         $request->input("cp") == "" ) {
           return redirect('createaccountentreprise')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
     } else {
-        $a = new Compte();
-        $villeAll = Ville::all();
-        foreach ($villeAll as $vile) { 
-          if ( $request->input("ville") == $vile->nomville) {
-              $a->idville = $vile->idville;
-          } //A REFAIRE
-          else {/*ca plante*/}
+      $testville = false;
+      $testregion = false;
+      $testdept = false;
+      $a = new Compte();
+      $villeAll = Ville::all();
+      foreach ($villeAll as $vile) {
+        if ( $request->input("ville") == $vile->nomville) {
+            $a->idville = $vile->idville;
+            $testville = true;
+            break;
+          }
+        }
+        if ($testville == false) {
+          $deptAll = Departement::all();
+          $regAll = Region::all();
+          $vile = new Ville();
+          $vile->idville = Ville::max('idville')+1;
+          $a->idville = Ville::max('idville')+1;
+          $vile->nomville = $request->input("ville");
+          $depart = new Departement();
+          foreach ($regAll as $regon) { 
+            if ( $request->input("region") == $regon->nomregion) {
+              $vile->nomregion = $request->input("region");
+              $depart->idregion = $regon->idregion;
+              $testregion = true;
+              break;
+            } 
+          }
+          if ($testregion == false) {
+            $regi = new Region();
+            $vile->nomregion = $request->input("region");
+            $regi->nomregion = $request->input("region");
+            $regi->idregion = Region::max('idregion')+1;
+            $depart->idregion = Region::max('idregion')+1;
+            $regi->save();
+            }
+          
+          foreach ($deptAll as $depta) {
+            if ( $request->input("dept") == $depta->nomdepartement) {
+              $vile->iddepartement = $depta->iddepartement;
+              $testdept = true;
+              $vile->save();
+              break;
+            } 
+          }
+          if ($testdept == false) {
+            $depart->nomregion = $request->input("region");
+            $depart->iddepartement = Departement::max('iddepartement')+1;
+            $depart->nomdepartement = $request->input("dept");
+            $depart->numdepartement = $request->input("cp");
+            $vile->iddepartement = Departement::max('iddepartement')+1;
+            $depart->save();
+            $vile->save();
+          }
         }
         $a->motdepasse =  password_hash($request->input("mdp"), PASSWORD_DEFAULT);
         $a->adresseruecompte = $request->input("adresse");
@@ -349,13 +439,13 @@ class LeBonCoinController extends Controller
      
         $b = new Entreprise();
         $b->idcompte = $a->idcompte;
+        $b->identreprise = Entreprise::max('identreprise')+1;
         $b->secteuractivite = $request->input("secteur");
         $b->societe = $request->input("nom");
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte professionnel créé');
-      } 
+      }
     }
-    
-    }
+  }
 
     
