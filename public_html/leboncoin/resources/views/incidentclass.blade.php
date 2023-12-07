@@ -9,7 +9,17 @@
             <td>ID Annonce: {{ $incident->idannonce }}</td>
             <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
             <td>Commentaire: {{ $incident->commentaire }}</td>
-            <td><a href="{{ url('/classement-sans-suite/'.$incident->idincident) }}">Classer sans suite</a></td>
+            <td>
+                <form action="{{ url('/classement-sans-suite/'.$incident->idincident) }}" method="post">
+                    @csrf
+                    <label for="statut">Statut :</label>
+                    <select name="statut" id="statut">
+                        <option value="resolu">Problème résolu</option>
+                        <option value="non-resolu">Problème non résolu</option>
+                    </select>
+                    <button type="submit">Classer sans suite</button>
+                </form>
+            </td>
         </tr>
     @endforeach
 </table>
@@ -21,6 +31,7 @@
             <td>ID Annonce: {{ $incident->idannonce }}</td>
             <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
             <td>Commentaire: {{ $incident->commentaire }}</td>
+            <td>Statut: Résolu</td>
         </tr>
     @endforeach
 </table>

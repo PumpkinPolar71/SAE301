@@ -31,9 +31,9 @@ Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
-Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
+Route::post("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
-Route::get("/annonce/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
+Route::post("/annonce/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
 
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
 
@@ -73,6 +73,7 @@ Route::get("/proprio/{id}",[LeBonCoinController::class, "proprio" ]);
 
 Route::get("/compte",[LeBonCoinController::class, "compte" ]);
 
+Route::post('/resolution_incident/{idincident}', 'LeBonCoinController@marquerCommeResolu')->name('resolution_incident');
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
@@ -90,7 +91,7 @@ Route::get('/incidents', [LeBonCoinController::class, 'indexIncident']);
 
 Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
 
-Route::get('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
+Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);//get
 

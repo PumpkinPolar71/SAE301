@@ -9,16 +9,16 @@ if ($annonces->isEmpty()) {
 } else {
     echo "<table>";
     foreach ($annonces as $annonce) {
-        if ($annonce->codeetatvalide == False) {
+        if ($annonce->codeetatvalide == False){
             echo $annonce->codeetatvalide;
             echo "<tr>";
             echo "<td>";
-            echo "<a href='/annonceserv/{$annonce->idannonce}'>";
+            echo "<a href='/annonce/{$annonce->idannonce}'>";
             
             foreach ($photos as $photo) {
                 if ($photo->idphoto == $annonce->idannonce) {
                     echo "<img class='temp' src='{$photo->photo}'>";
-                    break;
+                    break; 
                 }
             }
 

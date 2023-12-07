@@ -414,11 +414,10 @@ class LeBonCoinController extends Controller
   
       // Créer la chaîne représentant les conditions d'hébergement
       $libelleCondition = "$dateArrivee $dateDepart $fumeur $animauxAcceptes";
-      $critereetoile = '0 ' . $critereetoile;
+      // $critereetoile = '0 ' . $critereetoile;
 
     // Concaténer les valeurs des critères pour former le libellé complet
       $libelleCritere = "$critereetoile $criterecapa $criterenbpers";
-      $idUserConnecte = Auth::id();
       // Créer une nouvelle entrée dans la table condition_hebergement
       $conditionHebergement = new ConditionHebergement();
       $conditionHebergement->libellecondition = $libelleCondition;
@@ -437,8 +436,8 @@ class LeBonCoinController extends Controller
 
         $annonce = new Annonce();
         $annonce->idconditionh = $idConditionHebergement;
-        $annonce->idcompte = $idUserConnecte; // Associer l'annonce à l'utilisateur connecté
-        $annonce->identreprise = false;
+        $annonce->idcompte = Auth::id(); // Associer l'annonce à l'utilisateur connecté
+        //$annonce->identreprise = false;
         $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
         $annonce->idtype = $idTypeHebergement;
         $annonce->titreannonce = $request->input("titreannonce");
@@ -446,24 +445,34 @@ class LeBonCoinController extends Controller
         $annonce->description = $request->input("description");
         $annonce->date = $request->input("date");
         $annonce->prix = $request->input("prix");
-        $annonce->lien_photo = $request->input("lien_photo");
+        //$annonce->lien_photo = $request->input("lien_photo");
         $annonce->save();
     
         // Sauvegardez l'annonce dans la base de données
         
-    
         // Récupérez le lien de la photo depuis le formulaire
-        $lienPhoto = $request->input('lien_photo');
+        //$lienPhoto = $request->input('lien_photo');
     
         // Créez une nouvelle entrée dans la table Photo associée à l'annonce
-        $photo = new Photo();
-        $photo->lien_photo = $lienPhoto;
-        $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
-        $photo->save();
+        //$photo = new Photo();
+        //$photo->lien_photo = $lienPhoto;
+        //$photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
+        //$photo->save();
     
-        return redirect('/annonces')->with('typesHebergement', $typesHebergement)->with('success', 'Annonce créée avec succès!');
+        return redirect('/compte')->withInput()->with("compte",'Annonce créée');
       }
+      public function marquerCommeResolu($idincident)
+{
+    $incident = Incident::find($idincident);
 
+    if ($incident) {
+        $incident->resolu = true; // Mettre à jour le champ "resolu" à true
+        $incident->save();
+        return redirect('/compte')->with('success', 'Incident marqué comme résolu avec succès');
+    } else {
+        return redirect('/compte')->with('error', 'Incident non trouvé');
+    }
+}
 
 
     
@@ -475,13 +484,20 @@ class LeBonCoinController extends Controller
         return view('incidentclass', compact('incidents'));
       }
 
-      public function classementSansSuite($id)
+      public function classementSansSuite(Request $request, $id)
       {
         $incident = Incident::find($id);
-        $incident->resolu = true;
+
+        // Obtient la valeur de 'statut' à partir de la requête
+        $statut = $request->input('statut', 'non-resolu');
+
+        // Met à jour le champ 'resolu' en fonction du statut choisi
+        $incident->resolu = ($statut == 'resolu');
         $incident->save();
+
         return redirect('/incidents');
       }
+
 
 
 
