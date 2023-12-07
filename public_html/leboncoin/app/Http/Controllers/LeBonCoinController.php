@@ -477,9 +477,12 @@ class LeBonCoinController extends Controller
 
       public function classementSansSuite($id)
       {
-        Incident::where('idincident', $id)->update(['resolu' => false]);
+        $incident = Incident::find($id);
+        $incident->resolu = true;
+        $incident->save();
         return redirect('/incidents');
       }
+
 
 
       public function resolution($id)
