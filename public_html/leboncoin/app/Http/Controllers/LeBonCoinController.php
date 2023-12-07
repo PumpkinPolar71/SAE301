@@ -30,8 +30,9 @@ class LeBonCoinController extends Controller
 
     public function add() {
       $villes = Ville::all();
+      $typesHebergements = TypeHebergement::all();
       
-        return view("annonceeuh",compact('villes'));
+      return view("annonceeuh",compact('villes', "typesHebergements"));
     }
     public function processForm(Request $request)
     {
@@ -403,10 +404,10 @@ class LeBonCoinController extends Controller
       $idVille = $request->input('ville');
       $idTypeHebergement = $request->input('type_hebergement');
       // Récupérer les valeurs de la partie "condition hébergement" de la requête GET
-      $dateArrivee = $request->query('apagnyan1');
-      $dateDepart = $request->query('apagnyan3');
-      $fumeur = $request->has('apagnyan') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
-      $animauxAcceptes = $request->has('apagnyan2') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $dateArrivee = $request->query('datearrive');
+      $dateDepart = $request->query('datedepart');
+      $fumeur = $request->has('fumeur') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
+      $animauxAcceptes = $request->has('animaux') ? 'TRUE' : 'FALSE'; // TRUE si la case est cochée
       $critereetoile = 0;
       $criterecapa = $request->input('critere1');
       $criterenbpers = $request->input('critere2');
@@ -460,7 +461,7 @@ class LeBonCoinController extends Controller
         $photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
         $photo->save();
     
-        return redirect('/annonces')->with('success', 'Annonce créée avec succès!');
+        return redirect('/annonces')->with('typesHebergement', $typesHebergement)->with('success', 'Annonce créée avec succès!');
       }
 
 

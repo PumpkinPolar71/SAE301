@@ -29,11 +29,10 @@
                         
                     </style>
             
-            <form class="image" action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
-                @csrf
-                <label for="image">Image</label>
-                <div class="image" name="image"></div>
-                <input type="text" class="image" name="image" id="image" style="display: none;">
+                    <form action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
+                        @csrf
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image">
             
                     <script>
                         let image = document.querySelector('.filename')
@@ -61,20 +60,22 @@
                         $filename = null;
                         $fileExtension = null;
                         
-                        if (request()->has('image')) {
-                            $filename = request('image');
+                        if (request()->hasFile('image') && request()->file('image')->isValid()) {
+                            $file = request()->file('image');
+                            
+                            // Utilisez pathinfo pour obtenir des informations sur le fichier
+                            $pathInfo = pathinfo($file->getClientOriginalName());
                         
-                            // Obtenez les informations sur le chemin du fichier
-                            $pathInfo = pathinfo($filename);
-                        
-                            // Extrayez le nom du fichier sans extension
+                            // Obtenez le nom du fichier sans extension
                             $fileName = $pathInfo['filename'];
                         
-                            // Extrayez l'extension du fichier
+                            // Obtenez l'extension du fichier
                             $fileExtension = $pathInfo['extension'];
                         
+                            // Utilisez ces variables comme nécessaire
                             echo $fileName;
                             echo $fileExtension;
+                        
                         
                             $imagePath = "storage/uploads/$filename.$fileExtension";
                         
@@ -102,11 +103,9 @@
                         </style>
 
             
-                <div class="form-group">
-                    
+                <!-- <div class="form-group">
                     <input type="file" class="form-control" id="image" name="image">
-                </div>
-                <button type="submit" id="submit">Envoyer</button>
+                </div> -->
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf

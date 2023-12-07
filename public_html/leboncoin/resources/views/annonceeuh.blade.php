@@ -7,7 +7,7 @@
 
 
 @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
-    <form method="post" action="{{ url("/annonce/save") }}">
+    <form method="post" action="{{ url("/annonce/ajouterAnnonce") }}">
         @csrf <!-- Ajoute un token CSRF pour la sécurité -->
         <!-- Titre de l'annonce -->
         <div>
@@ -17,14 +17,14 @@
         <!-- Champs pour le formulaire de création d'annonce -->
         <div>
         <label>Condition hébergement</label><br>
-            <label for="apagnyan1">Date arrivé :</label><br>
-            <input type="time" name="apagnyan1" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-            <label for="apagnyan3">Date départ :</label><br>
-            <input type="time" name="apagnyan3" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-            <label for="apagnyan">fumeur</label><br>
-            <input type="checkbox" name="apagnyan" id="idconditionh"><br>
-            <label for="apagnyan2">animaux accéptés ?</label><br>
-            <input type="checkbox" name="apagnyan2" id="idconditionh"><br>
+            <label for="datearrive">Date arrivé :</label><br>
+            <input type="time" name="datearrive" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+            <label for="datedepart">Date départ :</label><br>
+            <input type="time" name="datedepart" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+            <label for="fumeur">fumeur</label><br>
+            <input type="checkbox" name="fumeur" id="idconditionh"><br>
+            <label for="animaux">animaux accéptés ?</label><br>
+            <input type="checkbox" name="animaux" id="idconditionh"><br>
             
             </select>
         </div>
@@ -40,12 +40,11 @@
         @endforeach
     </select>
         </div>
-<!-- Choisir un type d'hébergement -->
-<label for="type_hebergement">Choisir un type d'hébergement :</label>
+    <!-- Choisir un type d'hébergement -->
     <select name="type_hebergement" id="type_hebergement">
         <option value="">Tous les types</option>
-        @foreach($typesHebergement as $type)
-            <option value="{{ $type->idtype }}" {{ request()->get('type_hebergement') == $type->idtype ? 'selected' : '' }}>{{ $type->type }}</option>
+        @foreach($typesHebergements as $type)
+            <option value="{{ $type->idtype }}">{{ $type->type }}</option>
         @endforeach
     </select>
         <!-- Cases à cocher pour les critères -->
@@ -69,12 +68,14 @@
             <label for="date">Date :</label><br>
             <input type="date" name="date" id="date" value="{{ date('Y-m-d') }}">
         </div>
-        <form method="POST" action="{{ route('process-form') }}">
     @csrf
     <label for="prix">Prix :</label>
     <input type="number" step="10" name="prix" id="prix" required>
     <button type="submit">Soumettre</button>
 </form><br>
+
+
+
 @if ($errors->has('prix'))
     <span class="error">{{ $errors->first('prix') }}</span>
 @endif
@@ -98,7 +99,7 @@
 
 <!-- Script JavaScript -->
 <script>
-    // Ton script JavaScript actuel
+    
 </script>
 
 @endsection

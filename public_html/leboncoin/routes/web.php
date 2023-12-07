@@ -33,6 +33,8 @@ Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
 Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
+Route::get("/annonce/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
+
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
 
 Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
@@ -94,7 +96,7 @@ Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']
 
 Route::post('/serviceimmoilier/validatesrv', [ServiceController::class, 'validatesrv']);
 
-Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ]);
+Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
 
 Route::get('/upload', [UploadController::class, 'showForm']);
 
