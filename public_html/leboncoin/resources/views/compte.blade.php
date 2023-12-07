@@ -5,36 +5,37 @@
     @auth
         <div class="bandeau">
             <div class="pdpT"><p class="pPseudo"></p></div><br>
+            <label for="image">Image</label>
+            <form class="image" action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
+                @csrf
+            <div class="image" name="filname"></div>
             
-            
-                    
+                    <script>
+                        let image = document.querySelector('.filename')
+                        var files = e.dataTransfer.files;
+
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                        
+                            console.log(file.name);
+                        // Vérifier si le fichier est une image PNG ou JPG
+                        if (file.type === 'image/png' || file.type === 'image/jpeg' ) {
+                                        // Créer un élément image et l'ajouter à la page
+                                        var imgElement = document.createElement('img');
+                                        imgElement.src = URL.createObjectURL(file);
+                                        imgElement.alt = 'Image';
+                                        console.log(imgElement.src);
+                                        // image = URL.createObjectURL(file);
+                                        image.value = file.name
+
+                                    }
+                                }
+                    </script>
                     
                     <?php
-
-
-
-                        echo "<script>";
-                        echo "    var files = e.dataTransfer.files;";
-
-                        echo "    for (var i = 0; i < files.length; i++) {";
-                        echo "        var file = files[i];";
-                        
-                        echo "        console.log(file.name);";
-                        echo "    // Vérifier si le fichier est une image PNG ou JPG";
-                        echo "    if (file.type === 'image/png' || file.type === 'image/jpeg' ) {";
-                        echo "                    // Créer un élément image et l'ajouter à la page";
-                        echo "                    var imgElement = document.createElement('img');";
-                        echo "                    imgElement.src = URL.createObjectURL(file);";
-                        echo "                    imgElement.alt = 'Image';";
-                        echo "                    console.log(imgElement.src);";
-                        echo "                    imageUrlContainer = URL.createObjectURL(file);";
-                           
-                        echo "                }";
-                        echo "            }";
-                        echo "</script>";
-                    
+                        $filename = $_POST['filename'];
                         // Chemin vers l'image 
-                        $imagePath = "storage/uploads/";
+                        $imagePath = "storage/uploads/$filename";
 
                         // Lecture du contenu de l'image en tant que données binaires
                         $imageData = file_get_contents($imagePath);
@@ -44,13 +45,11 @@
 
                         
                         ?>
-                        <input type="hidden" name="escapedImageData" value="{{ $escapedImageData }}">
 
                     
-            <form action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
-                @csrf
+            
                 <div class="form-group">
-                    <label for="image">Image</label>
+                    
                     <input type="file" class="form-control" id="image" name="image">
                 </div>
                 <button type="submit" id="submit">Envoyer</button>
