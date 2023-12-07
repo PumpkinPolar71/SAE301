@@ -4,11 +4,36 @@
 {{ session()->get("success") }}
     @auth
         <div class="bandeau">
-            <div class="pdpT"><p class="pPseudo"></p></div><br>
-            <label for="image">Image</label>
+            <div class="pdpT"><p class="pPseudo"></p></div><br><br><br>
+            <style>
+                        #drop-zone {
+                            border: 2px dashed #ccc;
+                            padding: 20px;
+                            text-align: center;
+                        }
+                        #image-container {
+                            margin-top: 20px;
+                        }
+                        div .pdpT {
+                            background-color:#EC5A13;
+                            border-radius: 100%;
+                            height: 55px;
+                            width: 55px;
+                            z-index: 0;
+                            position: absolute;
+
+                            background-image: var(--jpp);
+                            object-position: 50% 50%;
+                        }
+                        
+                        
+                    </style>
+            
             <form class="image" action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
                 @csrf
-            <div class="image" name="filname"></div>
+                <label for="image">Image</label>
+                <div class="image" name="image"></div>
+                <input type="text" class="image" name="image" id="image" style="display: none;">
             
                     <script>
                         let image = document.querySelector('.filename')
@@ -33,20 +58,49 @@
                     </script>
                     
                     <?php
-                        $filename = $_POST['filename'];
-                        // Chemin vers l'image 
-                        $imagePath = "storage/uploads/$filename";
-
-                        // Lecture du contenu de l'image en tant que données binaires
-                        $imageData = file_get_contents($imagePath);
+                        $filename = null;
+                        $fileExtension = null;
                         
-                        // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
-                        $escapedImageData = pg_escape_bytea($imageData);
-
+                        if (request()->has('image')) {
+                            $filename = request('image');
                         
-                        ?>
+                            // Obtenez les informations sur le chemin du fichier
+                            $pathInfo = pathinfo($filename);
+                        
+                            // Extrayez le nom du fichier sans extension
+                            $fileName = $pathInfo['filename'];
+                        
+                            // Extrayez l'extension du fichier
+                            $fileExtension = $pathInfo['extension'];
+                        
+                            echo $fileName;
+                            echo $fileExtension;
+                        
+                            $imagePath = "storage/uploads/$filename.$fileExtension";
+                        
+                            // Lecture du contenu de l'image en tant que données binaires
+                            $imageData = file_get_contents($imagePath);
+                        
+                            // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
+                            $escapedImageData = pg_escape_bytea($imageData);
+                        
+                            echo '<input type="hidden" name="escapedImageData" value="' . $escapedImageData . '">';
+                        }
+                    ?>
 
-                    
+
+                        <button type="submit" id="submit">Envoyer</button>
+
+                        <div class="image-container"></div>
+                        <style>
+                            .image-container {
+                            background-image: url('{{ asset('storage/uploads/' . $filename . '.' . $fileExtension) }}');
+                            /* Ajoutez d'autres propriétés CSS au besoin */
+                            width: 100px;
+                            height: 100px;
+                        }
+                        </style>
+
             
                 <div class="form-group">
                     
@@ -129,7 +183,7 @@
             <script>
                 $(document).ready(function () {
                     // Au chargement de la page, affiche le label et cache l'input
-                    $('#pdp').hide();
+                    // $('#image').hide();
                     $('#email').hide();
                     $('#adresserue').hide();
                     $('#adressecp').hide();

@@ -118,7 +118,7 @@ if($data){
 @endif
 <hr>
 @auth
-     @if (Auth::user()->compte->codeetatcompte == 9 )
+@if (Auth::user()->compte->codeetatcompte == 9 )
     <h2>Valider l'annonce</h2>
     <form method="POST" action="{{ url("/serviceimmoilier/validatesrv") }}">
         <div>Annonce comforme</div>

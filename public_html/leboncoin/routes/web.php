@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
-Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]); //la
+Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
 Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
@@ -54,11 +54,15 @@ Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createacco
 Route::post('/annonce/incidentsave', [LeBonCoinController::class, 'incidentsave']);
 
 Route::get("/search", [ LeBonCoinController::class, "search"]);
+
 Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/search', [CityController::class, 'indexe']);
+
 Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
+
 Route::get('/adresse/{q}', [CityController::class, 'adresse']);
+
 Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
 
 Route::get("/login",[LoginController::class, "authenticate" ]);
@@ -66,6 +70,7 @@ Route::get("/login",[LoginController::class, "authenticate" ]);
 Route::get("/proprio/{id}",[LeBonCoinController::class, "proprio" ]);
 
 Route::get("/compte",[LeBonCoinController::class, "compte" ]);
+
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
@@ -81,11 +86,15 @@ Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);
 
 Route::get('/incidents', [LeBonCoinController::class, 'indexIncident']);
 
+Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
+
 Route::get('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
-Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);//get
 
-Route::post('/service/validate', [ServiceController::class, 'validate']);
+Route::post('/serviceimmoilier/validatesrv', [ServiceController::class, 'validatesrv']);
+
+Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ]);
 
 Route::get('/upload', [UploadController::class, 'showForm']);
 

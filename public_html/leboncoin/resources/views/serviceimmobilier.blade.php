@@ -13,7 +13,7 @@ if ($annonces->isEmpty()) {
             echo $annonce->codeetatvalide;
             echo "<tr>";
             echo "<td>";
-            echo "<a href='/annonce/{$annonce->idannonce}'>";
+            echo "<a href='/annonceserv/{$annonce->idannonce}'>";
             
             foreach ($photos as $photo) {
                 if ($photo->idphoto == $annonce->idannonce) {

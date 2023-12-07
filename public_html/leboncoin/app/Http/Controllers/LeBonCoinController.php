@@ -15,6 +15,7 @@ use App\Models\Region;
 use App\Models\Photo;
 use App\Models\Critere;
 use App\Models\Reservation;
+use App\Models\TypeHebergement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
@@ -41,15 +42,20 @@ class LeBonCoinController extends Controller
     ]);
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
+    //$nextId = 7;
     public function incidentsave(Request $request) {
+       // Commencer à partir de 5, l'ID suivant sera 6 pour le nouvel incident
       $incident = new Incident();
+      
       $incident->idannonce = $request->input('id');
       $incident->remboursement = false;
       $incident->procedurejuridique = false;
       $incident->resolu = false;
       $incident->commentaire = $request->input("commentaire");
       $incident->save();
-    return redirect('/compte')->withInput()->with("incident", 'signalement créé');
+      // Mettre à jour le prochain ID pour le prochain incident
+      
+      return redirect('/compte')->withInput()->with("incident", 'signalement créé');
     }
     public function connect() {
       return view("connect");
@@ -72,7 +78,17 @@ class LeBonCoinController extends Controller
                                       ->whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
                                       ->where('annonce.idannonce', '<>', $id) // Exclure l'annonce principale
                                       ->get();
-      return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+      if (Auth::user()) {
+        if (Auth::user()->compte->codeetatcompte == 9 ) {
+          return view("annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+        } else {
+          return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+        }
+      } else {
+        return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+
+      }
+      
   }
   
   /*public function show($id) {
@@ -383,7 +399,7 @@ class LeBonCoinController extends Controller
       
   public function ajouterAnnonce(Request $request)
   {
-    
+      $typesHebergement = TypeHebergement::all(); // Ou utilisez la méthode que vous avez pour récupérer les types d'hébergement
       $idVille = $request->input('ville');
       $idTypeHebergement = $request->input('type_hebergement');
       // Récupérer les valeurs de la partie "condition hébergement" de la requête GET
@@ -433,7 +449,7 @@ class LeBonCoinController extends Controller
         $annonce->save();
     
         // Sauvegardez l'annonce dans la base de données
-        $annonce->save();
+        
     
         // Récupérez le lien de la photo depuis le formulaire
         $lienPhoto = $request->input('lien_photo');
@@ -460,19 +476,17 @@ class LeBonCoinController extends Controller
 
       public function classementSansSuite($id)
       {
-        $incident = Incident::find($id);
-        $incident->statut = 'sans_suite';
-        $incident->save();
+        Incident::where('idincident', $id)->update(['resolu' => false]);
         return redirect('/incidents');
       }
 
+
       public function resolution($id)
       {
-          $incident = Incident::find($id);
-          $incident->resolu = true;
-          $incident->save();
+        Incident::where('idincident', $id)->update(['resolu' => true]);
         return redirect('/incidents');
       }
+
 
 
 
