@@ -74,6 +74,13 @@ if ($annonces->isEmpty()) {
         }
         
         echo "<div class='titre'>{$annonce->titreannonce}</div>";
+        foreach($villes as $ville) {
+            if ($ville->idville == $annonce->idville) {
+                echo "<p class='ptitre'>{$ville->nomville}</p>";
+                break;
+            }
+        }
+        echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
         echo "</a>";
         echo "</td>";
         echo "</tr>";

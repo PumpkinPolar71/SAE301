@@ -9,7 +9,7 @@ class Incident extends Model
 {
     protected $table = 'incident';
     protected $primaryKey = 'idincident';
-    public $timestamps = false; // Désactiver la gestion automatique des timestamps
+    public $timestamps = false; 
     
 
     protected $fillable = [

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ConditionHebergement extends Model
 {
     use HasFactory;
-
+    protected $table = "condition_hebergement";
+    protected $primaryKey = "idconditionh";
+    public $timestamps = false;
     public function annonces()
     {
         return $this->hasMany(LeBonCoin::class, 'idconditionh');

@@ -26,12 +26,11 @@
 
 <h2>Incidents clos</h2>
 <table>
-    @foreach($incidents->where('resolu', true) as $incident)
+    @foreach($incidents->where('resolu', true ) as $incident)
         <tr>
             <td>ID Annonce: {{ $incident->idannonce }}</td>
             <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
             <td>Commentaire: {{ $incident->commentaire }}</td>
-            <td>Statut: Résolu</td>
         </tr>
     @endforeach
 </table>

@@ -16,6 +16,8 @@ use App\Models\Photo;
 use App\Models\Critere;
 use App\Models\Reservation;
 use App\Models\TypeHebergement;
+use App\Models\ConditionHebergement;
+use App\Models\Appartient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
@@ -421,10 +423,15 @@ class LeBonCoinController extends Controller
       // Créer une nouvelle entrée dans la table condition_hebergement
       $conditionHebergement = new ConditionHebergement();
       $conditionHebergement->libellecondition = $libelleCondition;
+      $conditionHebergement->idconditionh = ConditionHebergement::max('idconditionh')+1;
+      $annonce = new LeBonCoin();
+      $annonce->idconditionh = ConditionHebergement::max('idconditionh')+1;
       $conditionHebergement->save();
 
       $critere = new Critere();
-      $critere->libelle = $libelleCritere;
+      $critere->libellecritere = $libelleCritere;
+      $critere->idcritere = Critere::max('idcritere')+1;
+      $idCritere = Critere::max('idcritere')+1;
       $critere->save();
 
       $idCritere = $critere->id;
@@ -434,8 +441,9 @@ class LeBonCoinController extends Controller
         $idConditionHebergement = $conditionHebergement->idconditionh;
 
 
-        $annonce = new Annonce();
-        $annonce->idconditionh = $idConditionHebergement;
+        $appartient = new Appartient();
+        $annonce->idannonce = LeBonCoin::max('idannonce')+1;
+        $appartient->idannonce = LeBonCoin::max('idannonce')+1;
         $annonce->idcompte = Auth::id(); // Associer l'annonce à l'utilisateur connecté
         //$annonce->identreprise = false;
         $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
@@ -443,10 +451,17 @@ class LeBonCoinController extends Controller
         $annonce->titreannonce = $request->input("titreannonce");
         $annonce->idcritere = $idCritere;
         $annonce->description = $request->input("description");
-        $annonce->date = $request->input("date");
-        $annonce->prix = $request->input("prix");
-        //$annonce->lien_photo = $request->input("lien_photo");
+        $annonce->dateannonce = $request->input("date");
+        $annonce->codeetatvalide = False;
+        $annonce->codeetattelverif = False;
         $annonce->save();
+        
+        $appartient->prix = $request->input("prix");
+        $appartient->idperiode = 1;
+
+        
+        //$annonce->lien_photo = $request->input("lien_photo");
+        
     
         // Sauvegardez l'annonce dans la base de données
         
@@ -484,18 +499,21 @@ class LeBonCoinController extends Controller
         return view('incidentclass', compact('incidents'));
       }
 
+      
+      
       public function classementSansSuite(Request $request, $id)
       {
-        $incident = Incident::find($id);
+          $incident = Incident::find($id);
 
-        // Obtient la valeur de 'statut' à partir de la requête
-        $statut = $request->input('statut', 'non-resolu');
+          $statut = $request->input('statut', 'non-resolu');
 
-        // Met à jour le champ 'resolu' en fonction du statut choisi
-        $incident->resolu = ($statut == 'resolu');
-        $incident->save();
+          $incident->resolu = true;
 
-        return redirect('/incidents');
+          $incident->commentaire = ($statut == 'resolu') ? 'Souris dans la chambre' : 'Problème non résolu';
+
+          $incident->save();
+
+          return redirect('/incidents');
       }
 
 
@@ -503,8 +521,8 @@ class LeBonCoinController extends Controller
 
       public function resolution($id)
       {
-        Incident::where('idincident', $id)->update(['resolu' => true]);
-        return redirect('/incidents');
+          Incident::where('idincident', $id)->update(['resolu' => true]);
+          return redirect('/incidents');
       }
 
 

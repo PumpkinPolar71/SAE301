@@ -306,6 +306,11 @@
         <form action="{{ route('logout') }}" method="post">
         @csrf
         <button type="submit">Déconnexion</button>
+        <a href="/annoncelist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+            <div class="compte-block"><b>Incident</b>
+                <p>Répondre aux incidents sur les annonces réservées/p>
+            </div>
+        </a>
         </form>
         
         
