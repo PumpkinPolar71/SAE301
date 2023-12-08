@@ -21,7 +21,7 @@ html {
     flex-direction: column;
 }
 .all {
-    margin-top: 15vw; /*15*/
+    margin-top: 16vw; /*15*/
     width: 135vh; /*68*/
     background-color: rgb(255, 255, 255);
     padding:  0% 2% 0% 2%;
