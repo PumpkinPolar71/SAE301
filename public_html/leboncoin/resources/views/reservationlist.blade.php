@@ -29,6 +29,13 @@ if ($reservations->isEmpty()) {
             echo "<img class='temp' src='{$reservation->photo}'>";
         }
         echo "<div class='titre'>{$reservation->titreannonce}</div>";
+        // foreach($villes as $ville) {
+        //     if ($ville->idville == $annonce->idville) {
+        //         echo "<p class='ptitre'>{$ville->nomville}</p>";
+        //         break;
+        //     }
+        // }
+        echo "<p class='ptitre'>{$reservation->dateannonce}</p>";
         echo "</a>";
         echo "</td>";
         echo "</tr>";

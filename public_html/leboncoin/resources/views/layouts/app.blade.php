@@ -32,7 +32,7 @@
     	    </header>
             @section('nav')
             <ul id="topnav">
-                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}">LeBonCoin</a></li>
+                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></li>
                 <li><a class="depo" href="{{ url("/annonceeuh") }}">Déposer une annonce</a></li>
                 <li>
                     <div>

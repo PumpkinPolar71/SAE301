@@ -62,28 +62,30 @@ if ($annonces->isEmpty()) {
 } else {
     echo "<table>";
     foreach ($annonces as $annonce) {
-        echo "<tr>";
-        echo "<td>";
-        echo "<a href='/annonce/{$annonce->idannonce}'>";
-        
-        foreach ($photos as $photo) {
-            if ($photo->idphoto == $annonce->idannonce) {
-                echo "<img class='temp' src='{$photo->photo}'>";
-                break;
+        if ($annonce->codeetatvalide == TRUE) {
+            echo "<tr>";
+            echo "<td>";
+            echo "<a href='/annonce/{$annonce->idannonce}'>";
+            
+            foreach ($photos as $photo) {
+                if ($photo->idphoto == $annonce->idannonce) {
+                    echo "<img class='temp' src='{$photo->photo}'>";
+                    break;
+                }
             }
-        }
-        
-        echo "<div class='titre'>{$annonce->titreannonce}</div>";
-        foreach($villes as $ville) {
-            if ($ville->idville == $annonce->idville) {
-                echo "<p class='ptitre'>{$ville->nomville}</p>";
-                break;
+            
+            echo "<div class='titre'>{$annonce->titreannonce}</div>";
+            foreach($villes as $ville) {
+                if ($ville->idville == $annonce->idville) {
+                    echo "<p class='ptitre'>{$ville->nomville}</p>";
+                    break;
+                }
             }
+            echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
+            echo "</a>";
+            echo "</td>";
+            echo "</tr>";
         }
-        echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
-        echo "</a>";
-        echo "</td>";
-        echo "</tr>";
     }
     echo "</table>";
 }

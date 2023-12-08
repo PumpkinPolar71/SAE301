@@ -100,16 +100,19 @@ class LeBonCoinController extends Controller
     return view('incidentsave')->with('annonce', $annonce);
 }*/
   public function oneres($id) {
-    $id = $id;//find($id)
+    $id = $id;
+    $villes = Ville::all();
+    $annonces = LeBonCoin::all();//find($id)
     // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
     // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
-    return view("reservationlist", compact('id'));
+    return view("reservationlist", compact('id', "villes", "annonces"));
   }
   public function oneann($id) {
-    $id = $id;//find($id)
+    $id = $id;
+    $villes = Ville::all();//find($id)
   // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
   // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
-  return view("annoncelist", compact('id'));
+  return view("annoncelist", compact('id','villes'));
   }
   public function reservation($id) {
     $reservation = Reservation::find($id);
@@ -434,9 +437,6 @@ class LeBonCoinController extends Controller
       $annonce->idcritere = Critere::max('idcritere')+1;
       $critere->save();
 
-      $idCritere = $critere->id;
-
-  
       // Récupérer l'id condition hébergement nouvellement créé
         $idConditionHebergement = $conditionHebergement->idconditionh;
 
@@ -449,7 +449,6 @@ class LeBonCoinController extends Controller
         $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
         $annonce->idtype = $idTypeHebergement;
         $annonce->titreannonce = $request->input("titreannonce");
-        $annonce->idcritere = $idCritere;
         $annonce->description = $request->input("description");
         $annonce->dateannonce = $request->input("date");
         $annonce->codeetatvalide = False;
@@ -476,23 +475,18 @@ class LeBonCoinController extends Controller
     
         return redirect('/compte')->withInput()->with("compte",'Annonce créée');
       }
-      public function marquerCommeResolu($idincident)
+      public function markIncidentAsResolved($idannonce)
 {
-    $incident = Incident::find($idincident);
-
+    // Mettre à jour l'incident pour le marquer comme résolu
+    $incident = Incident::where('idannonce', $idannonce)->where('resolu', false)->first();
     if ($incident) {
-        $incident->resolu = true; // Mettre à jour le champ "resolu" à true
-        $incident->save();
-        return redirect('/compte')->with('success', 'Incident marqué comme résolu avec succès');
-    } else {
-        return redirect('/compte')->with('error', 'Incident non trouvé');
+      Incident::where('idincident', $id)->update(['resolu' => true]);
+      return redirect('/compte');
     }
+
+    return redirect()->back()->with('success', 'Incident marqué comme résolu avec succès');
 }
-
-
-    
-
-      
+     
       public function indexIncident()
       {
         $incidents = Incident::all();
@@ -509,13 +503,12 @@ class LeBonCoinController extends Controller
 
           $incident->resolu = true;
 
-          $incident->commentaire = ($statut == 'resolu') ? 'Souris dans la chambre' : 'Problème non résolu';
+          $incident->commentaire = ($statut == 'resolu') ? 'Problème résolu' : 'Problème non résolu';
 
           $incident->save();
 
           return redirect('/incidents');
       }
-
 
 
 

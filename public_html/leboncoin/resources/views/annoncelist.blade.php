@@ -26,6 +26,13 @@
                 echo "<img class='temp' src='{$annonce->photo}'>";
             }
             echo "<div class='titre'>{$annonce->titreannonce}</div>";
+            foreach($villes as $ville) {
+                if ($ville->idville == $annonce->idville) {
+                    echo "<p class='ptitre'>{$ville->nomville}</p>";
+                    break;
+                }
+            }
+            echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
             echo "</a>";
 
             // Affichage des détails de l'incident s'il existe

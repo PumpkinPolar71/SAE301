@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Photo;
 use App\Models\LeBonCoin;
+use App\Models\Ville;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
@@ -14,16 +15,20 @@ use Illuminate\Support\Facades\Storage;
 class ServiceController extends Controller
 {
     public function serviceimmobilier() {
-        return view ("serviceimmobilier", ['annonces'=>LeBonCoin::all() ], ['photos'=>Photo::all() ]);
+        $villes = Ville::all();
+        $annonces = LeBonCoin::all();
+        $photos = Photo::all();
+        return view("serviceimmobilier",compact('annonces', "photos", "villes"));
     }
     
     public function validatesrv(Request $request, array $rules, array $messages = [], array $attributes = []) {
-        if ($request->input("annval") == "oui") {
+        if ($request->input("annval") == "") {
             return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
         } else {
             if ($request->input("annval") == "oui") {
 
-            } elseif ($request->input("annval") == "non") {
+            } 
+            elseif ($request->input("annval") == "non") {
 
             } else {
 

@@ -99,12 +99,14 @@ Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
 
 Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
-Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);//get
+Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
 
-Route::get('/serviceimmoilier/validatesrv', [ServiceController::class, 'validatesrv']);
+Route::post('/serviceimmoilier/validatesrv', [ServiceController::class, 'validatesrv']);
 
 Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
 
 Route::get('/upload', [UploadController::class, 'showForm']);
 
 Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
+
+Route::put('/incidentlist/{idannonce}', [VotreController::class, 'markIncidentAsResolved']);
