@@ -18,17 +18,17 @@ class ServiceController extends Controller
     }
     
     public function validatesrv(Request $request, array $rules, array $messages = [], array $attributes = []) {
-    //     if ($request->input("annval") == "oui") {
-    //         return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
-    //     } else {
-    //         if ($request->input("annval") == "oui") {
+        if ($request->input("annval") == "oui") {
+            return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
+        } else {
+            if ($request->input("annval") == "oui") {
 
-    //         } elseif ($request->input("annval") == "non") {
+            } elseif ($request->input("annval") == "non") {
 
-    //         } else {
+            } else {
 
-    //         }
+            }
              return redirect('serviceimmobilier')->withInput()->with("error","Validation effectuée");
-    //     }
+        }
     }
 }

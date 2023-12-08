@@ -431,7 +431,7 @@ class LeBonCoinController extends Controller
       $critere = new Critere();
       $critere->libellecritere = $libelleCritere;
       $critere->idcritere = Critere::max('idcritere')+1;
-      $idCritere = Critere::max('idcritere')+1;
+      $annonce->idcritere = Critere::max('idcritere')+1;
       $critere->save();
 
       $idCritere = $critere->id;
