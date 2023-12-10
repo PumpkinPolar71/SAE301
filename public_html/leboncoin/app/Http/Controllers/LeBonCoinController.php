@@ -475,17 +475,10 @@ class LeBonCoinController extends Controller
     
         return redirect('/compte')->withInput()->with("compte",'Annonce créée');
       }
-      public function markIncidentAsResolved($idannonce)
-{
-    // Mettre à jour l'incident pour le marquer comme résolu
-    $incident = Incident::where('idannonce', $idannonce)->where('resolu', false)->first();
-    if ($incident) {
-      Incident::where('idincident', $id)->update(['resolu' => true]);
-      return redirect('/compte');
-    }
 
-    return redirect()->back()->with('success', 'Incident marqué comme résolu avec succès');
-}
+
+
+
      
       public function indexIncident()
       {
@@ -518,8 +511,26 @@ class LeBonCoinController extends Controller
           return redirect('/incidents');
       }
 
+      public function indexIncidentprop()
+{
+    $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
+    $incidents = Incident::where('idcompte', $userId)->get(); // Récupère les incidents de cet utilisateur
+    return view('incidentlist', compact('incidents'));
+}
 
+public function changerStatutIncident(Request $request, $id)
+{
+    $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
+    $incident = Incident::where('idcompte', $userId)
+                        ->where('idincident', $id)
+                        ->firstOrFail(); // Récupère l'incident spécifique de cet utilisateur
 
+    $incident->resolu = $request->input('resolu', false); // Met à jour l'état de résolution
+
+    $incident->save(); // Enregistre les modifications
+
+    return redirect('/incidentlist');
+}
 
 
     }

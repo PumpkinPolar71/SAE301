@@ -109,4 +109,7 @@ Route::get('/upload', [UploadController::class, 'showForm']);
 
 Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
-Route::put('/incidentlist/{idannonce}', [VotreController::class, 'markIncidentAsResolved']);
+
+
+Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
+Route::post('/changer-statut/{id}', 'LeBonCoinController@changerStatutIncident')->name('changer-statut');
