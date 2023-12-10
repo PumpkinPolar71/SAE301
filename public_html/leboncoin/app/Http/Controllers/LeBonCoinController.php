@@ -482,8 +482,9 @@ class LeBonCoinController extends Controller
      
       public function indexIncident()
       {
+        $annonces = LeBonCoin::all();
         $incidents = Incident::all();
-        return view('incidentclass', compact('incidents'));
+        return view('incidentclass', compact('incidents',"annonces"));
       }
 
       

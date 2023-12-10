@@ -46,8 +46,10 @@
                 <li><a class="fav" href="{{ url("/") }}">Favoris</a></li>
                 <li><a class="mess" href="{{ url("/") }}">Message</a></li>
                 @auth
-                    @if (Auth::user()->compte->codeetatcompte == 9 )
+                    @if (Auth::user()->compte->codeetatcompte == 7 )
                     <li><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li>
+                    @elseif (Auth::user()->compte->codeetatcompte == 9 )
+                    <li><a class="coone" href="{{ url("/incidents") }}">service incident</a></li>
                     @endif
                 <li><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
                 @else

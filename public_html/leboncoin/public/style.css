@@ -216,3 +216,7 @@ p {
     padding: 4% 2% 4% 2%;
     border: none;
 }
+/*----------incidents----------*/
+.trincid td {
+    width:  25%;
+}

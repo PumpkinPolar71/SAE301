@@ -5,10 +5,14 @@
 <h2>Incidents en cours</h2>
 <table>
     @foreach($incidents->where('resolu', false) as $incident)
-        <tr>
-            <td>ID Annonce: {{ $incident->idannonce }}</td>
-            <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
-            <td>Commentaire: {{ $incident->commentaire }}</td>
+        <tr class="trincid">
+            <td>ID Annonce: <b>{{ $incident->idannonce }}</b></td>
+            @foreach ($annonces as $annonce)
+                @if ($annonce->idannonce == $incident->idannonce )
+                <td>Titre Annonce: <b>{{ $annonce->titreannonce }}</b></td>
+                @endif
+            @endforeach
+            <td>Commentaire: <b>{{ $incident->commentaire }}</b></td>
             <td>
                 <form action="{{ url('/classement-sans-suite/'.$incident->idincident) }}" method="post">
                     @csrf
@@ -27,10 +31,14 @@
 <h2>Incidents clos</h2>
 <table>
     @foreach($incidents->where('resolu', true ) as $incident)
-        <tr>
-            <td>ID Annonce: {{ $incident->idannonce }}</td>
-            <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
-            <td>Commentaire: {{ $incident->commentaire }}</td>
+        <tr class="trincid">
+            <td>ID Annonce: <b>{{ $incident->idannonce }}</b></td>
+            @foreach ($annonces as $annonce)
+                @if ($annonce->idannonce == $incident->idannonce )
+                <td>Titre Annonce: <b>{{ $annonce->titreannonce }}</b></td>
+                @endif
+            @endforeach
+            <td>Commentaire: <b>{{ $incident->commentaire }}</b></td>
         </tr>
     @endforeach
 </table>
