@@ -213,6 +213,9 @@ class LeBonCoinController extends Controller
               Storage::disk('public')->delete($post->image);
           }
         }
+        public function redirection() {
+          return view("redirection");
+        }
     
 
 

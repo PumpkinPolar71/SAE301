@@ -132,6 +132,24 @@ if($data){
     </form>
     @endif
 @endauth
+<!-- Bouton de partage -->
+<button id="partagerBtn">Partager cette annonce</button>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var partagerBtn = document.getElementById('partagerBtn');
+
+    if (partagerBtn) {
+        partagerBtn.addEventListener('click', function() {
+            var url = window.location.href; // Récupère l'URL de la page actuelle
+            navigator.clipboard.writeText(url).then(function() {
+                alert("Lien copié dans le presse-papiers !");
+            }, function(err) {
+                console.error('Impossible de copier le texte : ', err);
+            });
+        });
+    }
+});
+</script>
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">
     <h2>Annonces Similaire</h2>
@@ -162,6 +180,7 @@ if($data){
     <input type="text" name="commentaire" placeholder="Avis">
     <button type="submit">Enregistrer l'avis</button>
 @method('PUT')
+
 </form>
 @else
     <p>Connectez-vous pour laisser un avis.</p>
