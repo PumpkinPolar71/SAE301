@@ -35,8 +35,35 @@
     <button type="submit">Rechercher</button>
 </form>
 
-<h2>Résultats de la recherche pour : location</h2>
+    <!-- Contenu de votre page -->
+    <div id="map" style="height: 600px;"></div>
 
+    <!-- Charger la librairie Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Script pour initialiser la carte -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
+
+            // Utilisation de la carte OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            // Placer les marqueurs pour chaque ville
+            var villes = <?php echo json_encode($villes); ?>; // Récupérer les villes depuis PHP
+
+            villes.forEach(function(ville) {
+                if (ville.latitude && ville.longitude) {
+                    L.marker([ville.latitude, ville.longitude]).addTo(map)
+                        .bindPopup(ville.nomville);
+                }
+            });
+        });
+    </script>
+<h2>Résultats de la recherche pour : location</h2>
 <?php
 use Illuminate\Support\Facades\DB;
 

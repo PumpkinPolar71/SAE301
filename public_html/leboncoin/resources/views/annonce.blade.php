@@ -133,22 +133,21 @@ if($data){
     @endif
 @endauth
 <!-- Bouton de partage -->
-<button id="partagerBtn">Partager cette annonce</button>
+<button  type="button" id="partagerBtn" onclick="Partage()">Partager cette annonce</button>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
     var partagerBtn = document.getElementById('partagerBtn');
 
     if (partagerBtn) {
         partagerBtn.addEventListener('click', function() {
-            var url = window.location.href; // Récupère l'URL de la page actuelle
-            navigator.clipboard.writeText(url).then(function() {
-                alert("Lien copié dans le presse-papiers !");
-            }, function(err) {
-                console.error('Impossible de copier le texte : ', err);
-            });
+            navigator.clipboard.writeText(window.location.href);
+            alert("Copied the text: " + copyText.value);
         });
+    };
+
+    function Partage() {
+        alert(window.location.href);
+        navigator.clipboard.writeText(window.location.href);
     }
-});
 </script>
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">

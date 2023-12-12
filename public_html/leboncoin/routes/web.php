@@ -114,16 +114,19 @@ Route::get('/upload', [UploadController::class, 'showForm']);
 
 Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
-Route::get('/favoris', [LeBonCoinController::class, 'favoris']);
+Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
 Route::get('/redirection', [LeBonCoinController::class, 'redirection']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mes-incidents', [LeBonCoinController::class, 'mesIncidents'])->name('mes-incidents');
     Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
+    Route::get('/mes-recherches', [LeBonCoinController::class, 'mesRecherches'])->name('mes-recherches');
 });
 
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
 
 //Route::post('/changer-statut/{id}', [LeBonCoinController::class, 'changer-statut']);
+
+

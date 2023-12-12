@@ -87,10 +87,48 @@
 </div>
 
 <!-- Date de début date de fin des disponibilités -->
-    <label for="datedebut">Date de début de disponibilité :</label><br>
-    <input class=ajoutAnnonce type="date" name="datedebut" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-    <label for="datefin">Date de fin de disponibilité :</label><br>
-    <input class=ajoutAnnonce type="date" name="datefin" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+<div id="datesContainer">
+    <div>
+        <label for="datedebut">Date de début de disponibilité :</label><br>
+        <input class=ajoutAnnonce type="date" name="datedebut" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+    </div>
+    <div>
+        <label for="datefin">Date de fin de disponibilité :</label><br>
+        <input class=ajoutAnnonce type="date" name="datefin" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+    </div>
+</div>
+
+<!-- Bouton d'ajout dynamique -->
+<button type="button" id="ajouterDate">Ajouter une disponibilité</button>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Écoutez l'événement de clic sur le bouton
+        document.getElementById('ajouterDate').addEventListener('click', function () {
+            // Créez de nouveaux champs de date
+            var nvDateDebut = document.createElement('input');
+            nvDateDebut.setAttribute('type', 'date');
+            nvDateDebut.setAttribute('class', 'ajoutAnnonce');
+            nvDateDebut.setAttribute('name', 'datedebut[]');
+
+            var nvDateFin = document.createElement('input');
+            nvDateFin.setAttribute('type', 'date');
+            nvDateFin.setAttribute('class', 'ajoutAnnonce');
+            nvDateFin.setAttribute('name', 'datefin[]');
+
+            // Créez un conteneur div pour les nouvelles dates
+            var newDateContainer = document.createElement('div');
+            newDateContainer.appendChild(nvDateDebut);
+            newDateContainer.appendChild(nvDateFin);
+
+            // Récupérez le conteneur principal
+            var datesContainer = document.getElementById('datesContainer');
+
+            // Insérez les nouveaux champs avant le bouton d'ajout dynamique
+            datesContainer.insertBefore(newDateContainer, document.getElementById('ajouterDate'));
+        });
+    });
+</script>
+
 
     <input style="display: none;" class=ajoutAnnonce type="date" name="date" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
         <!-- Bouton pour soumettre le formulaire -->

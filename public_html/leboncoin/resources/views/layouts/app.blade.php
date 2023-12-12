@@ -44,7 +44,7 @@
                 </li>   
                 @auth               
                     <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
-                    <li style="float:right"><a class="fav" href="{{ url("/favoris") }}">Favoris</a></li>
+                    <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>
                     <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
                 
                     @if (Auth::user()->compte->codeetatcompte == 9 )

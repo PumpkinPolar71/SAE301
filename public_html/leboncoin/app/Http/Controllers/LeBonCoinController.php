@@ -18,6 +18,7 @@ use App\Models\Reservation;
 use App\Models\TypeHebergement;
 use App\Models\ConditionHebergement;
 use App\Models\Appartient;
+use App\Models\Favoris;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
@@ -590,14 +591,14 @@ public function gestionAvis()
     }
 
     public function favoris($id) {
-      $favoris = Favori::find($id);
+      $favoris = Favoris::find($id);
       $annonces = LeBonCoin::all();
       $photos = Photo::all();
+      $villes = Ville::all();
 
-      return view('favori', compact('favoris', "annonces", "photos"));
+      return view('favoris', compact('favoris', "annonces", "photos","villes"));
     }
-
-    }
+  }
   
 
     

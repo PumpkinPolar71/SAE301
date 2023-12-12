@@ -40,6 +40,11 @@ class User extends Authenticatable
         return $this->hasManyThrough(Incident::class, Annonce::class, 'idcompte', 'idannonce'); 
     }
 
+    public function sauvegardesRecherches()
+    {
+        return $this->hasMany(SauvegardeRecherche::class, 'IDCOMPTE');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

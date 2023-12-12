@@ -9,15 +9,8 @@
 </style>
 <section class="connectsec">
     <div class="bonj"><b>Bonjour !</b></div>
-    <div class="conn">Connectez-vous pour découvrir toutes nos fonctionnalités.</div>
-    <form method="get" action="{{ url("/login") }}">
-    @csrf
-    <label>Email *</label><br>
-    <input type="text" name="email"/><br>
-    <label>Mot de passe *</label><br>
-    <input type="password" name="motdepasse"/><br><br>
-    <input type="submit" value="connexion"/>
-    {{ $errors }}
-</form>
-<div>Envie de nous rejoindre ? <a href="{{ url("/createaccount") }}"><b>Creer un compte</b></a></div>
+    <div class="conn">Vous avez besoin de vous connecter pour utiliser cette fonctionnalitée.
+    <div class="redirco">Vous avez déjà un compte ? <a href="{{ url("/connect") }}">Connecter vous !</a></div>
+    <div class="">Vous n'avez pas encore de compte ? Alors, <a href="{{ url("/createaccount") }}">rejoigner nous !</a></div>
+
 </section>
