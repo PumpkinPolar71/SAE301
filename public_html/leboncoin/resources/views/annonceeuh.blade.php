@@ -11,6 +11,12 @@
             <label class=ajoutAnnonce for="titreannonce">Titre de l'annonce :</label><br>
             <input class=ajoutAnnonce type="text" name="titreannonce" id="titreannonce">
         </div>
+
+        <!-- Photo de l'annonce -->
+        <div>
+            <label for="lien_photo">Lien de la photo :</label><br>
+            <input class=ajoutAnnonce type="text" name="lien_photo" id="lien_photo">
+        </div>
         <!-- Champs pour le formulaire de création d'annonce -->
         <div>
         <h3><label>Condition hébergement</label><br></h3>
@@ -66,7 +72,7 @@
     @csrf
     <label for="prix">Prix :</label>
     <input class=ajoutAnnonce type="number" step="10" name="prix" id="prix" required>
-    <button type="submit">Soumettre</button>
+    <!-- <button type="submit">Soumettre</button> -->
 <!-- </form><br> -->
 
 
@@ -81,20 +87,15 @@
 @if ($errors->has('critere2'))
     <span class="error">{{ $errors->first('critere2') }}</span>
 @endif        
-<div>
-    <label for="lien_photo">Lien de la photo :</label><br>
-    <input class=ajoutAnnonce type="text" name="lien_photo" id="lien_photo">
-</div>
+
 
 <!-- Date de début date de fin des disponibilités -->
 <div id="datesContainer">
     <div>
-        <label for="datedebut">Date de début de disponibilité :</label><br>
-        <input class=ajoutAnnonce type="date" name="datedebut" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-    </div>
-    <div>
-        <label for="datefin">Date de fin de disponibilité :</label><br>
-        <input class=ajoutAnnonce type="date" name="datefin" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+        <label for="datedebut">De :</label>
+        <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
+        <label for="datefin"> à : </label>
+        <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
     </div>
 </div>
 
@@ -115,16 +116,50 @@
             nvDateFin.setAttribute('class', 'ajoutAnnonce');
             nvDateFin.setAttribute('name', 'datefin[]');
 
+            // Créez de nouveaux labels
+            var labelDebut = document.createElement('label');
+            labelDebut.textContent = 'De : ';
+
+            var labelFin = document.createElement('label');
+            labelFin.textContent = ' à : ';
+
             // Créez un conteneur div pour les nouvelles dates
             var newDateContainer = document.createElement('div');
+            newDateContainer.appendChild(labelDebut);
             newDateContainer.appendChild(nvDateDebut);
+            newDateContainer.appendChild(labelFin);
             newDateContainer.appendChild(nvDateFin);
 
             // Récupérez le conteneur principal
             var datesContainer = document.getElementById('datesContainer');
 
-            // Insérez les nouveaux champs avant le bouton d'ajout dynamique
-            datesContainer.insertBefore(newDateContainer, document.getElementById('ajouterDate'));
+            // Insérez les nouveaux champs à la fin du conteneur
+            datesContainer.appendChild(newDateContainer);
+
+            //----------------------------------------Prix
+            // Créez un label pour le champ de prix
+            var labelPrix = document.createElement('label');
+            labelPrix.textContent = 'Prix :';
+                    
+            // Créez un champ de prix
+            var champPrix = document.createElement('input');
+            champPrix.setAttribute('class', 'ajoutAnnonce');
+            champPrix.setAttribute('type', 'number');
+            champPrix.setAttribute('step', '10');
+            champPrix.setAttribute('name', 'prix');
+            champPrix.setAttribute('id', 'prix');
+            champPrix.setAttribute('required', '');
+                    
+            // Créez un conteneur div pour le champ de prix
+            var prixContainer = document.createElement('div');
+            prixContainer.appendChild(labelPrix);
+            prixContainer.appendChild(champPrix);
+                    
+            // Récupérez le conteneur principal
+            var datesContainer = document.getElementById('datesContainer');
+                    
+            // Insérez le nouveau champ de prix à la fin du conteneur
+            datesContainer.appendChild(prixContainer);
         });
     });
 </script>

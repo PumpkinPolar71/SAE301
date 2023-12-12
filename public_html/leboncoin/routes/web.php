@@ -116,6 +116,8 @@ Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
 Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
+Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
+
 Route::get('/redirection', [LeBonCoinController::class, 'redirection']);
 
 Route::middleware(['auth'])->group(function () {

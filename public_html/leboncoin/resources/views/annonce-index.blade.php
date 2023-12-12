@@ -108,7 +108,10 @@ if ($annonces->isEmpty()) {
                     break;
                 }
             }
+            echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
             echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
+            echo "<img class='amour' src='/amour/noir.png'>";
+            echo "</a>";
             echo "</a>";
             echo "</td>";
             echo "</tr>";
