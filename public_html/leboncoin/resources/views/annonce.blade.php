@@ -150,8 +150,21 @@ if($data){
         @endforeach
     </div>
 </div>
+@if(Auth::check())
+<!-- Formulaire pour déposer un avis -->
+<form method="POST" action="{{ url('annonce/deposerAvis') }}">
+    @csrf <!-- Protection CSRF de Laravel -->
 
+    <!-- Champ caché pour l'ID de l'annonce --> 
+    <input type="hidden" name="idannonce" value="{{ $annonce->idannonce }}"> <!-- Supposons que $annonce contient les détails de l'annonce actuelle -->
+
+    <!-- Champ de texte pour le commentaire -->
+    <input type="text" name="commentaire" placeholder="Avis">
+    <button type="submit">Enregistrer l'avis</button>
+@method('PUT')
 </form>
-
+@else
+    <p>Connectez-vous pour laisser un avis.</p>
+@endif
 </div>
 @endsection

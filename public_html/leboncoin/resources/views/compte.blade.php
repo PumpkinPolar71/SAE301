@@ -4,7 +4,7 @@
 {{ session()->get("success") }}
     @auth
         <div class="bandeau">
-            <div class="pdpT"><p class="pPseudo"></p></div><br><br><br>
+            <div class="pdpT"><p class="pPseudo"></p></div>
             <style>
                         #drop-zone {
                             border: 2px dashed #ccc;
@@ -14,93 +14,87 @@
                         #image-container {
                             margin-top: 20px;
                         }
-                        div .pdpT {
-                            background-color:#EC5A13;
+                        div .pdpContainer {
                             border-radius: 100%;
-                            height: 55px;
-                            width: 55px;
-                            z-index: 0;
-                            position: absolute;
-
-                            background-image: var(--jpp);
-                            object-position: 50% 50%;
+                            height: 200px;
+                            width: 200px;
+                            background-color:#EC5A13;
+                            position: center;
                         }
                         
                         
                     </style>
             
-                    <form action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('updateUserInfo') }}">
                         @csrf
-                        <label for="image">Image</label>
-                        <input type="file" class="form-control" id="image" name="image">
+                            <img class="pdpContainer" src="{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}" /><br>
+                        <label for="lien_pdp">Lien de la photo :</label><br>
+                        <input type="text" name="lien_pdp" id="lien_pdp">
+                        
+
+                        
+                        <!-- <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image"> -->
             
                     <script>
-                        let image = document.querySelector('.filename')
-                        var files = e.dataTransfer.files;
+                        // let image = document.querySelector('.filename')
+                        // var files = e.dataTransfer.files;
 
-                        for (var i = 0; i < files.length; i++) {
-                            var file = files[i];
+                        // for (var i = 0; i < files.length; i++) {
+                        //     var file = files[i];
                         
-                            console.log(file.name);
-                        // Vérifier si le fichier est une image PNG ou JPG
-                        if (file.type === 'image/png' || file.type === 'image/jpeg' ) {
-                                        // Créer un élément image et l'ajouter à la page
-                                        var imgElement = document.createElement('img');
-                                        imgElement.src = URL.createObjectURL(file);
-                                        imgElement.alt = 'Image';
-                                        console.log(imgElement.src);
-                                        // image = URL.createObjectURL(file);
-                                        image.value = file.name
+                        //     console.log(file.name);
+                        // // Vérifier si le fichier est une image PNG ou JPG
+                        // if (file.type === 'image/png' || file.type === 'image/jpeg' ) {
+                        //                 // Créer un élément image et l'ajouter à la page
+                        //                 var imgElement = document.createElement('img');
+                        //                 imgElement.src = URL.createObjectURL(file);
+                        //                 imgElement.alt = 'Image';
+                        //                 console.log(imgElement.src);
+                        //                 // image = URL.createObjectURL(file);
+                        //                 image.value = file.name
 
-                                    }
-                                }
+                        //             }
+                        //         }
                     </script>
                     
                     <?php
-                        $filename = null;
-                        $fileExtension = null;
+                        // $filename = null;
+                        // $fileExtension = null;
                         
-                        if (request()->hasFile('image') && request()->file('image')->isValid()) {
-                            $file = request()->file('image');
+                        // if (request()->hasFile('image') && request()->file('image')->isValid()) {
+                        //     $file = request()->file('image');
                             
-                            // Utilisez pathinfo pour obtenir des informations sur le fichier
-                            $pathInfo = pathinfo($file->getClientOriginalName());
+                        //     // Utilisez pathinfo pour obtenir des informations sur le fichier
+                        //     $pathInfo = pathinfo($file->getClientOriginalName());
                         
-                            // Obtenez le nom du fichier sans extension
-                            $fileName = $pathInfo['filename'];
+                        //     // Obtenez le nom du fichier sans extension
+                        //     $fileName = $pathInfo['filename'];
                         
-                            // Obtenez l'extension du fichier
-                            $fileExtension = $pathInfo['extension'];
+                        //     // Obtenez l'extension du fichier
+                        //     $fileExtension = $pathInfo['extension'];
                         
-                            // Utilisez ces variables comme nécessaire
-                            echo $fileName;
-                            echo $fileExtension;
+                        //     // Utilisez ces variables comme nécessaire
+                        //     echo $fileName;
+                        //     echo $fileExtension;
                         
                         
-                            $imagePath = "storage/uploads/$filename.$fileExtension";
+                        //     $imagePath = "storage/uploads/$filename.$fileExtension";
                         
-                            // Lecture du contenu de l'image en tant que données binaires
-                            $imageData = file_get_contents($imagePath);
+                        //     // Lecture du contenu de l'image en tant que données binaires
+                        //     $imageData = file_get_contents($imagePath);
                         
-                            // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
-                            $escapedImageData = pg_escape_bytea($imageData);
+                        //     // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
+                        //     $escapedImageData = pg_escape_bytea($imageData);
                         
-                            echo '<input type="hidden" name="escapedImageData" value="' . $escapedImageData . '">';
-                        }
+                        //     echo '<input type="hidden" name="escapedImageData" value="' . $escapedImageData . '">';
+                        // }
                     ?>
 
 
-                        <button type="submit" id="submit">Envoyer</button>
+                        <button type="submit" id="submit">Soumettre</button>
 
-                        <div class="image-container"></div>
-                        <style>
-                            .image-container {
-                            background-image: url('{{ asset('storage/uploads/' . $filename . '.' . $fileExtension) }}');
-                            /* Ajoutez d'autres propriétés CSS au besoin */
-                            width: 100px;
-                            height: 100px;
-                        }
-                        </style>
+                        <!-- <div class="image-container"></div> -->
 
             
                 <!-- <div class="form-group">
@@ -303,14 +297,15 @@
                 <p>Retrouver vos réservations</p>
             </div>
         </a>
-        <form action="{{ route('logout') }}" method="post">
-        @csrf
-        <button type="submit">Déconnexion</button>
-        <a href="/incidentlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+        <a href="/mes-incidents">
             <div class="compte-block"><b>Incident</b>
                 <p>Répondre aux incidents sur les annonces réservées</p>
             </div>
         </a>
+        <form action="{{ route('logout') }}" method="post">
+        @csrf
+        <button type="submit">Déconnexion</button>
+        
         </form>
         
         

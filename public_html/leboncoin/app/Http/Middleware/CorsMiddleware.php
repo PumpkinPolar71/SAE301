@@ -16,11 +16,10 @@ class CorsMiddleware
     public function handle(Request $request, Closure $next): Response
 {
     // Vérifiez si la route est différente de 'annonce/incidentsave/{id}'
-    if ($request->is('annonce/incidentsave/*')) {
-        // Si la route est 'annonce/incidentsave/{id}', passez la requête sans les en-têtes CORS
+    if ($request->is('annonce/incidentsave/*') || $request->is('annonce/21')) {
+        // Si la route est 'annonce/incidentsave/{id}' ou 'annonce/21', passez la requête sans les en-têtes CORS
         return $next($request);
     }
-
     // Si la route n'est pas 'annonce/incidentsave/{id}', ajoutez les en-têtes CORS
     return $next($request)
         ->header('Access-Control-Allow-Origin', '*')

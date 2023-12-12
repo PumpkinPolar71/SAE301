@@ -16,7 +16,7 @@
 
     <script>
     $(document).ready(function() {
-        rnd = Math.floor(Math.random() * 7)
+        rnd = Math.floor(Math.random() * 8)
         console.log(rnd)
         console.log($('.encart-publicitaire'))
         $('.encart-publicitaire').css("background-image" , "url(pub/capture"+rnd+".png)")
@@ -33,28 +33,35 @@
             @section('nav')
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></li>
-                <li><a class="depo" href="{{ url("/annonceeuh") }}">Déposer une annonce</a></li>
+                <li style="padding-top:3%;"><a class="depo" href="{{ url("/annonceeuh") }}"><b>Déposer une annonce</b></a></li>
                 <li>
                     <div>
                         <form action="/search" method="post" target="_self">
                             @csrf
-                            <input id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()" />
+                            <input style="" id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()" />
                         </form>
                     </div>
-                </li>                  
-                <li><a href="{{ url("/") }}">Mes recherches</a></li>
-                <li><a class="fav" href="{{ url("/") }}">Favoris</a></li>
-                <li><a class="mess" href="{{ url("/") }}">Message</a></li>
-                @auth
-                    @if (Auth::user()->compte->codeetatcompte == 7 )
-                    <li><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li>
-                    @elseif (Auth::user()->compte->codeetatcompte == 9 )
-                    <li><a class="coone" href="{{ url("/incidents") }}">service incident</a></li>
+                </li>   
+                @auth               
+                    <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
+                    <li style="float:right"><a class="fav" href="{{ url("/favoris") }}">Favoris</a></li>
+                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
+                
+                    @if (Auth::user()->compte->codeetatcompte == 9 )
+                    <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li>
+                    @elseif (Auth::user()->compte->codeetatcompte == 10 )
+                    <li style="float:right"><a class="coone" href="{{ url("/incident") }}">service incident</a></li>
+                    @elseif (Auth::user()->compte->codeetatcompte == 11 )
+                    <li style="float:right"><a class="coone" href="{{ url("/enregistrer_avis") }}">service avis</a></li>
                     @endif
-                <li><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
+                <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
                 @else
-                <li><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
+                <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
+                    <li style="float:right"><a class="fav" href="{{ url("/") }}">Favoris</a></li>
+                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
+                <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
                 @endauth
+
             </ul><br>
             @show
             @section('nav2')

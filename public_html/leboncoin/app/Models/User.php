@@ -12,6 +12,8 @@ use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
+use App\Models\Incident;
+use App\Models\Annonce;
 
 class User extends Authenticatable
 {
@@ -31,6 +33,11 @@ class User extends Authenticatable
     public function ville()
     {
         return $this->belongsTo(ville::class, 'idville', 'idville');
+    }
+
+    public function incidents()
+    {
+        return $this->hasManyThrough(Incident::class, Annonce::class, 'idcompte', 'idannonce'); 
     }
 
     /**

@@ -28,6 +28,9 @@ html {
     font-family: sans-serif;
     z-index: 1;
 }
+#search{
+    width:49vh; height:4vh; border-radius:20px; background-color:rgb(224, 224, 224); border: none;
+}
 /*----------------welcome--------------*/
 .welcome h2 {
     text-align: center;
@@ -43,8 +46,8 @@ body {
     text-align: center;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center; */
+    /* justify-content: center; */
 }
 #topnav li {
     display: block;
@@ -219,4 +222,9 @@ p {
 /*----------incidents----------*/
 .trincid td {
     width:  25%;
+}
+
+/*----------------ajoutAnnonce------------------*/
+.ajoutAnnonce{
+    margin-bottom: 1%;
 }

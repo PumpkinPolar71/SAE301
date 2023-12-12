@@ -8,10 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Avis extends Model
 {
     use HasFactory;
-    // ... Autres détails de votre modèle ...
+    protected $table = "avis";
+    protected $primaryKey = "idavis";
+    public $timestamps = false;
+    // public function compte()
+    // {
+    //     return $this->belongsTo(Compte::class, 'idcompte');
+    // }
 
-    public function annonce()
-    {
-        return $this->belongsTo(LeBonCoin::class, 'idannonce');
-    }
+    // // Relation avec le particulier
+    // public function particulier()
+    // {
+    //     return $this->belongsTo(Particulier::class, 'idparticulier');
+    // }
+
+    // // Relation avec l'annonce
+    // public function annonce()
+    // {
+    //     return $this->belongsTo(Annonce::class, 'idannonce');
+    // }
 }

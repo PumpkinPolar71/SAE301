@@ -73,6 +73,8 @@ Route::get("/proprio/{id}",[LeBonCoinController::class, "proprio" ]);
 
 Route::get("/compte",[LeBonCoinController::class, "compte" ]);
 
+Route::post('/annonce/deposerAvis', [LeBonCoinController::class, 'deposerAvis']);
+
 Route::post('/resolution_incident/{idincident}', 'LeBonCoinController@marquerCommeResolu')->name('resolution_incident');
 //Route::post('/resolution_incident/{idincident}', [LeBonCoinController::class, "marquerCommeResolu"]);
 
@@ -91,10 +93,13 @@ Route::get("/annoncelist/{id}",[LeBonCoinController::class, "oneann" ]);
 
 Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);
 
-Route::get('/incidents', [LeBonCoinController::class, 'indexIncident']);
+Route::get('/incident', [LeBonCoinController::class, 'indexIncident']);
+
+Route::get('/enregistrer_avis', [LeBonCoinController::class, 'gestionAvis']);
 
 Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
 
+Route::post('/modifierAvis/{id}', [LeBonCoinController::class, 'modifierAvis']);
 
 
 Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
@@ -109,7 +114,14 @@ Route::get('/upload', [UploadController::class, 'showForm']);
 
 Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
+Route::get('/favoris', [LeBonCoinController::class, 'favoris']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mes-incidents', [LeBonCoinController::class, 'mesIncidents'])->name('mes-incidents');
+    Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
+});
 
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
-Route::post('/changer-statut/{id}', 'LeBonCoinController@changerStatutIncident')->name('changer-statut');
+
+//Route::post('/changer-statut/{id}', [LeBonCoinController::class, 'changer-statut']);

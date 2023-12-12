@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Avis;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\LeBonCoin;
@@ -46,8 +46,9 @@ class LeBonCoinController extends Controller
     // Traitez les données une fois qu'elles ont été validées avec succès
     }
     //$nextId = 7;
+
     public function incidentsave(Request $request) {
-       // Commencer à partir de 5, l'ID suivant sera 6 pour le nouvel incident
+       
       $incident = new Incident();
       
       $incident->idannonce = $request->input('id');
@@ -124,14 +125,13 @@ class LeBonCoinController extends Controller
                     ->get();
     return view("reservation", compact('reservation', 'annonce', 'photos'));
   }
-    public function proprio($id) {
-    $annonces = LeBonCoin::find($id);
+  public function proprio($id) {
+    // $annonces = LeBonCoin::find($id);
     $compte = Compte::find($id);
-    $ville = Ville::find($id);
-    $departement = Departement::find($id);
-    $proprio = Particulier::find($id);
-    $particuiler = Particulier::find($id);
-    return view("proprio", compact('annonces', 'compte', 'ville', 'departement', 'proprio'));
+    $villes = Ville::all();
+    $departements = Departement::all();
+    $particuliers = Particulier::all();
+    return view("proprio", compact('compte','particuliers','villes','departements'));
     }
     public function search() {
       return view("search");
@@ -166,9 +166,7 @@ class LeBonCoinController extends Controller
 
         // $nouvellePdp="j'aime le fil";
         $compte = Auth::user()->compte;
-        if($nouvellePdp != ""){
-          $compte->pdp = $nouvellePdp;
-        }
+          $compte->pdp = $request->input('lien_pdp');
         if($nouvelEmail != ""){
           $compte->email = $nouvelEmail;
         }
@@ -427,6 +425,7 @@ class LeBonCoinController extends Controller
       $conditionHebergement = new ConditionHebergement();
       $conditionHebergement->libellecondition = $libelleCondition;
       $conditionHebergement->idconditionh = ConditionHebergement::max('idconditionh')+1;
+
       $annonce = new LeBonCoin();
       $annonce->idconditionh = ConditionHebergement::max('idconditionh')+1;
       $conditionHebergement->save();
@@ -453,25 +452,17 @@ class LeBonCoinController extends Controller
         $annonce->dateannonce = $request->input("date");
         $annonce->codeetatvalide = False;
         $annonce->codeetattelverif = False;
+        $annonce->datedebut = $request->input('datedebut');
+        $annonce->datefin = $request->input('datefin');
         $annonce->save();
         
         $appartient->prix = $request->input("prix");
         $appartient->idperiode = 1;
 
-        
-        //$annonce->lien_photo = $request->input("lien_photo");
-        
-    
-        // Sauvegardez l'annonce dans la base de données
-        
-        // Récupérez le lien de la photo depuis le formulaire
-        //$lienPhoto = $request->input('lien_photo');
-    
-        // Créez une nouvelle entrée dans la table Photo associée à l'annonce
-        //$photo = new Photo();
-        //$photo->lien_photo = $lienPhoto;
-        //$photo->idannonce = $annonce->idannonce; // Assurez-vous que la clé étrangère est correctement liée
-        //$photo->save();
+        $photo = new Photo();
+        $photo->photo = $request->input("lien_photo");
+        $photo->idannonce = $annonce->idannonce;
+        $photo->save();
     
         return redirect('/compte')->withInput()->with("compte",'Annonce créée');
       }
@@ -487,8 +478,6 @@ class LeBonCoinController extends Controller
         return view('incidentclass', compact('incidents',"annonces"));
       }
 
-      
-      
       public function classementSansSuite(Request $request, $id)
       {
           $incident = Incident::find($id);
@@ -501,38 +490,109 @@ class LeBonCoinController extends Controller
 
           $incident->save();
 
-          return redirect('/incidents');
+          return redirect('/incident');
       }
-
 
 
       public function resolution($id)
       {
           Incident::where('idincident', $id)->update(['resolu' => true]);
-          return redirect('/incidents');
+          return redirect('/incident');
       }
 
-      public function indexIncidentprop()
+      
+      public function mesIncidents()
+      {
+          $user = Auth::user();
+          $incidents = $user->incidents;
+          return view('mes_incidents', compact('incidents'));
+      }
+      
+      
+
+      public function reconnaissanceJustifie(Request $request, $id)
+      {
+          $incident = Incident::find($id);
+
+          $statut = $request->input('statut', 'non-resolu');
+
+          $incident->resolu = true;
+
+          $incident->save();
+
+          return redirect('/mes-incidents');
+      }
+
+      
+      
+
+
+
+
+
+
+
+public function deposerAvis(Request $request)
 {
-    $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
-    $incidents = Incident::where('idcompte', $userId)->get(); // Récupère les incidents de cet utilisateur
-    return view('incidentlist', compact('incidents'));
+    // Validation des données du formulaire
+    
+
+    // Récupérer les données du formulaire
+    $idAnnonce = $request->input('idannonce');
+    $commentaire = $request->input('commentaire');
+    $idCompte = auth()->user()->id; // Supposons que vous utilisez l'authentification de Laravel
+
+    // Créer un nouvel avis
+    $avis = new Avis();
+    $avis->idcompte = $idCompte;
+    $avis->idparticulier = $idCompte; // Supposons que idparticulier est l'ID du compte connecté
+    $avis->idannonce = $idAnnonce;
+    $avis->dateavis = now(); // Date actuelle
+    $avis->commentaire = $commentaire;
+    $avis->valide = false;
+
+    // Enregistrer l'avis dans la base de données
+    $avis->save();
+
+    // Redirection ou autre logique après avoir enregistré l'avis
+    return redirect('/annonce')->withInput();
 }
+public function gestionAvis()
+    {
+      $avisNonValides = Avis::where('valide', false)->get();
+      //\Log::info($avisNonValides);
+      // Fetch related announcement name and comment for each review
+      // $avisDetails = [];
+      // foreach ($avisNonValides as $avis) {
+      //     $annonce = LeBonCoin::find($avis->idannonce);
+      //     $avisDetails[] = [
+      //         'id' => $avis->id,
+      //         'contenu' => $avis->contenu,
+      //         'valide' => $avis->valide,
+      //         'nom_annonce' => $annonce->titreannonce, // Replace 'nom_annonce' with the actual column name
+      //         'commentaire_annonce' => $annonce->commentaire, // Replace 'commentaire_annonce' with the actual column name
+      //     ];
+      // }
+  
+      return view('enregistrer_avis', compact('avisNonValides'));
+    }
 
-public function changerStatutIncident(Request $request, $id)
-{
-    $userId = Auth::id(); // Récupère l'ID de l'utilisateur connecté
-    $incident = Incident::where('idcompte', $userId)
-                        ->where('idincident', $id)
-                        ->firstOrFail(); // Récupère l'incident spécifique de cet utilisateur
+    public function modifierAvis(Request $request, $id)
+    {
+        $avis = Avis::findOrFail($id);
+        $avis->valide = $request->input('valide', false);
+        $avis->save();
 
-    $incident->resolu = $request->input('resolu', false); // Met à jour l'état de résolution
+        return redirect('/enregistrer_avis')->with('success', 'Statut de l avis modifié avec succès');
+    }
 
-    $incident->save(); // Enregistre les modifications
+    public function favoris($id) {
+      $favoris = Favori::find($id);
+      $annonces = LeBonCoin::all();
+      $photos = Photo::all();
 
-    return redirect('/incidentlist');
-}
-
+      return view('favori', compact('favoris', "annonces", "photos"));
+    }
 
     }
   
