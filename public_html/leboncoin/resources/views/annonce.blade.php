@@ -148,7 +148,20 @@ if($data){
         alert(window.location.href);
         navigator.clipboard.writeText(window.location.href);
     }
+
 </script>
+<!-- Liens avec les images des logos -->
+<a href="https://www.instagram.com" target="_blank">
+    <img src="{{ asset('logopartage/instagram-1581266_640 (1).png') }}" alt="Instagram">
+</a>
+
+<a href="https://www.snapchat.com" target="_blank">
+    <img src="{{ asset('images/logos/snapchat.png') }}" alt="Snapchat">
+</a>
+
+<a href="https://www.facebook.com" target="_blank">
+    <img src="{{ asset('images/logos/facebook.png') }}" alt="Facebook">
+</a>
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">
     <h2>Annonces Similaire</h2>

@@ -69,14 +69,16 @@
 
         <!-- Date automatique -->
         <!-- Date de début date de fin des disponibilités -->
-        <div id="datesContainer">
-            <div>
-                <label for="datedebut">De :</label>
-                <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
-                <label for="datefin"> à : </label>
-                <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+        <form method="get">
+            <div id="datesContainer">
+                <div>
+                    <label for="datedebut[]">De :</label>
+                    <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
+                    <label for="datefin[]"> à : </label>
+                    <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+                </div>
             </div>
-        </div>
+        </form>
         <!-- automatique dans la base de données (current_date) -->
     @csrf
     <label for="prix">Prix :</label>
@@ -171,9 +173,9 @@
 </script>
 <?php
 //------------------------------------------DateDebut
-    $datesDebutD = request('datedebut', []);
+    $datesDebutD = $_GET['datedebut[]'];
 
-    // if (!empty($datesDebut)) {
+    if (!empty($datesDebut)) {
         // Initialiser un tableau pour stocker les chaînes de dates
         $chainesDatesD = [];
 
@@ -194,12 +196,12 @@
 
         // Afficher la chaîne de dates
         echo "<p>Chaîne de dates : $chaineDatesDebut </p>";
-    // }
+    }
 
     //------------------------------------------DateFin
     $datesFin = request('datefin', []);
 
-    // if (!empty($datesFin)) {
+    if (!empty($datesFin)) {
         // Initialiser un tableau pour stocker les chaînes de dates
         $chainesDatesF = [];
 
@@ -220,7 +222,7 @@
 
         // Afficher la chaîne de dates
         echo "<p>Chaîne de dates : $chaineDatesFin </p>";
-    // }
+    }
 ?>
     
 

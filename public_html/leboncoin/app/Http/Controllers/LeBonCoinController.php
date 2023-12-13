@@ -620,17 +620,24 @@ public function gestionAvis()
       $f = new Favoris();
       $user = Auth::user();
       $allfavoris = Favoris::all();
+      $allparticulier = Particulier::all();
       foreach ($allfavoris as $alfavoris) {
-        if ($alfavoris->idcomte == $user->idcompte) {
-          $f->libidannonce = $alfavois->libidannonce." ".$id;
+        if ($alfavoris->idcompte == $user->idcompte) {
+          $f->libidannonce = $alfavoris->libidannonce." ".$id;
+          $f->idfavoris = $alfavoris->idfavoris;
         }
         else {
           $f->libidannonce = $id;
+          $f->idfavoris = Favoris::max('idfavoris')+1;
         }
       }
-      $f->idfavoris = Favoris::max('idfavoris')+1;
+      
       $f->idcompte = $user->idcompte;
-      $f->idparticulier = $user->idparticulier;
+      foreach ($allparticulier as $alparticulier) {
+        if ($alparticulier->idcompte == $user->idcompte) {
+          $f->idparticulier = $alparticulier->idparticulier;
+        }
+      }
       $f->save();
       
       return redirect('/compte')->with("compte",'Favoris créée');
