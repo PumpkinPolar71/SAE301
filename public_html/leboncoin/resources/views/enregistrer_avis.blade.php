@@ -38,6 +38,8 @@
     @else 
     <p>Vous n'avez pas les autorisation requises pour voir cette page, cette incident à été signalé.</p>
     @endif
+@else
+    <p>Vous n'avez pas les autorisation requises pour voir cette page, cette incident à été signalé.</p>
 @endauth
 
 

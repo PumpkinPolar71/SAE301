@@ -42,11 +42,12 @@
                         </form>
                     </div>
                 </li>   
-                @auth               
+                @auth       
+                    <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>    
+                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>  
+                    <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>  
                     <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
-                    <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>
-                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
-                
+
                     @if (Auth::user()->compte->codeetatcompte == 9 )
                     <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li>
                     @elseif (Auth::user()->compte->codeetatcompte == 10 )
@@ -54,12 +55,12 @@
                     @elseif (Auth::user()->compte->codeetatcompte == 11 )
                     <li style="float:right"><a class="coone" href="{{ url("/enregistrer_avis") }}">service avis</a></li>
                     @endif
-                <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
+                
                 @else
-                    <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
-                    <li style="float:right"><a class="fav" href="{{ url("/redirection") }}">Favoris</a></li>
-                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
                     <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
+                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
+                    <li style="float:right"><a class="fav" href="{{ url("/redirection") }}">Favoris</a></li>
+                    <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
                 @endauth
 
             </ul><br>

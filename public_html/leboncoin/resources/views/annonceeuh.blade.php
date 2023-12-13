@@ -68,6 +68,15 @@
         </div>
 
         <!-- Date automatique -->
+        <!-- Date de début date de fin des disponibilités -->
+        <div id="datesContainer">
+            <div>
+                <label for="datedebut">De :</label>
+                <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
+                <label for="datefin"> à : </label>
+                <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+            </div>
+        </div>
         <!-- automatique dans la base de données (current_date) -->
     @csrf
     <label for="prix">Prix :</label>
@@ -89,53 +98,18 @@
 @endif        
 
 
-<!-- Date de début date de fin des disponibilités -->
-<div id="datesContainer">
-    <div>
-        <label for="datedebut">De :</label>
-        <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
-        <label for="datefin"> à : </label>
-        <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
-    </div>
-</div>
+
 
 <!-- Bouton d'ajout dynamique -->
 <button type="button" id="ajouterDate">Ajouter une disponibilité</button>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Initialiser le compteur
+        var dateCounter = 1;
         // Écoutez l'événement de clic sur le bouton
+        
         document.getElementById('ajouterDate').addEventListener('click', function () {
-            // Créez de nouveaux champs de date
-            var nvDateDebut = document.createElement('input');
-            nvDateDebut.setAttribute('type', 'date');
-            nvDateDebut.setAttribute('class', 'ajoutAnnonce');
-            nvDateDebut.setAttribute('name', 'datedebut[]');
-
-            var nvDateFin = document.createElement('input');
-            nvDateFin.setAttribute('type', 'date');
-            nvDateFin.setAttribute('class', 'ajoutAnnonce');
-            nvDateFin.setAttribute('name', 'datefin[]');
-
-            // Créez de nouveaux labels
-            var labelDebut = document.createElement('label');
-            labelDebut.textContent = 'De : ';
-
-            var labelFin = document.createElement('label');
-            labelFin.textContent = ' à : ';
-
-            // Créez un conteneur div pour les nouvelles dates
-            var newDateContainer = document.createElement('div');
-            newDateContainer.appendChild(labelDebut);
-            newDateContainer.appendChild(nvDateDebut);
-            newDateContainer.appendChild(labelFin);
-            newDateContainer.appendChild(nvDateFin);
-
-            // Récupérez le conteneur principal
-            var datesContainer = document.getElementById('datesContainer');
-
-            // Insérez les nouveaux champs à la fin du conteneur
-            datesContainer.appendChild(newDateContainer);
-
+            
             //----------------------------------------Prix
             // Créez un label pour le champ de prix
             var labelPrix = document.createElement('label');
@@ -160,6 +134,40 @@
                     
             // Insérez le nouveau champ de prix à la fin du conteneur
             datesContainer.appendChild(prixContainer);
+            
+            //----------------------------------------Dates
+            // Créez de nouveaux champs de date
+            var nvDateDebut = document.createElement('input');
+            nvDateDebut.setAttribute('type', 'date');
+            nvDateDebut.setAttribute('class', 'ajoutAnnonce');
+            nvDateDebut.setAttribute('name', 'datedebut[' + dateCounter + ']')
+
+            var nvDateFin = document.createElement('input');
+            nvDateFin.setAttribute('type', 'date');
+            nvDateFin.setAttribute('class', 'ajoutAnnonce');
+            nvDateFin.setAttribute('name', 'datefin[' + dateCounter + ']');
+
+            // Créez de nouveaux labels
+            var labelDebut = document.createElement('label');
+            labelDebut.textContent = 'De : ';
+
+            var labelFin = document.createElement('label');
+            labelFin.textContent = ' à : ';
+
+            // Créez un conteneur div pour les nouvelles dates
+            var newDateContainer = document.createElement('div');
+            newDateContainer.appendChild(labelDebut);
+            newDateContainer.appendChild(nvDateDebut);
+            newDateContainer.appendChild(labelFin);
+            newDateContainer.appendChild(nvDateFin);
+
+            // Récupérez le conteneur principal
+            var datesContainer = document.getElementById('datesContainer');
+
+            // Insérez les nouveaux champs à la fin du conteneur
+            datesContainer.appendChild(newDateContainer);
+
+            
         });
     });
 </script>

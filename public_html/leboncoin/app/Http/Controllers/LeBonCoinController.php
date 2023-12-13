@@ -605,6 +605,22 @@ public function gestionAvis()
       return view('favoris', compact('favoris', "annonces", "photos","villes"));
     }
     public function sauvefavoris($id) {
+      $f = new Favoris();
+      $user = Auth::user();
+      $allfavoris = Favoris::all();
+      foreach ($allfavoris as $alfavois) {
+        if ($alfavoris->idcomte == $user->idcompte) {
+          $f->libidannonce = $alfavois->libidannonce." ".$id;
+        }
+        else {
+          $f->libidannonce = $id;
+        }
+      }
+      
+      $f->idfavoris = Favoris::max('idfavoris')+1;
+      $f->idcompte = $user->idcompte;
+      $f->idparticulier = $user->idparticulier;
+      $f->save();
       
       return redirect('/enregistrer_avis')->with('success', 'Statut de l avis modifié avec succès');
     }

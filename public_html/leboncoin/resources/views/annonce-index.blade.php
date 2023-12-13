@@ -34,35 +34,45 @@
     
     <button type="submit">Rechercher</button>
 </form>
+<?php
+$annonces = DB::table('annonce');
 
-    <!-- Contenu de votre page -->
-    <div id="map" style="height: 600px;"></div>
+if (isset($_GET['ville']) && $_GET['ville'] !== '') {
+    $annonces->where('idville', $_GET['ville']);
+    foreach ($villes as $ville){
+        if ($annonces->idville==$ville->idville){
+            $selectedCity = $ville->nomville;
+        } 
+    }
+}
+?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
 
-    <!-- Charger la librairie Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    // Utilisation de la carte OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
 
-    <!-- Script pour initialiser la carte -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
+    var selectedCity = "{{ $selectedCity }}"; // Récupérer le nom de la ville depuis le formulaire de recherche
 
-            // Utilisation de la carte OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-            }).addTo(map);
-
-            // Placer les marqueurs pour chaque ville
-            var villes = <?php echo json_encode($villes); ?>; // Récupérer les villes depuis PHP
-
-            villes.forEach(function(ville) {
-                if (ville.latitude && ville.longitude) {
-                    L.marker([ville.latitude, ville.longitude]).addTo(map)
-                        .bindPopup(ville.nomville);
-                }
-            });
+    // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
+    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.length > 0) {
+                var city = data[0];
+                L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
+            }
+        })
+        .catch(function(error) {
+            console.log('Erreur de géocodage :', error);
         });
-    </script>
+});
+</script>
 <h2>Résultats de la recherche pour : location</h2>
 <?php
 use Illuminate\Support\Facades\DB;
@@ -71,7 +81,14 @@ $annonces = DB::table('annonce');
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
     $annonces->where('idville', $_GET['ville']);
+    foreach ($villes as $ville){
+        if ($annonces->idville==$ville->idville){
+            $selectedCity = $ville->nomville;
+        } 
+    }
 }
+
+
 
 if (isset($_GET['type_hebergement']) && $_GET['type_hebergement'] !== '') {
     $annonces->where('idtype', $_GET['type_hebergement']);
