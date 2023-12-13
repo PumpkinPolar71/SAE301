@@ -156,11 +156,11 @@ if($data){
 </a>
 
 <a href="https://www.snapchat.com" target="_blank">
-    <img src="{{ asset('images/logos/snapchat.png') }}" alt="Snapchat">
+    <img src="{{ asset('logopartage/Snapchat-Logo.jpg') }}" alt="Snapchat">
 </a>
 
 <a href="https://www.facebook.com" target="_blank">
-    <img src="{{ asset('images/logos/facebook.png') }}" alt="Facebook">
+    <img src="{{ asset('logopartage/logo-medias-sociaux-bleu_197792-1759.png') }}" alt="Facebook">
 </a>
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">

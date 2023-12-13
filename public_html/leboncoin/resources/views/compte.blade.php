@@ -5,25 +5,6 @@
     @auth
         <div class="bandeau">
             <div class="pdpT"><p class="pPseudo"></p></div>
-            <style>
-                        #drop-zone {
-                            border: 2px dashed #ccc;
-                            padding: 20px;
-                            text-align: center;
-                        }
-                        #image-container {
-                            margin-top: 20px;
-                        }
-                        div .pdpContainer {
-                            border-radius: 100%;
-                            height: 200px;
-                            width: 200px;
-                            background-color:#EC5A13;
-                            position: center;
-                        }
-                        
-                        
-                    </style>
             
                     <form method="post" action="{{ route('updateUserInfo') }}">
                         @csrf

@@ -125,22 +125,24 @@ if ($annonces->isEmpty()) {
             }
             echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
             if (Auth::user() !== NULL) {
-                echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
+                
                 foreach ($favoris as $favori) {
                     if ($favori->idcompte == Auth::user()->idcompte) {
                         $tabann = explode(" ",$favori->libidannonce);
                         foreach ($tabann as $i => $value) {
                             if ($tabann[$i] == $annonce->idannonce) {
-                                $rep = 0;
+                                echo "<a href='/supprfavoris/{$annonce->idannonce}'>";
                                 echo "<img class='amour' src='/amour/rouge.png'>";
                                 break;
                             } else {
+                                echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
                                 echo "<img class='amour' src='/amour/noir.png'>";
                             }
                         }
                     }
                 }
             } else {
+                echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
                 echo "<img class='amour' src='/amour/noir.png'>";
             }
             echo "</a>";

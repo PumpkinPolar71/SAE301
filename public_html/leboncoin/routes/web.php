@@ -118,6 +118,8 @@ Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
 Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
 
+Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
+
 Route::get('/redirection', [LeBonCoinController::class, 'redirection']);
 
 Route::middleware(['auth'])->group(function () {
@@ -125,6 +127,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
     Route::get('/mes-recherches', [LeBonCoinController::class, 'mesRecherches'])->name('mes-recherches');
 });
+
+Route::get('/service-annonces', [LeBonCoinController::class, 'create'])->name('service_annonces');
 
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');

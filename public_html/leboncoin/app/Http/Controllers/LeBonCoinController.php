@@ -458,12 +458,73 @@ class LeBonCoinController extends Controller
         $annonce->dateannonce = $request->input("date");
         $annonce->codeetatvalide = False;
         $annonce->codeetattelverif = False;
-        $annonce->datedebut = $request->input('datedebut');
-        $annonce->datefin = $request->input('datefin');
+        //---------------------------------------------Gestion tableau DateDebut
+        $dateDebutTab = $request->input('datedebut');
+        $chainesDatesD = [];
+        
+        foreach ($dateDebutTab as $dateD) {
+            // Vérifiez si $dateD est déjà une chaîne
+            if (is_array($dateD)) {
+                // Utilisez implode pour convertir le tableau en chaîne
+                $chaineDateD = implode(' ', $dateD);
+            } else {
+                // Si $dateD est déjà une chaîne, utilisez-la directement
+                $chaineDateD = $dateD;
+            }
+        
+            $chainesDatesD[] = $chaineDateD;
+        }
+        
+        // Implémentez les chaînes de dates en une seule chaîne
+        $chaineDatesDebut = implode(' ', $chainesDatesD);
+        
+        $annonce->datedebut = $chaineDatesDebut;
+        //---------------------------------------------Gestion tableau DateFin
+        $dateFinTab = $request->input('datefin');
+        $chainesDatesF = [];
+
+        foreach ($dateFinTab as $dateF) {
+            // Vérifiez si $dateF est déjà une chaîne
+            if (is_array($dateF)) {
+                // Utilisez implode pour convertir le tableau en chaîne
+                $chaineDateF = implode(' ', $dateF);
+            } else {
+                // Si $dateF est déjà une chaîne, utilisez-la directement
+                $chaineDateF = $dateF;
+            }
+          
+            $chainesDatesF[] = $chaineDateF;
+        }
+
+        // Implémentez les chaînes de dates en une seule chaîne
+        $chaineDatesFin = implode(' ', $chainesDatesF);
+
+        $annonce->datefin = $chaineDatesFin;
+
+
+
         $annonce->save();
         
-        $appartient->prix = $request->input("prix");
+        //---------------------------------------------Gestion tableau Prix
+        $prixTab = $request->input('prix');
+        $chainesPrix = [];
+              
+        foreach ($prixTab as $prix) {
+            if (is_array($prix)) {
+                $chainePrix = implode(' ', $prix);
+            } else {
+                $chainePrix = $prix;
+            }
+          
+            $chainesPrix[] = $chainePrix;
+        }
+        
+        $chainePrix = implode(' ', $chainesPrix);
+        
+        $appartient->prix = $chainePrix;
+        
         $appartient->idperiode = 1;
+        $appartient->save();
 
         $photo = new Photo();
         $photo->photo = $request->input("lien_photo");
@@ -548,6 +609,28 @@ class LeBonCoinController extends Controller
       }
       
 
+      public function createequipement()
+      {
+          return view('service_annonces');
+      }
+
+      public function store(Request $request)
+      {
+          // Valider les données du formulaire
+          $request->validate([
+              'nomequipement' => 'required|string|max:255|unique:equipement',
+              // ... autres règles de validation ...
+          ]);
+        
+          // Créer un nouvel équipement
+          $equipment = Equipment::createequipement([
+              'nomequipement' => $request->input('nomequipement'),
+              // ... autres champs ...
+          ]);
+        
+          // Rediriger avec un message de succès
+          return redirect()->route('equipements.create')->with('success', 'Équipement créé avec succès!');
+      }
 
 
 
@@ -617,30 +700,56 @@ public function gestionAvis()
       return view('favoris', compact('favoris', "annonces", "photos","villes"));
     }
     public function sauvefavoris($id) {
-      $f = new Favoris();
       $user = Auth::user();
-      $allfavoris = Favoris::all();
-      $allparticulier = Particulier::all();
-      foreach ($allfavoris as $alfavoris) {
-        if ($alfavoris->idcompte == $user->idcompte) {
-          $f->libidannonce = $alfavoris->libidannonce." ".$id;
-          $f->idfavoris = $alfavoris->idfavoris;
-        }
-        else {
-          $f->libidannonce = $id;
-          $f->idfavoris = Favoris::max('idfavoris')+1;
-        }
+      $favoris = Favoris::where('idcompte', $user->idcompte)->first();
+  
+      if (!$favoris) {
+          $favoris = new Favoris();
+          $favoris->idfavoris = Favoris::max('idfavoris') + 1;
+          $favoris->idcompte = $user->idcompte;
+          $favoris->libidannonce = $id;
       }
-      
-      $f->idcompte = $user->idcompte;
-      foreach ($allparticulier as $alparticulier) {
-        if ($alparticulier->idcompte == $user->idcompte) {
-          $f->idparticulier = $alparticulier->idparticulier;
-        }
+  
+      $favoris->libidannonce = $favoris->libidannonce." ".$id;
+  
+      $particulier = Particulier::where('idcompte', $user->idcompte)->first();
+      if ($particulier) {
+          $favoris->idparticulier = $particulier->idparticulier;
       }
-      $f->save();
-      
-      return redirect('/compte')->with("compte",'Favoris créée');
+  
+      // Sauvegarde seulement si $favoris est défini
+      if ($favoris) {
+          $favoris->save();
+      }
+
+
+      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
+    }
+    public function supprfavoris($id) {
+      $user = Auth::user();
+      $favoris = Favoris::where('idcompte', $user->idcompte)->first();
+  
+      if (!$favoris) {
+          $favoris = new Favoris();
+          $favoris->idfavoris = Favoris::max('idfavoris') + 1;
+          $favoris->idcompte = $user->idcompte;
+          $favoris->libidannonce = $id;
+      }
+  
+      $favoris->libidannonce = $favoris->libidannonce." ".$id;
+  
+      $particulier = Particulier::where('idcompte', $user->idcompte)->first();
+      if ($particulier) {
+          $favoris->idparticulier = $particulier->idparticulier;
+      }
+  
+      // Sauvegarde seulement si $favoris est défini
+      if ($favoris) {
+          $favoris->save();
+      }
+
+
+      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
     }
   }
   
