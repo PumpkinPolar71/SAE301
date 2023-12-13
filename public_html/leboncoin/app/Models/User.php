@@ -14,6 +14,7 @@ use App\Models\Compte;
 use App\Models\Ville;
 use App\Models\Incident;
 use App\Models\Annonce;
+use App\Models\SauvegardeRecherche;
 
 class User extends Authenticatable
 {

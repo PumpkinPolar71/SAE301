@@ -72,9 +72,9 @@
         <div id="datesContainer">
             <div>
                 <label for="datedebut">De :</label>
-                <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
+                <input class=ajoutAnnonce type="date" name="datedebut" id="idconditionh" value="{{ date('Y-m-d') }}">
                 <label for="datefin"> à : </label>
-                <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+                <input class=ajoutAnnonce type="date" name="datefin" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
             </div>
         </div>
         <!-- automatique dans la base de données (current_date) -->
@@ -104,12 +104,10 @@
 <button type="button" id="ajouterDate">Ajouter une disponibilité</button>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Initialiser le compteur
-        var dateCounter = 1;
         // Écoutez l'événement de clic sur le bouton
-        
+        let numAjoutDate = 1;
         document.getElementById('ajouterDate').addEventListener('click', function () {
-            
+            numAjoutDate += 1;
             //----------------------------------------Prix
             // Créez un label pour le champ de prix
             var labelPrix = document.createElement('label');
@@ -140,12 +138,12 @@
             var nvDateDebut = document.createElement('input');
             nvDateDebut.setAttribute('type', 'date');
             nvDateDebut.setAttribute('class', 'ajoutAnnonce');
-            nvDateDebut.setAttribute('name', 'datedebut[' + dateCounter + ']')
+            nvDateDebut.setAttribute('name', 'datedebut')
 
             var nvDateFin = document.createElement('input');
             nvDateFin.setAttribute('type', 'date');
             nvDateFin.setAttribute('class', 'ajoutAnnonce');
-            nvDateFin.setAttribute('name', 'datefin[' + dateCounter + ']');
+            nvDateFin.setAttribute('name', 'datefin');
 
             // Créez de nouveaux labels
             var labelDebut = document.createElement('label');
@@ -171,9 +169,9 @@
         });
     });
 </script>
+    
 
-
-    <input style="display: none;" class=ajoutAnnonce type="date" name="date" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+    <input style="display: none;" class="ajoutAnnonce" type="date" name="date" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
         <!-- Bouton pour soumettre le formulaire -->
         <button id="submitb" type="submit">Créer annonce</button>
     </form>

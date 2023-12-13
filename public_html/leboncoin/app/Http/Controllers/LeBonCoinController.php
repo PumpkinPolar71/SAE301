@@ -529,12 +529,16 @@ class LeBonCoinController extends Controller
 
       
       public function mesRecherches()
-    {
-        // Récupérer les recherches sauvegardées de l'utilisateur connecté
-        $recherches = auth()->user()->recherchesSauvegardees;
-
-        return view('mes_recherches', compact('recherches'));
-    }
+      {
+          // Récupère l'utilisateur connecté
+          $user = Auth::user();
+      
+          // Récupère les recherches sauvegardées associées à l'utilisateur connecté
+          $recherches = $user->sauvegardesRecherches;
+      
+          return view('mes_recherches', compact('recherches'));
+      }
+      
 
 
 
@@ -616,13 +620,12 @@ public function gestionAvis()
           $f->libidannonce = $id;
         }
       }
-      
       $f->idfavoris = Favoris::max('idfavoris')+1;
       $f->idcompte = $user->idcompte;
       $f->idparticulier = $user->idparticulier;
       $f->save();
       
-      return redirect('/enregistrer_avis')->with('success', 'Statut de l avis modifié avec succès');
+      return redirect('/compte')->with("compte",'Favoris créée');
     }
   }
   

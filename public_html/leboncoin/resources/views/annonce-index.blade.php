@@ -12,7 +12,7 @@
     <select name="ville" id="ville">
         <option value="">Toutes les villes</option>
         @foreach($villes as $ville)
-            <option value="{{ $ville->idville }}" {{ request()->get('ville') == $ville->idville ? 'selected' : '' }}>{{ $ville->nomville }}</option>
+            <option value="{{ $ville->nomville }}" {{ request()->get('ville') == $ville->nomville ? 'selected' : '' }}>{{ $ville->nomville }}</option>
         @endforeach
     </select>
     
@@ -34,18 +34,13 @@
     
     <button type="submit">Rechercher</button>
 </form>
-<?php
-$annonces = DB::table('annonce');
 
-if (isset($_GET['ville']) && $_GET['ville'] !== '') {
-    $annonces->where('idville', $_GET['ville']);
-    foreach ($villes as $ville){
-        if ($annonces->idville==$ville->idville){
-            $selectedCity = $ville->nomville;
-        } 
-    }
-}
-?>
+<div id="map" style="height: 600px;"></div>
+
+<!-- Charger la librairie Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
@@ -55,22 +50,28 @@ document.addEventListener('DOMContentLoaded', function() {
         maxZoom: 19,
     }).addTo(map);
 
-    var selectedCity = "{{ $selectedCity }}"; // Récupérer le nom de la ville depuis le formulaire de recherche
+    // Capturer l'événement de soumission du formulaire
+    document.querySelector('.formindex').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêcher la soumission par défaut du formulaire
 
-    // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
-    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            if (data.length > 0) {
-                var city = data[0];
-                L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
-            }
-        })
-        .catch(function(error) {
-            console.log('Erreur de géocodage :', error);
-        });
+        var selectedCity = document.getElementById('ville').value; // Récupérer la valeur sélectionnée dans le champ "ville"
+
+        // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.length > 0) {
+                    var city = data[0];
+                    L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
+                    map.setView([city.lat, city.lon], 10); // Réajuster la vue de la carte pour afficher la ville sélectionnée
+                }
+            })
+            .catch(function(error) {
+                console.log('Erreur de géocodage :', error);
+            });
+    });
 });
 </script>
 <h2>Résultats de la recherche pour : location</h2>
@@ -81,11 +82,7 @@ $annonces = DB::table('annonce');
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
     $annonces->where('idville', $_GET['ville']);
-    foreach ($villes as $ville){
-        if ($annonces->idville==$ville->idville){
-            $selectedCity = $ville->nomville;
-        } 
-    }
+    
 }
 
 
@@ -125,9 +122,15 @@ if ($annonces->isEmpty()) {
                     break;
                 }
             }
-            echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
             echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
-            echo "<img class='amour' src='/amour/noir.png'>";
+            if (Auth::user() !== NULL) {
+                echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
+                foreach ($favoris as $favori) {
+                    if ($favori->idcompte == 0) {}
+                }
+            } else {
+                echo "<img class='amour' src='/amour/noir.png'>";
+            }
             echo "</a>";
             echo "</a>";
             echo "</td>";
