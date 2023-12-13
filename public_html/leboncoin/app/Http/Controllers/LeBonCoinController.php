@@ -458,7 +458,9 @@ class LeBonCoinController extends Controller
         $annonce->dateannonce = $request->input("date");
         $annonce->codeetatvalide = False;
         $annonce->codeetattelverif = False;
+        
         //---------------------------------------------Gestion tableau DateDebut
+       
         $dateDebutTab = $request->input('datedebut');
         $chainesDatesD = [];
         
@@ -479,7 +481,9 @@ class LeBonCoinController extends Controller
         $chaineDatesDebut = implode(' ', $chainesDatesD);
         
         $annonce->datedebut = $chaineDatesDebut;
+
         //---------------------------------------------Gestion tableau DateFin
+        
         $dateFinTab = $request->input('datefin');
         $chainesDatesF = [];
 
@@ -501,10 +505,8 @@ class LeBonCoinController extends Controller
 
         $annonce->datefin = $chaineDatesFin;
 
-
-
-        $annonce->save();
-        
+      
+      $annonce->save();
         //---------------------------------------------Gestion tableau Prix
         $prixTab = $request->input('prix');
         $chainesPrix = [];
@@ -692,7 +694,8 @@ public function gestionAvis()
     }
 
     public function favoris($id) {
-      $favoris = Favoris::find($id);
+      $favoris = Favoris::where('idcompte', $id)->first();
+      //$favoris = Favoris::find($id);
       $annonces = LeBonCoin::all();
       $photos = Photo::all();
       $villes = Ville::all();
@@ -729,28 +732,24 @@ public function gestionAvis()
       $user = Auth::user();
       $favoris = Favoris::where('idcompte', $user->idcompte)->first();
   
-      if (!$favoris) {
-          $favoris = new Favoris();
-          $favoris->idfavoris = Favoris::max('idfavoris') + 1;
-          $favoris->idcompte = $user->idcompte;
-          $favoris->libidannonce = $id;
-      }
-  
-      $favoris->libidannonce = $favoris->libidannonce." ".$id;
-  
-      $particulier = Particulier::where('idcompte', $user->idcompte)->first();
-      if ($particulier) {
-          $favoris->idparticulier = $particulier->idparticulier;
-      }
-  
-      // Sauvegarde seulement si $favoris est défini
       if ($favoris) {
+          $tabann = explode(" ", $favoris->libidannonce);
+          $updatedFavoris = [];
+  
+          foreach ($tabann as $value) {
+              if ($value != $id) {
+                  $updatedFavoris[] = $value;
+              }
+          }
+  
+          $favoris->libidannonce = implode(" ", $updatedFavoris);
           $favoris->save();
+      } else {
+          echo "Problème : Favoris introuvable.";
       }
-
-
+  
       return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
-    }
+  }
   }
   
 

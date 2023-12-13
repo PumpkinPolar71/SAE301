@@ -17,14 +17,20 @@ class CityController extends Controller
 {
         public function indexe(Request $request)
     {
-        $favoris = Favoris::all();
-        $villes = Ville::all();
-        $photos = Photo::all();
-        $typesHebergement = TypeHebergement::all();
-        $annonces = LeBonCoin::all(); 
-        $reservations = Reservation::all();
-        
-        return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+       // if (isset($_POST['reche'])) {
+            $favoris = Favoris::all();
+            $villes = Ville::all();
+            $photos = Photo::all();
+            $typesHebergement = TypeHebergement::all();
+            $annonces = LeBonCoin::all(); 
+            $reservations = Reservation::all();
+            
+            return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+        // } elseif (isset($_POST['sauve'])) {
+        //     return view('sauvegarderecherche');
+        // } else {
+        //     /* nop */
+       // }
     }
     // public function adresse($q){
     //     $r = file_get_contents("https://api-adresse.data.gouv.fr/search/?type=json&q=$q");

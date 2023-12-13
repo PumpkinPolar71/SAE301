@@ -32,7 +32,8 @@
     <label for="datefin">Date de fin :</label> 
     <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
     
-    <button type="submit">Rechercher</button>
+    <button name="reche" type="submit">Rechercher</button>
+    <button name="sauve" type="submit">Sauvegarder</button>
 </form>
 
 <div id="map" style="height: 600px;"></div>
@@ -111,7 +112,7 @@ if ($annonces->isEmpty()) {
             
             foreach ($photos as $photo) {
                 if ($photo->idphoto == $annonce->idannonce) {
-                    echo "<img class='temp' src='{$photo->photo}'>";
+                    echo "<img class='temp1' src='{$photo->photo}'>";
                     break;
                 }
             }

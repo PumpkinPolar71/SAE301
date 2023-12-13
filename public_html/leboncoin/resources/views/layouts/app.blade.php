@@ -16,7 +16,7 @@
 
     <script>
     $(document).ready(function() {
-        rnd = Math.floor(Math.random() * 8)
+        rnd = Math.floor(Math.random() * 14)
         console.log(rnd)
         console.log($('.encart-publicitaire'))
         $('.encart-publicitaire').css("background-image" , "url(pub/capture"+rnd+".png)")

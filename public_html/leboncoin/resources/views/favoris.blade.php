@@ -11,8 +11,6 @@ if ($favoris == "") {
     echo "<table>";
     $tabann = explode(" ",$favoris->libidannonce);
     foreach ($tabann as $i => $value) {
-        //if ($annonce->codeetatvalide == False){
-            //echo $annonce->codeetatvalide;
             echo "<tr>";
             echo "<td>";
             echo "<a href='/annonce/{$tabann[$i]}'>";
@@ -25,6 +23,8 @@ if ($favoris == "") {
             foreach ($annonces as $annonce) {
                 if ($annonce->idannonce == $tabann[$i]) {
                     echo "<div class='titre'>$annonce->titreannonce</div>";
+                    echo "<a href='/supprfavoris/{$tabann[$i]}'>";
+                    echo "<img class='amour' src='/amour/rouge.png'></a>";
                     foreach($villes as $ville) {
                         if ($ville->idville == $annonce->idville) {
                             echo "<p class='ptitre'>{$ville->nomville}</p>";

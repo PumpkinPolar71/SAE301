@@ -92,21 +92,23 @@
 <div id="datesContainer">
     <div>
         <label for="datedebut[]">De :</label>
-        <input class=ajoutAnnonce type="date" name="datedebut[]" id="datedebut[]" value="{{ date('Y-m-d') }}">
+        <input class=ajoutAnnonce type="date" name="datedebut[]" id="datedebut[]" value="{{ date('Y-m-d') }}" required>
         <label for="datefin[]"> à : </label>
-        <input class=ajoutAnnonce type="date" name="datefin[]" id="datefin[]" value="{{ date('Y-m-d') }}"><br>
+        <input class=ajoutAnnonce type="date" name="datefin[]" id="datefin[]" value="{{ date('Y-m-d') }}" required><br>
     </div>
 </div>
 <!-- Bouton d'ajout dynamique -->
 <button type="button" id="ajouterDate">Ajouter une disponibilité</button>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        var numDate = 0;
         // Écoutez l'événement de clic sur le bouton
         document.getElementById('ajouterDate').addEventListener('click', function () {
+            numDate += 1;
             //----------------------------------------Prix
             // Créez un label pour le champ de prix
             var labelPrix = document.createElement('label');
-            labelPrix.textContent = 'Prix :';
+            labelPrix.textContent = 'Prix : ';
                     
             // Créez un champ de prix
             var champPrix = document.createElement('input');
@@ -139,6 +141,25 @@
             nvDateFin.setAttribute('type', 'date');
             nvDateFin.setAttribute('class', 'ajoutAnnonce');
             nvDateFin.setAttribute('name', 'datefin[]');
+
+            // Obtenez la date actuelle
+            var currentDate = new Date();
+
+            // Ajout d'un jour
+            currentDate.setDate(currentDate.getDate() + numDate);
+
+            // Formatisation date et attribition à l'attribut 'value'
+            nvDateFin.setAttribute('value', formatDate(currentDate));
+            nvDateDebut.setAttribute('value', formatDate(currentDate));
+
+            console.log(formatDate(currentDate))
+            function formatDate(date) {
+                var dd = String(date.getDate()).padStart(2, '0');
+                var mm = String(date.getMonth() + 1).padStart(2, '0');
+                var yyyy = date.getFullYear();
+
+                return yyyy + '-' + mm + '-' + dd;
+            }
 
             // Créez de nouveaux labels
             var labelDebut = document.createElement('label');

@@ -151,7 +151,7 @@ td {
     height: 12vh;
     margin-bottom: 1%;
 }
-.temp {
+.temp1 {
     height: 150%;
     width: 32%;
 }
@@ -251,4 +251,9 @@ p {
 /*----------------ajoutAnnonce------------------*/
 .ajoutAnnonce{
     margin-bottom: 1%;
+}
+/*-----------favois--------------*/
+.temp {
+    height: 93%;
+    width: 32%;
 }
