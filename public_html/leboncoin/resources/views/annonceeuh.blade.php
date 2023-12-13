@@ -72,9 +72,9 @@
         <div id="datesContainer">
             <div>
                 <label for="datedebut">De :</label>
-                <input class=ajoutAnnonce type="date" name="datedebut" id="idconditionh" value="{{ date('Y-m-d') }}">
+                <input class=ajoutAnnonce type="date" name="datedebut[]" id="idconditionh" value="{{ date('Y-m-d') }}">
                 <label for="datefin"> à : </label>
-                <input class=ajoutAnnonce type="date" name="datefin" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
+                <input class=ajoutAnnonce type="date" name="datefin[]" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
             </div>
         </div>
         <!-- automatique dans la base de données (current_date) -->
@@ -138,12 +138,12 @@
             var nvDateDebut = document.createElement('input');
             nvDateDebut.setAttribute('type', 'date');
             nvDateDebut.setAttribute('class', 'ajoutAnnonce');
-            nvDateDebut.setAttribute('name', 'datedebut')
+            nvDateDebut.setAttribute('name', 'datedebut[]')
 
             var nvDateFin = document.createElement('input');
             nvDateFin.setAttribute('type', 'date');
             nvDateFin.setAttribute('class', 'ajoutAnnonce');
-            nvDateFin.setAttribute('name', 'datefin');
+            nvDateFin.setAttribute('name', 'datefin[]');
 
             // Créez de nouveaux labels
             var labelDebut = document.createElement('label');
@@ -169,6 +169,59 @@
         });
     });
 </script>
+<?php
+//------------------------------------------DateDebut
+    $datesDebutD = request('datedebut', []);
+
+    // if (!empty($datesDebut)) {
+        // Initialiser un tableau pour stocker les chaînes de dates
+        $chainesDatesD = [];
+
+        // Parcourir chaque élément de $datesDebut
+        foreach ($datesDebutD as $dateD) {
+            // Vérifier si $dateD est un tableau
+            if (is_array($dateD)) {
+                // Utiliser implode pour convertir le tableau en chaîne
+                $chaineDateD = implode(' ', $dateD);
+
+                // Ajouter la chaîne à $chainesDates
+                $chainesDatesD[] = $chaineDateD;
+            }
+        }
+
+        // Implémenter les chaînes de dates en une seule chaîne
+        $chaineDatesDebut = implode(' ', $chainesDatesD);
+
+        // Afficher la chaîne de dates
+        echo "<p>Chaîne de dates : $chaineDatesDebut </p>";
+    // }
+
+    //------------------------------------------DateFin
+    $datesFin = request('datefin', []);
+
+    // if (!empty($datesFin)) {
+        // Initialiser un tableau pour stocker les chaînes de dates
+        $chainesDatesF = [];
+
+        // Parcourir chaque élément de $datesDebut
+        foreach ($datesFin as $dateF) {
+            // Vérifier si $dateF est un tableau
+            if (is_array($dateF)) {
+                // Utiliser implode pour convertir le tableau en chaîne
+                $chaineDateF = implode(' ', $dateF);
+
+                // Ajouter la chaîne à $chainesDatesF
+                $chainesDatesF[] = $chaineDateF;
+            }
+        }
+
+        // Implémenter les chaînes de dates en une seule chaîne
+        $chaineDatesFin = implode(' ', $chainesDatesF);
+
+        // Afficher la chaîne de dates
+        echo "<p>Chaîne de dates : $chaineDatesFin </p>";
+    // }
+?>
     
 
     <input style="display: none;" class="ajoutAnnonce" type="date" name="date" id="idconditionh" value="{{ date('Y-m-d') }}"><br>

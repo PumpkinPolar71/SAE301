@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <h2>Résultats de la recherche pour : location</h2>
 <?php
+
 use Illuminate\Support\Facades\DB;
 
 $annonces = DB::table('annonce');
@@ -126,7 +127,18 @@ if ($annonces->isEmpty()) {
             if (Auth::user() !== NULL) {
                 echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
                 foreach ($favoris as $favori) {
-                    if ($favori->idcompte == 0) {}
+                    if ($favori->idcompte == Auth::user()->idcompte) {
+                        $tabann = explode(" ",$favori->libidannonce);
+                        foreach ($tabann as $i => $value) {
+                            if ($tabann[$i] == $annonce->idannonce) {
+                                $rep = 0;
+                                echo "<img class='amour' src='/amour/rouge.png'>";
+                                break;
+                            } else {
+                                echo "<img class='amour' src='/amour/noir.png'>";
+                            }
+                        }
+                    }
                 }
             } else {
                 echo "<img class='amour' src='/amour/noir.png'>";

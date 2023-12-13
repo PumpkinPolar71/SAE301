@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
 use Illuminate\Support\Facades\Storage;
+use App\Models\SauvegardeRecherche;
+
 
 class LeBonCoinController extends Controller
 {
@@ -533,10 +535,16 @@ class LeBonCoinController extends Controller
           // Récupère l'utilisateur connecté
           $user = Auth::user();
       
-          // Récupère les recherches sauvegardées associées à l'utilisateur connecté
-          $recherches = $user->sauvegardesRecherches;
+          // Vérifie si l'utilisateur est connecté
+          if ($user) {
+              // Récupère les recherches sauvegardées associées à l'utilisateur connecté
+              $recherches = $user->sauvegardesRecherches;
       
-          return view('mes_recherches', compact('recherches'));
+              return view('mes_recherches', compact('recherches'));
+          } else {
+              // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+              return redirect('/login');
+          }
       }
       
 
@@ -612,7 +620,7 @@ public function gestionAvis()
       $f = new Favoris();
       $user = Auth::user();
       $allfavoris = Favoris::all();
-      foreach ($allfavoris as $alfavois) {
+      foreach ($allfavoris as $alfavoris) {
         if ($alfavoris->idcomte == $user->idcompte) {
           $f->libidannonce = $alfavois->libidannonce." ".$id;
         }
