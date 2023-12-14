@@ -9,7 +9,7 @@ class Annonce extends Model
 {
     use HasFactory;
 
-    protected $table = 'annonce'; // Si le nom de la table est différent de la convention
+    protected $table = 'ANNONCE'; // Si le nom de la table est différent de la convention
 
     protected $primaryKey = 'idannonce'; // Si la clé primaire est différente de 'id'
 
@@ -26,7 +26,7 @@ class Annonce extends Model
         'IDTYPE',
         'description',
         'DATEANNONCE',
-        'titre',
+        'TITREANNONCE',
         'resolu',
     ];
     

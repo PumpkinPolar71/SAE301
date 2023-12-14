@@ -11,6 +11,24 @@ class LeBonCoin extends Model
     protected $table = "annonce";
     protected $primaryKey = "idannonce";
     public $timestamps = false;
+
+    protected $fillable = [
+        'IDCONDITIONH',
+        'IDVILLE',
+        'IDCOMPTE',
+        'CODEETATVALIDE',
+        'CODEETATTELVERIF',
+        'IDENTREPRISE',
+        'IDCRITERE',
+        'IDTYPE',
+        'description',
+        'DATEANNONCE',
+        'titre',
+        'resolu',
+    ];
+
+
+
     public function photos()
     {
         return $this->hasMany(Photo::class);

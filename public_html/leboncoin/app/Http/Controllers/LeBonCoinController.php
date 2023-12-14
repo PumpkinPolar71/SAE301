@@ -632,14 +632,28 @@ class LeBonCoinController extends Controller
 
 
 
-        public function annoncesNonValidees()
+      public function annoncesNonValidees()
       {
-          // Récupérez les annonces non validées
-          $annoncesNonValidees = Annonce::where('CODEETATVALIDE', false)->get();
-
+          // Récupérez toutes les annonces
+          $annonces = LeBonCoin::all();
+      
+          // Filtrez les annonces non validées
+          $annoncesNonValidees = $annonces->where('CODEETATVALIDE', false);
+      
           // Passez les annonces à la vue
-          return view('annonces.non_validees', compact('annoncesNonValidees'));
+          return view('validationannonce', compact('annoncesNonValidees'));
       }
+      
+      public function validerAnnonce(Request $request, $id)
+      {
+          // Récupérez l'ID de l'annonce à partir de la requête
+          $idannonce = $request->input('idannonce');
+      
+          // ... votre logique pour valider l'annonce
+      
+          return redirect('/annonces-non-validees')->with('success', 'Annonce validée avec succès.');
+      }
+      
 
 
 

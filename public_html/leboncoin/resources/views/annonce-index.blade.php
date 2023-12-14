@@ -43,7 +43,15 @@
 
 <!-- ======================================================================================================= Parametrage de l'API -->
 <script>
-    function handleFormSubmission(event) {
+document.addEventListener('DOMContentLoaded', function () {
+    var map = L.map('map').setView([46.603354, 1.888334], 6);
+    var marker = null;
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    document.querySelector('.formindex').addEventListener('submit', function (event) {
         event.preventDefault();
 
         var selectedCity = document.getElementById('ville').value;
@@ -53,51 +61,36 @@
             map.removeLayer(marker);
         }
 
-        // Autres opérations liées à la carte Leaflet...
-
-        var buttonClicked = event.submitter.name;
-
-        if (buttonClicked === 'reche') {
-            // Code spécifique pour le bouton "Rechercher"
-            console.log('Bouton Rechercher cliqué');
-            // Autres opérations côté client liées à la recherche...
-            
-            // Soumettre le formulaire
-            event.target.submit();
-        } 
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
-        var marker = null; // Ajoutez cette ligne pour stocker la référence du marqueur
-    
-        // Utilisation de la carte OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-    
-        // Capturer l'événement de soumission du formulaire
-        document.querySelector('.formindex').addEventListener('submit', handleFormSubmission)
-            
-        
-                        
-        
-            // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
-            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(data) {
-                    if (data.length > 0) {
-                        var city = data[0];
-                        marker = L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
-                        map.setView([city.lat, city.lon], 10); // Réajuster la vue de la carte pour afficher la ville sélectionnée
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Erreur de géocodage :', error);
-                });
-        });
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Réponse réseau incorrecte');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.length > 0) {
+                    var city = data[0];
+                    marker = L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
+                    map.setView([city.lat, city.lon], 10);
+                } else {
+                    console.log('Aucune donnée de géocodage disponible.');
+                }
+            })
+            .catch(function (error) {
+                console.log('Erreur de géocodage :', error);
+            })
+            .finally(function () {
+                // Soumettre le formulaire manuellement après avoir affiché le marqueur
+                event.target.submit();
+            });
     });
+});
+
 </script>
 <!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
 

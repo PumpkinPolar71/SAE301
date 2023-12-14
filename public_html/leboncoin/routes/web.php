@@ -138,9 +138,12 @@ Route::get('/add-reservation', [LeBonCoinController::class, 'ajouterReservation'
 
 
 Route::get('/annonces-non-validees', [LeBonCoinController::class, 'annoncesNonValidees'])->name('annonces.non-validees');
+Route::post('/valider-annonce/{id}', [LeBonCoinController::class, 'validerAnnonce'])->name('validerAnnonce');
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
 
 //Route::post('/changer-statut/{id}', [LeBonCoinController::class, 'changer-statut']);
 
 Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');
+
+Route::get('/geocode/{city}', 'GeocodeController@geocode');

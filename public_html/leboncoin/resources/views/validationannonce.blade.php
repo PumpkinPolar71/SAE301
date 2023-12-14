@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,7 +7,15 @@
         <div>
             <h3>{{ $annonce->titre }}</h3>
             <p>{{ $annonce->DESCRIPTION }}</p>
-            <!-- Ajoutez d'autres détails de l'annonce selon vos besoins -->
+            <p>ID Compte: {{ $annonce->idcompte }}</p>
+
+            @if (!$annonce->CODEETATVALIDE)
+                <form method="post" action="{{ route('validerAnnonce', ['id' => $annonce->idannonce]) }}">
+                    @csrf
+                    <input type="hidden" name="idannonce" value="{{ $annonce->idannonce }}">
+                    <button type="submit">Valider l'annonce</button>
+                </form>
+            @endif
         </div>
     @endforeach
 @endsection
