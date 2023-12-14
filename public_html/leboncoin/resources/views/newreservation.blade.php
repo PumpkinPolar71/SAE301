@@ -5,7 +5,7 @@
 @section('content')
     <h1>Faire une réservation</h1>
 
-    <form method="POST" action="{{ route('add-reservation') }}">
+    <form method="POST" action="{{ url('reservation/ajouterReservation') }}">
         @csrf
 
         <!-- Champs pour les détails de réservation -->

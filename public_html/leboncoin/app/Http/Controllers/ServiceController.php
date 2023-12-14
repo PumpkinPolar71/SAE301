@@ -44,15 +44,26 @@ class ServiceController extends Controller
         return view("createheb",compact('typehebergements', "equipements"));
     }
     public function ajoutheb(Request $request) {
-        $typehebergements = TypeHebergement::all();
-        $equipements = Equipement::all();
-        if ($request->input("nomequipement") == "") {
-            return view("createheb",compact('typehebergements', "equipements"))->with("error","Creation échoué");;
-        } else {
+      
+        if ($request->input("nomhebergement") != "") {
             $h = new TypeHebergement();
             $h->idtype = TypeHebergement::max('idtype')+1;
-            $h->type = $request->input("nomequipement");
-            return view("createheb",compact('typehebergements', "equipements"));
+            $h->type = $request->input("nomhebergement");
+            $h->save();
         }
+        $typehebergements = TypeHebergement::all();
+        $equipements = Equipement::all();
+        return view("createheb",compact('typehebergements', "equipements"));
+    }
+    public function ajoutequ(Request $request) {
+        if ($request->input("nomequipement") != "") {
+            $h = new Equipement();
+            $h->idequipement = Equipement::max('idequipement')+1;
+            $h->nomequipement = $request->input("nomequipement");
+            $h->save();
+        }
+        $typehebergements = TypeHebergement::all();
+        $equipements = Equipement::all();
+        return view("createheb",compact('typehebergements', "equipements"));
     }
 }

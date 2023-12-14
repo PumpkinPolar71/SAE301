@@ -16,7 +16,7 @@ use carbon\carbon;
 class FiltreController extends Controller
 {
         public function indexe(Request $request)
-    {
+        {
             $favoris = Favoris::all();
             $villes = Ville::all();
             $photos = Photo::all();
@@ -25,6 +25,28 @@ class FiltreController extends Controller
             $reservations = Reservation::all();
             
             return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+        }
+        public function carteFiltre(Request $request)
+        {
+            $favoris = Favoris::all();
+            $villes = Ville::all();
+            $photos = Photo::all();
+            $typesHebergement = TypeHebergement::all();
+            $annonces = LeBonCoin::all(); 
+            $reservations = Reservation::all();
+            
+            return view('annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+        }
+        public function getAnnonces(Request $request)
+    {
+        $idVille = $request->input('idville');
+
+        $annoncesIds = DB::table('annonce')
+            ->join('ville', 'ville.idville', '=', 'annonce.idville')
+            ->where('annonce.idville', $idVille)
+            ->pluck('annonce.idannonce');
+
+            return response()->json(['annonces_ids' => $annoncesIds]);
     }
     // public function adresse($q){
     //     $r = file_get_contents("https://api-adresse.data.gouv.fr/search/?type=json&q=$q");

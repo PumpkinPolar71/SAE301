@@ -7,6 +7,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FiltreController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\GeocodeController;
 use Illuminate\Http\Response;
 use App\Http\Controllers\UploadController;
 
@@ -133,7 +134,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
 
-Route::get('/add-reservation', [LeBonCoinController::class, 'ajouterReservation'])->name('add-reservation');
+Route::post('/createheb', [ServiceController::class, 'ajoutequ'])->name('ajoutequ');
+
+//Route::post('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
+
+Route::get('/reservation/{id}', [LeBonCoinController::class, 'newreservation']);
+Route::get('/reservation/ajouterReservation', [LeBonCoinController::class, 'ajouterReservation']);
 
 
 
@@ -146,4 +152,9 @@ Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('inciden
 
 Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');
 
+// -------------------------------------------------------------------Carte-----------------------------//
 Route::get('/geocode/{city}', 'GeocodeController@geocode');
+
+Route::get('/carte', [FiltreController::class, 'carteFiltre'])->name('annonce-carte');
+
+Route::post('/get-annonces', 'FiltreController@getAnnonces');

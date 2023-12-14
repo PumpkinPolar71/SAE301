@@ -35,67 +35,10 @@
     <button id="reche" name="reche" type="submit">Rechercher</button>
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
 </form>
-<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
-<div id="map" style="height: 400px; margin-top:1%;"></div>
-<!-- Charger la librairie Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-<!-- ======================================================================================================= Parametrage de l'API -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var map = L.map('map').setView([46.603354, 1.888334], 6);
-    var marker = null;
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-    }).addTo(map);
-
-    document.querySelector('.formindex').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        var selectedCity = document.getElementById('ville').value;
-        map.setView([46.603354, 1.888334], 6);
-
-        if (marker !== null) {
-            map.removeLayer(marker);
-        }
-
-        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France', {
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Réponse réseau incorrecte');
-                }
-                return response.json();
-            })
-            .then(function (data) {
-                if (data.length > 0) {
-                    var city = data[0];
-                    marker = L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
-                    map.setView([city.lat, city.lon], 10);
-                } else {
-                    console.log('Aucune donnée de géocodage disponible.');
-                }
-            })
-            .catch(function (error) {
-                console.log('Erreur de géocodage :', error);
-            })
-            .finally(function () {
-                // Soumettre le formulaire manuellement après avoir affiché le marqueur
-                event.target.submit();
-            });
-    });
-});
-
-</script>
-<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
-
+<button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
 <h2>Résultats de la recherche pour : location</h2>
-<?php
+<?php   
 
 use Illuminate\Support\Facades\DB;
 

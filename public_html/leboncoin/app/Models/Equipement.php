@@ -10,6 +10,7 @@ class Equipement extends Model
     use HasFactory;
     protected $table = "equipement";
     protected $primaryKey = "idequipement";
+    public $timestamps = false;
     public function annonces()
     {
         return $this->belongsToMany(LeBonCoin::class, 'recueille', 'idequipement', 'idannonce');
