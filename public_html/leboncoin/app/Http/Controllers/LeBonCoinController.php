@@ -750,6 +750,59 @@ public function gestionAvis()
   
       return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
   }
+  public function ajouterReservation(Request $request)
+{
+    // Récupérez les données nécessaires depuis la requête GET ou POST
+    $idperiode = $request->input('idperiode');
+    $idannonce = $request->input('idannonce');
+    $idcompte = $request->input('idcompte');
+    $idparticulier = $request->input('idparticulier');
+    $idcarte = $request->input('idcarte');
+    $cal_idperiode = $request->input('cal_idperiode');
+    $nbadulte = $request->input('nbadulte');
+    $nbenfant = $request->input('nbenfant');
+    $nbbebe = $request->input('nbbebe');
+    $nbanimaux = $request->input('nbanimaux');
+    $prenom = $request->input('prenom');
+    $nom = $request->input('nom');
+    $tel = $request->input('tel');
+    $nbnuitee = $request->input('nbnuitee');
+    $taxessejour = $request->input('taxessejour');
+    $montantimmediatacompte = $request->input('montantimmediatacompte');
+    $montantimmediat = $request->input('montantimmediat');
+    $message = $request->input('message');
+    $datedebutr = $request->input('datedebutr');
+    $datefinr = $request->input('datefinr');
+
+    // Créez une nouvelle réservation avec les données récupérées
+    $reservation = new Reservation();
+    $reservation->idperiode = $idperiode;
+    $reservation->idannonce = $idannonce;
+    $reservation->idcompte = $idcompte;
+    $reservation->idparticulier = $idparticulier;
+    $reservation->idcarte = $idcarte;
+    $reservation->cal_idperiode = $cal_idperiode;
+    $reservation->nbadulte = $nbadulte;
+    $reservation->nbenfant = $nbenfant;
+    $reservation->nbbebe = $nbbebe;
+    $reservation->nbanimaux = $nbanimaux;
+    $reservation->prenom = $prenom;
+    $reservation->nom = $nom;
+    $reservation->tel = $tel;
+    $reservation->nbnuitee = $nbnuitee;
+    $reservation->taxessejour = $taxessejour;
+    $reservation->montantimmediatacompte = $montantimmediatacompte;
+    $reservation->montantimmediat = $montantimmediat;
+    $reservation->message = $message;
+    $reservation->datedebutr = $datedebutr;
+    $reservation->datefinr = $datefinr;
+
+    // Enregistrez la réservation
+    $reservation->save();
+
+    // Redirigez vers une autre page ou effectuez d'autres actions nécessaires
+    return redirect('/compte')->withInput()->with('compte', 'Réservation créée avec succès');
+}
   }
   
 

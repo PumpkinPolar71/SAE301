@@ -130,6 +130,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/service-annonces', [LeBonCoinController::class, 'create'])->name('service_annonces');
 
+Route::get('/add-reservation', [LeBonCoinController::class, 'ajouterReservation'])->name('add-reservation');
+
+// Route pour traiter la création de la réservation
+
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
 

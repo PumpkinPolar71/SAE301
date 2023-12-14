@@ -143,7 +143,7 @@ if ($annonces->isEmpty()) {
                     }
                 }
             } else {
-                echo "<a href='/sauvefavoris/{$annonce->idannonce}'>";
+                echo "<a href='/connect'>";
                 echo "<img class='amour' src='/amour/noir.png'>";
             }
             echo "</a>";
