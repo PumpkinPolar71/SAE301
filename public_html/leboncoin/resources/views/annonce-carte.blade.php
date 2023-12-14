@@ -59,8 +59,8 @@
             event.preventDefault(); // Empêcher la soumission par défaut du formulaire
         
             var annoncesIds = data.annonces_ids.join(','); // Supposant que les identifiants sont dans un tableau
-    document.getElementById('annonces_ids').value = annoncesIds;
-    
+            document.getElementById('annonces_ids').value = annoncesIds;
+
             // Réinitialiser la carte avant chaque recherche
             map.setView([46.603354, 1.888334], 6);
             if (marker !== null) {
