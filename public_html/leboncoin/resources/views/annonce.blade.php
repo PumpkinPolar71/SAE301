@@ -119,7 +119,7 @@ if($data){
 @auth
      @if (Auth::user()->compte->codeetatcompte == 9 )
     <h2>Valider l'annonce</h2>
-    <form method="POST" action="{{ url("/serviceimmoilier/validateann") }}">
+    <form method="POST" action="{{ /annonce/{$annonce->idannonce} }}">
         @csrf
         <div>Annonce conforme</div>
         <input type="radio" value="oui" name="annval">

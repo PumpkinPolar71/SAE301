@@ -11,76 +11,7 @@
                             <img class="pdpContainer" src="{{ Auth::user()->compte ? Auth::user()->compte->pdp : 'Non défini' }}" /><br>
                         <label for="lien_pdp">Lien de la photo :</label><br>
                         <input type="text" name="lien_pdp" id="lien_pdp">
-                        
-
-                        
-                        <!-- <label for="image">Image</label>
-                        <input type="file" class="form-control" id="image" name="image"> -->
-            
-                    <script>
-                        // let image = document.querySelector('.filename')
-                        // var files = e.dataTransfer.files;
-
-                        // for (var i = 0; i < files.length; i++) {
-                        //     var file = files[i];
-                        
-                        //     console.log(file.name);
-                        // // Vérifier si le fichier est une image PNG ou JPG
-                        // if (file.type === 'image/png' || file.type === 'image/jpeg' ) {
-                        //                 // Créer un élément image et l'ajouter à la page
-                        //                 var imgElement = document.createElement('img');
-                        //                 imgElement.src = URL.createObjectURL(file);
-                        //                 imgElement.alt = 'Image';
-                        //                 console.log(imgElement.src);
-                        //                 // image = URL.createObjectURL(file);
-                        //                 image.value = file.name
-
-                        //             }
-                        //         }
-                    </script>
-                    
-                    <?php
-                        // $filename = null;
-                        // $fileExtension = null;
-                        
-                        // if (request()->hasFile('image') && request()->file('image')->isValid()) {
-                        //     $file = request()->file('image');
-                            
-                        //     // Utilisez pathinfo pour obtenir des informations sur le fichier
-                        //     $pathInfo = pathinfo($file->getClientOriginalName());
-                        
-                        //     // Obtenez le nom du fichier sans extension
-                        //     $fileName = $pathInfo['filename'];
-                        
-                        //     // Obtenez l'extension du fichier
-                        //     $fileExtension = $pathInfo['extension'];
-                        
-                        //     // Utilisez ces variables comme nécessaire
-                        //     echo $fileName;
-                        //     echo $fileExtension;
-                        
-                        
-                        //     $imagePath = "storage/uploads/$filename.$fileExtension";
-                        
-                        //     // Lecture du contenu de l'image en tant que données binaires
-                        //     $imageData = file_get_contents($imagePath);
-                        
-                        //     // Échappement des données binaires pour l'injection sécurisée dans la requête SQL
-                        //     $escapedImageData = pg_escape_bytea($imageData);
-                        
-                        //     echo '<input type="hidden" name="escapedImageData" value="' . $escapedImageData . '">';
-                        // }
-                    ?>
-
-
                         <button type="submit" id="submit">Soumettre</button>
-
-                        <!-- <div class="image-container"></div> -->
-
-            
-                <!-- <div class="form-group">
-                    <input type="file" class="form-control" id="image" name="image">
-                </div> -->
             </form>
             <form method="POST" action="{{ route('updateUserInfo') }}">
                 @csrf
@@ -283,6 +214,13 @@
                 <p>Répondre aux incidents sur les annonces réservées</p>
             </div>
         </a>
+        @if (Auth::user()->compte->codeetatcompte == 14 )
+        <a href="/createheb">
+            <div class="compte-block"><b>Creer type hébergement et equipement</b>
+                <p></p>
+            </div>
+        </a>
+        @endif
         <form action="{{ route('logout') }}" method="post">
         @csrf
         <button type="submit">Déconnexion</button>

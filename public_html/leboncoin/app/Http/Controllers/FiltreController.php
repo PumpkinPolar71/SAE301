@@ -13,7 +13,7 @@ use App\Models\Favoris;
 use App\Models\Compte;
 use carbon\carbon;
 
-class CityController extends Controller
+class FiltreController extends Controller
 {
         public function indexe(Request $request)
     {

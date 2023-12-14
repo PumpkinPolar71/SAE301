@@ -35,13 +35,13 @@
     <button id="reche" name="reche" type="submit">Rechercher</button>
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
 </form>
-
-<div id="map" style="height: 600px;"></div>
-
+<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
+<div id="map" style="height: 400px; margin-top:1%;"></div>
 <!-- Charger la librairie Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+<!-- ======================================================================================================= Parametrage de l'API -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
@@ -49,13 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Utilisation de la carte OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
+       
     }).addTo(map);
+//========================================================================================================== Parametrage de l'API -->
 
+//========================================================================================================== Selection de la ville -->
     // Capturer l'événement de soumission du formulaire
     document.querySelector('.formindex').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêcher la soumission par défaut du formulaire
-
-        var selectedCity = document.getElementById('ville').value; // Récupérer la valeur sélectionnée dans le champ "ville"
+        var selectedCity = "";
+        selectedCity = document.getElementById('ville').value; // Récupérer la valeur sélectionnée dans le champ "ville"
 
         // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
         fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
@@ -75,6 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
+
 <h2>Résultats de la recherche pour : location</h2>
 <?php
 
@@ -82,7 +87,7 @@ use Illuminate\Support\Facades\DB;
 
 $annonces = DB::table('annonce');
 
-if (isset($_POST['sauve'])) {//------------------------------------------marche pas, signé ta daronne fils de pute
+if (isset($_POST['sauve'])) {//------------------------------------------marche pas
     header("Location: route('connect')");
     exit();
 }

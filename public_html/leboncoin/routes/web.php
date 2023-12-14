@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\CityController;
+use App\Http\Controllers\FiltreController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Response;
@@ -31,11 +31,13 @@ Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
-Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+Route::post("/annonce/{id}",[ServiceController::class, "one" ]);
 
-Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
+//Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
 
-Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
+//Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
+
+//Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
 
 Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
@@ -65,11 +67,11 @@ Route::get("/search", [ LeBonCoinController::class, "search"]); //barre de reche
 
 Route::post('/search', [SearchController::class, 'search'])->name('search'); //index-annonce
 
-Route::get('/search', [CityController::class, 'indexe']);
+Route::get('/search', [FiltreController::class, 'indexe']);
 
-Route::get('/annonce-filtres', [CityController::class, 'indexe'])->name('annonce-index');
+Route::get('/annonce-filtres', [FiltreController::class, 'indexe'])->name('annonce-index');
 
-Route::get('/adresse/{q}', [CityController::class, 'adresse']);
+Route::get('/adresse/{q}', [FiltreController::class, 'adresse']);
 
 Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
 
@@ -130,12 +132,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mes-recherches', [LeBonCoinController::class, 'mesRecherches'])->name('mes-recherches');
 });
 
-Route::get('/service-annonces', [LeBonCoinController::class, 'create'])->name('service_annonces');
+Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
 
 Route::get('/add-reservation', [LeBonCoinController::class, 'ajouterReservation'])->name('add-reservation');
 
-// Route pour traiter la création de la réservation
 
+
+Route::get('/annonces-non-validees', [LeBonCoinController::class, 'annoncesNonValidees'])->name('annonces.non-validees');
 
 Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
 

@@ -21,7 +21,7 @@ class ServiceController extends Controller
         return view("serviceimmobilier",compact('annonces', "photos", "villes"));
     }
     
-    public function validateann(Request $request) {
+    public function one(Request $request) {
         if ($request->input("annval") == "") {
             return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
         } else {
@@ -35,5 +35,10 @@ class ServiceController extends Controller
             }
              return redirect('serviceimmobilier')->withInput()->with("error","Validation effectuée");
         }
+    }
+    public function createheb() {
+        $typehebergements = TypeHebergement::all();
+        $equipements = Equipement::all();
+        return view("createheb",compact('annonces', "photos", "villes"));
     }
 }

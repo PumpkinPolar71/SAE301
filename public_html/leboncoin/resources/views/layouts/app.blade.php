@@ -49,11 +49,17 @@
                     <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
 
                     @if (Auth::user()->compte->codeetatcompte == 9 )
-                    <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li>
+                    <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li><!--valide annonce-->
                     @elseif (Auth::user()->compte->codeetatcompte == 10 )
-                    <li style="float:right"><a class="coone" href="{{ url("/incident") }}">service incident</a></li>
+                    <li style="float:right"><a class="coone" href="{{ url("/incident") }}">service incident</a></li><!--gerer incident-->
                     @elseif (Auth::user()->compte->codeetatcompte == 11 )
-                    <li style="float:right"><a class="coone" href="{{ url("/enregistrer_avis") }}">service avis</a></li>
+                    <li style="float:right"><a class="coone" href="{{ url("/") }}">modif avis</a></li><!--modif avie-->
+                    @elseif (Auth::user()->compte->codeetatcompte == 12 )
+                    <li style="float:right"><a class="coone" href="{{ url("/") }}">valider nouveau compte</a></li><!--valide nouveau compte-->
+                    @elseif (Auth::user()->compte->codeetatcompte == 13 )
+                    <li style="float:right"><a class="coone" href="{{ url("/") }}">service petite annonce</a></li><!--test num tel-->
+                    @elseif (Auth::user()->compte->codeetatcompte == 14 )
+                    <li style="float:right"><a class="coone" href="{{ url("/service_annonce") }}">service annonce</a></li> <!--creer type hebergement / creer equipement-->
                     @endif
                 
                 @else

@@ -205,20 +205,20 @@ class LeBonCoinController extends Controller
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     
         }
-      private function create (Post $post, CreatePostRequest $request): array
-        {
-            $data = $request->validated();
-            /** @var UploadedFile|null $image */
-            $image = $request->validated('image');
-            $post->image = $image->store('blog', 'public');
+      // private function create (Post $post, CreatePostRequest $request): array
+      //   {
+      //       $data = $request->validated();
+      //       /** @var UploadedFile|null $image */
+      //       $image = $request->validated('image');
+      //       $post->image = $image->store('blog', 'public');
 
-            if ($post->image) {
-              Storage::disk('public')->delete($post->image);
-          }
-        }
-        public function redirection() {
-          return view("redirection");
-        }
+      //       if ($post->image) {
+      //         Storage::disk('public')->delete($post->image);
+      //     }
+      //   }
+      //   public function redirection() {
+      //     return view("redirection");
+      //   }
     
 
 
@@ -611,11 +611,6 @@ class LeBonCoinController extends Controller
       }
       
 
-      public function createequipement()
-      {
-          return view('service_annonces');
-      }
-
       public function store(Request $request)
       {
           // Valider les données du formulaire
@@ -635,6 +630,15 @@ class LeBonCoinController extends Controller
       }
 
 
+
+      public function annoncesNonValidees()
+      {
+          // Récupérez les annonces non validées
+          $annoncesNonValidees = Annonce::where('CODEETATVALIDE', false)->get();
+      
+          // Passez les annonces à la vue
+          return view('annonces.non_validees', compact('annoncesNonValidees'));
+      }
 
 
 
