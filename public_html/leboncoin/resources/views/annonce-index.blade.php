@@ -43,40 +43,61 @@
 
 <!-- ======================================================================================================= Parametrage de l'API -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
+    function handleFormSubmission(event) {
+        event.preventDefault();
 
-    // Utilisation de la carte OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-       
-    }).addTo(map);
-//========================================================================================================== Parametrage de l'API -->
+        var selectedCity = document.getElementById('ville').value;
+        map.setView([46.603354, 1.888334], 6);
 
-//========================================================================================================== Selection de la ville -->
-    // Capturer l'événement de soumission du formulaire
-    document.querySelector('.formindex').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêcher la soumission par défaut du formulaire
-        var selectedCity = "";
-        selectedCity = document.getElementById('ville').value; // Récupérer la valeur sélectionnée dans le champ "ville"
+        if (marker !== null) {
+            map.removeLayer(marker);
+        }
 
-        // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
-        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                if (data.length > 0) {
-                    var city = data[0];
-                    L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
-                    map.setView([city.lat, city.lon], 10); // Réajuster la vue de la carte pour afficher la ville sélectionnée
-                }
-            })
-            .catch(function(error) {
-                console.log('Erreur de géocodage :', error);
-            });
+        // Autres opérations liées à la carte Leaflet...
+
+        var buttonClicked = event.submitter.name;
+
+        if (buttonClicked === 'reche') {
+            // Code spécifique pour le bouton "Rechercher"
+            console.log('Bouton Rechercher cliqué');
+            // Autres opérations côté client liées à la recherche...
+            
+            // Soumettre le formulaire
+            event.target.submit();
+        } 
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
+        var marker = null; // Ajoutez cette ligne pour stocker la référence du marqueur
+    
+        // Utilisation de la carte OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+    
+        // Capturer l'événement de soumission du formulaire
+        document.querySelector('.formindex').addEventListener('submit', handleFormSubmission)
+            
+        
+                        
+        
+            // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
+            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data.length > 0) {
+                        var city = data[0];
+                        marker = L.marker([city.lat, city.lon]).addTo(map).bindPopup(selectedCity);
+                        map.setView([city.lat, city.lon], 10); // Réajuster la vue de la carte pour afficher la ville sélectionnée
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Erreur de géocodage :', error);
+                });
+        });
     });
-});
 </script>
 <!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
 
@@ -85,30 +106,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 use Illuminate\Support\Facades\DB;
 
-$annonces = DB::table('annonce');
+$annoncesDB = DB::table('annonce');
 
-if (isset($_POST['sauve'])) {//------------------------------------------marche pas
+if (isset($_GET['sauve'])) {//------------------------------------------marche pas
     header("Location: route('connect')");
     exit();
 }
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
-    $annonces->where('idville', $_GET['ville']);
+    $annoncesDB->join('ville','ville.idville','=','annonce.idville')
+        ->where('nomville', $_GET['ville']);
+
+    
     
 }
 
 
 
 if (isset($_GET['type_hebergement']) && $_GET['type_hebergement'] !== '') {
-    $annonces->where('idtype', $_GET['type_hebergement']);
+    $annoncesDB->where('idtype', $_GET['type_hebergement']);
 }
 
 if (isset($_GET['datedebut']) && $_GET['datedebut'] !== '') {
-    $annonces->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
+    $annoncesDB->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
         ->where('reservation.datedebut', '>', $_GET['datedebut']);
 }
 
-$annonces = $annonces->get();
+$annonces = $annoncesDB->get();
 
 if ($annonces->isEmpty()) {
     echo "<p>Désolé, nous n’avons pas ça sous la main ! Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";

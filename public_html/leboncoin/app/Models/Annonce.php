@@ -13,11 +13,23 @@ class Annonce extends Model
 
     protected $primaryKey = 'idannonce'; // Si la clé primaire est différente de 'id'
 
+    public $timestamps = false;
+
     protected $fillable = [
-        'titre',
+        'IDCONDITIONH',
+        'IDVILLE',
+        'IDCOMPTE',
+        'CODEETATVALIDE',
+        'CODEETATTELVERIF',
+        'IDENTREPRISE',
+        'IDCRITERE',
+        'IDTYPE',
         'description',
+        'DATEANNONCE',
+        'titre',
         'resolu',
     ];
+    
 
     // Exemple de relation avec un utilisateur
     public function user()

@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use App\Models\Photo;
 use App\Models\LeBonCoin;
 use App\Models\Ville;
+use App\Models\TypeHebergement;
+use App\Models\Equipement;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
@@ -39,6 +41,18 @@ class ServiceController extends Controller
     public function createheb() {
         $typehebergements = TypeHebergement::all();
         $equipements = Equipement::all();
-        return view("createheb",compact('annonces', "photos", "villes"));
+        return view("createheb",compact('typehebergements', "equipements"));
+    }
+    public function ajoutheb(Request $request) {
+        $typehebergements = TypeHebergement::all();
+        $equipements = Equipement::all();
+        if ($request->input("nomequipement") == "") {
+            return view("createheb",compact('typehebergements', "equipements"))->with("error","Creation échoué");;
+        } else {
+            $h = new TypeHebergement();
+            $h->idtype = TypeHebergement::max('idtype')+1;
+            $h->type = $request->input("nomequipement");
+            return view("createheb",compact('typehebergements', "equipements"));
+        }
     }
 }

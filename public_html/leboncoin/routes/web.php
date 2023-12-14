@@ -109,7 +109,6 @@ Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
 
 Route::post('/modifierAvis/{id}', [LeBonCoinController::class, 'modifierAvis']);
 
-
 Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
 Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
@@ -144,4 +143,4 @@ Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('inciden
 
 //Route::post('/changer-statut/{id}', [LeBonCoinController::class, 'changer-statut']);
 
-
+Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
 use Illuminate\Support\Facades\Storage;
 use App\Models\SauvegardeRecherche;
+use App\Models\Annonce;
 
 
 class LeBonCoinController extends Controller
@@ -631,15 +632,14 @@ class LeBonCoinController extends Controller
 
 
 
-      public function annoncesNonValidees()
+        public function annoncesNonValidees()
       {
           // Récupérez les annonces non validées
           $annoncesNonValidees = Annonce::where('CODEETATVALIDE', false)->get();
-      
+
           // Passez les annonces à la vue
           return view('annonces.non_validees', compact('annoncesNonValidees'));
       }
-
 
 
 

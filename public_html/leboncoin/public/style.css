@@ -257,3 +257,12 @@ p {
     height: 93%;
     width: 32%;
 }
+/*-------------createheb-------------------*/
+.allcreateheb {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+}
+.allcreateheb div h2 {
+    text-align: center;
+}
