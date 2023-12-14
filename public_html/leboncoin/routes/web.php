@@ -31,6 +31,12 @@ Route::get("/annonces",[LeBonCoinController::class, "index" ]);
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
+Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+
+Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
+
+Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
+
 Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
 Route::post("/annonce/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
@@ -55,9 +61,9 @@ Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createacco
 
 Route::post('/annonce/incidentsave', [LeBonCoinController::class, 'incidentsave']);
 
-Route::get("/search", [ LeBonCoinController::class, "search"]);
+Route::get("/search", [ LeBonCoinController::class, "search"]); //barre de recherche
 
-Route::post('/search', [SearchController::class, 'search'])->name('search');
+Route::post('/search', [SearchController::class, 'search'])->name('search'); //index-annonce
 
 Route::get('/search', [CityController::class, 'indexe']);
 
@@ -103,10 +109,6 @@ Route::post('/modifierAvis/{id}', [LeBonCoinController::class, 'modifierAvis']);
 
 
 Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
-
-Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
-
-Route::post('/serviceimmoilier/validatesrv', [ServiceController::class, 'validatesrv']);
 
 Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
 

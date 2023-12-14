@@ -32,8 +32,8 @@
     <label for="datefin">Date de fin :</label> 
     <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
     
-    <button name="reche" type="submit">Rechercher</button>
-    <button name="sauve" type="submit">Sauvegarder</button>
+    <button id="reche" name="reche" type="submit">Rechercher</button>
+    <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
 </form>
 
 <div id="map" style="height: 600px;"></div>
@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
 use Illuminate\Support\Facades\DB;
 
 $annonces = DB::table('annonce');
+
+if (isset($_POST['sauve'])) {//------------------------------------------marche pas, signé ta daronne fils de pute
+    header("Location: route('connect')");
+    exit();
+}
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
     $annonces->where('idville', $_GET['ville']);

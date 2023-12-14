@@ -17,7 +17,6 @@ class CityController extends Controller
 {
         public function indexe(Request $request)
     {
-       // if (isset($_POST['reche'])) {
             $favoris = Favoris::all();
             $villes = Ville::all();
             $photos = Photo::all();
@@ -26,11 +25,6 @@ class CityController extends Controller
             $reservations = Reservation::all();
             
             return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
-        // } elseif (isset($_POST['sauve'])) {
-        //     return view('sauvegarderecherche');
-        // } else {
-        //     /* nop */
-       // }
     }
     // public function adresse($q){
     //     $r = file_get_contents("https://api-adresse.data.gouv.fr/search/?type=json&q=$q");

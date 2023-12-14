@@ -21,7 +21,7 @@ class ServiceController extends Controller
         return view("serviceimmobilier",compact('annonces', "photos", "villes"));
     }
     
-    public function validatesrv(Request $request, array $rules, array $messages = [], array $attributes = []) {
+    public function validateann(Request $request) {
         if ($request->input("annval") == "") {
             return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
         } else {
