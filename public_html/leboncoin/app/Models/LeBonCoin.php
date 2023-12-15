@@ -13,17 +13,17 @@ class LeBonCoin extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'IDCONDITIONH',
-        'IDVILLE',
-        'IDCOMPTE',
-        'CODEETATVALIDE',
-        'CODEETATTELVERIF',
-        'IDENTREPRISE',
-        'IDCRITERE',
-        'IDTYPE',
+        'idconditionh',
+        'idville',
+        'idcompte',
+        'codeetatvalide',
+        'codeetattelverif',
+        'identreprise',
+        'idcritere',
+        'idtype',
         'description',
-        'DATEANNONCE',
-        'titre',
+        'dateannonce',
+        'titreannonce',
         'resolu',
     ];
 

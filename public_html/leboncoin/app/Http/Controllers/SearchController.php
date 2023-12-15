@@ -36,6 +36,8 @@ class SearchController extends Controller
         $a->nomequitement = "";
         $a->nomexterieur = "";
         $a->nomserviceetaccess = "";
+        $a->nomvilles = $request->input('ville');
+        $a->nomtypehebergement = $request->input('type_hebergement');
         $a->save();
         return redirect('search');
     }

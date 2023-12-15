@@ -47,7 +47,7 @@
                     <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>    
                     <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>  
                     <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>  
-                    <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
+                    <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
 
                     @if (Auth::user()->compte->codeetatcompte == 9 )
                     <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li><!--valide annonce-->
@@ -58,7 +58,7 @@
                     @elseif (Auth::user()->compte->codeetatcompte == 12 )
                     <li style="float:right"><a class="coone" href="{{ url("/") }}">valider nouveau compte</a></li><!--valide nouveau compte-->
                     @elseif (Auth::user()->compte->codeetatcompte == 13 )
-                    <li style="float:right"><a class="coone" href="{{ url("/") }}">service petite annonce</a></li><!--test num tel-->
+                    <li style="float:right"><a class="coone" href="{{ url("/annonces-non-validees") }}">service petite annonce</a></li><!--test num tel-->
                     @elseif (Auth::user()->compte->codeetatcompte == 14 )
                     <li style="float:right"><a class="coone" href="{{ url("/service_annonce") }}">service annonce</a></li> <!--creer type hebergement / creer equipement-->
                     @endif

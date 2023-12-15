@@ -48,6 +48,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
         var marker = null; // Ajoutez cette ligne pour stocker la référence du marqueur
+
+        
+
+        
+        
     
         // Utilisation de la carte OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -115,32 +120,79 @@
                     return response.json();
                 })
                 .then(function (data) {
-                    console.log(data.annonces);
+    console.log(data.annonces);
 
-                    var annoncesContainer = document.getElementById('annonces-container');
-                    annoncesContainer.innerHTML = ''; // Efface le contenu précédent
+    var annoncesContainer = document.getElementById('annonces-container');
+    annoncesContainer.innerHTML = ''; // Efface le contenu précédent
 
-                    data.annonces.forEach(function (annonce) {
-                        // Création un élément pour chaque annonce (modèle HTML)
-                        var annonceElement = document.createElement('div');
-                        annonceElement.innerHTML = 
-                            '<div class="divAnnnonceCarte">' + '<a href="annonce/' + annonce.idannonce + '">' + 
-                            '<h3>' + annonce.idannonce + '</h3>' +
-                            '<img class="imgCarte" src="' + annonce.photo + '" alt="Photo de l\'annonce">' +
-                            '<h3 class="dataCarte">' + annonce.titreannonce + '</h3>' + '</a>' + '</div>'
-                        // Ajout de l'élément au conteneur
-                        annoncesContainer.appendChild(annonceElement);
-                    });
+    data.annonces.forEach(function (annonce) {
+        // Création un élément pour chaque annonce (modèle HTML)
+        var annonceElement = document.createElement('div');
+        annonceElement.innerHTML = 
+            '<div class="divAnnnonceCarte">' + '<a href="annonce/' + annonce.idannonce + '">' + 
+            '<h3>' + annonce.idannonce + '</h3>' +
+            '<img class="imgCarte" src="' + annonce.photo + '" alt="Photo de l\'annonce">' +
+            '<h3 class="dataCarte">' + annonce.titreannonce + '</h3>' + '</a>' + '</div>'
+        // Ajout de l'élément au conteneur
+        annoncesContainer.appendChild(annonceElement);
+    });
+
+    var favoris = data.favoris; // Assurez-vous que la propriété favoris est présente dans la réponse
+
+    console.log('favoris : ', favoris);
+    console.log('userId : ', userId);
+    console.log('annonceId : ', annonceId);
+
+    if (userId !== null && favoris !== undefined) {
+        var isFavori = false;
+
+        // Parcourir la liste des favoris de l'utilisateur
+        favoris.forEach(function (favori) {
+            if (favori.idcompte === userId) {
+                var tabann = favori.libidannonce.split(" ");
                 
-                })
-                .catch(function (error) {
-                    console.error('Erreur lors de la récupération des annonces:', error);
+                // Parcourir les annonces dans les favoris
+                tabann.forEach(function (value) {
+                    if (parseInt(value) === annonceId) {
+                        isFavori = true;
+                    }
                 });
+            }
+        });
+
+        var favorisContainer = document.getElementById('annonces-container');
+        var favoriElement = document.createElement('a');
+        favoriElement.href = isFavori ? '/supprfavoris/' + annonceId : '/sauvefavoris/' + annonceId;
+        favoriElement.innerHTML = '<img class="amour" src="/amour/' + (isFavori ? 'rouge.png' : 'noir.png') + '">';
+
+        // Ajouter l'élément au conteneur
+        favorisContainer.appendChild(favoriElement);
+    } else {
+        // Si l'utilisateur n'est pas connecté, afficher l'icône par défaut
+        var favorisContainer = document.getElementById('annonces-container');
+        var favoriElement = document.createElement('a');
+        favoriElement.href = '/connect';
+        favoriElement.innerHTML = '<img class="amour" src="/amour/noir.png">';
+    
+        // Ajouter l'élément au conteneur
+        favorisContainer.appendChild(favoriElement);
+    }
+
+})
+.catch(function (error) {
+    console.error('Erreur lors de la récupération des annonces:', error);
+});
         });
     });
 </script>
 
 <div id="annonces-container">
+    <style>
+        .amour {
+            width: 20px; /* Ajustez la taille selon vos besoins */
+            height: 20px;
+        }
+    </style>
     <!-- Les annonces sont affichées ici -->
 </div>
 

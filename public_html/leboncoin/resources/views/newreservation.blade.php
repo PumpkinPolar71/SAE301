@@ -13,27 +13,52 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('addreservation', ['idannonce' => $idAnnonce]) }}">
+<form method="POST" action="{{ route('addreservation') }}">
     @csrf
 
-    <input type="hidden" name="idannonce" value="{{ $idAnnonce }}">
+    <input type="hidden" name="idannonce" value="1">
 
-    <label for="idperiode">Période:</label>
-    <select name="idperiode" id="idperiode">
-        @foreach($calendrier as $periode)
-            <option value="{{ $periode->id }}">{{ $periode->nom }}</option>
-        @endforeach
-    </select><br><br>
+    <label for="nbadulte">Nombre d'adultes:</label>
+    <input type="number" name="nbadulte"><br><br>
 
+    <label for="nbenfant">Nombre d'enfants:</label>
+    <input type="number" name="nbenfant"><br><br>
 
-    <label for="datedebutr">Date de début:</label>
-    <input type="date" name="datedebutr" id="datedebutr" placeholder="Date de début"><br><br>
+    <label for="nbbebe">Nombre de bébés:</label>
+    <input type="number" name="nbbebe"><br><br>
 
-    <label for="datefinr">Date de fin:</label>
-    <input type="date" name="datefinr" id="datefinr" placeholder="Date de fin"><br><br>
+    <label for="nbanimaux">Nombre d'animaux:</label>
+    <input type="number" name="nbanimaux"><br><br>
+
+<label for="prenom">Prénom:</label>
+<input type="text" name="prenom" value="{{ auth()->user()->prenom }}" readonly><br><br>
+
+<label for="nom">Nom:</label>
+<input type="text" name="nom" value="{{ auth()->user()->nom }}" readonly><br><br>
+
+<label for="tel">Numéro de téléphone:</label>
+<input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>
+
+    <label for="nbnuitee">Nombre de nuits:</label>
+    <input type="number" name="nbnuitee"><br><br>
+
+    <label for="taxessejour">Taxe de séjour:</label>
+    <input type="text" name="taxessejour"><br><br>
+
+    <label for="montantimmediatacompte">Montant immédiat à compte:</label>
+    <input type="text" name="montantimmediatacompte"><br><br>
 
     <label for="montantimmediat">Montant immédiat:</label>
-    <input type="text" name="montantimmediat" id="montantimmediat" placeholder="Montant immédiat"><br><br>
+    <input type="text" name="montantimmediat"><br><br>
+
+    <label for="message">Message:</label>
+    <textarea name="message"></textarea><br><br>
+
+    <label for="datedebutr">Date de début:</label>
+    <input type="date" name="datedebutr"><br><br>
+
+    <label for="datefin">Date de fin:</label>
+    <input type="date" name="datefin"><br><br>
 
     <button type="submit">Soumettre</button>
 </form>

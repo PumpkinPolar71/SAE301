@@ -184,12 +184,19 @@ td {
     z-index: 3;
 }
 /*----------------annonce-carte------------------*/
-.dataCarte {
+.divAnnnonceCarte{
+    border-bottom: 1px solid rgb(179, 179, 179);
+    padding: 2% 0% 2% 0%;
+    width: 50%;
+    height: 12vh;
+    margin-bottom: 1%;
+}
+/* .dataCarte {
     border-bottom: 1px solid rgb(179, 179, 179);
     padding: 2% 0% 2% 0%;
     width: 50%;
     margin-bottom: 1%;
-}
+} */
 .imgCarte {
     width: 25%;
     border-radius: 10px;
@@ -283,4 +290,11 @@ p {
 }
 .allcreateheb div h2 {
     text-align: center;
+}
+/*-----------------validationtel-----------------------*/
+.numtel {
+    margin-left: 5%;
+    margin-top: 2%;
+    border-bottom: 1px solid gray;
+    padding-bottom: 1%;
 }

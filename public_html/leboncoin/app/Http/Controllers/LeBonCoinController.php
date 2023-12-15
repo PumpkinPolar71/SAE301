@@ -642,19 +642,21 @@ class LeBonCoinController extends Controller
 
       public function annoncesNonValidees()
       {
-        $annoncesNonVerifiees = LeBonCoin::where('CODEETATTELVERIF', false)->get();
+        $annoncesNonVerifiees = LeBonCoin::where('codeetattelverif', false)->get();
+        $particuliers = Particulier::all();
         
-          return view('validationannonce', compact('annoncesNonValidees'));
+          return view('validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);
       }
 
 
       public function validerAnnonce(Request $request, $idannonce)
       {
           // Mettez à jour le champ CODEETATTELVERIF à true dans la base de données
-          LeBonCoin::where('idannonce', $idannonce)->update(['CODEETATTELVERIF' => true]);
+          LeBonCoin::where('idannonce', $idannonce)->update(['codeetattelverif' => true]);
       
-          return redirect('/annonces-non-verifiees')->with('success', 'Annonce vérifiée avec succès.');
+          return redirect('/annonces-non-validees')->with('success', 'Annonce vérifiée avec succès.');
       }
+      
       
 
 
@@ -772,10 +774,10 @@ public function gestionAvis()
   }
   public function newres(){
     $annonces = LeBonCoin::all(); // Exemple pour récupérer toutes les annonces
-    $periodes = Calendrier::all(); // Exemple pour récupérer toutes les périodes
+   
 
     // Passer les données récupérées à la vue
-    return view('newreservation', ['annonces' => $annonces, 'calendrier' => $periodes]);
+    return view('newreservation', ['annonces' => $annonces]);
     return view('newreservation');
 }
 public function ajouterReservation(Request $request)
@@ -792,7 +794,6 @@ public function ajouterReservation(Request $request)
         // Création d'une nouvelle réservation
         $reservation = new Reservation();
         $reservation->idannonce = $request->input('idannonce');
-        $reservation->idperiode = $request->input('idperiode');
         $reservation->idcompte = auth()->user()->id; // ID de l'utilisateur connecté
         $reservation->idparticulier = auth()->user()->id; // ID du particulier connecté
         $reservation->nbadulte = $request->input('nbadulte');
@@ -823,8 +824,16 @@ public function ajouterReservation(Request $request)
         return redirect()->route('addreservation')->with('success', 'Réservation effectuée avec succès !');
     }
     public function showReservationForm($idannonce) {
-      $calendrier = Calendrier::all(); // Récupérez les données pour la liste déroulante des périodes
-      return view('newreservation', ['idAnnonce' => $idannonce, 'calendrier' => $calendrier]);
+      $annonce = Annonce::find($idannonce);
+
+      $libelleDateDebut = $annonce->libelledatedebut;
+      $libelleDateFin = $annonce->libelledatefin;
+  
+      $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
+  
+      // Si le numéro de téléphone est stocké dans la table "compte"
+      $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
+      return view('newreservation', ['idannonce' => $idannonce, 'calendrier' => $calendrier]);
   }
   
 }
