@@ -33,43 +33,46 @@
     <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
     
     <button id="reche" name="reche" type="submit">Rechercher</button>
+</form>
+
+<button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
+<h2>Résultats de la recherche pour : location</h2>
+
+<form class="formindex" action="{{ route('sauvrecherche') }}" method="POST">
     @auth
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
     @else
     <button id="pasco" name="pasco" type="submit">Sauvegarder</button>
     @endauth
-</form>
-
-<button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
-<h2>Résultats de la recherche pour : location</h2>
 <?php   
 
 use Illuminate\Support\Facades\DB;
 
 $annoncesDB = DB::table('annonce');
 
-if (isset($_GET['sauve'])) {
-    header("Location: sauvrecherche");
-    exit();
-}
-if (isset($_GET['pasco'])) {
-    header("Location: redirection");
-    exit();
-}
+// if (isset($_GET['sauve'])) {
+//     header("Location: sauvrecherche");
+//     exit();
+// }
+// if (isset($_GET['pasco'])) {
+//     header("Location: redirection");
+//     exit();
+// }
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
+    echo "<input type='text' name='villess' id='villess' value={$_GET['ville']}>";
     $annoncesDB->join('ville','ville.idville','=','annonce.idville')
         ->where('nomville', $_GET['ville']);
-
-    
-    
 }
-
-
-
 if (isset($_GET['type_hebergement']) && $_GET['type_hebergement'] !== '') {
+    echo "<input type='text' name='type_hebergementss' id='type_hebergementss' value={$_GET['type_hebergement']}>";
     $annoncesDB->where('idtype', $_GET['type_hebergement']);
 }
+echo "</form>";
+
+
+
+
 
 if (isset($_GET['datedebut']) && $_GET['datedebut'] !== '') {
     $annoncesDB->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')

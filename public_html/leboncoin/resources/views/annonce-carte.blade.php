@@ -132,7 +132,11 @@
                             '<div class="divAnnnonceCarte">' + '<a href="annonce/' + annonce.idannonce + '">' + 
                             '<h3>' + annonce.idannonce + '</h3>' +
                             '<img class="imgCarte" src="' + annonce.photo + '" alt="Photo de l\'annonce">' +
-                            '<h3 class="dataCarte">' + annonce.titreannonce + '</h3>' + '</a>' + '</div>'
+                            '<h3 class="dataCarte">' + annonce.titreannonce + '</h3>' +
+                            '<hp class="dataCarte">' + selectedCity + '</p>' +
+                            '<hp class="dataCarte">' + annonce.dateannonce + '</p>' + 
+                            '</a>' + '</div>'
+
                         // Ajout de l'élément au conteneur
                         annoncesContainer.appendChild(annonceElement);
                     });

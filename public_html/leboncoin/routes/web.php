@@ -150,7 +150,7 @@ Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('inciden
 
 Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');
 
-Route::get('/sauvrecherche', [SearchController::class, 'sauvrecherche'])->name('sauvrecherche');
+Route::match(['get', 'post'], [SearchController::class, 'sauvrecherche'])->name('sauvrecherche');
 
 
 // -------------------------------------------------------------------Carte-----------------------------//
