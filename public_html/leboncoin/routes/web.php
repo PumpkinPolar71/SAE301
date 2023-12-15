@@ -118,6 +118,8 @@ Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
 Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
+Route::get('/guide', [LeBonCoinController::class, 'guide']);
+
 Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
 
 Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
@@ -162,5 +164,6 @@ Route::match(['get', 'post'], '/get-annonces', [FiltreController::class, 'getAnn
 Route::get('/newreservation', [LeBonCoinController::class, 'newres']);
 // Route pour enregistrer la nouvelle réservation
 Route::post('/addreservation', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
+Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showReservationForm'])->name('addreservation');
 
 Route::get('/mes_recherches', [LeBonCoinController::class, 'mes_recherches']);

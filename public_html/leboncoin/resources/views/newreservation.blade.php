@@ -13,15 +13,10 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('addreservation') }}">
+<form method="POST" action="{{ route('addreservation', ['idannonce' => $idAnnonce]) }}">
     @csrf
 
-    <label for="idannonce">Annonce:</label>
-    <select name="idannonce" id="idannonce">
-        @foreach($annonces as $annonce)
-            <option value="{{ $annonce->id }}">{{ $annonce->nom }}</option>
-        @endforeach
-    </select><br><br>
+    <input type="hidden" name="idannonce" value="{{ $idAnnonce }}">
 
     <label for="idperiode">Période:</label>
     <select name="idperiode" id="idperiode">
@@ -32,10 +27,10 @@
 
 
     <label for="datedebutr">Date de début:</label>
-    <input type="text" name="datedebutr" id="datedebutr" placeholder="Date de début"><br><br>
+    <input type="date" name="datedebutr" id="datedebutr" placeholder="Date de début"><br><br>
 
     <label for="datefinr">Date de fin:</label>
-    <input type="text" name="datefinr" id="datefinr" placeholder="Date de fin"><br><br>
+    <input type="date" name="datefinr" id="datefinr" placeholder="Date de fin"><br><br>
 
     <label for="montantimmediat">Montant immédiat:</label>
     <input type="text" name="montantimmediat" id="montantimmediat" placeholder="Montant immédiat"><br><br>

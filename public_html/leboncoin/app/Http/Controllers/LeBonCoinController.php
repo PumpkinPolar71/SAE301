@@ -72,6 +72,9 @@ class LeBonCoinController extends Controller
     public function compte() {
       return view("compte");
     }
+    public function guide() {
+      return view("guide");
+    }
     public function mes_recherches() {
       $recherches = SauvegardeRecherche::all();
       return view("mes_recherches", compact("recherches"));
@@ -648,7 +651,7 @@ class LeBonCoinController extends Controller
       public function validerAnnonce(Request $request, $idannonce)
       {
           // Mettez à jour le champ CODEETATTELVERIF à true dans la base de données
-          Annonce::where('idannonce', $idannonce)->update(['CODEETATTELVERIF' => true]);
+          LeBonCoin::where('idannonce', $idannonce)->update(['CODEETATTELVERIF' => true]);
       
           return redirect('/annonces-non-verifiees')->with('success', 'Annonce vérifiée avec succès.');
       }
@@ -819,6 +822,11 @@ public function ajouterReservation(Request $request)
         // Redirection vers une page de confirmation ou autre
         return redirect()->route('addreservation')->with('success', 'Réservation effectuée avec succès !');
     }
+    public function showReservationForm($idannonce) {
+      $calendrier = Calendrier::all(); // Récupérez les données pour la liste déroulante des périodes
+      return view('newreservation', ['idAnnonce' => $idannonce, 'calendrier' => $calendrier]);
+  }
+  
 }
   
   

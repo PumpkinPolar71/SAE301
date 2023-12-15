@@ -78,7 +78,7 @@ title {
     margin: 4% 2% 4% 2%;
     font-size: 70%;
 }
-.bottom {
+#bottom {
     height: 30vh;
     margin-bottom: 3.5vh;
     background-color: #5a5a5a;
@@ -86,15 +86,22 @@ title {
     padding: 0% 5% 0% 5%;
     grid-template-columns: repeat(4,minmax(0,1fr));
 }
-.bottom div {
+#bottom div {
     display: block;
     color: white;
     padding: 7% 5% 1% 5%;
     font-weight: bold;
 }
-.bottom div div {
+#bottom .firstbottom {
     border-bottom: 1px solid white;
     padding-top: 1%;
+}
+#bottom p {
+    font-size: small;
+    margin-top: 4%;
+}
+#p {
+    color: aliceblue;
 }
 /*----------------annonce------------------*/
 .annoncedetail {
