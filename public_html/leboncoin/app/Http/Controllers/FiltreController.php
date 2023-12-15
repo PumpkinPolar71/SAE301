@@ -38,16 +38,19 @@ class FiltreController extends Controller
             return view('annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
         }
         public function getAnnonces(Request $request)
-    {
-        $idVille = $request->input('idville');
+{
+    $idVille = $request->input('idville');
 
-        $annoncesIds = DB::table('annonce')
-            ->join('ville', 'ville.idville', '=', 'annonce.idville')
-            ->where('annonce.idville', $idVille)
-            ->pluck('annonce.idannonce');
+    $annonces = DB::table('annonce')
+        ->join('ville', 'ville.idville', '=', 'annonce.idville')
+        ->join('photo', 'photo.idannonce', '=', 'annonce.idannonce') 
+        ->where('annonce.idville', $idVille)
+        ->select('annonce.*', 'photo.photo') 
+        ->get();
 
-            return response()->json(['annonces_ids' => $annoncesIds]);
-    }
+    return response()->json(['annonces' => $annonces]);
+}
+        
     // public function adresse($q){
     //     $r = file_get_contents("https://api-adresse.data.gouv.fr/search/?type=json&q=$q");
     //     return response($r, 200)

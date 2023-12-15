@@ -67,7 +67,7 @@
                     <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
                     <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
                     <li style="float:right"><a class="fav" href="{{ url("/redirection") }}">Favoris</a></li>
-                    <li style="float:right"><a href="{{ url("/") }}">Mes recherches</a></li>
+                    <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
                 @endauth
 
             </ul><br>

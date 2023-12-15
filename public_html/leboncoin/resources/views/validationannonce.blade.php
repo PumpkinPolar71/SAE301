@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Annonces non validées</h1>
+    <h1>Annonces non vérifiées</h1>
 
-    @foreach($annoncesNonValidees as $annonce)
+    @foreach($annoncesNonVerifiees as $annonce)
         <div>
             <h3>{{ $annonce->titre }}</h3>
             <p>{{ $annonce->DESCRIPTION }}</p>
-            <p>ID Compte: {{ $annonce->idcompte }}</p>
+            <p>ID Annonce: {{ $annonce->idannonce }}</p>
 
-            @if (!$annonce->CODEETATVALIDE)
-                <form method="post" action="{{ route('validerAnnonce', ['id' => $annonce->idannonce]) }}">
+            @if (!$annonce->CODEETATTELVERIF)
+                <form method="post" action="{{ route('validerAnnonce', ['idannonce' => $annonce->idannonce]) }}">
                     @csrf
                     <input type="hidden" name="idannonce" value="{{ $annonce->idannonce }}">
                     <button type="submit">Valider l'annonce</button>

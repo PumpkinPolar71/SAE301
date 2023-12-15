@@ -33,7 +33,11 @@
     <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
     
     <button id="reche" name="reche" type="submit">Rechercher</button>
+    @auth
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
+    @else
+    <button id="pasco" name="pasco" type="submit">Sauvegarder</button>
+    @endauth
 </form>
 
 <button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
@@ -44,8 +48,12 @@ use Illuminate\Support\Facades\DB;
 
 $annoncesDB = DB::table('annonce');
 
-if (isset($_GET['sauve'])) {//------------------------------------------marche pas
-    header("Location: route('connect')");
+if (isset($_GET['sauve'])) {
+    header("Location: sauvrecherche");
+    exit();
+}
+if (isset($_GET['pasco'])) {
+    header("Location: redirection");
     exit();
 }
 

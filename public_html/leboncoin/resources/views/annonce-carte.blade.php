@@ -15,7 +15,7 @@
         @endforeach
     </select>
     
-    <input type="hidden" name="annonces_ids" id="annonces_ids" value="">
+    <!-- <input type="hidden" name="annonces_ids" id="annonces_ids" value=""> -->
 
     <!-- Choisir un type d'hébergement -->
     <label for="type_hebergement">Choisir un type d'hébergement :</label>
@@ -37,7 +37,7 @@
     <button id="reche" name="reche" type="submit">Rechercher</button>
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
 </form>
-<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
+
 <div id="map" style="height: 400px; margin-top:1%;"></div>
 <!-- Charger la librairie Leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -58,8 +58,7 @@
         document.querySelector('.formindex').addEventListener('submit', function(event) {
             event.preventDefault(); // Empêcher la soumission par défaut du formulaire
         
-            var annoncesIds = data.annonces_ids.join(','); // Supposant que les identifiants sont dans un tableau
-            document.getElementById('annonces_ids').value = annoncesIds;
+            
 
             // Réinitialiser la carte avant chaque recherche
             map.setView([46.603354, 1.888334], 6);
@@ -77,6 +76,11 @@
 
             console.log("Nom de la ville :", selectedCity);
             console.log("ID de la ville :", idville);
+
+            // var annoncesIds = data.annonces_ids.join(','); // Supposant que les identifiants sont dans un tableau
+            // document.getElementById('annonces_ids').value = annoncesIds;
+
+            // form.submit();
         
             // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
             fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
@@ -96,32 +100,50 @@
                     console.log('Erreur de géocodage :', error);
                 });
 
-                fetch('/get-annonces', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({ idville: idville }),
-            })
-                    .then(function (response) {
-                console.log(response); // Affichez la réponse complète
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                // Manipulez les données récupérées ici
-            })
-            
-            .catch(function (error) {
-                console.error('Erreur lors de la récupération des annonces:', error);
-                console.log('Contenu de l\'erreur :', error.responseText || error.statusText);
-            });
-            
+            fetch('/get-annonces', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({ idville: idville }),
+                })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data.annonces);
+
+                    var annoncesContainer = document.getElementById('annonces-container');
+                    annoncesContainer.innerHTML = ''; // Efface le contenu précédent
+
+                    data.annonces.forEach(function (annonce) {
+                        // Création un élément pour chaque annonce (modèle HTML)
+                        var annonceElement = document.createElement('div');
+                        annonceElement.innerHTML = 
+                            '<div class="divAnnnonceCarte">' + '<a href="annonce/' + annonce.idannonce + '">' + 
+                            '<h3>' + annonce.idannonce + '</h3>' +
+                            '<img class="imgCarte" src="' + annonce.photo + '" alt="Photo de l\'annonce">' +
+                            '<h3 class="dataCarte">' + annonce.titreannonce + '</h3>' + '</a>' + '</div>'
+                        // Ajout de l'élément au conteneur
+                        annoncesContainer.appendChild(annonceElement);
+                    });
+                
+                })
+                .catch(function (error) {
+                    console.error('Erreur lors de la récupération des annonces:', error);
+                });
         });
     });
 </script>
-<!-- ------------------------------------------------------------nique tout------------------------------------------------------------------------ -->
+
+<div id="annonces-container">
+    <!-- Les annonces sont affichées ici -->
+</div>
+
 
 
 @endsection

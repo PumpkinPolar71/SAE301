@@ -15,6 +15,7 @@ use App\Models\Region;
 use App\Models\Photo;
 use App\Models\Critere;
 use App\Models\Reservation;
+use App\Models\Calendrier;
 use App\Models\TypeHebergement;
 use App\Models\ConditionHebergement;
 use App\Models\Appartient;
@@ -70,6 +71,10 @@ class LeBonCoinController extends Controller
     }
     public function compte() {
       return view("compte");
+    }
+    public function mes_recherches() {
+      $recherches = SauvegardeRecherche::all();
+      return view("mes_recherches", compact("recherches"));
     }
     public function createaccount() {
       return view("createaccount");
@@ -217,9 +222,9 @@ class LeBonCoinController extends Controller
       //         Storage::disk('public')->delete($post->image);
       //     }
       //   }
-      //   public function redirection() {
-      //     return view("redirection");
-      //   }
+      public function redirection() {
+        return view("redirection");
+      }
     
 
 
@@ -634,24 +639,18 @@ class LeBonCoinController extends Controller
 
       public function annoncesNonValidees()
       {
-          // Récupérez toutes les annonces
-          $annonces = LeBonCoin::all();
-      
-          // Filtrez les annonces non validées
-          $annoncesNonValidees = $annonces->where('CODEETATVALIDE', false);
-      
-          // Passez les annonces à la vue
+        $annoncesNonVerifiees = LeBonCoin::where('CODEETATTELVERIF', false)->get();
+        
           return view('validationannonce', compact('annoncesNonValidees'));
       }
-      
-      public function validerAnnonce(Request $request, $id)
+
+
+      public function validerAnnonce(Request $request, $idannonce)
       {
-          // Récupérez l'ID de l'annonce à partir de la requête
-          $idannonce = $request->input('idannonce');
+          // Mettez à jour le champ CODEETATTELVERIF à true dans la base de données
+          Annonce::where('idannonce', $idannonce)->update(['CODEETATTELVERIF' => true]);
       
-          // ... votre logique pour valider l'annonce
-      
-          return redirect('/annonces-non-validees')->with('success', 'Annonce validée avec succès.');
+          return redirect('/annonces-non-verifiees')->with('success', 'Annonce vérifiée avec succès.');
       }
       
 
@@ -768,60 +767,60 @@ public function gestionAvis()
   
       return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
   }
-  public function ajouterReservation(Request $request)
-{
-    // Récupérez les données nécessaires depuis la requête GET ou POST
-    $idperiode = $request->input('idperiode');
-    $idannonce = $request->input('idannonce');
-    $idcompte = $request->input('idcompte');
-    $idparticulier = $request->input('idparticulier');
-    $idcarte = $request->input('idcarte');
-    $cal_idperiode = $request->input('cal_idperiode');
-    $nbadulte = $request->input('nbadulte');
-    $nbenfant = $request->input('nbenfant');
-    $nbbebe = $request->input('nbbebe');
-    $nbanimaux = $request->input('nbanimaux');
-    $prenom = $request->input('prenom');
-    $nom = $request->input('nom');
-    $tel = $request->input('tel');
-    $nbnuitee = $request->input('nbnuitee');
-    $taxessejour = $request->input('taxessejour');
-    $montantimmediatacompte = $request->input('montantimmediatacompte');
-    $montantimmediat = $request->input('montantimmediat');
-    $message = $request->input('message');
-    $datedebutr = $request->input('datedebutr');
-    $datefinr = $request->input('datefinr');
+  public function newres(){
+    $annonces = LeBonCoin::all(); // Exemple pour récupérer toutes les annonces
+    $periodes = Calendrier::all(); // Exemple pour récupérer toutes les périodes
 
-    // Créez une nouvelle réservation avec les données récupérées
-    $reservation = new Reservation();
-    $reservation->idperiode = $idperiode;
-    $reservation->idannonce = $idannonce;
-    $reservation->idcompte = $idcompte;
-    $reservation->idparticulier = $idparticulier;
-    $reservation->idcarte = $idcarte;
-    $reservation->cal_idperiode = $cal_idperiode;
-    $reservation->nbadulte = $nbadulte;
-    $reservation->nbenfant = $nbenfant;
-    $reservation->nbbebe = $nbbebe;
-    $reservation->nbanimaux = $nbanimaux;
-    $reservation->prenom = $prenom;
-    $reservation->nom = $nom;
-    $reservation->tel = $tel;
-    $reservation->nbnuitee = $nbnuitee;
-    $reservation->taxessejour = $taxessejour;
-    $reservation->montantimmediatacompte = $montantimmediatacompte;
-    $reservation->montantimmediat = $montantimmediat;
-    $reservation->message = $message;
-    $reservation->datedebutr = $datedebutr;
-    $reservation->datefinr = $datefinr;
-
-    // Enregistrez la réservation
-    $reservation->save();
-
-    // Redirigez vers une autre page ou effectuez d'autres actions nécessaires
-    return redirect('/compte')->withInput()->with('compte', 'Réservation créée avec succès');
+    // Passer les données récupérées à la vue
+    return view('newreservation', ['annonces' => $annonces, 'calendrier' => $periodes]);
+    return view('newreservation');
 }
-  }
+public function ajouterReservation(Request $request)
+    {
+        // Validation des données entrantes
+        $validatedData = $request->validate([
+            'idannonce' => 'required|exists:annonces,idannonce',
+            'idperiode' => 'required|exists:calendrier,idperiode',
+            'nbadulte' => 'required|integer',
+            'nbenfant' => 'required|integer',
+            // Ajoutez les autres règles de validation pour les champs restants
+        ]);
+
+        // Création d'une nouvelle réservation
+        $reservation = new Reservation();
+        $reservation->idannonce = $request->input('idannonce');
+        $reservation->idperiode = $request->input('idperiode');
+        $reservation->idcompte = auth()->user()->id; // ID de l'utilisateur connecté
+        $reservation->idparticulier = auth()->user()->id; // ID du particulier connecté
+        $reservation->nbadulte = $request->input('nbadulte');
+        $reservation->nbenfant = $request->input('nbenfant');
+        
+        $reservation->nbbebe = $request->input('nbbebe');
+        $reservation->nbanimaux = $request->input('nbanimaux');
+        $reservation->prenom = $request->input('prenom');
+        $reservation->nom = $request->input('nom');
+        $reservation->tel = $request->input('tel');
+        
+        $dateDebut = strtotime($request->input('datedebutr'));
+        $dateFin = strtotime($request->input('datefinr'));
+        $nbNuitee = ($dateFin - $dateDebut) / (60 * 60 * 24); // Calcul du nombre de nuits
+        $reservation->nbnuitee = $nbNuitee;
+
+        // Exemple de calcul pour taxessejour
+        $montantImmediat = $request->input('montantimmediat');
+        $taxesSejour = $montantImmediat * 0.1;
+        $reservation->taxessejour = $taxesSejour;
+
+        // Ajustez les autres calculs selon vos besoins pour les autres champs dérivés
+
+        // Sauvegarde de la réservation
+        $reservation->save();
+
+        // Redirection vers une page de confirmation ou autre
+        return redirect()->route('addreservation')->with('success', 'Réservation effectuée avec succès !');
+    }
+}
+  
   
 
     

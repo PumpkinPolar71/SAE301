@@ -1,54 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Faire une réservation')
+@section('title', 'LeBonCoin')
 
 @section('content')
-    <h1>Faire une réservation</h1>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-    <form method="POST" action="{{ url('reservation/ajouterReservation') }}">
-        @csrf
+<form method="POST" action="{{ route('addreservation') }}">
+    @csrf
 
-        <!-- Champs pour les détails de réservation -->
-        <label for="idperiode">ID Période :</label>
-        <input type="number" id="idperiode" name="idperiode" required>
-        
-        <!-- Ajoutez ici les autres champs nécessaires à la réservation -->
+    <label for="idannonce">Annonce:</label>
+    <select name="idannonce" id="idannonce">
+        @foreach($annonces as $annonce)
+            <option value="{{ $annonce->id }}">{{ $annonce->nom }}</option>
+        @endforeach
+    </select><br><br>
 
-        <!-- Exemple de champs pour saisir les informations -->
-        <label for="nbadulte">Nombre d'adultes :</label>
-        <input type="number" id="nbadulte" name="nbadulte" required>
+    <label for="idperiode">Période:</label>
+    <select name="idperiode" id="idperiode">
+        @foreach($calendrier as $periode)
+            <option value="{{ $periode->id }}">{{ $periode->nom }}</option>
+        @endforeach
+    </select><br><br>
 
-        <label for="nbenfant">Nombre d'enfants :</label>
-        <input type="number" id="nbenfant" name="nbenfant" required>
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required>
+    <label for="datedebutr">Date de début:</label>
+    <input type="text" name="datedebutr" id="datedebutr" placeholder="Date de début"><br><br>
 
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required>
-    
-    $reservation->idannonce = $idannonce;
-    $reservation->idcompte = $idcompte;
-    
-    $reservation->idparticulier = $idparticulier;
-    $reservation->idcarte = $idcarte;
-    $reservation->cal_idperiode = $cal_idperiode;
-    $reservation->nbadulte = $nbadulte;
-    $reservation->nbenfant = $nbenfant;
-    $reservation->nbbebe = $nbbebe;
-    $reservation->nbanimaux = $nbanimaux;
-    $reservation->prenom = $prenom;
-    $reservation->nom = $nom;
-    $reservation->tel = $tel;
-    $reservation->nbnuitee = $nbnuitee;
-    $reservation->taxessejour = $taxessejour;
-    $reservation->montantimmediatacompte = $montantimmediatacompte;
-    $reservation->montantimmediat = $montantimmediat;
-    $reservation->message = $message;
-    $reservation->datedebutr = $datedebutr;
-    $reservation->datefinr = $datefinr;
-        <!-- Autres champs nécessaires -->
+    <label for="datefinr">Date de fin:</label>
+    <input type="text" name="datefinr" id="datefinr" placeholder="Date de fin"><br><br>
 
-        <button type="submit">Réserver</button>
-    </form>
+    <label for="montantimmediat">Montant immédiat:</label>
+    <input type="text" name="montantimmediat" id="montantimmediat" placeholder="Montant immédiat"><br><br>
+
+    <button type="submit">Soumettre</button>
+</form>
 @endsection
