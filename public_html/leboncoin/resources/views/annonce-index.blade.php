@@ -38,11 +38,15 @@
 <button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
 <h2>Résultats de la recherche pour : location</h2>
 
+@auth
 <form class="formindex" action="{{ route('sauvrecherche') }}" method="POST">
-    @auth
-    <button id="sauve" name="sauve" type="submit">Sauvegarder</button>
+    @csrf
+
+    <button id="sauve" name="sauve" type="submit">Sauvegarder la recherhce</button>
     @else
-    <button id="pasco" name="pasco" type="submit">Sauvegarder</button>
+    <form class="formindex" action="{{ route('connect') }}" method="POST">
+    @csrf
+    <button id="sauve" name="pasco" type="submit">Sauvegarder la recherhce</button>
     @endauth
 <?php   
 
@@ -60,12 +64,12 @@ $annoncesDB = DB::table('annonce');
 // }
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
-    echo "<input type='text' name='villess' id='villess' value={$_GET['ville']}>";
+    echo "<input style='display:none;' type='text' name='villess' id='villess' value={$_GET['ville']}>";
     $annoncesDB->join('ville','ville.idville','=','annonce.idville')
         ->where('nomville', $_GET['ville']);
 }
 if (isset($_GET['type_hebergement']) && $_GET['type_hebergement'] !== '') {
-    echo "<input type='text' name='type_hebergementss' id='type_hebergementss' value={$_GET['type_hebergement']}>";
+    echo "<input style='display:none;' type='text' name='type_hebergementss' id='type_hebergementss' value={$_GET['type_hebergement']}>";
     $annoncesDB->where('idtype', $_GET['type_hebergement']);
 }
 echo "</form>";

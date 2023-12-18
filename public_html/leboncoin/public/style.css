@@ -217,6 +217,19 @@ td {
     margin-top: -25px;
     z-index: 3;
 }
+#sauve {
+    background-color: var(--mainColor);
+    color: white;
+    position: fixed;
+    padding: 1%;
+    border: none;
+    margin-left: 35vh;
+    margin-top: 28vh;
+    border-radius: 10px;
+}
+#sauve:hover {
+    cursor: pointer;
+}
 /*----------------annonce-carte------------------*/
 .divAnnnonceCarte{
     border-bottom: 1px solid rgb(179, 179, 179);

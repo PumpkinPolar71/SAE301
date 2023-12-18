@@ -51,5 +51,9 @@ class LeBonCoin extends Model
         return $this->belongsTo(ConditionHebergement::class, 'idconditionh');
     }
     
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'idannonce');
+    }
 }
 

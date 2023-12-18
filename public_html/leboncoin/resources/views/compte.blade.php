@@ -214,6 +214,11 @@
                 <p>Répondre aux incidents sur les annonces réservées</p>
             </div>
         </a>
+        <a href="/mes-infos-bancaires">
+            <div class="compte-block"><b>Carte bancaire</b>
+                <p>Gérer vos informations bancaires</p>
+            </div>
+        </a>
         @if (Auth::user()->compte->codeetatcompte == 14 )
         <a href="/createheb">
             <div class="compte-block"><b>Creer type hébergement et equipement</b>

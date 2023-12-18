@@ -12,7 +12,11 @@
         @foreach($incidents->where('resolu', false) as $incident)
             <tr>
                 <td>ID Annonce: {{ $incident->idannonce }}</td>
-                <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
+                @foreach ($annonces as $annonce)
+                    @if ($annonce->idannonce == $incident->idannonce)
+                    <td>Titre Annonce: {{ $annonce->titreannonce }}</td>
+                    @endif
+                @endforeach
                 <td>Commentaire: {{ $incident->commentaire }}</td>
                 <td>
                     @if (!$incident->resolu)

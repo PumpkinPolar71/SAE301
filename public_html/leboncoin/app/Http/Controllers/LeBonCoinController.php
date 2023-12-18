@@ -581,9 +581,10 @@ class LeBonCoinController extends Controller
       
       public function mesIncidents()
       {
+          $annonces = LeBonCoin::all();
           $user = Auth::user();
           $incidents = $user->incidents;
-          return view('mes_incidents', compact('incidents'));
+          return view('mes_incidents', compact('incidents','annonces'));
       }
       
       
@@ -658,6 +659,21 @@ class LeBonCoinController extends Controller
       }
       
       
+      public function afficherInscriptionAttente($idAnnonce)
+      {
+          // Récupérez l'annonce avec ses réservations
+          $annonce = LeBonCoin::with('reservations')->findOrFail($idAnnonce);
+      
+          return view('inscription-attente');
+      }
+
+
+
+
+
+
+
+
 
 
 
@@ -775,7 +791,7 @@ public function gestionAvis()
   public function newres(){
     $annonces = LeBonCoin::all(); // Exemple pour récupérer toutes les annonces
    
-
+    $user = auth()->user();
     // Passer les données récupérées à la vue
     return view('newreservation', ['annonces' => $annonces]);
     return view('newreservation');
@@ -821,19 +837,28 @@ public function ajouterReservation(Request $request)
         $reservation->save();
 
         // Redirection vers une page de confirmation ou autre
+        
         return redirect()->route('addreservation')->with('success', 'Réservation effectuée avec succès !');
     }
     public function showReservationForm($idannonce) {
       $annonce = Annonce::find($idannonce);
+    $libelleDateDebut = $annonce->libelledatedebut;
+    $libelleDateFin = $annonce->libelledatefin;
 
-      $libelleDateDebut = $annonce->libelledatedebut;
-      $libelleDateFin = $annonce->libelledatefin;
-  
-      $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
-  
-      // Si le numéro de téléphone est stocké dans la table "compte"
-      $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
-      return view('newreservation', ['idannonce' => $idannonce, 'calendrier' => $calendrier]);
+    $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
+    $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
+    $user = auth()->user();
+    // D'autres données que vous pourriez avoir besoin
+
+    return view('newreservation', [
+        'idannonce' => $idannonce,
+        'numeroTelephone' => $numeroTelephone,
+        'libelleDateDebut' => $libelleDateDebut,
+        'libelleDateFin' => $libelleDateFin,
+        'user' => $user,
+        // ... autres données nécessaires à la vue pour afficher le formulaire initial
+    ]);
+      
   }
   
 }

@@ -35,6 +35,7 @@
 </div>
 <h1>{{ $annonce->titreannonce }}</h1>
 <p class="dateannonce">{{ $annonce->dateannonce }}</p>
+<a href="{{ route('showreservationform', ['idannonce' => $annonce->id]) }}">Réserver</a>
 <h2>Description</h2>
 <p class="descr">{{ $annonce->description }}</p>
 <h2>Critère</h2>

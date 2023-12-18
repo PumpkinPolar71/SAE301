@@ -87,4 +87,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+// Ajoutez une méthode pour récupérer le prénom
+public function getPrenomAttribute()
+{
+    return $this->compte->prenom;
+}
+
+// Ajoutez une méthode pour récupérer le nom
+public function getNomAttribute()
+{
+    return $this->compte->nom;
+}
 }

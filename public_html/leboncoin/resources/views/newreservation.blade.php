@@ -15,11 +15,12 @@
 
 <form method="POST" action="{{ route('addreservation') }}">
     @csrf
-
-    <input type="hidden" name="idannonce" value="1">
+    
+    <input type="hidden" name="idannonce" value="{{ $idannonce ?? '' }}">
 
     <label for="nbadulte">Nombre d'adultes:</label>
     <input type="number" name="nbadulte"><br><br>
+    
 
     <label for="nbenfant">Nombre d'enfants:</label>
     <input type="number" name="nbenfant"><br><br>
@@ -30,11 +31,11 @@
     <label for="nbanimaux">Nombre d'animaux:</label>
     <input type="number" name="nbanimaux"><br><br>
 
-<label for="prenom">Prénom:</label>
-<input type="text" name="prenom" value="{{ auth()->user()->prenom }}" readonly><br><br>
+    <label for="prenom">Prénom:</label>
+<input type="text" name="prenom" value="{{ $user->prenom ?? '' }}"><br><br>
 
 <label for="nom">Nom:</label>
-<input type="text" name="nom" value="{{ auth()->user()->nom }}" readonly><br><br>
+<input type="text" name="nom" value="{{ $user->nom ?? '' }}"><br><br>
 
 <label for="tel">Numéro de téléphone:</label>
 <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>

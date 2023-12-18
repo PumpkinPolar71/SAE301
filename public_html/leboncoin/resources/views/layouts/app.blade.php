@@ -45,7 +45,7 @@
                 </li>   
                 @auth       
                     <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>    
-                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>  
+                    <li style="float:right"><a class="mess" href="{{ url("/Message/{{ Auth::user()->compte->idcompte }}">Message</a></li>  
                     <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>  
                     <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
 

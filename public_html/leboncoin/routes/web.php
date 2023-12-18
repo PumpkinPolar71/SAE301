@@ -50,7 +50,7 @@ Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
 
 Route::post("/annonce/saveent", [ LeBonCoinController::class, "saveent"]);
 
-Route::get("/connect", [ LeBonCoinController::class, "connect"]);
+Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
 
@@ -150,7 +150,12 @@ Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('inciden
 
 Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');
 
-Route::match(['get', 'post'], [SearchController::class, 'sauvrecherche'])->name('sauvrecherche');
+Route::post('/sauvrecherche', [SearchController::class, 'sauvrecherche'])->name('sauvrecherche');
+// Route::match(['get', 'post'], '/get-annonces', [FiltreController::class, 'getAnnonces'])->name('get-annonces');
+
+// web.php
+
+Route::get('/afficher-inscription-attente', [LeBonCoinController::class, 'afficherInscriptionAttente']);
 
 
 // -------------------------------------------------------------------Carte-----------------------------//
@@ -164,6 +169,7 @@ Route::match(['get', 'post'], '/get-annonces', [FiltreController::class, 'getAnn
 Route::get('/newreservation', [LeBonCoinController::class, 'newres']);
 // Route pour enregistrer la nouvelle réservation
 Route::post('/addreservation', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
-Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showReservationForm'])->name('addreservation');
+Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showReservationForm'])->name('showreservationform');
+
 
 Route::get('/mes_recherches', [LeBonCoinController::class, 'mes_recherches']);
