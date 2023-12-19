@@ -23,12 +23,15 @@
         $motDePasse = Config::get('database.connections.pgsql.password');
 
 
-        pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
+        $dbconn = pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
         pg_query("set names 'UTF8'");
         pg_query("SET search_path TO leboncoin");
 
-        $query = "SELECT titreannonce FROM annonce WHERE titreannonce ILIKE '%$nom%'";
-        $text = pg_query($query);
+        $query = "SELECT * FROM annonce WHERE titreannonce ILIKE $1";
+        $value = "%$nom%";
+        $text = pg_query_params($dbconn, $query, array($value));
+        //$query = "SELECT titreannonce FROM annonce WHERE titreannonce ILIKE '%$nom%'";
+        //$text = pg_query($query);
 
         echo "<table>";
         if (pg_fetch_assoc($text)!=0) {

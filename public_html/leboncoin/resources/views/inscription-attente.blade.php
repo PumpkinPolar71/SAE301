@@ -1,29 +1,58 @@
-
 @extends('layouts.app')
 
 @section('content')
-    <h1>Locataires de l'annonce</h1>
 
-    <h2>Annonce : {{ $annonce->titre }}</h2>
+    <h1>Toutes les réservations</h1>
 
-    @if ($annonce->reservations->isEmpty())
-        <p>Aucune réservation pour cette annonce.</p>
+    @if ($reservations->isEmpty())
+
+        <p>Aucune réservation disponible.</p>
+
     @else
+
         <table>
+
             <thead>
+
                 <tr>
+
+                    <th>Annonce</th>
+                    
                     <th>Locataire</th>
+
                     <th>Date de réservation</th>
+
                 </tr>
+
             </thead>
+
             <tbody>
-                @foreach ($annonce->reservations as $reservation)
+
+                @foreach ($reservations as $reservation)
+
                     <tr>
-                        <td>{{ $reservation->locataire->nom }}</td>
-                        <td>{{ $reservation->date_reservation }}</td>
+                        @foreach ($annonces as $annonce)
+                            @if ($reservation->idannonce == $annonce->idannonce)
+
+                                <td>{{ $annonce->titreannonce }}</td>
+                            @endif
+                        @endforeach
+                        @foreach ($particuliers as $particulier)
+                            @if ($particulier->idparticulier == $reservation->idparticulier)
+                                <td>{{ $particulier->nomparticulier." ".$particulier->prenomparticulier }}</td>
+                            @endif
+                        @endforeach
+                        
+                                <td>{{ $reservation->datedebutr."/".$reservation->datefinr  }}</td>
+                        
                     </tr>
+
                 @endforeach
+
             </tbody>
+
         </table>
+
     @endif
+
 @endsection

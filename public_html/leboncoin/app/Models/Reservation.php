@@ -25,4 +25,10 @@ class Reservation extends Model
     {
         return $this->hasMany(Incident::class, 'idreservation');
     }
+    
+    
+    public function particulier()
+    {
+        return $this->belongsTo(Particulier::class, 'idparticulier');
+    }
 }

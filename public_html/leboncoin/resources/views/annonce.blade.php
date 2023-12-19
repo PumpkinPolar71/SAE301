@@ -35,7 +35,11 @@
 </div>
 <h1>{{ $annonce->titreannonce }}</h1>
 <p class="dateannonce">{{ $annonce->dateannonce }}</p>
-<a href="{{ route('showreservationform', ['idannonce' => $annonce->id]) }}">Réserver</a>
+@auth
+    <a href="{{ route('showreservationform', ['idannonce' => $annonce->idannonce]) }}">Réserver</a>
+    @else
+    <a href="{{ route('redirection') }}">Réserver</a>
+@endauth
 <h2>Description</h2>
 <p class="descr">{{ $annonce->description }}</p>
 <h2>Critère</h2>
@@ -116,6 +120,37 @@ if($data){
 @else
     <p>Aucun équipement pour cette annonce pour le moment.</p>
 @endif
+<h2></h2>
+<h1>Date(s) de dipsonibilité</h1>
+<?php
+// Séparer les dates par un espace
+$datesDebut = explode(' ', $annonce->datedebut);
+$datesFin = explode(' ', $annonce->datefin);
+
+
+foreach ($datesDebut as $dateDebut) {
+    // Convertir chaque date en objet DateTime
+    $dateDebutObj = new DateTime($dateDebut);
+
+    // Formater la date en format francophone
+    $dateDebutFormattee = $dateDebutObj->format('d-m-Y');
+
+    // Afficher la date formatée
+    echo "<p class='datedebut'>$dateDebutFormattee</p>";
+}
+foreach ($datesFin as $dateFin) {
+    // Convertir chaque date en objet DateTime
+    $dateFinObj = new DateTime($dateFin);
+
+    // Formater la date en format francophone
+    $dateFinFormattee = $dateFinObj->format('d-m-Y');
+
+    // Afficher la date formatée
+    echo "<p class='datefin'>$dateFinFormattee</p>";
+}
+
+?>
+
 <hr>
 @auth
      @if (Auth::user()->compte->codeetatcompte == 9 )
@@ -134,6 +169,7 @@ if($data){
     @endif
 @endauth
 <!-- Bouton de partage -->
+<h2>Partager cette annonce</h2>
 <button  type="button" id="partagerBtn" onclick="Partage()">Partager cette annonce</button>
 <script>
     var partagerBtn = document.getElementById('partagerBtn');
@@ -146,23 +182,25 @@ if($data){
     };
 
     function Partage() {
-        alert(window.location.href);
+        alert("attente de passage en https");
         navigator.clipboard.writeText(window.location.href);
     }
 
 </script>
-<!-- Liens avec les images des logos -->
-<a href="https://www.instagram.com" target="_blank">
-    <img src="{{ asset('logopartage/instagram-1581266_640 (1).png') }}" alt="Instagram">
-</a>
+<div class="lepartage">
+    <!-- Liens avec les images des logos -->
+    <a href="https://www.instagram.com" target="_blank">
+        <img src="{{ asset('logopartage/instagram-1581266_640 (1).png') }}" alt="Instagram">
+    </a>
 
-<a href="https://www.snapchat.com" target="_blank">
-    <img src="{{ asset('logopartage/Snapchat-Logo.jpg') }}" alt="Snapchat">
-</a>
+    <a href="https://www.snapchat.com" target="_blank">
+        <img src="{{ asset('logopartage/Snapchat-Logo.jpg') }}" alt="Snapchat">
+    </a>
 
-<a href="https://www.facebook.com" target="_blank">
-    <img src="{{ asset('logopartage/logo-medias-sociaux-bleu_197792-1759.png') }}" alt="Facebook">
-</a>
+    <a href="https://www.facebook.com" target="_blank">
+        <img src="{{ asset('logopartage/logo-medias-sociaux-bleu_197792-1759.png') }}" alt="Facebook">
+    </a>
+</div>
 <!-- Section pour afficher les annonces avec le même premier mot -->
 <div class="similar-first-word-ads">
     <h2>Annonces Similaire</h2>

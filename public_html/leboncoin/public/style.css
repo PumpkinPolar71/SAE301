@@ -165,6 +165,9 @@ img {
 .descr {
     margin-top: 1%;
 }
+.lepartage a img {
+    width: 7%;
+}
 /*----------------annonce-list------------------*/
 .ulAffiche {
     

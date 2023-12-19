@@ -42,11 +42,11 @@
 <form class="formindex" action="{{ route('sauvrecherche') }}" method="POST">
     @csrf
 
-    <button id="sauve" name="sauve" type="submit">Sauvegarder la recherhce</button>
+    <button id="sauve" name="sauve" type="submit">Sauvegarder la recherche</button>
     @else
     <form class="formindex" action="{{ route('connect') }}" method="POST">
     @csrf
-    <button id="sauve" name="pasco" type="submit">Sauvegarder la recherhce</button>
+    <button id="sauve" name="pasco" type="submit">Sauvegarder la recherche</button>
     @endauth
 <?php   
 

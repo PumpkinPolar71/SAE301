@@ -44,8 +44,8 @@
                     </div>
                 </li>   
                 @auth       
-                    <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>    
-                    <li style="float:right"><a class="mess" href="{{ url("/Message/{{ Auth::user()->compte->idcompte }}">Message</a></li>  
+                    <li style="float:right"><a class="coone" href="{{ url("/compte") }}">Compte</a></li>
+                    <li style="float:right"><a class="mess" href="{{ url("/mes_messages") }}">Message</a></li>
                     <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>  
                     <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
 
@@ -56,18 +56,19 @@
                     @elseif (Auth::user()->compte->codeetatcompte == 11 )
                     <li style="float:right"><a class="coone" href="{{ url("/") }}">modif avis</a></li><!--modif avie-->
                     @elseif (Auth::user()->compte->codeetatcompte == 12 )
-                    <li style="float:right"><a class="coone" href="{{ url("/") }}">valider nouveau compte</a></li><!--valide nouveau compte-->
+                    <li style="float:right"><a class="coone" href="{{ url("/") }}">valider nouveau compte</a></li><!--valide nouveau compte -->
                     @elseif (Auth::user()->compte->codeetatcompte == 13 )
                     <li style="float:right"><a class="coone" href="{{ url("/annonces-non-validees") }}">service petite annonce</a></li><!--test num tel-->
                     @elseif (Auth::user()->compte->codeetatcompte == 14 )
                     <li style="float:right"><a class="coone" href="{{ url("/service_annonce") }}">service annonce</a></li> <!--creer type hebergement / creer equipement-->
+                    @elseif (Auth::user()->compte->codeetatcompte == 15 )
+                    <li style="float:right"><a class="coone" href="{{ url("/inscription-attente") }}">service annonce</a></li> <!--service inscription verifier  demande d'inscriuption(verif annonce et date)-->
                     @endif
-                
                 @else
                     <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
-                    <li style="float:right"><a class="mess" href="{{ url("/") }}">Message</a></li>
+                    <li style="float:right"><a class="mess" href="{{ url("/redirection") }}">Message</a></li>
                     <li style="float:right"><a class="fav" href="{{ url("/redirection") }}">Favoris</a></li>
-                    <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
+                    <li style="float:right"><a href="{{ url("/redirection") }}">Mes recherches</a></li>
                 @endauth
 
             </ul><br>

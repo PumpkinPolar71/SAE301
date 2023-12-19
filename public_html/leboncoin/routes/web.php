@@ -34,7 +34,7 @@ Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
 Route::post("/annonce/{id}",[ServiceController::class, "one" ]);
 
-//Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
 
 //Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
 
@@ -155,7 +155,7 @@ Route::post('/sauvrecherche', [SearchController::class, 'sauvrecherche'])->name(
 
 // web.php
 
-Route::get('/afficher-inscription-attente', [LeBonCoinController::class, 'afficherInscriptionAttente']);
+Route::get('/inscription-attente', [LeBonCoinController::class, 'afficherInscriptionAttente']);
 
 
 // -------------------------------------------------------------------Carte-----------------------------//
@@ -165,7 +165,11 @@ Route::get('/carte', [FiltreController::class, 'carteFiltre'])->name('annonce-ca
 
 Route::match(['get', 'post'], '/get-annonces', [FiltreController::class, 'getAnnonces'])->name('get-annonces');
 
-//-----------------------------------------------
+//-----------------------------------------------INFOS BANCAIRES-------------------------------------------//
+Route::get('/mes-infos-bancaires', [LeBonCoinController::class, 'cryptInfosBc'])->name('mes-infos-bancaires');
+
+//---------------------------------------------------------
+
 Route::get('/newreservation', [LeBonCoinController::class, 'newres']);
 // Route pour enregistrer la nouvelle réservation
 Route::post('/addreservation', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
@@ -173,3 +177,6 @@ Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showRese
 
 
 Route::get('/mes_recherches', [LeBonCoinController::class, 'mes_recherches']);
+
+Route::get('/mes_messages', [LeBonCoinController::class, 'mes_messages']);
+

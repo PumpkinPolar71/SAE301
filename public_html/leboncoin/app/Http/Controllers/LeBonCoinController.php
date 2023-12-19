@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
 use Illuminate\Support\Facades\Storage;
 use App\Models\SauvegardeRecherche;
+use App\Models\Carte;
+use App\Models\Enregistre;
+
 use App\Models\Annonce;
 
 
@@ -87,6 +90,7 @@ class LeBonCoinController extends Controller
       $annonce = LeBonCoin::find($id);
       $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
       $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
+
       $words = explode(' ', $annonce->titreannonce);
       $firstWord = strtolower($words[0]);
       $avis = $annonce->avis->pluck('commentaire')->toArray();
@@ -116,15 +120,11 @@ class LeBonCoinController extends Controller
     $id = $id;
     $villes = Ville::all();
     $annonces = LeBonCoin::all();//find($id)
-    // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
-    // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
     return view("reservationlist", compact('id', "villes", "annonces"));
   }
   public function oneann($id) {
     $id = $id;
     $villes = Ville::all();//find($id)
-  // $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
-  // $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
   return view("annoncelist", compact('id','villes'));
   }
   public function reservation($id) {
@@ -214,6 +214,15 @@ class LeBonCoinController extends Controller
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
     
         }
+        public function cryptInfosBc(Request $request)
+        {
+          $cartes = Carte::all();
+          $comptes = Compte::all();
+          $enregistres = Enregistre::all();
+
+          return view('infosbancaires',compact('cartes','comptes','enregistres'));
+        }
+
       // private function create (Post $post, CreatePostRequest $request): array
       //   {
       //       $data = $request->validated();
@@ -602,6 +611,12 @@ class LeBonCoinController extends Controller
           return redirect('/mes-incidents');
       }
 
+      public function mes_messages()
+      {
+          return redirect('/mes_messages');
+      }
+
+
       
       public function mesRecherches()
       {
@@ -659,15 +674,18 @@ class LeBonCoinController extends Controller
       }
       
       
-      public function afficherInscriptionAttente($idAnnonce)
+      public function afficherInscriptionAttente()
       {
-          // Récupérez l'annonce avec ses réservations
-          $annonce = LeBonCoin::with('reservations')->findOrFail($idAnnonce);
+          // Récupérez toutes les réservations
+          $reservations = Reservation::all();
+          $particuliers = Particulier::all();
+          $annonces = Annonce::all();
       
-          return view('inscription-attente');
+          return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces')) ;
       }
+      
 
-
+      
 
 
 
@@ -798,20 +816,14 @@ public function gestionAvis()
 }
 public function ajouterReservation(Request $request)
     {
-        // Validation des données entrantes
-        $validatedData = $request->validate([
-            'idannonce' => 'required|exists:annonces,idannonce',
-            'idperiode' => 'required|exists:calendrier,idperiode',
-            'nbadulte' => 'required|integer',
-            'nbenfant' => 'required|integer',
-            // Ajoutez les autres règles de validation pour les champs restants
-        ]);
+        
 
         // Création d'une nouvelle réservation
         $reservation = new Reservation();
+        $reservation->idreservation = Reservation::max('idreservation')+1;
         $reservation->idannonce = $request->input('idannonce');
-        $reservation->idcompte = auth()->user()->id; // ID de l'utilisateur connecté
-        $reservation->idparticulier = auth()->user()->id; // ID du particulier connecté
+        $reservation->idcompte = Auth::id();
+        $reservation->idparticulier = Auth::id(); // ID du particulier connecté
         $reservation->nbadulte = $request->input('nbadulte');
         $reservation->nbenfant = $request->input('nbenfant');
         
@@ -820,19 +832,28 @@ public function ajouterReservation(Request $request)
         $reservation->prenom = $request->input('prenom');
         $reservation->nom = $request->input('nom');
         $reservation->tel = $request->input('tel');
-        
+        $nbNuits = $request->input('nbnuitee');
+
+    // Utilisation du nombre de nuits récupéré
+    // ... (autres opérations)
+
+    // Sauvegarde de la réservation
+        $reservation->nbnuitee = $nbNuits;
         $dateDebut = strtotime($request->input('datedebutr'));
         $dateFin = strtotime($request->input('datefinr'));
-        $nbNuitee = ($dateFin - $dateDebut) / (60 * 60 * 24); // Calcul du nombre de nuits
-        $reservation->nbnuitee = $nbNuitee;
-
+    
+        // Calcul du nombre de nuits
+    
+        // Assigner le nombre de nuits à la réservation
+     
+        $reservation->montantimmediatacompte = $request->has('montantimmediatacompte');
         // Exemple de calcul pour taxessejour
-        $montantImmediat = $request->input('montantimmediat');
-        $taxesSejour = $montantImmediat * 0.1;
+        $reservation->montantimmediat = $request->input('montantimmediat');
+        $taxesSejour = $request->input('montantimmediat') * 0.1;
         $reservation->taxessejour = $taxesSejour;
 
         // Ajustez les autres calculs selon vos besoins pour les autres champs dérivés
-
+        
         // Sauvegarde de la réservation
         $reservation->save();
 
@@ -848,14 +869,21 @@ public function ajouterReservation(Request $request)
     $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
     $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
     $user = auth()->user();
+     $prenom = $user->particulier->prenom;
+    $nom = $user->particulier->nom;
+    $datesDisponibles = Annonce::where('idannonce', $idannonce)->pluck('datedebut', 'datefin');
+    $reservation = Reservation::where('idannonce', $idannonce)->first();
+    $montantimmediatacompte = $reservation->montantimmediatacompte;
     // D'autres données que vous pourriez avoir besoin
 
     return view('newreservation', [
         'idannonce' => $idannonce,
         'numeroTelephone' => $numeroTelephone,
-        'libelleDateDebut' => $libelleDateDebut,
-        'libelleDateFin' => $libelleDateFin,
         'user' => $user,
+        'datesDisponibles' => $datesDisponibles,
+        'prenom' => $prenom,
+        'nom' => $nom,
+        'montantimmediatacompte' => $montantimmediatacompte,
         // ... autres données nécessaires à la vue pour afficher le formulaire initial
     ]);
       

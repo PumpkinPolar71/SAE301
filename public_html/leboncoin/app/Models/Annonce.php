@@ -36,6 +36,13 @@ class Annonce extends Model
     {
         return $this->belongsTo(User::class, 'idcompte');
     }
-
+    public function appartient()
+    {
+        return $this->hasOne(Appartient::class, 'idannonce', 'idannonce');
+    }
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class, 'idannonce', 'idannonce');
+    }
     // Exemple d'autres relations ou méthodes en fonction de tes besoins
 }

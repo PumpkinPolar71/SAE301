@@ -32,35 +32,61 @@
     <input type="number" name="nbanimaux"><br><br>
 
     <label for="prenom">Prénom:</label>
-<input type="text" name="prenom" value="{{ $user->prenom ?? '' }}"><br><br>
+    <input type="text" name="prenom" value="{{ $prenom ?? '' }}"><br><br>
 
-<label for="nom">Nom:</label>
-<input type="text" name="nom" value="{{ $user->nom ?? '' }}"><br><br>
+    <label for="nom">Nom:</label>
+    <input type="text" name="nom" value="{{ $nom ?? '' }}"><br><br>
 
-<label for="tel">Numéro de téléphone:</label>
-<input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>
+    <label for="tel">Numéro de téléphone:</label>
+    <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>
 
     <label for="nbnuitee">Nombre de nuits:</label>
-    <input type="number" name="nbnuitee"><br><br>
+<input type="number" name="nbnuitee">
 
     <label for="taxessejour">Taxe de séjour:</label>
     <input type="text" name="taxessejour"><br><br>
 
     <label for="montantimmediatacompte">Montant immédiat à compte:</label>
-    <input type="text" name="montantimmediatacompte"><br><br>
+    <input type="checkbox" name="montantimmediatacompte" id="montantimmediatacompte">
 
-    <label for="montantimmediat">Montant immédiat:</label>
-    <input type="text" name="montantimmediat"><br><br>
+    <div id="montantImmediatField" style="display: none;">
+        @php
+            // Récupération du prix nommé libprix dans la table annonce
+            $annonce = App\Models\Annonce::find($idannonce);
+            $montantImmediat = $annonce->libprix ?? '';
+        @endphp
+
+        <label for="montantimmediat">Montant immédiat:</label>
+        <input type="text" name="montantimmediat" value="{{ $montantImmediat }}" id="montantimmediat">
+    </div>
 
     <label for="message">Message:</label>
     <textarea name="message"></textarea><br><br>
 
-    <label for="datedebutr">Date de début:</label>
-    <input type="date" name="datedebutr"><br><br>
+    <label for="dates">Choisissez une date:</label>
+    <select name="dates" id="dates">
+        @foreach ($datesDisponibles as $dateDebut => $dateFin)
+            <option value="{{ $dateDebut }}_{{ $dateFin }}">{{ $dateFin }} - {{ $dateDebut }}</option>
+        @endforeach
+    </select>
 
-    <label for="datefin">Date de fin:</label>
-    <input type="date" name="datefin"><br><br>
+    <input type="hidden" name="datedebut" id="datedebut">
+    <input type="hidden" name="datefin" id="datefin">
+    <input type="hidden" name="nbnuitee" id="nbnuitee">
 
     <button type="submit">Soumettre</button>
 </form>
-@endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#montantimmediatacompte').change(function() {
+            if ($(this).is(':checked')) {
+                $('#montantImmediatField').show();
+            } else {
+                $('#montantImmediatField').hide();
+            }
+        });
+    });
+    
+</script>

@@ -100,4 +100,6 @@ public function getNomAttribute()
 {
     return $this->compte->nom;
 }
+
 }
+

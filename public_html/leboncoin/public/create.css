@@ -119,6 +119,10 @@ section {
     margin-left: -1%;
 }
 /*----------------CONNECT------------------*/
+body {
+    background-image: url("https://auth.leboncoin.fr/static/login-illustration.png");
+    background-size: contain;
+}
 .connectsec {
     background-color: white;
     margin-top: 5%;
@@ -160,3 +164,4 @@ section {
 .redirco {
     margin-top: 2%;
 }
+
