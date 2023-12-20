@@ -8,6 +8,7 @@ use App\Http\Controllers\FiltreController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GeocodeController;
+use App\Http\Controllers\CreateAccount;
 use Illuminate\Http\Response;
 use App\Http\Controllers\UploadController;
 
@@ -47,9 +48,9 @@ Route::post("/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
 
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
 
-Route::post("/annonce/save", [ LeBonCoinController::class, "save"]);
+Route::post("/annonce/save", [ CreateAccount::class, "save"]);
 
-Route::post("/annonce/saveent", [ LeBonCoinController::class, "saveent"]);
+Route::post("/saveent", [ CreateAccount::class, "saveent"])->name('saveent');
 
 Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
 

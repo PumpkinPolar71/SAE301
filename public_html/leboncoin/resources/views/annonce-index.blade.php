@@ -6,6 +6,14 @@
 
 {{ session()->get("compte") }}
 
+<script>
+    $(document).ready(function() {
+        rnd = Math.floor(Math.random() * 1)
+        $('.encart-publicitaire2').css("background-image" , "url(../pub2/pub"+rnd+".png)")
+        $('.encart-publicitaire2').css("z-index" , "1")
+    })
+        </script>
+
 <form class="formindex" action="{{ route('search') }}" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
@@ -88,6 +96,7 @@ $annonces = $annoncesDB->get();
 if ($annonces->isEmpty()) {
     echo "<p>Désolé, nous n’avons pas ça sous la main ! Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
 } else {
+    echo "<a href='http://licorn--projekt.000webhostapp.com/'><div class='encart-publicitaire2'></div></a>"
     echo "<table>";
     foreach ($annonces as $annonce) {
         if ($annonce->codeetatvalide == TRUE) {
