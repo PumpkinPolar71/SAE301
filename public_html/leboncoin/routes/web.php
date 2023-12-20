@@ -31,8 +31,9 @@ Route::get('/', function () {
 Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ?
 
 Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
+Route::post("/annonce/{id}",[LeBonCoinController::class, "one" ]);
 
-Route::post("/annonce/{id}",[ServiceController::class, "one" ]);
+Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
 
@@ -42,7 +43,7 @@ Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']
 
 Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
-Route::post("/annonce/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
+Route::post("/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
 
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
 
@@ -172,7 +173,7 @@ Route::get('/mes-infos-bancaires', [LeBonCoinController::class, 'cryptInfosBc'])
 
 Route::get('/newreservation', [LeBonCoinController::class, 'newres']);
 // Route pour enregistrer la nouvelle réservation
-Route::post('/addreservation', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
+Route::post('/addreservation/{id}', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
 Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showReservationForm'])->name('showreservationform');
 
 

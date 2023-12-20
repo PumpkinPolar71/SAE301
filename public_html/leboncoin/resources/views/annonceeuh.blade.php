@@ -4,7 +4,7 @@
 
 
 @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
-    <form  method="post" action="{{ url("/annonce/ajouterAnnonce") }}">
+    <form  method="post" action="{{ url("/ajouterAnnonce") }}">
         @csrf <!-- Ajoute un token CSRF pour la sécurité -->
         <!-- Titre de l'annonce -->
         <div>

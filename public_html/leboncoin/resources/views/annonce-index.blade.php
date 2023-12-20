@@ -109,7 +109,12 @@ if ($annonces->isEmpty()) {
                     break;
                 }
             }
-            echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
+            // Convertir la date de format anglophone en objet DateTime
+            $dateAnnonce = new DateTime($annonce->dateannonce);
+
+            // Formater la date en format francophone
+            $dateAnnonceFormattee = $dateAnnonce->format('d-m-Y');
+            echo "<p class='ptitre'>{$dateAnnonceFormattee}</p>";
             if (Auth::user() !== NULL) {
                 
                 foreach ($favoris as $favori) {

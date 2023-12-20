@@ -23,15 +23,19 @@ class ServiceController extends Controller
         return view("serviceimmobilier",compact('annonces', "photos", "villes"));
     }
     
-    public function one(Request $request) {
+    public function oneann(Request $request) {
         if ($request->input("annval") == "") {
             return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
         } else {
+            $annonces = LeBonCoin::all();
+            $element = LeBonCoin::find($request->input("id"));
             if ($request->input("annval") == "oui") {
-
+                $element->codeetatvalide = true;
+                $element->save();
             } 
             elseif ($request->input("annval") == "non") {
-
+                // $annonces->foreign('idannonce')->references($request->input("id"))->on('annnonce')->onDelete('cascade');
+                $element->annonceS()->delete();
             } else {
 
             }

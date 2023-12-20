@@ -463,10 +463,7 @@ class LeBonCoinController extends Controller
       // Récupérer l'id condition hébergement nouvellement créé
         $idConditionHebergement = $conditionHebergement->idconditionh;
 
-
-        $appartient = new Appartient();
         $annonce->idannonce = LeBonCoin::max('idannonce')+1;
-        $appartient->idannonce = LeBonCoin::max('idannonce')+1;
         $annonce->idcompte = Auth::id(); // Associer l'annonce à l'utilisateur connecté
         //$annonce->identreprise = false;
         $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
@@ -524,10 +521,10 @@ class LeBonCoinController extends Controller
         $annonce->datefin = $chaineDatesFin;
 
       
-      $annonce->save();
         //---------------------------------------------Gestion tableau Prix
         $prixTab = $request->input('prix');
         $chainesPrix = [];
+        
               
         foreach ($prixTab as $prix) {
             if (is_array($prix)) {
@@ -541,10 +538,8 @@ class LeBonCoinController extends Controller
         
         $chainePrix = implode(' ', $chainesPrix);
         
-        $appartient->prix = $chainePrix;
-        
-        $appartient->idperiode = 1;
-        $appartient->save();
+        $annonce->libprix = $chainePrix;
+        $annonce->save();
 
         $photo = new Photo();
         $photo->photo = $request->input("lien_photo");
@@ -680,8 +675,12 @@ class LeBonCoinController extends Controller
           $reservations = Reservation::all();
           $particuliers = Particulier::all();
           $annonces = Annonce::all();
+          $entreprises = Entreprise::all();
+          $comptes = Compte::all();
+
+          $reservationsParAnnonce = $reservations->groupBy('idannonce');
       
-          return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces')) ;
+          return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces', 'reservationsParAnnonce', 'entreprises', 'comptes')) ;
       }
       
 
@@ -814,9 +813,21 @@ public function gestionAvis()
     return view('newreservation', ['annonces' => $annonces]);
     return view('newreservation');
 }
-public function ajouterReservation(Request $request)
+public function ajouterReservation(Request $request,$id)
     {
-        
+      if (
+        $request->input("nbadulte") == ""  ||
+        $request->input("nbenfant") == "" ||
+        $request->input("nbbebe") == "" ||
+        $request->input("nbanimaux") == "" ||
+        $request->input("prenom") == "" ||
+        $request->input("nom") == "" ||
+        $request->input("tel") == "" ||
+        $request->input("nbnuitee") == "" ||
+        $request->input("datedebutr") == "" ||
+        $request->input("datefinr") == "" 
+        ) {return redirect('newreservation')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
+    } else {
 
         // Création d'une nouvelle réservation
         $reservation = new Reservation();
@@ -839,8 +850,14 @@ public function ajouterReservation(Request $request)
 
     // Sauvegarde de la réservation
         $reservation->nbnuitee = $nbNuits;
-        $dateDebut = strtotime($request->input('datedebutr'));
-        $dateFin = strtotime($request->input('datefinr'));
+        $datedebut = $request->input('datedebutr');
+        $datefin = $request->input('datefinr');
+
+    // Utilisez les variables $datedebut et $datefin comme nécessaire dans votre logique de réservation
+
+    // Sauvegarde de la réservation
+    $reservation->datedebutr = $datedebut;
+    $reservation->datefinr = $datefin;
     
         // Calcul du nombre de nuits
     
@@ -859,13 +876,15 @@ public function ajouterReservation(Request $request)
 
         // Redirection vers une page de confirmation ou autre
         
-        return redirect()->route('addreservation')->with('success', 'Réservation effectuée avec succès !');
+        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->with('success', 'Réservation effectuée avec succès !');
     }
+  }
     public function showReservationForm($idannonce) {
-      $annonce = Annonce::find($idannonce);
+    $annonce = Annonce::find($idannonce);
     $libelleDateDebut = $annonce->libelledatedebut;
     $libelleDateFin = $annonce->libelledatefin;
-
+    $datedebut = $annonce->datedebut;
+    $datefin = $annonce->datefin;
     $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
     $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
     $user = auth()->user();
@@ -884,6 +903,8 @@ public function ajouterReservation(Request $request)
         'prenom' => $prenom,
         'nom' => $nom,
         'montantimmediatacompte' => $montantimmediatacompte,
+        'datedebut' => $datedebut,
+        'datefin' => $datefin,
         // ... autres données nécessaires à la vue pour afficher le formulaire initial
     ]);
       

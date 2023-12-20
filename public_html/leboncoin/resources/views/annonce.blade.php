@@ -34,7 +34,15 @@
     </div>
 </div>
 <h1>{{ $annonce->titreannonce }}</h1>
-<p class="dateannonce">{{ $annonce->dateannonce }}</p>
+<?php
+// Convertir la date de format anglophone en objet DateTime
+$dateAnnonce = new DateTime($annonce->dateannonce);
+
+// Formater la date en format francophone
+$dateAnnonceFormattee = $dateAnnonce->format('d-m-Y');
+?>
+
+<p class="dateannonce">{{ $dateAnnonceFormattee }}</p>
 @auth
     <a href="{{ route('showreservationform', ['idannonce' => $annonce->idannonce]) }}">Réserver</a>
     @else
@@ -51,8 +59,8 @@
 
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
-<!--<p class="proprio">{{ $annonce->idcompte }}</p>-->
-
+    <p class="proprio">{{ $annonce->idcompte }}</p>
+</form>
 
 
 
@@ -86,6 +94,7 @@ if($data){
 }
 
 ?>
+
 <script>
     $(document).ready(function() {
         const crit = document.getElementById("crit").innerHTML;
@@ -120,44 +129,49 @@ if($data){
 @else
     <p>Aucun équipement pour cette annonce pour le moment.</p>
 @endif
-<h2></h2>
-<h1>Date(s) de dipsonibilité</h1>
+<h2>Date(s) de dipsonibilité</h2>
 <?php
-// Séparer les dates par un espace
+// Sépare les dates de début et de fin par un espace
 $datesDebut = explode(' ', $annonce->datedebut);
 $datesFin = explode(' ', $annonce->datefin);
+$libsPrix = explode(' ', $annonce->libprix);
 
+// Vérifie que le nombre de dates de début est égal au nombre de dates de fin
+if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($libsPrix)) {
+    echo "Erreur : Le nombre de dates de début, de dates de fin, ou de prix ne correspond pas.";
+} else {
+    // Utilise un index pour accéder à la date de fin et au prix correspondants
+    foreach ($datesDebut as $index => $dateDebut) {
+        // Converti chaque date de début en objet DateTime
+        $dateDebutObj = new DateTime($dateDebut);
 
-foreach ($datesDebut as $dateDebut) {
-    // Convertir chaque date en objet DateTime
-    $dateDebutObj = new DateTime($dateDebut);
+        // Format date de début en format francophone
+        $dateDebutFormattee = $dateDebutObj->format('d-m-Y');
 
-    // Formater la date en format francophone
-    $dateDebutFormattee = $dateDebutObj->format('d-m-Y');
+        // Converti date de fin correspondante en objet DateTime
+        $dateFinObj = new DateTime($datesFin[$index]);
 
-    // Afficher la date formatée
-    echo "<p class='datedebut'>$dateDebutFormattee</p>";
+        // Format date de fin en format francophone
+        $dateFinFormattee = $dateFinObj->format('d-m-Y');
+
+        // Récupère le prix correspondant
+        $prix = $libsPrix[$index];
+
+        // Affiche la paire de dates avec le prix
+        echo "<p class='datedebut'>De $dateDebutFormattee à $dateFinFormattee au prix de $prix €</p>";
+    }
 }
-foreach ($datesFin as $dateFin) {
-    // Convertir chaque date en objet DateTime
-    $dateFinObj = new DateTime($dateFin);
-
-    // Formater la date en format francophone
-    $dateFinFormattee = $dateFinObj->format('d-m-Y');
-
-    // Afficher la date formatée
-    echo "<p class='datefin'>$dateFinFormattee</p>";
-}
-
 ?>
 
-<hr>
+
 @auth
-     @if (Auth::user()->compte->codeetatcompte == 9 )
+     @if (Auth::user()->compte->codeetatcompte == 13)
+     <!-- 9 -->
     <h2>Valider l'annonce</h2>
-    <form method="POST" action="{{ url('/annonce/{$annonce->idannonce}') }}">
+    <form method="POST" action="{{ url('oneann') }}">
         @csrf
         <div>Annonce conforme</div>
+        <input type="text" value="{{$annonce->idannonce}}" name="id">
         <input type="radio" value="oui" name="annval">
         <label  for="oui">Oui</label><br>
         <input type="radio" value="non" name="annval">
@@ -236,5 +250,5 @@ foreach ($datesFin as $dateFin) {
 @else
     <p>Connectez-vous pour laisser un avis.</p>
 @endif
-</div>
+
 @endsection

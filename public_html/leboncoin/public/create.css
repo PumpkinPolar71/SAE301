@@ -1,8 +1,30 @@
 * {
     padding: 0;
     margin: 0;
+    --logoColor: #ff6e14;
+    --mainColor: #EC5A13;
 }
-body { font-family: Arial, sans-serif; background-color: #F7F7F7; } form { width: 100%; max-width: 600px; margin: 0 auto; background-color: #FFFFFF; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); } form div { margin-top: 10px; } form input[type="text"], form input[type="email"], form input[type="password"] { width: 100%; padding: 8px; border: 1px solid #ddd; box-sizing: border-box; margin-bottom: 10px; border-radius: 5px; } form input[type="submit"] { width: 100%; padding: 10px; background-color: #F39C12; color: white; border: none; cursor: pointer; border-radius: 5px; } form input[type="submit"]:hover { background-color: #D77003; } form input[type="checkbox"] { margin-bottom: 10px; box-shadow: none; } form input[type="radio"] { box-shadow: none; } 
+body { 
+    font-family: Arial, sans-serif; background-color: #F7F7F7; 
+} 
+form { 
+    width: 100%; max-width: 600px; margin: 0 auto; background-color: #FFFFFF; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+} 
+form div { 
+    margin-top: 10px; 
+} 
+form input[type="text"], form input[type="email"], form input[type="password"] { 
+    width: 100%; padding: 8px; border: 1px solid #ddd; box-sizing: border-box; margin-bottom: 10px; border-radius: 5px; 
+} 
+form input[type="submit"] { 
+    width: 100%; padding: 10px; background-color: var(--mainColor); color: white; border: none; cursor: pointer; border-radius: 5px; 
+} form input[type="submit"]:hover { 
+    background-color: var(--logoColor); 
+} form input[type="checkbox"] { 
+    margin-bottom: 10px; box-shadow: none; 
+} form input[type="radio"] { 
+    box-shadow: none; 
+} 
 /*-------------createaccount--------------*/
 a {
     text-decoration: none;
@@ -20,10 +42,10 @@ form {
     box-shadow: 0px 0px 10px #b3b3b3;
     padding: 0.5% 0% 0.5% 0%;
 }
-.titleconnect a {color: orange; font-family: monospace; font-size: 4vh;}
-.flecheretour {color:orange; position: absolute; font-size: 4vh; margin-top: 0%;}
+.titleconnect a {color: var(--logoColor); font-family: cursive; font-size: 4vh;}
+.flecheretour {color:var(--mainColor); position: absolute; font-size: 4vh; margin-top: 0%;}
 #submitb {
-    background-color: orange;
+    background-color: var(--mainColor);
     color: white;
     border: none;
     padding: 2%;
@@ -32,7 +54,7 @@ form {
     margin-top: 2%;
 }
 #submitb:hover {
-    background-color: #D77003;
+    background-color: var(--mainColor);
     cursor: pointer;
 }
 #listA {
@@ -76,7 +98,7 @@ input {
     box-shadow: 0px 0px 10px #b3b3b3;
     padding: 0.5% 0% 0.5% 0%;
 }
-.titleconnectent a {color: rgb(0, 153, 255); font-family: monospace; font-size: 4vh;}
+.titleconnectent a {color: rgb(0, 153, 255); font-family: cursive; font-size: 4vh;}
 .flecheretourent {color:rgb(0, 153, 255); position: absolute; font-size: 4vh; margin-top: 0%;}
 #submitbent {
     background-color: rgb(0, 153, 255);
@@ -111,6 +133,7 @@ section {
     box-shadow: 0px 5px 10px;
     width: 25%;
     margin-left: 37.5%;
+    background-color: white;
     height: 30%;
     border-radius: 3vh;
 }

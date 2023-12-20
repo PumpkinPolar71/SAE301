@@ -4,36 +4,30 @@
 
     <h1>Toutes les réservations</h1>
 
-    @if ($reservations->isEmpty())
+    @if ($reservationsParAnnonce->isEmpty())
 
         <p>Aucune réservation disponible.</p>
 
     @else
 
-        <table>
+        @foreach ($reservationsParAnnonce as $annonceId => $reservations)
 
-            <thead>
+            <h2>Annonce : {{ $reservations->first()->annonce->titre }}</h2>
 
-                <tr>
-
-                    <th>Annonce</th>
-                    
-                    <th>Locataire</th>
-
-                    <th>Date de réservation</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @foreach ($reservations as $reservation)
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Locataire</th>
+                        <th>Date de réservation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($reservations as $reservation)
 
                     <tr>
                         @foreach ($annonces as $annonce)
                             @if ($reservation->idannonce == $annonce->idannonce)
-
                                 <td>{{ $annonce->titreannonce }}</td>
                             @endif
                         @endforeach
@@ -41,17 +35,27 @@
                             @if ($particulier->idparticulier == $reservation->idparticulier)
                                 <td>{{ $particulier->nomparticulier." ".$particulier->prenomparticulier }}</td>
                             @endif
+
                         @endforeach
-                        
-                                <td>{{ $reservation->datedebutr."/".$reservation->datefinr  }}</td>
-                        
+                        @foreach ($entreprises as $entreprise)
+                            @if ($entreprise->idcompte == $reservation->idcompte)
+                                <td>{{ $entreprise->societe}}</td>
+                            @endif
+                        @endforeach
+                        <td>
+                            {{ \Carbon\Carbon::parse($reservation->datedebutr)->format('d/m/Y') }}
+                            -
+                            {{ \Carbon\Carbon::parse($reservation->datefinr)->format('d/m/Y') }}
+                        </td>
+
+                                
                     </tr>
 
-                @endforeach
+                     @endforeach
+                </tbody>
+            </table>
 
-            </tbody>
-
-        </table>
+        @endforeach
 
     @endif
 

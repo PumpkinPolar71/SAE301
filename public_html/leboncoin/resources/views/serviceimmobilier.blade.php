@@ -3,8 +3,8 @@
 @section('content')
 
 @auth 
-    @if (Auth::user()->compte->codeetatcompte == 9 )
-
+    @if (Auth::user()->compte->codeetatcompte == 13 )
+<!-- 9 -->
         {{ session()->get("error") }}
         
         

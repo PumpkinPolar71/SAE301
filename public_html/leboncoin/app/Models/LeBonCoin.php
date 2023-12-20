@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class LeBonCoin extends Model
 {
@@ -28,7 +29,14 @@ class LeBonCoin extends Model
     ];
 
 
-
+    public function annonce()
+    {
+        return $this->belongsTo('App\Models\LeBonCoin', 'idannonce');
+    }
+    public function annonceS()
+    {
+        return $this->hasOne(Annonce::class, 'idannonce');
+    }
     public function photos()
     {
         return $this->hasMany(Photo::class);

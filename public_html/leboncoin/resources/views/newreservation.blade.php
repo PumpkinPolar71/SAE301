@@ -3,6 +3,7 @@
 @section('title', 'LeBonCoin')
 
 @section('content')
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -13,7 +14,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('addreservation') }}">
+<form method="POST" action="{{ route('addreservation', ['id' => $idannonce]) }}">
     @csrf
     
     <input type="hidden" name="idannonce" value="{{ $idannonce ?? '' }}">
@@ -41,10 +42,10 @@
     <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>
 
     <label for="nbnuitee">Nombre de nuits:</label>
-<input type="number" name="nbnuitee">
+    <input type="number" name="nbnuitee">
 
-    <label for="taxessejour">Taxe de séjour:</label>
-    <input type="text" name="taxessejour"><br><br>
+    
+    <input type="hidden" name="taxessejour"><br><br>
 
     <label for="montantimmediatacompte">Montant immédiat à compte:</label>
     <input type="checkbox" name="montantimmediatacompte" id="montantimmediatacompte">
@@ -63,18 +64,20 @@
     <label for="message">Message:</label>
     <textarea name="message"></textarea><br><br>
 
-    <label for="dates">Choisissez une date:</label>
-    <select name="dates" id="dates">
-        @foreach ($datesDisponibles as $dateDebut => $dateFin)
-            <option value="{{ $dateDebut }}_{{ $dateFin }}">{{ $dateFin }} - {{ $dateDebut }}</option>
-        @endforeach
-    </select>
+    <input type="hidden" name="datedebutr" value="{{ $datedebut }}">
+<input type="hidden" name="datefinr" value="{{ $datefin }}">
 
-    <input type="hidden" name="datedebut" id="datedebut">
-    <input type="hidden" name="datefin" id="datefin">
-    <input type="hidden" name="nbnuitee" id="nbnuitee">
+<label for="dates">Choisissez une date:</label>
+<select name="dates" id="dates">
+    @foreach ($datesDisponibles as $dateDebut => $dateFin)
+        <option value="{{ $dateDebut }}_{{ $dateFin }}">{{ $dateFin }} - {{ $dateDebut }}</option>
+    @endforeach
+</select>
 
-    <button type="submit">Soumettre</button>
+    
+    
+
+    <button type="submit">Payer</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -87,6 +90,8 @@
                 $('#montantImmediatField').hide();
             }
         });
-    });
+    });   
     
+
 </script>
+@endsection

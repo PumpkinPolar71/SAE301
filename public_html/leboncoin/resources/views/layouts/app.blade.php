@@ -18,9 +18,8 @@
     <script>
     $(document).ready(function() {
         rnd = Math.floor(Math.random() * 15)
-        console.log(rnd)
-        console.log($('.encart-publicitaire'))
-        $('.encart-publicitaire').css("background-image" , "url(pub/capture"+rnd+".png)")
+        $('.encart-publicitaire').css("background-image" , "url(../pub/capture"+rnd+".png)")
+        $('.encart-publicitaire').css("z-index" , "1")
     })
         </script>
     <body>
@@ -49,7 +48,8 @@
                     <li style="float:right"><a class="fav" href="{{ url('/favoris/'.Auth::user()->compte->idcompte) }}">Favoris</a></li>  
                     <li style="float:right"><a href="{{ url("/mes_recherches") }}">Mes recherches</a></li>
 
-                    @if (Auth::user()->compte->codeetatcompte == 9 )
+                    @if (Auth::user()->compte->codeetatcompte == 13 )<!--9-->
+                    <li style="float:right"><a class="coone" href="{{ url("/annonces-non-validees") }}">service petite annonce</a></li><!--test num tel-->
                     <li style="float:right"><a class="coone" href="{{ url("/serviceimmobilier") }}">service immobilier</a></li><!--valide annonce-->
                     @elseif (Auth::user()->compte->codeetatcompte == 10 )
                     <li style="float:right"><a class="coone" href="{{ url("/incident") }}">service incident</a></li><!--gerer incident-->
@@ -58,11 +58,11 @@
                     @elseif (Auth::user()->compte->codeetatcompte == 12 )
                     <li style="float:right"><a class="coone" href="{{ url("/") }}">valider nouveau compte</a></li><!--valide nouveau compte -->
                     @elseif (Auth::user()->compte->codeetatcompte == 13 )
-                    <li style="float:right"><a class="coone" href="{{ url("/annonces-non-validees") }}">service petite annonce</a></li><!--test num tel-->
+           
                     @elseif (Auth::user()->compte->codeetatcompte == 14 )
                     <li style="float:right"><a class="coone" href="{{ url("/service_annonce") }}">service annonce</a></li> <!--creer type hebergement / creer equipement-->
                     @elseif (Auth::user()->compte->codeetatcompte == 15 )
-                    <li style="float:right"><a class="coone" href="{{ url("/inscription-attente") }}">service annonce</a></li> <!--service inscription verifier  demande d'inscriuption(verif annonce et date)-->
+                    <li style="float:right"><a class="coone" href="{{ url("/inscription-attente") }}">service inscription</a></li> <!--service inscription verifier  demande d'inscriuption(verif annonce et date)-->
                     @endif
                 @else
                     <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
@@ -80,8 +80,8 @@
             <div class="container">
             @yield('content')
             </div>
-            <div class="bottom-text">Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans nos catégories immobilier, etc… Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
-            <div id="bottom">
+            <div class="bottom-text" style="z-index:1;">Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans nos catégories immobilier, etc… Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
+            <div id="bottom" style="z-index:1;">
                 <div>
                 <div class="firstbottom">A PROPOS DU BONCOIN</div>
                     <div class=""></div>
