@@ -96,12 +96,23 @@ $annonces = $annoncesDB->get();
 if ($annonces->isEmpty()) {
     echo "<p>Désolé, nous n’avons pas ça sous la main ! Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
 } else {
-    echo "<a href='http://licorn--projekt.000webhostapp.com/'><div class='encart-publicitaire2'></div></a>"
-    echo "<table>";
+    echo "<div class='encart-publicitaire2'><a class='apub' href='http://licorn--projekt.000webhostapp.com/'></a></div>";
+    echo "<table class='indextable'>";
+    $rndea = 0;
     foreach ($annonces as $annonce) {
         if ($annonce->codeetatvalide == TRUE) {
+            $rndea++;
             echo "<tr>";
             echo "<td>";
+            echo "<div style='display:none;' class='pub".$rndea."'>ta grosse daronne la pub0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</div>";
+            echo '<script>';
+            echo 'rnde = Math.floor(Math.random() * 1000);';
+            echo 'if (rnde > 950) {';
+            echo '    console.log(rnde);';
+            echo '    $(".pub'.$rndea.'").css("display","block");';
+            echo '}';
+            echo '</script>';
+            echo "<div class='annonce'>";
             echo "<a href='/annonce/{$annonce->idannonce}'>";
             
             foreach ($photos as $photo) {
@@ -124,6 +135,7 @@ if ($annonces->isEmpty()) {
             // Formater la date en format francophone
             $dateAnnonceFormattee = $dateAnnonce->format('d-m-Y');
             echo "<p class='ptitre'>{$dateAnnonceFormattee}</p>";
+
             if (Auth::user() !== NULL) {
                 
                 foreach ($favoris as $favori) {
@@ -142,11 +154,12 @@ if ($annonces->isEmpty()) {
                     }
                 }
             } else {
-                echo "<a href='/connect'>";
+                echo "<a href='/redirection'>";
                 echo "<img class='amour' src='/amour/noir.png'>";
             }
             echo "</a>";
             echo "</a>";
+            echo "</div>";
             echo "</td>";
             echo "</tr>";
         }

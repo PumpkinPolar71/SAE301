@@ -23,9 +23,9 @@ html {
 }
 .all {
     margin-top: 16vw; /*15*/
-    width: 135vh; /*68*/
+    width: 125vh; /*68*/
     background-color: rgb(255, 255, 255);
-    padding:  0% 2% 0% 2%;
+    padding:  0% 0.5% 0% 0.5%;
     font-family: sans-serif;
     z-index: 1;
 }
@@ -85,7 +85,7 @@ body {
 #topnav li {
     display: block;
     float: left;
-    padding: 2% 1% 2% 1%;
+    padding: 1% 1% 2% 1%;
     list-style: none;
 }
 .logo {
@@ -184,18 +184,39 @@ img {
     width: 20%;
 }
 /*----------------annonce-index------------------*/
+.indextable {
+    margin-top: -60vh;
+}
+.apub {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.encart-publicitaire2 {
+    width: 29vh;
+    height: 58vh;
+    margin-left: 85vh;
+    position: sticky;
+    top: 20%;
+    background-size: cover;
+    z-index: 1;
+}
 .formindex {
     margin-top: 2%;
 }
 td {
-    border-bottom: 1px solid rgb(179, 179, 179);
-    padding: 2% 0% 2% 0%;
-    width: 50%;
-    height: 12vh;
-    margin-bottom: 1%;
+
+}
+.annonce {
+    border: 1px solid rgb(179, 179, 179);
+    width: 70%;
+    border-radius: 10px;
+    height: 18vh;
+    margin-bottom: 3%;
 }
 .temp1 {
-    height: 150%;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
     width: 32%;
 }
 #crit {
@@ -216,7 +237,7 @@ td {
     height: 25px;
     width: 25px;
     padding-left: 90%;
-    margin-top: -25px;
+    margin-top: -40px;
     z-index: 3;
 }
 #sauve {
