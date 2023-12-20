@@ -9,8 +9,19 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GeocodeController;
 use App\Http\Controllers\CreateAccount;
+use App\Http\Controllers\EncryptionController;
 use Illuminate\Http\Response;
 use App\Http\Controllers\UploadController;
+
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\CalendrierController;
+use App\Http\Controllers\FavorisController;
+use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\InfosBancairesController;
+use App\Http\Controllers\LocalisationController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RechercheController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -29,12 +40,73 @@ Route::get('/', function () {
     return view('welcome');
     redirect('/annonces');
 });
-Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ?
 
-Route::get("/annonce/{id}",[LeBonCoinController::class, "one" ]);
-Route::post("/annonce/{id}",[LeBonCoinController::class, "one" ]);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mes-incidents', [IncidentController::class, 'mesIncidents'])->name('mes-incidents');
+    Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
+    Route::get('/mes-recherches', [RechercheController::class, 'mesRecherches'])->name('mes-recherches');
+});
 
-Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
+
+
+//_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
+    //------------------------------------Afficher_les_annonces-------------------------------------//
+        Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ?
+
+    //------------------------------------?-------------------------------------//
+        Route::get("/annonce/{id}",[AnnonceController::class, "one" ]);
+        Route::post("/annonce/{id}",[AnnonceController::class, "one" ]);
+
+    //------------------------------------Créer_une_nouvelle_annonce-------------------------------------//
+        Route::get("/createAnnonce",[ AnnonceController::class, "add" ]);
+        Route::post("/ajouterAnnonce",[ AnnonceController::class, "ajouterAnnonce" ]);
+
+//
+
+
+//_______________________________________________.INCIDENT_CONTROLLER.___________________________________________________//
+    //--------------------------------------Sauvegarder_un_incident------------------------------//
+        Route::post('/annonce/incidentsave', [IncidentController::class, 'incidentsave']);
+
+    //--------------------------------------?_incident------------------------------//
+        Route::get('/incident', [IncidentController::class, 'indexIncident']);
+
+    //--------------------------------------Classer_un_incident_sans_suite------------------------------//
+        Route::post('/classement-sans-suite/{id}', [IncidentController::class, 'classementSansSuite']);
+
+    //--------------------------------------Marquer_un_incident_comme_résolu------------------------------//
+        // Route::post('/resolution_incident/{idincident}', [IncidentController::class, 'marquerCommeResolu'])->name('resolution_incident');
+        // Route::post('/resolution_incident/{idincident}', [LeBonCoinController::class, "marquerCommeResolu"]);
+
+    //--------------------------------------?_un_incident------------------------------//
+        // Route::get('/incidents', [LeBonCoinController::class,'indexIncidentprop'])->name('incidents.index');
+//
+
+
+//_______________________________________________.USER_CONTROLLER.___________________________________________________//
+    //--------------------------------------Modifier_son_compte------------------------------//
+        Route::post('/update-user-info', [UserController::class, 'updateUserInfo'])->name('updateUserInfo');
+    //--------------------------------------Créer_un_compte_particulier------------------------------//
+        Route::get("/createaccountparticulier", [ UserController::class, "createaccountparticulier"]);
+    //--------------------------------------Créer_un_compte_particulier------------------------------//
+        Route::get("/createaccountentreprise", [ UserController::class, "createaccountentreprise"]);
+
+//
+
+
+//_______________________________________________.RECHERCHE_CONTROLLER.___________________________________________________//
+    //--------------------------------------Recherche_par_filtres------------------------------//
+        Route::get('/annonce-filtres', [RechercheController::class, 'indexe'])->name('annonce-index');
+    //--------------------------------------Voir_mes_recherches------------------------------//
+        Route::get('/mes_recherches', [RechercheController::class, 'mes_recherches']);
+    //--------------------------------------Barre_de_recherche------------------------------//
+        Route::get("/search", [RechercheController::class, "search"]);
+    //--------------------------------------Recherches------------------------------//
+        Route::post('/search', [RechercheController::class, 'search'])->name('search');
+
+        Route::get('/search', [RechercheController::class, 'indexe']);
+//
+
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
 
@@ -42,9 +114,9 @@ Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']
 
 //Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
 
-Route::get("/annonceeuh",[ LeBonCoinController::class, "add" ]);
 
-Route::post("/ajouterAnnonce",[ LeBonCoinController::class, "ajouterAnnonce" ]);
+Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
+
 
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
 
@@ -55,24 +127,6 @@ Route::post("/saveent", [ CreateAccount::class, "saveent"])->name('saveent');
 Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
 
 Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
-
-Route::post('/update-user-info', 'LeBonCoinController@updateUserInfo')->name('updateUserInfo');
-
-Route::get("/createaccountparticulier", [ LeBonCoinController::class, "createaccountparticulier"]);
-
-//Route::get('/annonce/incidentsave/{id}', [LeBonCoinController::class, 'show']);
-
-Route::get("/createaccountentreprise", [ LeBonCoinController::class, "createaccountentreprise"]);
-
-Route::post('/annonce/incidentsave', [LeBonCoinController::class, 'incidentsave']);
-
-Route::get("/search", [ LeBonCoinController::class, "search"]); //barre de recherche
-
-Route::post('/search', [SearchController::class, 'search'])->name('search'); //index-annonce
-
-Route::get('/search', [FiltreController::class, 'indexe']);
-
-Route::get('/annonce-filtres', [FiltreController::class, 'indexe'])->name('annonce-index');
 
 Route::get('/adresse/{q}', [FiltreController::class, 'adresse']);
 
@@ -86,15 +140,13 @@ Route::get("/compte",[LeBonCoinController::class, "compte" ]);
 
 Route::post('/annonce/deposerAvis', [LeBonCoinController::class, 'deposerAvis']);
 
-Route::post('/resolution_incident/{idincident}', 'LeBonCoinController@marquerCommeResolu')->name('resolution_incident');
-//Route::post('/resolution_incident/{idincident}', [LeBonCoinController::class, "marquerCommeResolu"]);
 
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
 })->name('logout');
 
-Route::post('/update-user-info', [LeBonCoinController::class, 'updateUserInfo'])->name('updateUserInfo');
+
 
 Route::get("/reservationlist/{id}",[LeBonCoinController::class, "oneres" ]);
 
@@ -102,7 +154,6 @@ Route::get("/annoncelist/{id}",[LeBonCoinController::class, "oneann" ]);
 
 Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);
 
-Route::get('/incident', [LeBonCoinController::class, 'indexIncident']);
 
 Route::get('/enregistrer_avis', [LeBonCoinController::class, 'gestionAvis']);
 
@@ -110,13 +161,12 @@ Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
 
 Route::post('/modifierAvis/{id}', [LeBonCoinController::class, 'modifierAvis']);
 
-Route::post('/classement-sans-suite/{id}', [LeBonCoinController::class, 'classementSansSuite']);
 
 Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
 
 Route::get('/upload', [UploadController::class, 'showForm']);
 
-Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
+// Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
 Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
@@ -128,11 +178,7 @@ Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
 
 Route::get('/redirection', [LeBonCoinController::class, 'redirection'])->name('redirection');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/mes-incidents', [LeBonCoinController::class, 'mesIncidents'])->name('mes-incidents');
-    Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
-    Route::get('/mes-recherches', [LeBonCoinController::class, 'mesRecherches'])->name('mes-recherches');
-});
+
 
 Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
 
@@ -146,7 +192,6 @@ Route::get('/annonces-non-validees', [LeBonCoinController::class, 'annoncesNonVa
 Route::post('/valider-annonce/{idannonce}', [LeBonCoinController::class, 'validerAnnonce'])->name('validerAnnonce');
 
 
-Route::get('/incidents', 'LeBonCoinController@indexIncidentprop')->name('incidents.index');
 
 //Route::post('/changer-statut/{id}', [LeBonCoinController::class, 'changer-statut']);
 
@@ -170,15 +215,20 @@ Route::match(['get', 'post'], '/get-annonces', [FiltreController::class, 'getAnn
 //-----------------------------------------------INFOS BANCAIRES-------------------------------------------//
 Route::get('/mes-infos-bancaires', [LeBonCoinController::class, 'cryptInfosBc'])->name('mes-infos-bancaires');
 
+Route::post('/mes-infos-bancaires', [EncryptionController::class, 'encrypt'])->name('encrypt');
+
 //---------------------------------------------------------
 
 Route::get('/newreservation', [LeBonCoinController::class, 'newres']);
 // Route pour enregistrer la nouvelle réservation
 Route::post('/addreservation/{id}', [LeBonCoinController::class, 'ajouterReservation'])->name('addreservation');
+
+Route::post('/payement/{id}', [LeBonCoinController::class, 'payement'])->name('payement');
+Route::get('/payement/{idannonce}', [LeBonCoinController::class,'showPayementForm'])->name('payement');
+
 Route::get('/newreservation/{idannonce}', [LeBonCoinController::class, 'showReservationForm'])->name('showreservationform');
 
 
-Route::get('/mes_recherches', [LeBonCoinController::class, 'mes_recherches']);
 
 Route::get('/mes_messages', [LeBonCoinController::class, 'mes_messages']);
 

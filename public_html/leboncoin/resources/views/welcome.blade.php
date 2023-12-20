@@ -18,7 +18,7 @@
 <div class="welcome">
 
 <h2>Pour un Noël plus abordable, plus chaud, logez vous sur leboncoin</h2>
-    <div class="bakcenter"><b>C'est le moment de déposer une annonce <a  href="{{ url("/annonceeuh") }}"><p class="depann">Déposer une annonce</p></a></b><div class="baccenter"></div></div>
+    <div class="bakcenter"><b>C'est le moment de déposer une annonce <a  href="{{ url("/createAnnonce") }}"><p class="depann">Déposer une annonce</p></a></b><div class="baccenter"></div></div>
 <script>
    /* $(document).ready(function() {
         let html = $("html");

@@ -11,16 +11,5 @@ class UploadController extends Controller
         return view('compte');
     }
 
-    public function upload(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $imagePath = $request->file('image')->store('uploads', 'public');
-
-        // Enregistrez le chemin dans la base de données ou effectuez toute autre opération que vous souhaitez.
-
-        return redirect('/compte')->with('success', 'Image téléchargée avec succès.');
-    }
+    
 }

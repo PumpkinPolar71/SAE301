@@ -33,7 +33,7 @@
             @section('nav')
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>leboncoin</b></a></li>
-                <li style="padding-top:3%;"><a class="depo" href="{{ url("/annonceeuh") }}"><b>Déposer une annonce</b></a></li>
+                <li style="padding-top:3%;"><a class="depo" href="{{ url("/createAnnonce") }}"><b>Déposer une annonce</b></a></li>
                 <li>
                     <div>
                         <form action="/search" method="post" target="_self">

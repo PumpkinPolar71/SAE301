@@ -15,39 +15,64 @@
 @endif
 
 <form method="POST" action="{{ route('addreservation', ['id' => $idannonce]) }}">
+
+
     @csrf
     
-    <input type="hidden" name="idannonce" value="{{ $idannonce ?? '' }}">
+    <input type="hidden" name="idannonce" value="{{ $idannonce ?? '' }}" required>
 
     <label for="nbadulte">Nombre d'adultes:</label>
-    <input type="number" name="nbadulte"><br><br>
+    <input type="number" name="nbadulte" required><br><br>
     
 
     <label for="nbenfant">Nombre d'enfants:</label>
-    <input type="number" name="nbenfant"><br><br>
+    <input type="number" name="nbenfant" required><br><br>
 
     <label for="nbbebe">Nombre de bébés:</label>
-    <input type="number" name="nbbebe"><br><br>
+    <input type="number" name="nbbebe" required><br><br>
 
     <label for="nbanimaux">Nombre d'animaux:</label>
-    <input type="number" name="nbanimaux"><br><br>
+    <input type="number" name="nbanimaux" required><br><br>
 
     <label for="prenom">Prénom:</label>
-    <input type="text" name="prenom" value="{{ $prenom ?? '' }}"><br><br>
+    <input type="text" name="prenom" value="{{ $prenom ?? '' }}" pattern="[A-Za-z]+" title="Veuillez entrer uniquement des lettres ou des tirets" required><br><br>
 
     <label for="nom">Nom:</label>
-    <input type="text" name="nom" value="{{ $nom ?? '' }}"><br><br>
+    <input type="text" name="nom" value="{{ $nom ?? '' }}" pattern="[A-Za-z]+" title="Veuillez entrer uniquement des lettres ou des tirets" required><br><br>
+   
+
 
     <label for="tel">Numéro de téléphone:</label>
-    <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}"><br><br>
+    <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}" maxlength="14" required><br><br>
+
+    <script>
+        // Fonction pour ajouter des espaces tous les deux chiffres
+        // function formatPhoneNumber() {
+        //     var input = document.getElementById('tel');
+        //     var inputValue = input.value.replace(/\D/g, ''); // Retirer les caractères non numériques
+        //     var formattedValue = '';
+            
+        //     for (var i = 0; i < inputValue.length; i++) {
+        //         if (i > 0 && i % 2 === 0) {
+        //             formattedValue += ' '; // Ajouter un espace tous les deux chiffres
+        //         }
+        //         formattedValue += inputValue[i];
+        //     }
+
+        //     input.value = formattedValue;
+        // }
+
+        // // Ajouter un écouteur d'événement pour appeler la fonction lors de la saisie
+        // document.getElementById('tel').addEventListener('input', formatPhoneNumber);
+    </script>
 
     <label for="nbnuitee">Nombre de nuits:</label>
-    <input type="number" name="nbnuitee">
+    <input type="number" name="nbnuitee" required>
 
     
-    <input type="hidden" name="taxessejour"><br><br>
+    <input type="hidden" name="taxessejour" required><br><br>
 
-    <label for="montantimmediatacompte">Montant immédiat à compte:</label>
+    <label for="montantimmediatacompte" required>Montant immédiat à compte:</label>
     <input type="checkbox" name="montantimmediatacompte" id="montantimmediatacompte">
 
     <div id="montantImmediatField" style="display: none;">

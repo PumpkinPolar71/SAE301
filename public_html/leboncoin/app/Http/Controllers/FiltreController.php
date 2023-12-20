@@ -15,17 +15,7 @@ use carbon\carbon;
 
 class FiltreController extends Controller
 {
-        public function indexe(Request $request)
-        {
-            $favoris = Favoris::all();
-            $villes = Ville::all();
-            $photos = Photo::all();
-            $typesHebergement = TypeHebergement::all();
-            $annonces = LeBonCoin::all(); 
-            $reservations = Reservation::all();
-            
-            return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
-        }
+        
         public function carteFiltre(Request $request)
         {
             $favoris = Favoris::all();
