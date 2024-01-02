@@ -18,6 +18,7 @@ use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\InfosBancairesController;
 use App\Http\Controllers\LocalisationController;
+use App\Http\Controllers\AideController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\UserController;
@@ -108,8 +109,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 //_______________________________________________.centre d'aide.___________________________________________________//
-    //--------------------------------------reidrection page principale------------------------------//
-    Route::get('/aide', [LeBonCoinController::class, 'aide']);
+    //--------------------------------------reidrection------------------------------//
+    Route::get('/aide', [AideController::class, 'aide']);
+    Route::get('/aidecompte', [AideController::class, 'aidecompte']);
+    Route::get('/aideannonce', [AideController::class, 'aideannonce']);
+    Route::get('/aideres', [AideController::class, 'aideres']);
 
 
 

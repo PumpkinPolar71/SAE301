@@ -372,3 +372,39 @@ p {
     border-bottom: 1px solid gray;
     padding-bottom: 1%;
 }
+/*-----------------aide-----------------------*/
+.aidetop {
+    background-image: url("//theme.zdassets.com/theme_assets/1506503/ac4f7eba61c8592421ef5ba354232fc9abf04ce4.svg");
+    background-size: cover;
+    margin-left: 5%;
+    width: 90%;
+    height: 113px;
+    text-align: center;
+    border-radius: 20px;
+    padding-top: 8%;
+    font-size: x-large;
+}
+.allaide {
+    margin-top: 3%;
+    width: 95%;
+    margin-left: 5%;
+    gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.eachaide {
+    border: 1px solid black;
+    border-radius: 20px;
+    height: 100px;
+    width: 26%;
+    text-align: center;
+    padding: 2% 2% 2% 2%;
+
+}
+.eachaide p {
+    margin-top: 4%;
+    font-size: smaller;
+}
+.eachaide:hover {
+    cursor: pointer;
+}
