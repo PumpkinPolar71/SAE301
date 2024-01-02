@@ -3,6 +3,9 @@
 @section('content')
 
 {{ session()->get("error") }}
+
+@auth
+    @if (Auth::user()->compte->codeetatcompte == 14 )
     <div class="allcreateheb">
         <div class="hebergement">
             <h2>Types hebergements</h2>
@@ -42,4 +45,10 @@
         </div>
 
     </div>
+    @else
+    <p>Vous n'avez pas les autorisation de visualiser cette page, cette incident à été signalé.</p>
+    @endif
+@else
+<p>Vous n'avez pas les autorisation de visualiser cette page, cette incident à été signalé.</p>
+@endauth
 @endsection

@@ -70,9 +70,7 @@ class LeBonCoinController extends Controller
     public function compte() {
       return view("compte");
     }
-    public function guide() {
-      return view("guide");
-    }
+
     public function createaccount() {
       return view("createaccount");
     }

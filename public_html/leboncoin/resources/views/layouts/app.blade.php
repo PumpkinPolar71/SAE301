@@ -96,7 +96,7 @@
                 </div>
                 <div>
                     <div class="firstbottom">DES QUESTIONS ?</div>
-                    <p id="p"><a href="{{ url("/guide") }}">Guide utilisateur</a></p>
+                    <p id="p"><a href="{{ url("/aide") }}">Aide</a></p>
                 </div>
             </div>
         </div>

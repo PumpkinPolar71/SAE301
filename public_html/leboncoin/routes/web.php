@@ -12,7 +12,6 @@ use App\Http\Controllers\CreateAccount;
 use App\Http\Controllers\EncryptionController;
 use Illuminate\Http\Response;
 use App\Http\Controllers\UploadController;
-
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\FavorisController;
@@ -51,9 +50,9 @@ Route::middleware(['auth'])->group(function () {
 
 //_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
     //------------------------------------Afficher_les_annonces-------------------------------------//
-        Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ?
+        Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ? a refaire css
 
-    //------------------------------------?-------------------------------------//
+    //------------------------------------affiche l'annonce-------------------------------------//
         Route::get("/annonce/{id}",[AnnonceController::class, "one" ]);
         Route::post("/annonce/{id}",[AnnonceController::class, "one" ]);
 
@@ -68,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
     //--------------------------------------Sauvegarder_un_incident------------------------------//
         Route::post('/annonce/incidentsave', [IncidentController::class, 'incidentsave']);
 
-    //--------------------------------------?_incident------------------------------//
+    //--------------------------------------afficherliste_incident------------------------------//
         Route::get('/incident', [IncidentController::class, 'indexIncident']);
 
     //--------------------------------------Classer_un_incident_sans_suite------------------------------//
@@ -106,6 +105,13 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/search', [RechercheController::class, 'indexe']);
 //
+
+
+//_______________________________________________.centre d'aide.___________________________________________________//
+    //--------------------------------------reidrection page principale------------------------------//
+    Route::get('/aide', [LeBonCoinController::class, 'aide']);
+
+
 
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
@@ -170,7 +176,7 @@ Route::get('/upload', [UploadController::class, 'showForm']);
 
 Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
-Route::get('/guide', [LeBonCoinController::class, 'guide']);
+
 
 Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
 

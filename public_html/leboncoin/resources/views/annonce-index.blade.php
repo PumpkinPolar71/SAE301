@@ -104,12 +104,13 @@ if ($annonces->isEmpty()) {
             $rndea++;
             echo "<tr>";
             echo "<td>";
-            echo "<div style='display:none;' class='pub".$rndea."'>ta grosse daronne la pub0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</div>";
+            echo "<div style='display:none;' id='pub' class='pub".$rndea."'></div>";
             echo '<script>';
             echo 'rnde = Math.floor(Math.random() * 1000);';
             echo 'if (rnde > 950) {';
             echo '    console.log(rnde);';
             echo '    $(".pub'.$rndea.'").css("display","block");';
+            echo'     $(".pub'.$rndea.'").css("background-image","url("lol"));';
             echo '}';
             echo '</script>';
             echo "<div class='annonce'>";
