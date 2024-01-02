@@ -91,8 +91,8 @@
                 <div class="firstbottom">INFORMATIONS LEGALES</div>
                     <div class="cookie"><a href="cookie">Les cookies</a></div>
                     <div class=""><a href="politique">Politique de protection des données</a></div>
-                    <div class="">Registre des traitements</div>
-                    <div class="">Le contrat OVH</div>
+                    <div class=""><a href="registre">Registre des traitements</a></div>
+                    <div class=""><a href="contrat">Le contrat OVH</a></div>
                 </div>
                 <div>
                 <div class="firstbottom">NOS SOLUTIONS PROS</div>

@@ -121,6 +121,8 @@ Route::middleware(['auth'])->group(function () {
     //--------------------------------------reidrection------------------------------//
     Route::get('/cookie', [DroitController::class, 'cookie']);
     Route::get('/politique', [DroitController::class, 'politique']);
+    Route::get('/registre', [DroitController::class, 'registre']);
+    Route::get('/contrat', [DroitController::class, 'contrat']);
 
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);

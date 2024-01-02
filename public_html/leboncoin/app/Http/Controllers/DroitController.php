@@ -12,4 +12,10 @@ class DroitController extends Controller
     public function politique() {
         return view("politique");
     }
+    public function registre() {
+        return view("registre");
+    }
+    public function contrat() {
+        return view("contrat");
+    }
 }
