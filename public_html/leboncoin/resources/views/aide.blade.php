@@ -15,7 +15,7 @@
 <div onclick="document.location.href='aideres';" class="eachaide"><b>Réservation en ligne</b>
     <p>Découvrez comment faire une réservation sécurisé</p>
 </div>
-<div onclick="document.location.href='aidecookie';" class="eachaide"><b>Cookie</b>
+<div onclick="document.location.href='cookie';" class="eachaide"><b>Cookie</b>
     <p>Découvrez nous gérons les cookies selon vos choix</p>
 </div>
 <div onclick="document.location.href='aidedonnee';" class="eachaide"><b>Vos données</b>

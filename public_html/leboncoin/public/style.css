@@ -54,11 +54,11 @@ html {
     background-size: auto 132%;
     background-position: right bottom;
     background-repeat: no-repeat;
-    height: 7.9vh;
+    height: 6.3vh;
     text-align: center;
     padding-top: 2%;
-    width: 135vh;
-    margin-top: -7.8vh;
+    width: 125vh;
+    margin-top: -7vh;
     border-radius: 20px;
     position: relative;
 }
@@ -112,11 +112,14 @@ title {
     font-size: 70%;
 }
 #bottom {
+    z-index:2;
+    position: relative;
     height: 30vh;
-    margin-bottom: 3.5vh;
-    background-color: #5a5a5a;
+    margin-left: -1vh;
+    width: 117vh;
+    background-color: #303245;
     display: grid;
-    padding: 0% 5% 0% 5%;
+    padding: 0% 4% 0% 4%;
     grid-template-columns: repeat(4,minmax(0,1fr));
 }
 #bottom div {
@@ -408,3 +411,59 @@ p {
 .eachaide:hover {
     cursor: pointer;
 }
+/*-------------------aidecompte-aideres-aideannonce----------------------*/
+.h1aide{
+    margin-bottom: 3%;
+    margin-left: 10%;
+}
+.aideredirect {
+    list-style: none;
+    margin-left: 4%;
+    position: sticky;
+    width: 20%;
+}
+.aideredirect li {
+    border-left: #d2d2d2 1px solid;
+    padding: 2% 0% 2% 15%;
+}
+.aideredirect li:hover {
+    cursor: pointer;
+    border-left: #5a5a5a 1px solid;
+}
+.question {
+    margin-top: -14.5%;
+    display: grid;
+    margin-left: 35%;
+}
+.question a {
+    padding-bottom: 2%;
+    margin-top: 2%;
+    color: rgb(125, 133, 255);
+    border-bottom: #bdbdbd 1px solid;
+    width: 40%;
+    
+}
+.question a:hover {
+    cursor: pointer;
+    color: rgb(144, 178, 255);
+}
+/*-----------------cookie-----------------------*/
+.cookie {
+    padding: 2%;
+}
+.cookie h3 {
+    margin-top: 2%;
+    margin-left: 2%;
+}
+.cookie p {
+    text-align: justify;
+    margin-top: 1%;
+    margin-left: 4%;
+}
+.cookie p a {
+    color: var(--mainColor);
+}
+
+
+
+

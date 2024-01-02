@@ -22,6 +22,7 @@ use App\Http\Controllers\AideController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DroitController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -116,6 +117,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/aideres', [AideController::class, 'aideres']);
 
 
+//_______________________________________________.Droit.___________________________________________________//
+    //--------------------------------------reidrection------------------------------//
+    Route::get('/cookie', [DroitController::class, 'cookie']);
+    Route::get('/politique', [DroitController::class, 'politique']);
 
 
 Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
