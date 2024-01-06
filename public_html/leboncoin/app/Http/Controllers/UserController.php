@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     //_____________________________________.Modifier_son_compte.______________________//
-    public function updateUserInfo(Request $request)
-    {
+      public function updateUserInfo(Request $request)
+      {
         $nouvellePdp = $request->input('escapedImageData');
         $nouvelEmail = $request->input('nouvelEmail');
         $nouvelleRue = $request->input('nouvelleRue');
@@ -23,7 +23,6 @@ class UserController extends Controller
         $nouvelleVille = $request->input('nouvelleVille');
         $nouveauNom = $request->input('nouveauNom');
         $nouveauPrenom = $request->input('nouveauPrenom');
-
         // $nouvellePdp="j'aime le fil";
         $compte = Auth::user()->compte;
           $compte->pdp = $request->input('lien_pdp');
@@ -37,7 +36,6 @@ class UserController extends Controller
           $compte->adressecpcompte = $nouveauCP;
         }
         $compte->save();
-
         $ville = Auth::user()->compte;
         if($nouvelleVille != ""){
            $villeAll = Ville::all();
@@ -49,7 +47,6 @@ class UserController extends Controller
             }
         }
         $ville->save();
-
         $particulier = Auth::user()->particulier; 
         if($nouveauNom != ""){
           $particulier->nomparticulier = $nouveauNom;
@@ -58,19 +55,26 @@ class UserController extends Controller
           $particulier->prenomparticulier = $nouveauPrenom; 
         }
         $particulier->save();
-
         return redirect()->back()->with('success', 'Informations utilisateur mises à jour avec succès');
+      
+      }
+    //
     
-        }
     //_____________________________________.Créer_un_compte_particulier.______________________//
       public function createaccountparticulier() {
         return view("createaccountparticulier"); 
       }
+    //
+
     //_____________________________________.Créer_un_compte_entreprise.______________________//
       public function createaccountentreprise() {
         return view("createaccountentreprise"); 
       }
+    //
+
+    //_____________________________________.Redirection.______________________//
       public function compte() {
         return view("compte");
       }
+    //
 }

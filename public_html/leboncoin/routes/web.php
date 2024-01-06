@@ -24,7 +24,7 @@ use App\Http\Controllers\InfosBancairesController;
 use App\Http\Controllers\LocalisationController;
 use App\Http\Controllers\Footer\AideController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\RechercheController;
+use App\Http\Controllers\Search\RechercheController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Footer\DroitController;
 use App\Http\Controllers\DiscussionController;
@@ -65,8 +65,7 @@ use App\Http\Controllers\ImgGDController;
 //
 
 //_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
-    //--------------------------------------Recupérer_infos_annonce_grace_a_un_id------------------------------//
-        Route::get("/annoncelist/{id}",[AnnonceController::class, "oneann" ]);
+    
     //------------------------------------Afficher_les_annonces-------------------------------------//
         Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ? a refaire css
     //------------------------------------Adresse_annonce?-------------------------------------//
@@ -144,6 +143,8 @@ use App\Http\Controllers\ImgGDController;
 //
 
 //_______________________________________________.RECHERCHE_CONTROLLER.___________________________________________________//
+    //--------------------------------------Recupérer_infos_annonce_grace_a_un_id------------------------------//
+        Route::get("/annoncelist/{id}",[AnnonceController::class, "oneann" ]);
     //--------------------------------------Recherche_par_filtres------------------------------//
         Route::get('/annonce-filtres', [RechercheController::class, 'indexe'])->name('annonce-index');
     //--------------------------------------Recherche_par_filtres_dans_la_carte------------------------------//

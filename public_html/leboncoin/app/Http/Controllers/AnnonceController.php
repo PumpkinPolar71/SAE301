@@ -52,14 +52,6 @@ class AnnonceController extends Controller
       }
     //
 
-    //_____________________________________.Récupérer_infos_annoncelist_grace_a_un_id.______________________//
-      public function oneann($id) {
-        $id = $id;
-        $villes = Ville::all();//find($id)
-      return view("annoncelist", compact('id','villes'));
-      }
-    //
-
     //_____________________________________.Créer_une_annonce.______________________//
       //View : create_annonce.blade.php
       public function add() {

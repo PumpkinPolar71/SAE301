@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Search;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
+
+
 
 use App\Models\SauvegardeRecherche;             //RechercheController
 use App\Models\Favoris;                         //FavorisController
@@ -50,7 +52,14 @@ class RechercheController extends Controller
     }
   //
 
-  //_____________________________________.Recherche_par_filtres.______________________//
+  //_____________________________________.Récupérer_infos_annoncelist_grace_a_un_id.______________________//
+    public function oneann($id) {
+      $id = $id;
+      $villes = Ville::all();//find($id)
+    return view("annoncelist", compact('id','villes'));
+    }
+  //
+  //_____________________________________.Recupérer_infos_pour_recherche_par_filtres.______________________//
     public function indexe(Request $request)
     {
         $favoris = Favoris::all();
