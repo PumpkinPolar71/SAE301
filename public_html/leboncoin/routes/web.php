@@ -1,6 +1,10 @@
 <?php
+//Web.php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
@@ -10,7 +14,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GeocodeController;
 use App\Http\Controllers\CreateAccount;
 use App\Http\Controllers\EncryptionController;
-use Illuminate\Http\Response;
+
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\CalendrierController;
@@ -23,8 +27,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DroitController;
-
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DiscussionController;
+use App\Http\Controllers\ImgGDController;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,29 +228,29 @@ use Illuminate\Support\Facades\Auth;
 
 //_______________________________________________.IMAGE_GLISSER_DEPOSER->(abandonné).___________________________________________________//
     //------------------------------------Global-------------------------------------//
-        Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
-        Route::get('/upload', [UploadController::class, 'showForm']);
-        // Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
+        Route::get("/imgGP",[ImgGDController::class, "imgGP" ]);
+        Route::get('/upload', [ImgGDController::class, 'showForm']);
+        //Route::post('/compte', [ImgGDController::class, 'upload'])->name('upload');
 //
 
 //_______________________________________________.FAVORIS_CONTROLLER.___________________________________________________//
     //------------------------------------Afficher_favoris-------------------------------------//
-        Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
+        Route::get('/favoris/{id}', [FavorisController::class, 'favoris']);
     //------------------------------------Ajouter_favoris-------------------------------------//
-        Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
+        Route::get('/sauvefavoris/{id}', [FavorisController::class, 'sauvefavoris']);
     //------------------------------------Supprimer_favoris-------------------------------------//
-        Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
+        Route::get('/supprfavoris/{id}', [FavorisController::class, 'supprfavoris']);
 //
 
 //_______________________________________________.INFOSBANCAIRES_CONTROLLER.___________________________________________________//
     //------------------------------------Global-------------------------------------//
-        Route::get('/mes-infos-bancaires', [LeBonCoinController::class, 'cryptInfosBc'])->name('mes-infos-bancaires');
-        Route::post('/mes-infos-bancaires', [EncryptionController::class, 'encrypt'])->name('encrypt');
+        Route::get('/mes-infos-bancaires', [InfosBancairesController::class, 'cryptInfosBc'])->name('mes-infos-bancaires');
+        Route::post('/mes-infos-bancaires', [InfosBancairesController::class, 'encrypt'])->name('encrypt');
 //
 
 //_______________________________________________.DISCUSSION_CONTROLLER.___________________________________________________//
     //------------------------------------Global-------------------------------------//
-        Route::get('/mes_messages', [LeBonCoinController::class, 'mes_messages']);
+        Route::get('/mes_messages', [DiscussionController::class, 'mes_messages']);
 //
 
 Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');    // View appropriée inconnue 

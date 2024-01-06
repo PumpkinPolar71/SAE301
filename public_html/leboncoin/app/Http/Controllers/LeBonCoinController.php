@@ -51,7 +51,7 @@ class LeBonCoinController extends Controller
         return view ("annoncelist", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);
     }
 
-    
+  
     public function processForm(Request $request)
     {
     $validatedData = $request->validate([
@@ -109,9 +109,7 @@ class LeBonCoinController extends Controller
   
     
     
-    public function imgGP() {
-      return view("imgGP");
-    }
+    
     // public function updateEmail(Request $request)
     // {
     //     $newEmail = $request->input('email');
@@ -122,17 +120,7 @@ class LeBonCoinController extends Controller
     //     return response()->json(['success' => true]);
     // }
     
-        public function cryptInfosBc(Request $request)
-        {
-          $comptes = Compte::all();
-          $enregistres = Enregistre::all();
-          $cartes = Carte::all();
-
-
-          return view("infosbancaires", compact('comptes','cartes','enregistres'));
-
-            
-        }
+        
 
       // private function create (Post $post, CreatePostRequest $request): array
       //   {
@@ -181,10 +169,7 @@ class LeBonCoinController extends Controller
           return redirect('/mes-incidents');
       }
 
-      public function mes_messages()
-      {
-          return redirect('/mes_messages');
-      }
+      
 
 
       
@@ -250,63 +235,7 @@ class LeBonCoinController extends Controller
 
     
 
-    public function favoris($id) {
-      $favoris = Favoris::where('idcompte', $id)->first();
-      //$favoris = Favoris::find($id);
-      $annonces = LeBonCoin::all();
-      $photos = Photo::all();
-      $villes = Ville::all();
-
-      return view('favoris', compact('favoris', "annonces", "photos","villes"));
-    }
-    public function sauvefavoris($id) {
-      $user = Auth::user();
-      $favoris = Favoris::where('idcompte', $user->idcompte)->first();
-  
-      if (!$favoris) {
-          $favoris = new Favoris();
-          $favoris->idfavoris = Favoris::max('idfavoris') + 1;
-          $favoris->idcompte = $user->idcompte;
-          $favoris->libidannonce = $id;
-      }
-  
-      $favoris->libidannonce = $favoris->libidannonce." ".$id;
-  
-      $particulier = Particulier::where('idcompte', $user->idcompte)->first();
-      if ($particulier) {
-          $favoris->idparticulier = $particulier->idparticulier;
-      }
-  
-      // Sauvegarde seulement si $favoris est défini
-      if ($favoris) {
-          $favoris->save();
-      }
-
-
-      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
-    }
-    public function supprfavoris($id) {
-      $user = Auth::user();
-      $favoris = Favoris::where('idcompte', $user->idcompte)->first();
-  
-      if ($favoris) {
-          $tabann = explode(" ", $favoris->libidannonce);
-          $updatedFavoris = [];
-  
-          foreach ($tabann as $value) {
-              if ($value != $id) {
-                  $updatedFavoris[] = $value;
-              }
-          }
-  
-          $favoris->libidannonce = implode(" ", $updatedFavoris);
-          $favoris->save();
-      } else {
-          echo "Problème : Favoris introuvable.";
-      }
-  
-      return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
-  }
+    
   
 
 
