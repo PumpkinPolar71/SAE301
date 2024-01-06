@@ -151,7 +151,6 @@ use App\Http\Controllers\ImgGDController;
         Route::get('/carte', [RechercheController::class, 'carteFiltre'])->name('annonce-carte');
     //--------------------------------------Récupérer_annonce_dans_la_carte------------------------------//
         Route::match(['get', 'post'], '/get-annonces', [RechercheController::class, 'getAnnonces'])->name('get-annonces');
-        // Route::match(['get', 'post'], '/get-annonces', [RechercheController::class, 'getAnnonces'])->name('get-annonces');
     //--------------------------------------Voir_mes_recherches------------------------------//
         Route::get('/mes_recherches', [RechercheController::class, 'mes_recherches']);
     //--------------------------------------Barre_de_recherche------------------------------//

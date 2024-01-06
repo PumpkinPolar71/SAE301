@@ -9,15 +9,15 @@ use App\Http\Controllers\Controller;
 class DroitController extends Controller
 {
     public function cookie() {
-        return view("cookie");
+        return view("Footer/Legislation/cookie");
     }
     public function politique() {
-        return view("politique");
+        return view("Footer/Legislation/politique");
     }
     public function registre() {
-        return view("registre");
+        return view("Footer/Legislation/registre");
     }
     public function contrat() {
-        return view("contrat");
+        return view("Footer/Legislation/contrat");
     }
 }

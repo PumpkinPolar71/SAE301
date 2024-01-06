@@ -41,12 +41,12 @@ class AnnonceController extends Controller
                                         ->get();
         if (Auth::user()) {
           if (Auth::user()->compte->codeetatcompte == 9 ) {
-            return view("annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+            return view("Annonce/annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
           } else {
-            return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/
+            return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/
           }
         } else {
-          return view("annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\
+          return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\
   
         }  
       }
@@ -224,7 +224,7 @@ class AnnonceController extends Controller
               $avis->save();
           
               // Redirection ou autre logique après avoir enregistré l'avis
-              return redirect('/annonce')->withInput();
+              return redirect('annonce')->withInput();
           }
     //
 

@@ -8,15 +8,15 @@ use App\Http\Controllers\Controller;
 class AideController extends Controller
 {
     public function aide() {
-        return view("aide");
+        return view("Footer/Help/aide");
     }
     public function aidecompte() {
-        return view("aidecompte");
+        return view("Footer/Help/aidecompte");
     }
     public function aideannonce() {
-        return view("aideannonce");
+        return view("Footer/Help/aideannonce");
     }
     public function aideres() {
-        return view("aideres");
+        return view("Footer/Help/aideres");
     }
 }
