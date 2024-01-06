@@ -56,9 +56,10 @@ class RechercheController extends Controller
     public function oneann($id) {
       $id = $id;
       $villes = Ville::all();//find($id)
-    return view("annoncelist", compact('id','villes'));
+    return view("Search/annoncelist", compact('id','villes'));                                                                          #SearchFolder
     }
   //
+
   //_____________________________________.Recupérer_infos_pour_recherche_par_filtres.______________________//
     public function indexe(Request $request)
     {
@@ -69,7 +70,7 @@ class RechercheController extends Controller
         $annonces = LeBonCoin::all(); 
         $reservations = Reservation::all();
         
-        return view('annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+        return view('Search/annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #SearchFolder
     }
   //
 
@@ -83,7 +84,7 @@ class RechercheController extends Controller
       $annonces = LeBonCoin::all(); 
       $reservations = Reservation::all();
       
-      return view('annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));
+      return view('Search/annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));       #SearchFolder
     }
   //
   

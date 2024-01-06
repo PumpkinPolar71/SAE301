@@ -41,13 +41,13 @@ class AnnonceController extends Controller
                                         ->get();
         if (Auth::user()) {
           if (Auth::user()->compte->codeetatcompte == 9 ) {
-            return view("Annonce/annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));
+            return view("Annonce/annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));                #AnnonceFolder
           } else {
-            return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/
+            return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/ #AnnonceFolder
           }
         } else {
-          return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\
-  
+          return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\ #AnnonceFolder
+          
         }  
       }
     //
@@ -58,7 +58,7 @@ class AnnonceController extends Controller
         $villes = Ville::all();
         $typesHebergements = TypeHebergement::all();
 
-        return view("create_annonce",compact('villes', "typesHebergements"));
+        return view("Annonce/create_annonce",compact('villes', "typesHebergements"));       #AnnonceFolder
       }
     //
 
