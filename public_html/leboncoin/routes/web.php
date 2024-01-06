@@ -26,7 +26,7 @@ use App\Http\Controllers\Footer\AideController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DroitController;
+use App\Http\Controllers\Footer\DroitController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ImgGDController;
 
