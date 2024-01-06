@@ -48,22 +48,44 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mes-recherches', [RechercheController::class, 'mesRecherches'])->name('mes-recherches');
 });
 
+Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
+Route::get('/upload', [UploadController::class, 'showForm']);
+// Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
 
+
+Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
+Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
+Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
+
+
+//_______________________________________________.LEBONCOIN_CONTROLLER.___________________________________________________//
+    //------------------------------------Redirection_connexion-------------------------------------//
+        Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
+    //------------------------------------Redirection_simple-------------------------------------//
+        Route::get('/redirection', [LeBonCoinController::class, 'redirection'])->name('redirection');
+//
 
 //_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
+    //--------------------------------------Recupérer_infos_annonce_grace_a_un_id------------------------------//
+        Route::get("/annoncelist/{id}",[AnnonceController::class, "oneann" ]);
     //------------------------------------Afficher_les_annonces-------------------------------------//
         Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ? a refaire css
+    //------------------------------------Adresse_annonce?-------------------------------------//
+        // Route::get('/adresse/{q}', [FiltreController::class, 'adresse']);
 
-    //------------------------------------affiche l'annonce-------------------------------------//
+    //------------------------------------affiche_l'annonce-------------------------------------//
         Route::get("/annonce/{id}",[AnnonceController::class, "one" ]);
         Route::post("/annonce/{id}",[AnnonceController::class, "one" ]);
 
     //------------------------------------Créer_une_nouvelle_annonce-------------------------------------//
         Route::get("/createAnnonce",[ AnnonceController::class, "add" ]);
         Route::post("/ajouterAnnonce",[ AnnonceController::class, "ajouterAnnonce" ]);
+    //------------------------------------Afficher_le_proprietaire_de_l'annonce-------------------------------------//
+        Route::get("/proprio/{id}",[AnnonceController::class, "proprio" ]);
+    //------------------------------------Afficher_les_infos_annonce_que_seul_le_service_peut_voir-------------------------------------//
+        Route::post("/annonceserv/{id}",[AnnonceController::class, "one" ])->name('annonceserv');
 
 //
-
 
 //_______________________________________________.INCIDENT_CONTROLLER.___________________________________________________//
     //--------------------------------------Sauvegarder_un_incident------------------------------//
@@ -81,19 +103,40 @@ Route::middleware(['auth'])->group(function () {
 
     //--------------------------------------?_un_incident------------------------------//
         // Route::get('/incidents', [LeBonCoinController::class,'indexIncidentprop'])->name('incidents.index');
+    //--------------------------------------Afficher_incident_comme_résolu------------------------------//
+        Route::get('/resolution/{id}', [IncidentController::class, 'resolution']);
+
 //
 
-
 //_______________________________________________.USER_CONTROLLER.___________________________________________________//
+    //--------------------------------------Redirection_vers_compte------------------------------//
+        Route::get("/compte",[UserController::class, "compte" ]);
     //--------------------------------------Modifier_son_compte------------------------------//
         Route::post('/update-user-info', [UserController::class, 'updateUserInfo'])->name('updateUserInfo');
     //--------------------------------------Créer_un_compte_particulier------------------------------//
         Route::get("/createaccountparticulier", [ UserController::class, "createaccountparticulier"]);
     //--------------------------------------Créer_un_compte_particulier------------------------------//
         Route::get("/createaccountentreprise", [ UserController::class, "createaccountentreprise"]);
-
+    //--------------------------------------Se_deconnecter_du_compte------------------------------//
+        Route::post('/logout', function () {
+            Auth::logout();
+            return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
+        })->name('logout');
 //
 
+//_______________________________________________.CREATEACCOUNT_CONTROLLER.___________________________________________________//
+    //--------------------------------------creation_compte------------------------------//
+        Route::get("/createaccount",[ CreateAccount::class, "createaccount" ]);
+    //--------------------------------------Sauvegarde_compte_particulier------------------------------//
+        Route::post("/saveaccount", [ CreateAccount::class, "save"]);
+    //--------------------------------------Sauvegarde_compte_entreprise------------------------------//
+        Route::post("/saveentaccount", [ CreateAccount::class, "saveent"])->name('saveent');
+//
+
+//_______________________________________________.LOGIN_CONTROLLER.___________________________________________________//
+    //--------------------------------------Connexion_compte------------------------------//
+        Route::get("/login",[LoginController::class, "authenticate" ]);
+//
 
 //_______________________________________________.RECHERCHE_CONTROLLER.___________________________________________________//
     //--------------------------------------Recherche_par_filtres------------------------------//
@@ -108,100 +151,63 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/search', [RechercheController::class, 'indexe']);
 //
 
+//_______________________________________________.SERVICE_CONTROLLER.___________________________________________________//
+    //--------------------------------------Service_global------------------------------//
+        Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
+    //--------------------------------------Service_immobilier------------------------------//
+        Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+    //--------------------------------------Service_validateann------------------------------//
+        //Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
+        //Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
+    //--------------------------------------Recevoir_les_(nv)_types_d'hebergement_ou_les_(nv)_equipements------------------------------//
+        Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
+    //--------------------------------------Ajouter_un_nv_equipement------------------------------//
+        Route::post('/createheb', [ServiceController::class, 'ajoutequ'])->name('ajoutequ');
+    //--------------------------------------Ajouter_un_nv_type_hebergement------------------------------//
+        //Route::post('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
+//
 
-//_______________________________________________.centre d'aide.___________________________________________________//
-    //--------------------------------------reidrection------------------------------//
-    Route::get('/aide', [AideController::class, 'aide']);
-    Route::get('/aidecompte', [AideController::class, 'aidecompte']);
-    Route::get('/aideannonce', [AideController::class, 'aideannonce']);
-    Route::get('/aideres', [AideController::class, 'aideres']);
+//_______________________________________________.CENTRE_D'AIDE___________________________________________________//
+    //--------------------------------------redirection------------------------------//
+        Route::get('/aide', [AideController::class, 'aide']);
+        Route::get('/aidecompte', [AideController::class, 'aidecompte']);
+        Route::get('/aideannonce', [AideController::class, 'aideannonce']);
+        Route::get('/aideres', [AideController::class, 'aideres']);
+//
 
+//_______________________________________________.DROIT.___________________________________________________//
+    //--------------------------------------redirection------------------------------//
+        Route::get('/cookie', [DroitController::class, 'cookie']);
+        Route::get('/politique', [DroitController::class, 'politique']);
+        Route::get('/registre', [DroitController::class, 'registre']);
+        Route::get('/contrat', [DroitController::class, 'contrat']);
+//
 
-//_______________________________________________.Droit.___________________________________________________//
-    //--------------------------------------reidrection------------------------------//
-    Route::get('/cookie', [DroitController::class, 'cookie']);
-    Route::get('/politique', [DroitController::class, 'politique']);
-    Route::get('/registre', [DroitController::class, 'registre']);
-    Route::get('/contrat', [DroitController::class, 'contrat']);
+//_______________________________________________.AVIS.___________________________________________________//
+    //--------------------------------------Deposer_un_avis------------------------------//
+        Route::post('/annonce/deposerAvis', [AnnonceController::class, 'deposerAvis']);
+    //--------------------------------------Enregistrer_un_avis------------------------------//
+        Route::get('/enregistrer_avis', [AnnonceController::class, 'gestionAvis']);
+    //--------------------------------------Modifier_un_avis------------------------------//
+        Route::post('/modifierAvis/{id}', [AnnonceController::class, 'modifierAvis']);
 
+//
 
-Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
+//_______________________________________________.RESERVATION_CONTROLLER.___________________________________________________//
+    //--------------------------------------Recupérer_infos_reservation_grace_a_un_id------------------------------//
+        Route::get("/reservationlist/{id}",[ReservationController::class, "oneres" ]);
+    //--------------------------------------Récupérer_réservation_lié_à_une_annonce------------------------------//
+        Route::get("/reservation/{id}",[ReservationController::class, "reservation" ]);
+//
 
-//Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
-
-//Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
-
-
-Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
-
-
-Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');
-
-Route::post("/annonce/save", [ CreateAccount::class, "save"]);
-
-Route::post("/saveent", [ CreateAccount::class, "saveent"])->name('saveent');
-
-Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
-
-Route::get("/createaccount",[ LeBonCoinController::class, "createaccount" ]);
-
-Route::get('/adresse/{q}', [FiltreController::class, 'adresse']);
-
-Route::get("/imgGP",[LeBonCoinController::class, "imgGP" ]);
-
-Route::get("/login",[LoginController::class, "authenticate" ]);
-
-Route::get("/proprio/{id}",[LeBonCoinController::class, "proprio" ]);
-
-Route::get("/compte",[LeBonCoinController::class, "compte" ]);
-
-Route::post('/annonce/deposerAvis', [LeBonCoinController::class, 'deposerAvis']);
-
-
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=');
-})->name('logout');
+Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');    // View appropriée inconnue 
 
 
 
-Route::get("/reservationlist/{id}",[LeBonCoinController::class, "oneres" ]);
-
-Route::get("/annoncelist/{id}",[LeBonCoinController::class, "oneann" ]);
-
-Route::get("/reservation/{id}",[LeBonCoinController::class, "reservation" ]);
-
-
-Route::get('/enregistrer_avis', [LeBonCoinController::class, 'gestionAvis']);
-
-Route::get('/resolution/{id}', [LeBonCoinController::class, 'resolution']);
-
-Route::post('/modifierAvis/{id}', [LeBonCoinController::class, 'modifierAvis']);
-
-
-Route::post("/annonceserv/{id}",[LeBonCoinController::class, "one" ])->name('annonceserv');
-
-Route::get('/upload', [UploadController::class, 'showForm']);
-
-// Route::post('/compte', [UploadController::class, 'upload'])->name('upload');
-
-Route::get('/favoris/{id}', [LeBonCoinController::class, 'favoris']);
 
 
 
-Route::get('/sauvefavoris/{id}', [LeBonCoinController::class, 'sauvefavoris']);
 
-Route::get('/supprfavoris/{id}', [LeBonCoinController::class, 'supprfavoris']);
-
-Route::get('/redirection', [LeBonCoinController::class, 'redirection'])->name('redirection');
-
-
-
-Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
-
-Route::post('/createheb', [ServiceController::class, 'ajoutequ'])->name('ajoutequ');
-
-//Route::post('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
 
 
 Route::get('/annonces-non-validees', [LeBonCoinController::class, 'annoncesNonValidees'])->name('annonces.non-validees');

@@ -59,7 +59,7 @@ class LeBonCoinController extends Controller
         'critere1' => 'required|integer',
         'critere2' => 'required|integer',
     ]);
-    // Traitez les données une fois qu'elles ont été validées avec succès
+    // Traite les données une fois qu'elles ont été validées avec succès
     }
     //$nextId = 7;
 
@@ -67,13 +67,15 @@ class LeBonCoinController extends Controller
     public function connect() {
       return view("connect");
     }
-    public function compte() {
-      return view("compte");
+    public function redirection() {
+      return view("redirection");
     }
+    // public function compte() {
+    //   return view("compte");
+    // } déplacé
 
-    public function createaccount() {
-      return view("createaccount");
-    }
+    
+  //
     
   
   /*public function show($id) {
@@ -81,35 +83,30 @@ class LeBonCoinController extends Controller
     // ...
     return view('incidentsave')->with('annonce', $annonce);
 }*/
-  public function oneres($id) {
-    $id = $id;
-    $villes = Ville::all();
-    $annonces = LeBonCoin::all();//find($id)
-    return view("reservationlist", compact('id', "villes", "annonces"));
-  }
-  public function oneann($id) {
-    $id = $id;
-    $villes = Ville::all();//find($id)
-  return view("annoncelist", compact('id','villes'));
-  }
-  public function reservation($id) {
-    $reservation = Reservation::find($id);
-    $annonce = LeBonCoin::find($reservation->idannonce); // Récupérer l'annonce associée à la réservation
+  // public function oneres($id) {
+  //   $id = $id;
+  //   $villes = Ville::all();
+  //   $annonces = LeBonCoin::all();//find($id)
+  //   return view("reservationlist", compact('id', "villes", "annonces"));
+  // } déplacé
 
-    $photos = Photo::join('annonce', 'photo.idannonce', '=', 'annonce.idannonce')
-                    ->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
-                    ->where('idreservation', $id)
-                    ->get();
-    return view("reservation", compact('reservation', 'annonce', 'photos'));
-  }
-  public function proprio($id) {
-    // $annonces = LeBonCoin::find($id);
-    $compte = Compte::find($id);
-    $villes = Ville::all();
-    $departements = Departement::all();
-    $particuliers = Particulier::all();
-    return view("proprio", compact('compte','particuliers','villes','departements'));
-    }
+  // public function oneann($id) {
+  //   $id = $id;
+  //   $villes = Ville::all();//find($id)
+  // return view("annoncelist", compact('id','villes'));
+  // } déplacé
+
+  // public function reservation($id) {
+  //   $reservation = Reservation::find($id);
+  //   $annonce = LeBonCoin::find($reservation->idannonce); // Récupérer l'annonce associée à la réservation
+
+  //   $photos = Photo::join('annonce', 'photo.idannonce', '=', 'annonce.idannonce')
+  //                   ->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
+  //                   ->where('idreservation', $id)
+  //                   ->get();
+  //   return view("reservation", compact('reservation', 'annonce', 'photos'));
+  // } déplacé
+  
     
     
     public function imgGP() {
@@ -148,9 +145,7 @@ class LeBonCoinController extends Controller
       //         Storage::disk('public')->delete($post->image);
       //     }
       //   }
-      public function redirection() {
-        return view("redirection");
-      }
+      
     
 
 
@@ -274,59 +269,10 @@ class LeBonCoinController extends Controller
 
 
 
-public function deposerAvis(Request $request)
-{
-    // Validation des données du formulaire
+
     
 
-    // Récupérer les données du formulaire
-    $idAnnonce = $request->input('idannonce');
-    $commentaire = $request->input('commentaire');
-    $idCompte = auth()->user()->id; // Supposons que vous utilisez l'authentification de Laravel
-
-    // Créer un nouvel avis
-    $avis = new Avis();
-    $avis->idcompte = $idCompte;
-    $avis->idparticulier = $idCompte; // Supposons que idparticulier est l'ID du compte connecté
-    $avis->idannonce = $idAnnonce;
-    $avis->dateavis = now(); // Date actuelle
-    $avis->commentaire = $commentaire;
-    $avis->valide = false;
-
-    // Enregistrer l'avis dans la base de données
-    $avis->save();
-
-    // Redirection ou autre logique après avoir enregistré l'avis
-    return redirect('/annonce')->withInput();
-}
-public function gestionAvis()
-    {
-      $avisNonValides = Avis::where('valide', false)->get();
-      //\Log::info($avisNonValides);
-      // Fetch related announcement name and comment for each review
-      // $avisDetails = [];
-      // foreach ($avisNonValides as $avis) {
-      //     $annonce = LeBonCoin::find($avis->idannonce);
-      //     $avisDetails[] = [
-      //         'id' => $avis->id,
-      //         'contenu' => $avis->contenu,
-      //         'valide' => $avis->valide,
-      //         'nom_annonce' => $annonce->titreannonce, // Replace 'nom_annonce' with the actual column name
-      //         'commentaire_annonce' => $annonce->commentaire, // Replace 'commentaire_annonce' with the actual column name
-      //     ];
-      // }
-  
-      return view('enregistrer_avis', compact('avisNonValides'));
-    }
-
-    public function modifierAvis(Request $request, $id)
-    {
-        $avis = Avis::findOrFail($id);
-        $avis->valide = $request->input('valide', false);
-        $avis->save();
-
-        return redirect('/enregistrer_avis')->with('success', 'Statut de l avis modifié avec succès');
-    }
+    
 
     public function favoris($id) {
       $favoris = Favoris::where('idcompte', $id)->first();

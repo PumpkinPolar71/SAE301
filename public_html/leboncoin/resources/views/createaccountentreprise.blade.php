@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="flecheretourent" onclick="history.back()">←</div>
 <div class="titleconnectent"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
-<form method="post" action="{{ route('saveent') }}">
+<form method="post" action="{{ route('saveentaccount') }}">
 @csrf
   {{ session()->get("error") }}
     <div>Les champs avec un * sont obligatoires</div>

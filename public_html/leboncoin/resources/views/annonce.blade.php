@@ -171,13 +171,13 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
     <form method="POST" action="{{ url('oneann') }}">
         @csrf
         <div>Annonce conforme</div>
-        <input type="text" value="{{$annonce->idannonce}}" name="id">
-        <input type="radio" value="oui" name="annval">
+        <input type="text" value="{{$annonce->idannonce}}" name="id">   <!-- idannonce -->
+        <input type="radio" value="oui" name="annval">                  <!-- Oui -->
         <label  for="oui">Oui</label><br>
-        <input type="radio" value="non" name="annval">
+        <input type="radio" value="non" name="annval">                  <!-- Non -->
         <label  for="non">Non</label><br>
         <input type="radio" value="expert" name="annval">
-        <label  for="expert">Besoin avis expert</label><br>
+        <label  for="expert">Besoin avis expert</label><br>             <!-- besoin d'un avis expert -->
         <button id="submitb" type="submit">Valider choix</button>
     </form>
     @endif

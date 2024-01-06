@@ -70,4 +70,7 @@ class UserController extends Controller
       public function createaccountentreprise() {
         return view("createaccountentreprise"); 
       }
+      public function compte() {
+        return view("compte");
+      }
 }
