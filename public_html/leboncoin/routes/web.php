@@ -9,10 +9,10 @@ use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FiltreController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Account\LoginController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GeocodeController;
-use App\Http\Controllers\CreateAccount;
+use App\Http\Controllers\Account\CreateAccountController;
 use App\Http\Controllers\EncryptionController;
 
 use App\Http\Controllers\UploadController;
@@ -20,12 +20,12 @@ use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\IncidentController;
-use App\Http\Controllers\InfosBancairesController;
+use App\Http\Controllers\Account\InfosBancairesController;
 use App\Http\Controllers\LocalisationController;
 use App\Http\Controllers\Footer\AideController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\Search\RechercheController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\Footer\DroitController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ImgGDController;
@@ -130,11 +130,11 @@ use App\Http\Controllers\ImgGDController;
 
 //_______________________________________________.CREATEACCOUNT_CONTROLLER.___________________________________________________//
     //--------------------------------------creation_compte------------------------------//
-        Route::get("/createaccount",[ CreateAccount::class, "createaccount" ]);
+        Route::get("/createaccount",[ CreateAccountController::class, "createaccount" ]);
     //--------------------------------------Sauvegarde_compte_particulier------------------------------//
-        Route::post("/saveaccount", [ CreateAccount::class, "save"]);
+        Route::post("/saveaccount", [ CreateAccountController::class, "save"]);
     //--------------------------------------Sauvegarde_compte_entreprise------------------------------//
-        Route::post("/saveentaccount", [ CreateAccount::class, "saveent"])->name('saveent');
+        Route::post("/saveentaccount", [ CreateAccountController::class, "saveent"])->name('saveent');
 //
 
 //_______________________________________________.LOGIN_CONTROLLER.___________________________________________________//

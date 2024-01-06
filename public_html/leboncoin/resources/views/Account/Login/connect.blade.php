@@ -13,9 +13,9 @@
     <form method="get" action="{{ url("/login") }}">
     @csrf
     <label>Email *</label><br>
-    <input type="text" name="email"/><br>
+    <input type="text" name="email" required/><br>
     <label>Mot de passe *</label><br>
-    <input type="password" name="motdepasse"/><br><br>
+    <input type="password" name="motdepasse" required/><br><br>
     <input type="submit" value="connexion"/>
     {{ $errors }}
 </form>

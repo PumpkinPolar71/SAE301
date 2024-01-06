@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
+
 use App\Models\LeBonCoin;
 use App\Models\Particulier;
 use App\Models\Entreprise;
@@ -11,7 +14,7 @@ use App\Models\Ville;
 use App\Models\Departement;
 use App\Models\Region;
 
-class CreateAccount extends Controller
+class CreateAccountController extends Controller
 {
   //_______________________________________________.Choix_entre_Particulier_ou_Entreprise.___________________________________________________//
     public function createaccount() {

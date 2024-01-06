@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Entreprise;                      //UserController
 use App\Models\Particulier;                     //UserController
 use App\Models\Ville;                           //LocalisationController
 use App\Models\Compte;                          //UserController
-use Illuminate\Support\Facades\Auth;
+
 
 
 class UserController extends Controller

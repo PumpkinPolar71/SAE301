@@ -6,43 +6,57 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="flecheretour" onclick="history.back()">←</div>
 <div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
-<form method="post" action="{{ url("/saveaccount") }}">
+<form method="post" action="{{ url("/saveaccount") }}" onsubmit="return verifierSexe()">
 @csrf
   {{ session()->get("error") }}
     <div>Les champs avec un * sont obligatoires</div>
     <div>Nom *</div>
-    <input name="nom" type="">
+    <input name="nom" type="" required>
     <div>Prenom *</div>
-    <input name="prenom" type="">
+    <input name="prenom" type="" required>
     <div>Email *</div>
-    <input id="email" name="email" type="">
+    <input id="email" name="email" type="" required>
     <div style="color:red;" id="messageErreurEmail"></div>
     <div>Sexe de naissance *</div>
-    <input type="radio" value="Homme" name="sexe">
+    <input type="radio" value="Homme" name="sexe" id="homme">
     <label  for="homme">Homme</label>
-    <input type="radio" value="Femme" name="sexe">
+    <input type="radio" value="Femme" name="sexe" id="femme">
     <label  for="femme">Femme</label>
     <div>date naissance (JJ-MM-AAAA) *</div>
-    <input id="date" name="date" type="">
+    <input id="date" name="date" type="" required>
     <div style="color:red;" id="messageErreurDate"></div>
     <div>Adresse *</div>
-    <input name="adresse" type="" id="adresse">
+    <input name="adresse" type="" id="adresse" required>
     <div style="" id="listA">
     </div>
     <div>Code Postal *</div>
-    <input id="cp" name="cp" readOnly="readOnly">
+    <input id="cp" name="cp" readOnly="readOnly" required>
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville *</div>
-    <input id="ville" name="ville" readOnly="readOnly">
+    <input id="ville" name="ville" readOnly="readOnly" required>
     <input style="display:none;" id="region" name="region" readOnly="readOnly">
     <input style="display:none;" id="dept" name="dept" readOnly="readOnly">
     <div>Mot de passe *</div>
-    <input name="mdp" id="mdp" type="password">
+    <input name="mdp" id="mdp" type="password" required>
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
     <input name="mail" type="checkbox"><div id="mail" >Recevoir des mails commerciaux </div>
     <button id="submitb" type="submit">Créer mon compte</button>
 
     <script>
+            function verifierSexe() {
+                //Vérifie si au moins un des boutons radio est coché
+                var hommeChecked = document.getElementById("homme").checked;
+                var femmeChecked = document.getElementById("femme").checked;
+
+                if (!hommeChecked && !femmeChecked) 
+                {
+                    //Aucun bouton n'est coché, afficher un message d'erreur
+                    alert("Veuillez sélectionner le sexe de naissance.");
+                    return false; //Empêche l'envoi du formulaire
+                } else 
+                //Au moins un bouton est coché, le formulaire peut être soumis
+                return true;
+            }
             function recupererIdDiv(id) {
                 console.log("L'ID de la div est : " + document.getElementById(id));
                 //console.log(document.getElementById(id).innerHTML);
