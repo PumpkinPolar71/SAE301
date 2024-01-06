@@ -87,7 +87,7 @@ class ServiceController extends Controller
     //_____________________________________.Inscription_en_attente.______________________//
         public function afficherInscriptionAttente()
         {
-            // Récupérez toutes les réservations
+            //Récupérer toutes les réservations
             $reservations = Reservation::all();
             $particuliers = Particulier::all();
             $annonces = Annonce::all();

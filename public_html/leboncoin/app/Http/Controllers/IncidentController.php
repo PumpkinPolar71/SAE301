@@ -79,5 +79,14 @@ class IncidentController extends Controller
       }
     //
 
-    
+    //_____________________________________.Modifier_statut_incident.______________________//
+      public function reconnaissanceJustifie(Request $request, $id)
+      {
+          $incident = Incident::find($id);
+          $statut = $request->input('statut', 'non-resolu');
+          $incident->resolu = true;
+          $incident->save();
+          return redirect('/mes-incidents');
+      }
+    //
 }

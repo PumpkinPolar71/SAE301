@@ -22,7 +22,7 @@ use App\Http\Controllers\FavorisController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\InfosBancairesController;
 use App\Http\Controllers\LocalisationController;
-use App\Http\Controllers\AideController;
+use App\Http\Controllers\Footer\AideController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RechercheController;
 use App\Http\Controllers\UserController;
@@ -41,12 +41,12 @@ use App\Http\Controllers\ImgGDController;
 |
 */
 
-//_______________________________________________.MIDDLEWARE.___________________________________________________//
+//_______________________________________________.MIDDLEWARE_Incidents_RecherchesSauvegardées.___________________________________________________//
     //------------------------------------Global-------------------------------------//
         Route::middleware(['auth'])->group(function () {
-            Route::get('/mes-incidents', [IncidentController::class, 'mesIncidents'])->name('mes-incidents');
-            Route::post('/reconnaissance-justifie/{id}', [LeBonCoinController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');
-            Route::get('/mes-recherches', [RechercheController::class, 'mesRecherches'])->name('mes-recherches');
+            Route::get('/mes-incidents', [IncidentController::class, 'mesIncidents'])->name('mes-incidents');                                           //Incident
+            Route::post('/reconnaissance-justifie/{id}', [IncidentController::class, 'reconnaissanceJustifie'])->name('reconnaissance-justifie');      //Incident
+            Route::get('/mes-recherches', [RechercheController::class, 'mesRecherches'])->name('mes-recherches');                                       //Sauvegarde_Recherche
         });
 //
 
@@ -60,6 +60,8 @@ use App\Http\Controllers\ImgGDController;
             return view('welcome');
             redirect('/annonces');
         });
+    //------------------------------------Sert_à_?-------------------------------------//
+        Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');    // View appropriée inconnue 
 //
 
 //_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
@@ -253,4 +255,3 @@ use App\Http\Controllers\ImgGDController;
         Route::get('/mes_messages', [DiscussionController::class, 'mes_messages']);
 //
 
-Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');    // View appropriée inconnue 

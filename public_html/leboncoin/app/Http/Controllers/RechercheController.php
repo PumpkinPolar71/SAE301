@@ -31,6 +31,25 @@ class RechercheController extends Controller
     }
   //
 
+  //_____________________________________.Voir_mes_recherches_2.______________________//
+    public function mesRecherches()
+    {
+        // Récupère l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Vérifie si l'utilisateur est connecté
+        if ($user) {
+            // Récupère les recherches sauvegardées associées à l'utilisateur connecté
+            $recherches = $user->sauvegardesRecherches;
+        
+            return view('mes_recherches', compact('recherches'));
+        } else {
+            // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+            return redirect('/login');
+        }
+    }
+  //
+
   //_____________________________________.Recherche_par_filtres.______________________//
     public function indexe(Request $request)
     {
