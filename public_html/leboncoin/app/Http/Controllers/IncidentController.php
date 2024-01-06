@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Auth;
 
 class IncidentController extends Controller
 {
-    public function incidentsave(Request $request) {
+    //_____________________________________.Save_incident.______________________//
+      public function incidentsave(Request $request) {
        
         $incident = new Incident();
         
@@ -31,7 +32,9 @@ class IncidentController extends Controller
         // Mettre à jour le prochain ID pour le prochain incident
         
         return redirect('/compte')->withInput()->with("incident", 'signalement créé');
-    }
+      }
+    //
+
     //_____________________________________.Incident_?.______________________//
       public function indexIncident()
       {
@@ -39,6 +42,8 @@ class IncidentController extends Controller
         $incidents = Incident::all();
         return view('incidentclass', compact('incidents',"annonces"));
       }
+    //
+
     //_____________________________________.Classer_incident_sans_suite.______________________//
       public function classementSansSuite(Request $request, $id)
       {
@@ -54,12 +59,16 @@ class IncidentController extends Controller
 
           return redirect('/incident');
       }
+    //
+
     //_____________________________________.Afficher_incident_comme_résolu.______________________//
       public function resolution($id)
       {
           Incident::where('idincident', $id)->update(['resolu' => true]);
           return redirect('/incident');
       }
+    //
+
     //_____________________________________.Voir_mes_incidents.______________________//
       public function mesIncidents()
       {
@@ -68,4 +77,7 @@ class IncidentController extends Controller
           $incidents = $user->incidents;
           return view('mes_incidents', compact('incidents','annonces'));
       }
+    //
+
+    
 }

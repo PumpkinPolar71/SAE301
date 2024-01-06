@@ -268,4 +268,24 @@ class AnnonceController extends Controller
           return redirect('/enregistrer_avis')->with('success', 'Statut de l avis modifié avec succès');
       }
     //
+
+    //_____________________________________.Vérifier_annonce_non-validée.______________________//
+      public function annoncesNonValidees()
+      {
+        $annoncesNonVerifiees = LeBonCoin::where('codeetattelverif', false)->get();
+        $particuliers = Particulier::all();
+
+          return view('validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);
+      }
+    //
+
+    //_____________________________________.Vérifier_annonce_valide.______________________//
+      public function validerAnnonce(Request $request, $idannonce)
+      {
+          // Mettez à jour le champ CODEETATTELVERIF à true dans la base de données
+          LeBonCoin::where('idannonce', $idannonce)->update(['codeetattelverif' => true]);
+      
+          return redirect('/annonces-non-validees')->with('success', 'Annonce vérifiée avec succès.');
+      }
+    //
 }

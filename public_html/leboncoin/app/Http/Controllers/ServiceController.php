@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
+    //_____________________________________.Récupérer_infos_serviceimmobilier.______________________//
         public function serviceimmobilier() {
             $villes = Ville::all();
             $annonces = LeBonCoin::all();
@@ -23,6 +24,8 @@ class ServiceController extends Controller
             return view("serviceimmobilier",compact('annonces', "photos", "villes"));
         }
     //
+
+    //_____________________________________.Récupérer_infos_annonce_grace_a_une_valeur.______________________//
         public function oneann(Request $request) {
             if ($request->input("annval") == "") {
                 return redirect('serviceimmobilier')->withInput()->with("error","La validation n'a pas fonctionné");
@@ -43,12 +46,16 @@ class ServiceController extends Controller
             }
         }
     //
+
+    //_____________________________________.Recevoir_les_(nv)_types_d'hebergement_ou_les_(nv)_equipements.______________________//
         public function createheb() {
             $typehebergements = TypeHebergement::all();
             $equipements = Equipement::all();
             return view("createheb",compact('typehebergements', "equipements"));
         }
     //
+
+    //_____________________________________.Ajouter_un_nv_type_hebergement.______________________//
         public function ajoutheb(Request $request) {
         
             if ($request->input("nomhebergement") != "") {
@@ -62,6 +69,8 @@ class ServiceController extends Controller
             return view("createheb",compact('typehebergements', "equipements"));
         }
     //
+
+    //_____________________________________.Ajouter_un_nv_equipement.______________________//
         public function ajoutequ(Request $request) {
             if ($request->input("nomequipement") != "") {
                 $h = new Equipement();
@@ -72,6 +81,21 @@ class ServiceController extends Controller
             $typehebergements = TypeHebergement::all();
             $equipements = Equipement::all();
             return view("createheb",compact('typehebergements', "equipements"));
+        }
+    //
+
+    //_____________________________________.Inscription_en_attente.______________________//
+        public function afficherInscriptionAttente()
+        {
+            // Récupérez toutes les réservations
+            $reservations = Reservation::all();
+            $particuliers = Particulier::all();
+            $annonces = Annonce::all();
+            $entreprises = Entreprise::all();
+            $comptes = Compte::all();
+            $reservationsParAnnonce = $reservations->groupBy('idannonce');
+        
+            return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces', 'reservationsParAnnonce', 'entreprises', 'comptes')) ;
         }
     //
 }

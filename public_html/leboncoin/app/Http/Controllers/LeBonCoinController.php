@@ -226,37 +226,13 @@ class LeBonCoinController extends Controller
 
 
 
-      public function annoncesNonValidees()
-      {
-        $annoncesNonVerifiees = LeBonCoin::where('codeetattelverif', false)->get();
-        $particuliers = Particulier::all();
-        
-          return view('validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);
-      }
+      
 
 
-      public function validerAnnonce(Request $request, $idannonce)
-      {
-          // Mettez à jour le champ CODEETATTELVERIF à true dans la base de données
-          LeBonCoin::where('idannonce', $idannonce)->update(['codeetattelverif' => true]);
-      
-          return redirect('/annonces-non-validees')->with('success', 'Annonce vérifiée avec succès.');
-      }
       
       
-      public function afficherInscriptionAttente()
-      {
-          // Récupérez toutes les réservations
-          $reservations = Reservation::all();
-          $particuliers = Particulier::all();
-          $annonces = Annonce::all();
-          $entreprises = Entreprise::all();
-          $comptes = Compte::all();
-
-          $reservationsParAnnonce = $reservations->groupBy('idannonce');
       
-          return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces', 'reservationsParAnnonce', 'entreprises', 'comptes')) ;
-      }
+      
       
 
       
@@ -331,143 +307,11 @@ class LeBonCoinController extends Controller
   
       return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=');
   }
-  public function newres(){
-    $annonces = LeBonCoin::all(); // Exemple pour récupérer toutes les annonces
-   
-    $user = auth()->user();
-    // Passer les données récupérées à la vue
-    return view('newreservation', ['annonces' => $annonces]);
-    return view('newreservation');
-}
-public function payement(Request $request,$idannonce)
-{
-  if (
-    $request->input("nbadulte") == ""  ||
-    $request->input("nbenfant") == "" ||
-    $request->input("nbbebe") == "" ||
-    $request->input("nbanimaux") == "" ||
-    $request->input("prenom") == "" ||
-    $request->input("nom") == "" ||
-    $request->input("tel") == "" ||
-    $request->input("nbnuitee") == "" ||
-    $request->input("datedebutr") == "" ||
-    $request->input("datefinr") == "" 
-    ) {return redirect('newreservation')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
-  } else {
-    $reservation = new Reservation();
-
-    $reservation->idannonce = $request->input('idannonce');
-
-    return view('payement_reservation');
-  }
-}
-public function showPayementForm($idannonce)
-{
-    // Vous pouvez également ajouter la logique pour récupérer les données associées à $idannonce
-    $annonce = Annonce::find($idannonce);
-    
-    $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
   
-    $user = auth()->user();
 
-    return view('payement_reservation', ['idannonce' => $idannonce]);
-}
-public function ajouterReservation(Request $request,$id)
-    {
-      if (
-        $request->input("nbadulte") == ""  ||
-        $request->input("nbenfant") == "" ||
-        $request->input("nbbebe") == "" ||
-        $request->input("nbanimaux") == "" ||
-        $request->input("prenom") == "" ||
-        $request->input("nom") == "" ||
-        $request->input("tel") == "" ||
-        $request->input("nbnuitee") == "" ||
-        $request->input("datedebutr") == "" ||
-        $request->input("datefinr") == "" 
-        ) {return redirect('newreservation')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
-    } else {
 
-        // Création d'une nouvelle réservation
-        $reservation = new Reservation();
-        $reservation->idreservation = Reservation::max('idreservation')+1;
-        $reservation->idannonce = $request->input('idannonce');
-        $reservation->idcompte = Auth::id();
-        $reservation->idparticulier = Auth::id(); // ID du particulier connecté
-        $reservation->nbadulte = $request->input('nbadulte');
-        $reservation->nbenfant = $request->input('nbenfant');
-        
-        $reservation->nbbebe = $request->input('nbbebe');
-        $reservation->nbanimaux = $request->input('nbanimaux');
-        $reservation->prenom = $request->input('prenom');
-        $reservation->nom = $request->input('nom');
-        $reservation->tel = $request->input('tel');
-        $nbNuits = $request->input('nbnuitee');
 
-    // Utilisation du nombre de nuits récupéré
-    // ... (autres opérations)
-
-    // Sauvegarde de la réservation
-        $reservation->nbnuitee = $nbNuits;
-        $datedebut = $request->input('datedebutr');
-        $datefin = $request->input('datefinr');
-
-    // Utilisez les variables $datedebut et $datefin comme nécessaire dans votre logique de réservation
-
-    // Sauvegarde de la réservation
-    $reservation->datedebutr = $datedebut;
-    $reservation->datefinr = $datefin;
     
-        // Calcul du nombre de nuits
-    
-        // Assigner le nombre de nuits à la réservation
-     
-        $reservation->montantimmediatacompte = $request->has('montantimmediatacompte');
-        // Exemple de calcul pour taxessejour
-        $reservation->montantimmediat = $request->input('montantimmediat');
-        $taxesSejour = $request->input('montantimmediat') * 0.1;
-        $reservation->taxessejour = $taxesSejour;
-
-        // Ajustez les autres calculs selon vos besoins pour les autres champs dérivés
-        
-        // Sauvegarde de la réservation
-        $reservation->save();
-
-        // Redirection vers une page de confirmation ou autre
-        
-        return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->with('success', 'Réservation effectuée avec succès !');
-    }
-  }
-    public function showReservationForm($idannonce) {
-    $annonce = Annonce::find($idannonce);
-    $libelleDateDebut = $annonce->libelledatedebut;
-    $libelleDateFin = $annonce->libelledatefin;
-    $datedebut = $annonce->datedebut;
-    $datefin = $annonce->datefin;
-    $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
-    $numeroTelephone = $compte->tel; // Assurez-vous du nom réel du champ dans la table "compte"
-    $user = auth()->user();
-     $prenom = $user->particulier->prenom;
-    $nom = $user->particulier->nom;
-    $datesDisponibles = Annonce::where('idannonce', $idannonce)->pluck('datedebut', 'datefin');
-    $reservation = Reservation::where('idannonce', $idannonce)->first();
-    $montantimmediatacompte = $reservation->montantimmediatacompte;
-    // D'autres données que vous pourriez avoir besoin
-
-    return view('newreservation', [
-        'idannonce' => $idannonce,
-        'numeroTelephone' => $numeroTelephone,
-        'user' => $user,
-        'datesDisponibles' => $datesDisponibles,
-        'prenom' => $prenom,
-        'nom' => $nom,
-        'montantimmediatacompte' => $montantimmediatacompte,
-        'datedebut' => $datedebut,
-        'datefin' => $datefin,
-        // ... autres données nécessaires à la vue pour afficher le formulaire initial
-    ]);
-      
-  }
   
 }
   

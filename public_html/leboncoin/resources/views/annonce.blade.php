@@ -168,7 +168,7 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
      @if (Auth::user()->compte->codeetatcompte == 13)
      <!-- 9 -->
     <h2>Valider l'annonce</h2>
-    <form method="POST" action="{{ url('oneann') }}">
+    <form method="POST" action="{{ url('oneann') }}">   <!-- oneann de ServiceController.php -->
         @csrf
         <div>Annonce conforme</div>
         <input type="text" value="{{$annonce->idannonce}}" name="id">   <!-- idannonce -->
