@@ -29,7 +29,7 @@ class RechercheController extends Controller
     public function mes_recherches() 
     {
         $recherches = SauvegardeRecherche::all();
-        return view("mes_recherches", compact("recherches"));
+        return view("Search/mes_recherches", compact("recherches"));                                                                    #SearchFolder
     }
   //
 
@@ -44,7 +44,7 @@ class RechercheController extends Controller
             // Récupère les recherches sauvegardées associées à l'utilisateur connecté
             $recherches = $user->sauvegardesRecherches;
         
-            return view('mes_recherches', compact('recherches'));
+            return view('Search/mes_recherches', compact('recherches'));                                                                #SearchFolder
         } else {
             // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
             return redirect('/login');
@@ -117,7 +117,7 @@ class RechercheController extends Controller
         //$searchTermLower = strtolower($searchTerm);
 
 
-        return view('search', ['searchTerm' => $searchTerm]);
+        return view('Search/search', ['searchTerm' => $searchTerm]);                                                                    #SearchFolder
     }
   //
   

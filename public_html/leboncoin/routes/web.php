@@ -144,7 +144,7 @@ use App\Http\Controllers\ImgGDController;
 
 //_______________________________________________.RECHERCHE_CONTROLLER.___________________________________________________//
     //--------------------------------------Recupérer_infos_annonce_grace_a_un_id------------------------------//
-        Route::get("/annoncelist/{id}",[AnnonceController::class, "oneann" ]);
+        Route::get("/annoncelist/{id}",[RechercheController::class, "oneann" ]);
     //--------------------------------------Recherche_par_filtres------------------------------//
         Route::get('/annonce-filtres', [RechercheController::class, 'indexe'])->name('annonce-index');
     //--------------------------------------Recherche_par_filtres_dans_la_carte------------------------------//

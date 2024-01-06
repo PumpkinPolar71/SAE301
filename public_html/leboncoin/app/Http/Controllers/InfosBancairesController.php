@@ -21,7 +21,7 @@ class InfosBancairesController extends Controller
           $enregistres = Enregistre::all();
           $cartes = Carte::all();
 
-          return view("infosbancaires", compact('comptes','cartes','enregistres'));
+          return view("Account/Management/infosbancaires", compact('comptes','cartes','enregistres'));              #AccountFolder #ManagementFolder
         }
     //
 
@@ -34,7 +34,7 @@ class InfosBancairesController extends Controller
 
             $key = 'hfhkffhgjkghfhsgjskjidfhfhsdfhsgdhfssdfgsyfkdshfjdhfu';
 
-            return view("infosbancaires", compact('comptes', 'enregistre', 'cartes'));
+            return view("Account/Management/infosbancaires", compact('comptes', 'enregistre', 'cartes'));           #AccountFolder #ManagementFolder
         }
     //
 }

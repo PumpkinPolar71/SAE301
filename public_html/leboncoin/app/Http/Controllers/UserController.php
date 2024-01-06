@@ -62,19 +62,19 @@ class UserController extends Controller
     
     //_____________________________________.Créer_un_compte_particulier.______________________//
       public function createaccountparticulier() {
-        return view("createaccountparticulier"); 
+        return view("Account/Create/createaccountparticulier");                     #AccountFolder #CreateFolder
       }
     //
 
     //_____________________________________.Créer_un_compte_entreprise.______________________//
       public function createaccountentreprise() {
-        return view("createaccountentreprise"); 
+        return view("Account/Create/createaccountentreprise");                      #AccountFolder #CreateFolder
       }
     //
 
     //_____________________________________.Redirection.______________________//
       public function compte() {
-        return view("compte");
+        return view("Account/Management/compte");                                   #AccountFolder #ManagementFolder
       }
     //
 }
