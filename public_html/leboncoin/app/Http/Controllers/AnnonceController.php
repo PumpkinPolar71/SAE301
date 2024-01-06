@@ -196,7 +196,7 @@ class AnnonceController extends Controller
             $villes = Ville::all();
             $departements = Departement::all();
             $particuliers = Particulier::all();
-            return view("proprio", compact('compte','particuliers','villes','departements'));
+            return view("Annonce/proprio", compact('compte','particuliers','villes','departements'));                 #AnnonceFolder
             }
     //
 
