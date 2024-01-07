@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Autres;
 
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
+
 
 class ImgGDController extends Controller
 {

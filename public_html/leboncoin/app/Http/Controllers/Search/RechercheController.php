@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\search;
+namespace App\Http\Controllers\Search;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Config;
 use App\Http\Controllers\Controller;
 

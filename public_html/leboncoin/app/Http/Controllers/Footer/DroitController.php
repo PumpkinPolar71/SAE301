@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\footer;
+namespace App\Http\Controllers\Footer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 
 class DroitController extends Controller
 {

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Autres;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\Controller;
+
 use App\Models\TypeHebergement;
 use App\Models\Ville;
 use App\Models\LeBonCoin;

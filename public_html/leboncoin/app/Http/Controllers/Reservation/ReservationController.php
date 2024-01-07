@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Reservation;
+
+use App\Http\Controllers\Controller;
+
 use App\Models\Reservation;                     //ReservationController
 use App\Models\Ville;                           
 use App\Models\Annonce;                           

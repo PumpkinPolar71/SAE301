@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Service;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Config;
 use Illuminate\Support\Facades\Storage;
+
+use App\Http\Controllers\Controller;
 
 class ServiceController extends Controller
 {
