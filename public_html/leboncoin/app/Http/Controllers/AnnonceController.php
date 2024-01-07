@@ -49,12 +49,12 @@ class AnnonceController extends Controller
                                         ->get();
         if (Auth::user()) {
           if (Auth::user()->compte->codeetatcompte == 9 ) {
-            return view("Annonce/annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));                #AnnonceFolder
+            return view("annonce/annonceserv", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));                #annonceFolder
           } else {
-            return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/ #AnnonceFolder
+            return view("annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));  // identique à \/ #annonceFolder
           }
         } else {
-          return view("Annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\ #AnnonceFolder
+          return view("annonce/annonce", compact('annonce', 'photos', 'criteres', 'similarFirstWordAds', 'avis','equipements'));    // identique à /\ #annonceFolder
           
         }  
       }
@@ -66,7 +66,7 @@ class AnnonceController extends Controller
         $villes = Ville::all();
         $typesHebergements = TypeHebergement::all();
 
-        return view("Annonce/create_annonce",compact('villes', "typesHebergements"));       #AnnonceFolder
+        return view("annonce/create_annonce",compact('villes', "typesHebergements"));       #annonceFolder
       }
     //
 
@@ -204,7 +204,7 @@ class AnnonceController extends Controller
             $villes = Ville::all();
             $departements = Departement::all();
             $particuliers = Particulier::all();
-            return view("Annonce/proprio", compact('compte','particuliers','villes','departements'));                 #AnnonceFolder
+            return view("annonce/proprio", compact('compte','particuliers','villes','departements'));                 #annonceFolder
           }
     //
 
@@ -254,7 +254,7 @@ class AnnonceController extends Controller
         //     ];
         // }
         
-        return view('/Avis/enregistrer_avis', compact('avisNonValides'));       #AvisFolder
+        return view('avis/enregistrer_avis', compact('avisNonValides'));       #qvisFolder
       }
     //
 
@@ -275,7 +275,7 @@ class AnnonceController extends Controller
         $annoncesNonVerifiees = LeBonCoin::where('codeetattelverif', false)->get();
         $particuliers = Particulier::all();
 
-          return view('Service/Service_Petites_Annonces/validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);      #ServiceFolder #Service_Petites_AnnoncesFolder
+          return view('service/service_petites_annonces/validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);      #serviceFolder #service_petites_annoncesFolder
       }
     //
 

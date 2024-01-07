@@ -48,7 +48,7 @@ class LeBonCoinController extends Controller
 {
   //_______________________________________________.Lier_photos_aux_annonces.___________________________________________________//
     public function index() {
-        return view ("Search/annoncelist", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);                                  #SearchFolder
+        return view ("search/annoncelist", ['annonces'=>LeBonCoin::all() ], ['photo'=>Photo::all() ]);                                  #searchFolder
     }
   //
 
@@ -68,10 +68,10 @@ class LeBonCoinController extends Controller
 
   //_______________________________________________.Redirections.___________________________________________________//
     public function connect() {
-      return view("Account/Login/connect");                                                           #AccountFolder #LoginFolder
+      return view("account/login/connect");                                                           #accountFolder #loginFolder
     }
     public function redirection() {
-      return view("Account/redirection");                                                             #AccountFolder
+      return view("account/redirection");                                                             #AccountFolder
     }
   //
 

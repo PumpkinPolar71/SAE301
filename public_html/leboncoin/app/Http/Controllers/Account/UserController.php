@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\account;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,19 +65,19 @@ class UserController extends Controller
     
     //_____________________________________.Créer_un_compte_particulier.______________________//
       public function createaccountparticulier() {
-        return view("Account/Create/createaccountparticulier");                     #AccountFolder #CreateFolder
+        return view("account/create/createaccountparticulier");                     #accountFolder #createFolder
       }
     //
 
     //_____________________________________.Créer_un_compte_entreprise.______________________//
       public function createaccountentreprise() {
-        return view("Account/Create/createaccountentreprise");                      #AccountFolder #CreateFolder
+        return view("account/create/createaccountentreprise");                      #accountFolder #createFolder
       }
     //
 
     //_____________________________________.Redirection.______________________//
       public function compte() {
-        return view("Account/Management/compte");                                   #AccountFolder #ManagementFolder
+        return view("account/management/compte");                                   #accountFolder #managementFolder
       }
     //
 }

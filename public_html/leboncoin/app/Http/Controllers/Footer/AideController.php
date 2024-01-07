@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Footer;
+namespace App\Http\Controllers\footer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,15 +8,15 @@ use App\Http\Controllers\Controller;
 class AideController extends Controller
 {
     public function aide() {
-        return view("Footer/Help/aide");                #FooterFolder #HelpFolder
+        return view("footer/help/aide");                #footerFolder #helpFolder
     }
     public function aidecompte() {
-        return view("Footer/Help/aidecompte");          #FooterFolder #HelpFolder
+        return view("footer/help/aidecompte");          #footerFolder #helpFolder
     }
     public function aideannonce() {
-        return view("Footer/Help/aideannonce");         #FooterFolder #HelpFolder
+        return view("footer/help/aideannonce");         #footerFolder #helpFolder
     }
     public function aideres() {
-        return view("Footer/Help/aideres");             #FooterFolder #HelpFolder
+        return view("footer/help/aideres");             #footerFolder #HelpFolder
     }
 }

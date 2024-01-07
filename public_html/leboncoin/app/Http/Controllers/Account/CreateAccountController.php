@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\account;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class CreateAccountController extends Controller
 {
   //_______________________________________________.Choix_entre_Particulier_ou_Entreprise.___________________________________________________//
     public function createaccount() {
-      return view("Account/Create/createaccount");                                                                                                      #AccountFolder #CreateFolder
+      return view("account/create/createaccount");                                                                                                      #accountFolder #createFolder
     }
   //
 

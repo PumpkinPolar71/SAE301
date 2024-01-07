@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Search;
+namespace App\Http\Controllers\search;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -29,7 +29,7 @@ class RechercheController extends Controller
     public function mes_recherches() 
     {
         $recherches = SauvegardeRecherche::all();
-        return view("Search/mes_recherches", compact("recherches"));                                                                    #SearchFolder
+        return view("search/mes_recherches", compact("recherches"));                                                                    #searchFolder
     }
   //
 
@@ -44,7 +44,7 @@ class RechercheController extends Controller
             // Récupère les recherches sauvegardées associées à l'utilisateur connecté
             $recherches = $user->sauvegardesRecherches;
         
-            return view('Search/mes_recherches', compact('recherches'));                                                                #SearchFolder
+            return view('search/mes_recherches', compact('recherches'));                                                                #searchFolder
         } else {
             // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
             return redirect('/login');
@@ -56,7 +56,7 @@ class RechercheController extends Controller
     public function oneann($id) {
       $id = $id;
       $villes = Ville::all();//find($id)
-    return view("Search/annoncelist", compact('id','villes'));                                                                          #SearchFolder
+    return view("search/annoncelist", compact('id','villes'));                                                                          #searchFolder
     }
   //
 
@@ -70,7 +70,7 @@ class RechercheController extends Controller
         $annonces = LeBonCoin::all(); 
         $reservations = Reservation::all();
         
-        return view('Search/annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #SearchFolder
+        return view('search/annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #searchFolder
     }
   //
 
@@ -84,7 +84,7 @@ class RechercheController extends Controller
       $annonces = LeBonCoin::all(); 
       $reservations = Reservation::all();
       
-      return view('Search/annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));       #SearchFolder
+      return view('search/annonce-carte',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));       #searchFolder
     }
   //
   
@@ -117,7 +117,7 @@ class RechercheController extends Controller
         //$searchTermLower = strtolower($searchTerm);
 
 
-        return view('Search/search', ['searchTerm' => $searchTerm]);                                                                    #SearchFolder
+        return view('search/search', ['searchTerm' => $searchTerm]);                                                                    #searchFolder
     }
   //
   

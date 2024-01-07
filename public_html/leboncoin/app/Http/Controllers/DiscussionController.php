@@ -9,7 +9,7 @@ class DiscussionController extends Controller
     //_______________________________________________.Redirection.___________________________________________________//
         public function mes_messages()
         {
-            return redirect('/Discussion/mes_messages');            #DiscussionFolder
+            return redirect('/discussion/mes_messages');            #discussionFolder
         }
     //
 }

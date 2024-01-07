@@ -23,7 +23,7 @@ class FavorisController extends Controller
             $photos = Photo::all();
             $villes = Ville::all();
         
-            return view('favoris', compact('favoris', "annonces", "photos","villes"));
+            return view('account/management/favoris', compact('favoris', "annonces", "photos","villes"));           #accountFolder #managementFolder
         }
     //
 

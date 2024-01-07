@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Footer;
+namespace App\Http\Controllers\footer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,15 +9,15 @@ use App\Http\Controllers\Controller;
 class DroitController extends Controller
 {
     public function cookie() {
-        return view("Footer/Legislation/cookie");           #FooterFolder #LegislationFolder
+        return view("footer/legislation/cookie");           #footerFolder #legislationFolder
     }
     public function politique() {
-        return view("Footer/Legislation/politique");        #FooterFolder #LegislationFolder
+        return view("footer/legislation/politique");        #footerFolder #legislationFolder
     }
-    public function registre() {
-        return view("Footer/Legislation/registre");         #FooterFolder #LegislationFolder
+        public function registre() {
+        return view("footer/legislation/registre");         #footerFolder #legislationFolder
     }
     public function contrat() {
-        return view("Footer/Legislation/contrat");          #FooterFolder #LegislationFolder
+        return view("footer/legislation/contrat");          #footerFolder #legislationFolder
     }
 }

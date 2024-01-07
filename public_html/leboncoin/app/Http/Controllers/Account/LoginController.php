@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\account;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

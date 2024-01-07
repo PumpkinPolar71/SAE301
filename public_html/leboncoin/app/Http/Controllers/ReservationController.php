@@ -17,7 +17,7 @@ class ReservationController extends Controller
             $id = $id;
             $villes = Ville::all();
             $annonces = Annonce::all();//find($id)
-            return view("Reservation/reservationlist", compact('id', "villes", "annonces"));            #ReservationFolder
+            return view("reservation/reservationlist", compact('id', "villes", "annonces"));            #reservationFolder
         }
     //
 
@@ -31,7 +31,7 @@ class ReservationController extends Controller
                             ->join('reservation', 'reservation.idannonce', '=', 'annonce.idannonce')
                             ->where('idreservation', $id)
                             ->get();
-            return view("Reservation/reservation", compact('reservation', 'annonce', 'photos'));            #ReservationFolder
+            return view("reservation/reservation", compact('reservation', 'annonce', 'photos'));            #reservationFolder
         }
     //
     
@@ -41,8 +41,8 @@ class ReservationController extends Controller
         
             $user = auth()->user();
             // Passer les données récupérées à la vue
-            return view('Reservation/newreservation', ['annonces' => $annonces]);                   #ReservationFolder
-            return view('Reservation/newreservation');                                              #ReservationFolder
+            return view('reservation/newreservation', ['annonces' => $annonces]);                   #reservationFolder
+            return view('reservation/newreservation');                                              #reservationFolder
         }
     //
 
@@ -116,7 +116,7 @@ class ReservationController extends Controller
     //
 
     //_____________________________________.Afficher_le_formulaire_de_réservation.______________________//
-        public function showReservationForm($idannonce) 
+        public function showreservationForm($idannonce) 
         {
             $annonce = Annonce::find($idannonce);
             $libelleDateDebut = $annonce->libelledatedebut;
@@ -133,7 +133,7 @@ class ReservationController extends Controller
             // $montantimmediatacompte = $reservation->montantimmediatacompte;
             $montantimmediatacompte = $annonce->libprix;
         
-            return view('Reservation/newreservation', [                                                         #ReservationFolder
+            return view('reservation/newreservation', [                                                         #reservationFolder
                 'idannonce' => $idannonce,
                 'numeroTelephone' => $numeroTelephone,
                 'user' => $user,
@@ -158,7 +158,7 @@ class ReservationController extends Controller
         
             $user = auth()->user();
         
-            return view('Reservation/payement_reservation', ['idannonce' => $idannonce]);                                       #ReservationFolder
+            return view('reservation/payement_reservation', ['idannonce' => $idannonce]);                                       #reservationFolder
         }
     //
 
@@ -185,7 +185,7 @@ class ReservationController extends Controller
             
               $reservation->idannonce = $request->input('idannonce');
             
-              return view('Reservation/payement_reservation');                                                                      #ReservationFolder
+              return view('reservation/payement_reservation');                                                                      #reservationFolder
             }
         }
     //

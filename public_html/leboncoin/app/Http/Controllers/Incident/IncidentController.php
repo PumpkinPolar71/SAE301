@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Incident;
+namespace App\Http\Controllers\incident;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -45,7 +45,7 @@ class IncidentController extends Controller
       {
         $annonces = Annonce::all();
         $incidents = Incident::all();
-        return view('Incident/incidentclass', compact('incidents',"annonces"));             #IncidentFolder
+        return view('incident/incidentclass', compact('incidents',"annonces"));             #incidentFolder
       }
     //
 
@@ -94,7 +94,7 @@ class IncidentController extends Controller
       
         // dd($incidents);
 
-        return view('Incident/mes_incidents', compact('incidents','annonces'));           #IncidentFolder
+        return view('incident/mes_incidents', compact('incidents','annonces'));           #incidentFolder
       }
     //
 

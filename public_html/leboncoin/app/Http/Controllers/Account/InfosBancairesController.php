@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace App\Http\Controllers\account;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,7 @@ class InfosBancairesController extends Controller
           $enregistres = Enregistre::all();
           $cartes = Carte::all();
 
-          return view("Account/Management/infosbancaires", compact('comptes','cartes','enregistres'));              #AccountFolder #ManagementFolder
+          return view("account/management/infosbancaires", compact('comptes','cartes','enregistres'));              #accountFolder #managementFolder
         }
     //
 
@@ -36,7 +36,7 @@ class InfosBancairesController extends Controller
 
             $key = 'hfhkffhgjkghfhsgjskjidfhfhsdfhsgdhfssdfgsyfkdshfjdhfu';
 
-            return view("Account/Management/infosbancaires", compact('comptes', 'enregistre', 'cartes'));           #AccountFolder #ManagementFolder
+            return view("account/management/infosbancaires", compact('comptes', 'enregistre', 'cartes'));           #accountFolder #managementFolder
         }
     //
 }
