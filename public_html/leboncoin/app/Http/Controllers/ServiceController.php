@@ -21,7 +21,7 @@ class ServiceController extends Controller
             $villes = Ville::all();
             $annonces = LeBonCoin::all();
             $photos = Photo::all();
-            return view("serviceimmobilier",compact('annonces', "photos", "villes"));
+            return view("Service/Service_Immobilier/serviceimmobilier",compact('annonces', "photos", "villes"));            #ServiceFolder #Service_ImmobilierFolder
         }
     //
 
@@ -51,7 +51,7 @@ class ServiceController extends Controller
         public function createheb() {
             $typehebergements = TypeHebergement::all();
             $equipements = Equipement::all();
-            return view("createheb",compact('typehebergements', "equipements"));
+            return view("Service/Service_Annonce/createheb",compact('typehebergements', "equipements"));            #ServiceFolder #Service_AnnonceFolder
         }
     //
 
@@ -66,7 +66,7 @@ class ServiceController extends Controller
             }
             $typehebergements = TypeHebergement::all();
             $equipements = Equipement::all();
-            return view("createheb",compact('typehebergements', "equipements"));
+            return view("Service/Service_Annonce/createheb",compact('typehebergements', "equipements"));                #ServiceFolder #Service_AnnonceFolder
         }
     //
 
@@ -80,7 +80,7 @@ class ServiceController extends Controller
             }
             $typehebergements = TypeHebergement::all();
             $equipements = Equipement::all();
-            return view("createheb",compact('typehebergements', "equipements"));
+            return view("Service/Service_Annonce/createheb",compact('typehebergements', "equipements"));                #ServiceFolder #Service_AnnonceFolder
         }
     //
 
@@ -95,7 +95,7 @@ class ServiceController extends Controller
             $comptes = Compte::all();
             $reservationsParAnnonce = $reservations->groupBy('idannonce');
         
-            return view('inscription-attente', compact('reservations' , 'particuliers' , 'annonces', 'reservationsParAnnonce', 'entreprises', 'comptes')) ;
+            return view('Service/Service_Inscription/inscription-attente', compact('reservations' , 'particuliers' , 'annonces', 'reservationsParAnnonce', 'entreprises', 'comptes')) ;         #ServiceFolder #Service_InscriptionFolder
         }
     //
 }

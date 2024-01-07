@@ -254,7 +254,7 @@ class AnnonceController extends Controller
         //     ];
         // }
         
-        return view('enregistrer_avis', compact('avisNonValides'));
+        return view('/Avis/enregistrer_avis', compact('avisNonValides'));       #AvisFolder
       }
     //
 
@@ -275,7 +275,7 @@ class AnnonceController extends Controller
         $annoncesNonVerifiees = LeBonCoin::where('codeetattelverif', false)->get();
         $particuliers = Particulier::all();
 
-          return view('validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);
+          return view('Service/Service_Petites_Annonces/validationtel', [ 'annoncesNonValidees'=>$annoncesNonVerifiees, "particuliers"=>$particuliers ]);      #ServiceFolder #Service_Petites_AnnoncesFolder
       }
     //
 
