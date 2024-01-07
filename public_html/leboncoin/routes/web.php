@@ -6,29 +6,29 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\LeBonCoinController;
-use App\Http\Controllers\SiteController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\FiltreController;
+use App\Http\Controllers\Autres\SiteController;
+use App\Http\Controllers\Search\SearchController;
+use App\Http\Controllers\Autres\FiltreController;
 use App\Http\Controllers\Account\LoginController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\GeocodeController;
+use App\Http\Controllers\Service\ServiceController;
+// use App\Http\Controllers\GeocodeController;
 use App\Http\Controllers\Account\CreateAccountController;
-use App\Http\Controllers\EncryptionController;
+// use App\Http\Controllers\EncryptionController;
 
-use App\Http\Controllers\UploadController;
-use App\Http\Controllers\AnnonceController;
-use App\Http\Controllers\CalendrierController;
-use App\Http\Controllers\FavorisController;
+// use App\Http\Controllers\UploadController;
+use App\Http\Controllers\Annonce\AnnonceController;
+// use App\Http\Controllers\CalendrierController;
+use App\Http\Controllers\Account\FavorisController;
 use App\Http\Controllers\Incident\IncidentController;
 use App\Http\Controllers\Account\InfosBancairesController;
-use App\Http\Controllers\LocalisationController;
+// use App\Http\Controllers\LocalisationController;
 use App\Http\Controllers\Footer\AideController;
-use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Reservation\ReservationController;
 use App\Http\Controllers\Search\RechercheController;
 use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\Footer\DroitController;
-use App\Http\Controllers\DiscussionController;
-use App\Http\Controllers\ImgGDController;
+use App\Http\Controllers\Discussion\DiscussionController;
+use App\Http\Controllers\Autres\ImgGDController;
 
 /*
 |--------------------------------------------------------------------------
