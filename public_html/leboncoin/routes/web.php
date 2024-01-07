@@ -19,7 +19,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\FavorisController;
-use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\Incident\IncidentController;
 use App\Http\Controllers\Account\InfosBancairesController;
 use App\Http\Controllers\LocalisationController;
 use App\Http\Controllers\Footer\AideController;

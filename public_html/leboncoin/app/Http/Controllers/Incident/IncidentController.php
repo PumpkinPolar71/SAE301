@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Incident;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use App\Models\Incident;                        //IncidentController
 
 use App\Models\LeBonCoin;                       //AnnonceController
@@ -40,7 +42,7 @@ class IncidentController extends Controller
       {
         $annonces = LeBonCoin::all();
         $incidents = Incident::all();
-        return view('incidentclass', compact('incidents',"annonces"));
+        return view('Incident/incidentclass', compact('incidents',"annonces"));             #IncidentFolder
       }
     //
 
@@ -75,7 +77,7 @@ class IncidentController extends Controller
           $annonces = LeBonCoin::all();
           $user = Auth::user();
           $incidents = $user->incidents;
-          return view('mes_incidents', compact('incidents','annonces'));
+          return view('Incident/mes_incidents', compact('incidents','annonces'));           #IncidentFolder
       }
     //
 
