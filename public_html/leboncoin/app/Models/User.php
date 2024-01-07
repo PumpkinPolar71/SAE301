@@ -36,10 +36,10 @@ class User extends Authenticatable
         return $this->belongsTo(ville::class, 'idville', 'idville');
     }
 
-    public function incidents()
+    public function reservations()
     {
-        return $this->hasManyThrough(Incident::class, Annonce::class, 'idcompte', 'idannonce'); 
-    }
+        return $this->hasMany(Reservation::class, 'idcompte');
+    }           //mes_incidents.blade.php
 
     public function sauvegardesRecherches()
     {

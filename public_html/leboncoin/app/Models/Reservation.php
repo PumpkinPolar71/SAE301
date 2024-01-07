@@ -20,13 +20,10 @@ class Reservation extends Model
     {
         return $this->belongsTo(Annonce::class, 'idannonce');
     }
-
     public function incidents()
     {
-        return $this->hasMany(Incident::class, 'idreservation');
-    }
-    
-    
+        return $this->hasMany(Incident::class, 'idannonce');
+    }                     //mes_incidents.blade.php
     public function particulier()
     {
         return $this->belongsTo(Particulier::class, 'idparticulier');

@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Incident;                        //IncidentController
-
-use App\Models\LeBonCoin;                       //AnnonceController
-use App\Models\Annonce;                         //AnnonceController
+use App\Models\Reservation;
+use App\Models\Annonce;                         //AnnonceController                   
 use App\Models\TypeHebergement;                 //AnnonceController
 use App\Models\ConditionHebergement;            //AnnonceController
 use App\Models\Photo;                           //AnnonceController
@@ -78,10 +77,24 @@ class IncidentController extends Controller
     //_____________________________________.Voir_mes_incidents.______________________//
       public function mesIncidents()
       {
-          $annonces = LeBonCoin::all();
-          $user = Auth::user();
-          $incidents = $user->incidents;
-          return view('Incident/mes_incidents', compact('incidents','annonces'));           #IncidentFolder
+        $annonces = Annonce::all();
+        $user = Auth::user();
+          
+        $reservations = $user->reservations;
+          
+        $incidents = collect();
+          
+        foreach ($reservations as $reservation) {
+            // Vérifiez si la relation $reservation->incidents est non nulle
+            if ($reservation->incidents) {
+                // Ajoutez chaque incident à la collection
+                $incidents = $incidents->merge($reservation->incidents);
+            }
+        }
+      
+        // dd($incidents);
+
+        return view('Incident/mes_incidents', compact('incidents','annonces'));           #IncidentFolder
       }
     //
 
