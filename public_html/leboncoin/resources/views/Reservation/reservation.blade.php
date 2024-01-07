@@ -30,17 +30,17 @@
 </div>
 <p class="">{{ $reservation->datedebut }} - {{ $reservation->datefin }}</p>
 <h1>{{$annonce->titreannonce}}</h1>
-<h1>Caractéristique</h1>
-<div>Nombre d'adulte : {{ $reservation->nbadulte }}</div>
-<div>Nombre d'enfant : {{ $reservation->nbenfant }}</div>
-<div>Nombre de bébé : {{ $reservation->nbbebe }}</div>
+<h1>Caractéristiques</h1>
+<div>Nombre d'adultes : {{ $reservation->nbadulte }}</div>
+<div>Nombre d'enfants : {{ $reservation->nbenfant }}</div>
+<div>Nombre de bébés : {{ $reservation->nbbebe }}</div>
 <div>Nombre d'animaux : {{ $reservation->nbanimaux }}</div>
-<div>Nombre de nuit : {{ $reservation->nbnuitee }}</div>
-<h2>Commentaire</h2>
+<div>Nombre de nuits : {{ $reservation->nbnuitee }}</div>
+<h2>Commentaires</h2>
 <p class="descr">{{ $reservation->message }}</p>
 <h2>Signaler un problème</h2>
 
-<form method="post" action="{{ url("/annonce/incidentsave/") }}">
+<form method="post" action="{{ url('/reservation/incidentsave/') }}">
     @csrf
     <input type='hidden' name = 'id' value = '{{$reservation->idannonce}}' >
     <!-- Autres champs de formulaire -->

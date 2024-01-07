@@ -24,14 +24,18 @@ class IncidentController extends Controller
       public function incidentsave(Request $request) {
        
         $incident = new Incident();
+        $incident->idincident = Incident::max('idincident') + 1;
         
-        $incident->idannonce = $request->input('id');
+        $incident->idannonce = (int)$request->input('id');
+        
         $incident->remboursement = false;
         $incident->procedurejuridique = false;
         $incident->resolu = false;
         $incident->commentaire = $request->input("commentaire");
+        
         $incident->save();
         // Mettre à jour le prochain ID pour le prochain incident
+
         
         return redirect('/compte')->withInput()->with("incident", 'signalement créé');
       }
@@ -40,7 +44,7 @@ class IncidentController extends Controller
     //_____________________________________.Incident_?.______________________//
       public function indexIncident()
       {
-        $annonces = LeBonCoin::all();
+        $annonces = Annonce::all();
         $incidents = Incident::all();
         return view('Incident/incidentclass', compact('incidents',"annonces"));             #IncidentFolder
       }

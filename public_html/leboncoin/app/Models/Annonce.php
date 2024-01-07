@@ -9,10 +9,8 @@ class Annonce extends Model
 {
     use HasFactory;
 
-    protected $table = 'annonce'; // Si le nom de la table est différent de la convention
-
-    protected $primaryKey = 'idannonce'; // Si la clé primaire est différente de 'id'
-
+    protected $table = 'annonce';
+    protected $primaryKey = 'idannonce';
     public $timestamps = false;
 
     protected $fillable = [
@@ -31,7 +29,6 @@ class Annonce extends Model
     ];
     
 
-    // Exemple de relation avec un utilisateur
     public function user()
     {
         return $this->belongsTo(User::class, 'idcompte');
@@ -44,5 +41,36 @@ class Annonce extends Model
     {
         return $this->hasMany(Reservation::class, 'idannonce', 'idannonce');
     }
-    // Exemple d'autres relations ou méthodes en fonction de tes besoins
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'idannonce');
+    }
+    public function annonce()
+    {
+        return $this->belongsTo('App\Models\Annonce', 'idannonce');
+    }
+    public function annonceS()
+    {
+        return $this->hasOne(Annonce::class, 'idannonce');
+    }
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+    public function criteres()
+    {
+        return $this->hasMany(Critere::class, 'idcritere');
+    }
+    public function avis()
+    {
+        return $this->hasMany(Avis::class, 'idannonce', 'idannonce');
+    }
+    public function equipements()
+    {
+        return $this->belongsToMany(Equipement::class, 'recueille', 'idannonce', 'idequipement');
+    }
+    public function conditionHebergement()
+    {
+        return $this->belongsTo(ConditionHebergement::class, 'idconditionh');
+    }
 }

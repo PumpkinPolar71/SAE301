@@ -27,15 +27,23 @@ class AnnonceController extends Controller
 {
     //_____________________________________.Récupérer_infos_annonce_grace_a_un_id.______________________//
       public function one($id) {
+
+        // if (!is_numeric($id)) {
+        //   //faire un truc
+        //   return redirect()->back()->with('error', 'ID invalide');
+        // }
+        $id = (int)$id;
+
+
         $photos = Photo::where('idannonce', $id)->get();
-        $annonce = LeBonCoin::find($id);
+        $annonce = Annonce::find($id);
         $criteres = $annonce->criteres->pluck('libellecritere')->toArray();
         $equipements = $annonce->equipements()->pluck('nomequipement')->toArray();
   
         $words = explode(' ', $annonce->titreannonce);
         $firstWord = strtolower($words[0]);
         $avis = $annonce->avis->pluck('commentaire')->toArray();
-        $similarFirstWordAds = LeBonCoin::join('photo', 'photo.idannonce', '=', 'annonce.idannonce')
+        $similarFirstWordAds = Annonce::join('photo', 'photo.idannonce', '=', 'annonce.idannonce')
                                         ->whereRaw('LOWER(SPLIT_PART(titreannonce, \' \', 1)) = ?', [$firstWord])
                                         ->where('annonce.idannonce', '<>', $id) // Exclure l'annonce principale
                                         ->get();
@@ -89,7 +97,7 @@ class AnnonceController extends Controller
           $conditionHebergement->libellecondition = $libelleCondition;
           $conditionHebergement->idconditionh = ConditionHebergement::max('idconditionh')+1;
       
-          $annonce = new LeBonCoin();
+          $annonce = new Annonce();
           $annonce->idconditionh = ConditionHebergement::max('idconditionh')+1;
           $conditionHebergement->save();
       
@@ -102,7 +110,7 @@ class AnnonceController extends Controller
           // Récupérer l'id condition hébergement nouvellement créé
             $idConditionHebergement = $conditionHebergement->idconditionh;
       
-            $annonce->idannonce = LeBonCoin::max('idannonce')+1;
+            $annonce->idannonce = Annonce::max('idannonce')+1;
             $annonce->idcompte = Auth::id(); // Associer l'annonce à l'utilisateur connecté
             //$annonce->identreprise = false;
             $annonce->idville = $idVille; // Associer l'annonce à la ville sélectionnée
@@ -191,13 +199,13 @@ class AnnonceController extends Controller
 
     //_____________________________________.Afficher_le_proprietaire_de_l'annonce.______________________//
           public function proprio($id) {
-            // $annonces = LeBonCoin::find($id);
+            // $annonces = Annonce::find($id);
             $compte = Compte::find($id);
             $villes = Ville::all();
             $departements = Departement::all();
             $particuliers = Particulier::all();
             return view("Annonce/proprio", compact('compte','particuliers','villes','departements'));                 #AnnonceFolder
-            }
+          }
     //
 
     //_____________________________________.Deposer_un_avis.______________________//

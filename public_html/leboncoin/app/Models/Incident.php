@@ -18,12 +18,15 @@ class Incident extends Model
         'commentaire',
         'procedurejuridique',
         'resolu'];
-        // ... autres champs
-        public function annonces()
+        
+    public function annonces()
     {
-        return $this->belongsTo(Annonce::class, 'idannonce');
+    return $this->belongsTo(Annonce::class, 'idannonce');
     }
-
+    public function annonce()
+    {
+        return $this->belongsTo(Annonce::class, 'idannonce', 'idannonce');
+    }
     public function incidents()
     {
         return $this->hasMany(Incident::class, 'idreservation');

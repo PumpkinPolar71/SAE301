@@ -100,9 +100,13 @@ if($data){
         const crit = document.getElementById("crit").innerHTML;
         const crite = document.getElementById("crit");
         const char = crit.split(" ")
+        const br = document.createElement("br");
         //console.log(crit, crite) 
         //console.log(char[0],char[1],char[2])
-        crite.innerHTML = "Nombre d'étoile : "+char[0]+"/5"+"\nCapacité : "+char[1]+"\nNombre de chambre : "+char[2]
+        // crite.innerHTML = "Nombre d'étoiles : "+char[0]+"/5"+"\nCapacité : "+char[1]+"\nNombre de chambres : "+char[2]
+        crite.innerHTML = "Nombre d'étoiles : " + char[0] + "/5" + br.outerHTML +
+                           "Capacité : " + char[1] + br.outerHTML +
+                           "Nombre de chambres : " + char[2];
     })
 </script>
 
@@ -158,7 +162,7 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
         $prix = $libsPrix[$index];
 
         // Affiche la paire de dates avec le prix
-        echo "<p class='datedebut'>De $dateDebutFormattee à $dateFinFormattee au prix de $prix €</p>";
+        echo "<p class='datedebut'>De $dateDebutFormattee à $dateFinFormattee au prix de $prix € la nuit.</p>";
     }
 }
 ?>

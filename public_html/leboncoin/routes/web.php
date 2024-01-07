@@ -74,7 +74,6 @@ use App\Http\Controllers\ImgGDController;
     //------------------------------------affiche_l'annonce-------------------------------------//
         Route::get("/annonce/{id}",[AnnonceController::class, "one" ]);
         Route::post("/annonce/{id}",[AnnonceController::class, "one" ]);
-
     //------------------------------------Créer_une_nouvelle_annonce-------------------------------------//
         Route::get("/createAnnonce",[ AnnonceController::class, "add" ]);
         Route::post("/ajouterAnnonce",[ AnnonceController::class, "ajouterAnnonce" ]);
@@ -91,10 +90,10 @@ use App\Http\Controllers\ImgGDController;
 
 //_______________________________________________.INCIDENT_CONTROLLER.___________________________________________________//
     //--------------------------------------Sauvegarder_un_incident------------------------------//
-        Route::post('/annonce/incidentsave', [IncidentController::class, 'incidentsave']);
+        Route::post('/reservation/incidentsave', [IncidentController::class, 'incidentsave']);
 
     //--------------------------------------afficherliste_incident------------------------------//
-        Route::get('/incident', [IncidentController::class, 'indexIncident']);
+        Route::get('/annonce/incident', [IncidentController::class, 'indexIncident']);
 
     //--------------------------------------Classer_un_incident_sans_suite------------------------------//
         Route::post('/classement-sans-suite/{id}', [IncidentController::class, 'classementSansSuite']);
