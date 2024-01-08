@@ -28,7 +28,7 @@ class DroitController extends Controller
         $comptes = Compte::All();
         $particuliers = Particulier::All();
         $entreprises = Entreprise::All();
-        $villes = Villes::All();
+        $villes = Ville::All();
         return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes"));        #footerFolder #legislationFolder
     }
 }
