@@ -26,6 +26,8 @@ class IncidentController extends Controller
         $incident->idincident = Incident::max('idincident') + 1;
         
         $incident->idannonce = (int)$request->input('id');
+
+        
         
         $incident->remboursement = false;
         $incident->procedurejuridique = false;
