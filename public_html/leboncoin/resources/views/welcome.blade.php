@@ -28,6 +28,15 @@
         })
     })*/
 </script>
+<script>
+        var botmanWidget = {
+            aboutText: '',
+            introMessage: "Bienvenue dans notre site web"
+        };
+    </script>
+   
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
 </div>
 <?php
 

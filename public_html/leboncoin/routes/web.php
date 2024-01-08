@@ -28,6 +28,7 @@ use App\Http\Controllers\Account\UserController;
 use App\Http\Controllers\Footer\DroitController;
 use App\Http\Controllers\Discussion\DiscussionController;
 use App\Http\Controllers\Autres\ImgGDController;
+use App\Http\Controllers\BotManController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +93,7 @@ use App\Http\Controllers\Autres\ImgGDController;
         Route::post('/reservation/incidentsave', [IncidentController::class, 'incidentsave']);
 
     //--------------------------------------afficherliste_incident------------------------------//
-        Route::get('/annonce/incident', [IncidentController::class, 'indexIncident']);
+        Route::get('/incident', [IncidentController::class, 'indexIncident']);
 
     //--------------------------------------Classer_un_incident_sans_suite------------------------------//
         Route::post('/classement-sans-suite/{id}', [IncidentController::class, 'classementSansSuite']);
@@ -196,6 +197,7 @@ use App\Http\Controllers\Autres\ImgGDController;
         Route::get('/registre', [DroitController::class, 'registre']);
         Route::get('/contrat', [DroitController::class, 'contrat']);
         Route::get('/mesinfoperso', [DroitController::class, 'mesinfoperso']);
+        Route::POST('/supprinfo', [DroitController::class, 'supprinfo']);
 //
 
 //_______________________________________________.AVIS.___________________________________________________//
@@ -254,3 +256,6 @@ use App\Http\Controllers\Autres\ImgGDController;
         Route::get('/mes_messages', [DiscussionController::class, 'mes_messages']);
 //
 
+//_________________________________________________.BOTMAN._______________________________________//
+
+Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\BotManController@handle');

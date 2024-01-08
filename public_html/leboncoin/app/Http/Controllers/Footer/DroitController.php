@@ -10,6 +10,7 @@ use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
 use App\Models\Carte;
+use App\Models\Enregistre;
 
 class DroitController extends Controller
 {
@@ -19,7 +20,7 @@ class DroitController extends Controller
     public function politique() {
         return view("footer/legislation/politique");        #footerFolder #legislationFolder
     }
-        public function registre() {
+    public function registre() {
         return view("footer/legislation/registre");         #footerFolder #legislationFolder
     }
     public function contrat() {
@@ -31,6 +32,26 @@ class DroitController extends Controller
         $entreprises = Entreprise::All();
         $villes = Ville::All();
         $cartes = Carte::All();
-        return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes", "cartes"));        #footerFolder #legislationFolder
+        $enregistres = Enregistre::All();
+        return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes", "cartes", "enregistres"));        #footerFolder #legislationFolder
+    }
+    public function supprinfo() {
+        //if (Auth::user()) {
+            //$comptes = Compte::All();
+            //foreach ($comptes as $compte) {
+            ///    if ($compte->idcompte == Auth::user()->compte->idcompte) {
+
+            //    } else {
+    //             $table->foreign('idcompte')
+    //   ->references('id')->on('compte')
+    //   ->onDelete('cascade');
+      //Auth::logout();
+                    //return redirect('/');
+            //    }
+            //}
+            return view("footer/legislation/contrat");
+        //} else {
+            //mesinfoperso();
+        //}
     }
 }

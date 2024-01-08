@@ -39,6 +39,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Incident::class, 'idcompte');
     }       //mes_incidents.blade.php
+    public function annoncesDeposees()
+    {
+        return $this->hasMany(Annonce::class, 'idannonce');
+    }       //mes_incidents.blade.php
 
     public function sauvegardesRecherches()
     {

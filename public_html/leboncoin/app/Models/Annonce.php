@@ -28,7 +28,7 @@ class Annonce extends Model
         'resolu',
     ];
     
-
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'idcompte');

@@ -80,13 +80,14 @@ class IncidentController extends Controller
       {
         $annonces = Annonce::all();
         $user = Auth::user();
-          
+
         // Récupérer les incidents associés à l'utilisateur via la relation dans le modèle User
         $incidents = $user->incidents;
+        $annonceDeposee = $user->annoncesDeposees;
       
         // dd($incidents);
 
-        return view('incident/mes_incidents', compact('incidents','annonces'));           #incidentFolder
+        return view('incident/mes_incidents', compact('incidents','annonces','annonceDeposee'));           #incidentFolder
       }
     //
 

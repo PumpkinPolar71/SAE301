@@ -11,7 +11,6 @@
             @foreach($villes as $ville)
                 @if ($ville->idville == $compte->idville)
                     <div>Adresse ville : <p style="display:inline;">{{$ville->nomville}}</p></div>
-                @else 
                 @endif
             @endforeach
             <div>Adresse Code Postal : <p style="display:inline;">{{$compte->adressecpcompte}}</p></div>
@@ -30,15 +29,24 @@
                     ?>
                     <div>Date de naissance : <p style="display:inline;">{{$dateFormattee}}</p></div>
                     <div>Téléphone : <p style="display:inline;">{{$particulier->numtelparticulier}}</p></div>
-                @else 
                 @endif
             @endforeach
-            @foreach ($cartes as $carte)
-                @if ($carte->idcompte == $compte->idcompte)
-            @endforeach
-        @else 
+            <h2>Informations bancaires</h2>
+            @foreach ($enregistres as $enregistre)
+                @foreach ($cartes as $carte)
+                    @if ($enregistre->idcompte == $compte->idcompte && $enregistre->idcarte == $carte->idcarte)
+                        <div>Numero carte : <p style="display:inline;">{{$carte->numerocarte}}</p></div>
+                        <div>cryptogramme : <p style="display:inline;">{{$carte->cryptogramme}}</p></div>
+                        <div>Date expiration : <p style="display:inline;">{{$carte->dateexpiration}}</p></div>
+                        <div>Nom : <p style="display:inline;">{{$carte->nomcarte}}</p></div>
+                    @endif
+                    @endforeach
+            @endforeach 
         @endif
     @endforeach
+    <form action="{{ url('/supprinfo') }}" method="POST">
+        <button type="submit">Supprimer mes informations personelles</button>
+    </form>
 @else
 <p>Vous devez être connecté pour accéder à ceci. <a href="connect">Se connecter</a></p>
 
