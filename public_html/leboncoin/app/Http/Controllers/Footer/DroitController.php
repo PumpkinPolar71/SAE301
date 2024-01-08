@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Footer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Particulier;
+use App\Models\Entreprise;
+use App\Models\Compte;
+use App\Models\Ville;
+
 class DroitController extends Controller
 {
     public function cookie() {
@@ -20,6 +25,10 @@ class DroitController extends Controller
         return view("footer/legislation/contrat");          #footerFolder #legislationFolder
     }
     public function mesinfoperso() {
-        return view("footer/legislation/mesinfoperso");          #footerFolder #legislationFolder
+        $comptes = Compte::All();
+        $particuliers = Particulier::All();
+        $entreprises = Entreprise::All();
+        $villes = Villes::All();
+        return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes"));        #footerFolder #legislationFolder
     }
 }
