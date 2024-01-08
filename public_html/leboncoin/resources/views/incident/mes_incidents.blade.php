@@ -34,9 +34,9 @@
     <table>
         @foreach($incidents->where('resolu', true) as $incident)
             <tr>
-                <td>ID Annonce: {{ $incident->idannonce }}</td>
-                <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
-                <td>Commentaire: {{ $incident->commentaire }}</td>
+                <td>ID Annonce: {{ $incident->idannonce }} | </td>
+                <td>Titre Annonce: {{ $incident->titre_annonce }} | </td>
+                <td>Commentaire: {{ $incident->commentaire }} | </td>
                 <td>Statut: justifié</td>
             </tr>
         @endforeach
@@ -53,13 +53,14 @@
         <table>
             @foreach($incidents->where('resolu', false) as $incident)
                 <tr>
-                    <td>ID Annonce : {{ $incident->idannonce }}</td>
+                    <td>ID Annonce : {{ $incident->idannonce }} | </td>
+                    <td>ID Compte : {{ $incident->idcompte }} | </td>
                     @foreach ($annonces as $annonce)
                         @if ($annonce->idannonce == $incident->idannonce)
-                        <td>Titre Annonce: {{ $annonce->titreannonce }}</td>
+                        <td>Titre Annonce : {{ $annonce->titreannonce }} | </td>
                         @endif
                     @endforeach
-                    <td>Commentaire: {{ $incident->commentaire }}</td>
+                    <td>Commentaire : {{ $incident->commentaire }} | </td>
                     <td>
                         @if (!$incident->resolu)
                             <form action="{{ route('reconnaissance-justifie', $incident->idincident) }}" method="post">
@@ -77,10 +78,15 @@
         <table>
             @foreach($incidents->where('resolu', true) as $incident)
                 <tr>
-                    <td>ID Annonce: {{ $incident->idannonce }}</td>
-                    <td>Titre Annonce: {{ $incident->titre_annonce }}</td>
-                    <td>Commentaire: {{ $incident->commentaire }}</td>
-                    <td>Statut: justifié</td>
+                    <td>ID Annonce : {{ $incident->idannonce }} | </td>
+                    <td>ID Compte : {{ $incident->idcompte }} | </td>
+                    @foreach ($annonces as $annonce)
+                        @if ($annonce->idannonce == $incident->idannonce)
+                        <td>Titre Annonce : {{ $annonce->titreannonce }} | </td>
+                        @endif
+                    @endforeach
+                    <td>Commentaire : {{ $incident->commentaire }} | </td>
+                    <td>Statut : justifié</td>
                 </tr>
             @endforeach
         </table>

@@ -53,6 +53,7 @@ use App\Http\Controllers\BotManController;
 //_______________________________________________.LEBONCOIN_CONTROLLER.___________________________________________________//
     //------------------------------------Redirection_connexion-------------------------------------//
         Route::get("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
+        Route::post("/connect", [ LeBonCoinController::class, "connect"])->name('connect');
     //------------------------------------Redirection_obligation_de_connexion-------------------------------------//
         Route::get('/redirection', [LeBonCoinController::class, 'redirection'])->name('redirection');
     //------------------------------------Redirection_simple-------------------------------------//
