@@ -19,4 +19,7 @@ class DroitController extends Controller
     public function contrat() {
         return view("footer/legislation/contrat");          #footerFolder #legislationFolder
     }
+    public function mesinfoperso() {
+        return view("footer/legislation/mesinfoperso");          #footerFolder #legislationFolder
+    }
 }

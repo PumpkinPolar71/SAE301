@@ -220,6 +220,12 @@
                 
             </div>
         </a>
+        <a href="/mesinfoperso">
+            <div class="compte-block"><b>Mes informations personelles</b>
+                <p>Gérer et voir vos informations personelles</p>
+                
+            </div>
+        </a>
         @if (Auth::user()->compte->codeetatcompte == 14 )
         <a href="/createheb">
             <div class="compte-block"><b>Creer type hébergement et equipement</b>

@@ -195,6 +195,7 @@ use App\Http\Controllers\Autres\ImgGDController;
         Route::get('/politique', [DroitController::class, 'politique']);
         Route::get('/registre', [DroitController::class, 'registre']);
         Route::get('/contrat', [DroitController::class, 'contrat']);
+        Route::get('/mesinfoperso', [DroitController::class, 'mesinfoperso']);
 //
 
 //_______________________________________________.AVIS.___________________________________________________//
