@@ -14,7 +14,6 @@ use App\Http\Controllers\Service\ServiceController;
 // use App\Http\Controllers\GeocodeController;
 use App\Http\Controllers\Account\CreateAccountController;
 // use App\Http\Controllers\EncryptionController;
-
 // use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Annonce\AnnonceController;
 // use App\Http\Controllers\CalendrierController;

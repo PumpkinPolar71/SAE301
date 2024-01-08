@@ -95,9 +95,9 @@
                     <div class=""><a href="contrat">Le contrat OVH</a></div>
                 </div>
                 <div>
-                <div class="firstbottom">NOS SOLUTIONS PROS</div>
                     <div class=""></div>
                 </div>
+                <div class="firstbottom">NOS SOLUTIONS PROS</div>
                 <div>
                     <div class="firstbottom">DES QUESTIONS ?</div>
                     <p id="p"><a href="{{ url("/aide") }}">Aide</a></p>
