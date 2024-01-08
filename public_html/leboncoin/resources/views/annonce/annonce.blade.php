@@ -226,7 +226,7 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
         @foreach($similarFirstWordAds as $ad)
             <div class="col-md-3">
                 <div class="card">
-                    <img src="{{ $ad->photo }}" class="card-img-top" alt="...">
+                    <img src="{{ $ad->photo }}" class="card-img-top" style="height:150px;" alt="...">
                     <div class="card-body"><a href=/annonce/{{"$ad->idannonce"}}>
                         <h5 class="card-title">{{ $ad->titreannonce }}</h5>
                         <!-- Autres détails de l'annonce si nécessaire echo "<a href=/annonce/".$ann->idannonce.">";-->
