@@ -25,9 +25,8 @@ class IncidentController extends Controller
         $incident = new Incident();
         $incident->idincident = Incident::max('idincident') + 1;
         
-        $incident->idannonce = (int)$request->input('id');
-
-        
+        $incident->idannonce = (int)$request->input('idannonce');
+        $incident->idcompte = (int)$request->input('idcompte');
         
         $incident->remboursement = false;
         $incident->procedurejuridique = false;
@@ -82,17 +81,8 @@ class IncidentController extends Controller
         $annonces = Annonce::all();
         $user = Auth::user();
           
-        $reservations = $user->reservations;
-          
-        $incidents = collect();
-          
-        foreach ($reservations as $reservation) {
-            // Vérifiez si la relation $reservation->incidents est non nulle
-            if ($reservation->incidents) {
-                // Ajoutez chaque incident à la collection
-                $incidents = $incidents->merge($reservation->incidents);
-            }
-        }
+        // Récupérer les incidents associés à l'utilisateur via la relation dans le modèle User
+        $incidents = $user->incidents;
       
         // dd($incidents);
 

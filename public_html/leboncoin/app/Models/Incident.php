@@ -27,7 +27,11 @@ class Incident extends Model
     {
         return $this->belongsTo(Annonce::class, 'idannonce', 'idannonce');
     }
-    public function reservations()          //mes_incidents.blade.php
+    public function compte()        //mes_incidents.blade.php
+    {
+        return $this->belongsTo(compte::class, 'idcompte');
+    }
+    public function reservations()      //mes_incidents.blade.php
     {
         return $this->hasMany(Reservation::class, 'idannonce');
     }

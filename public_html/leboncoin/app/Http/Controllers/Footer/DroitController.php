@@ -9,6 +9,7 @@ use App\Models\Particulier;
 use App\Models\Entreprise;
 use App\Models\Compte;
 use App\Models\Ville;
+use App\Models\Carte;
 
 class DroitController extends Controller
 {
@@ -29,6 +30,7 @@ class DroitController extends Controller
         $particuliers = Particulier::All();
         $entreprises = Entreprise::All();
         $villes = Ville::All();
-        return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes"));        #footerFolder #legislationFolder
+        $cartes = Carte::All();
+        return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes", "cartes"));        #footerFolder #legislationFolder
     }
 }

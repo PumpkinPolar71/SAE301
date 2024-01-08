@@ -19,6 +19,23 @@
             <div>Pseudo : <p style="display:inline;">{{$compte->pseudo}}</p></div>
             <div>PDP : <p style="display:inline;">{{$compte->pdp}}</p></div>
             <div>SIRET : <p style="display:inline;">{{$compte->siret}}</p></div>
+            @foreach($particuliers as $particulier)
+                @if ($particulier->idcompte == $compte->idcompte)
+                    <div>Civilité : <p style="display:inline;">@if($particulier->civilite == true)Homme @else Femme @endif</p></div>
+                    <div>Nom : <p style="display:inline;">{{$particulier->nomparticulier}}</p></div>
+                    <div>Prenom : <p style="display:inline;">{{$particulier->prenomparticulier}}</p></div>
+                    <?php
+                        $date = new DateTime($particulier->datenaissanceparticulier);
+                        $dateFormattee = $date->format('d-m-Y');
+                    ?>
+                    <div>Date de naissance : <p style="display:inline;">{{$dateFormattee}}</p></div>
+                    <div>Téléphone : <p style="display:inline;">{{$particulier->numtelparticulier}}</p></div>
+                @else 
+                @endif
+            @endforeach
+            @foreach ($cartes as $carte)
+                @if ($carte->idcompte == $compte->idcompte)
+            @endforeach
         @else 
         @endif
     @endforeach

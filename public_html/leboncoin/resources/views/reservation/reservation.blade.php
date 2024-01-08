@@ -42,8 +42,8 @@
 
 <form method="post" action="{{ url('/reservation/incidentsave/') }}">
     @csrf
-    <input type='hidden' name = 'id' value = '{{$reservation->idannonce}}' >
-    <input type='hidden' name = 'id' value = '{{$incident->idcompte}}' >
+    <input type='hidden' name = 'idannonce' value = '{{$reservation->idannonce}}' >
+    <input type='hidden' name = 'idcompte' value = '{{$reservation->idcompte}}' >
     <!-- Autres champs de formulaire -->
     <input type="text" name="commentaire" placeholder="Commentaire">
     <button type="submit">Soumettre</button>
