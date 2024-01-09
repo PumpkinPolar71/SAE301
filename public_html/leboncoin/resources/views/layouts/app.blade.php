@@ -39,7 +39,7 @@ tarteaucitron.init({
 
   "showIcon": true, /* Show cookie icon to manage cookies */
   //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
-  "iconPosition": "TopRight", /* TopRight, TopRight, TopRight and TopRight */
+  "iconPosition": "BottomRight", /* BottomRightLeft, BottomRightLeft, BottomRightLeft and BottomRightLeft */
 
   "adblocker": false, /* Show a Warning if an adblocker is detected */
                    
@@ -99,7 +99,8 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
                         <!-- /search -->
                         <form action="{{ route('search') }}" method="post">
                             @csrf
-                            <input style="" id="search" type="text" name="search" placeholder="Rechercher sur leboncoin ⌕" OnKeyPress="if (event.keyCode == 13)submitForm()" />
+                            <input style="" id="search" type="text" name="search" placeholder="Rechercher sur leboncoin" OnKeyPress="if (event.keyCode == 13)submitForm()" />
+                            <button type="submit" class="loupebut">⌕</button>
                         </form>
                     </div>
                 </li>   
@@ -126,7 +127,7 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
                     <li style="float:right"><a class="coone" href="{{ url("/inscription-attente") }}">service inscription</a></li> <!--service inscription verifier  demande d'inscriuption(verif annonce et date)-->
                     @endif
                 @else
-                    <li style="float:right"><a class="coone" href="{{ url("/connect") }}">Se connecter</a></li>
+                    <li style="float:right"><a class="coone" href="{{ url("/connect") }}">👤 Se connecter</a></li>
                     <li style="float:right"><a class="mess" href="{{ url("/redirection") }}">Message</a></li>
                     <li style="float:right"><a class="fav" href="{{ url("/redirection") }}">Favoris</a></li>
                     <li style="float:right"><a href="{{ url("/redirection") }}">Mes recherches</a></li>
@@ -146,7 +147,7 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
             <div id="bottom" style="">
                 <div>
                 <div class="firstbottom">A PROPOS DU BONCOIN</div>
-                    <div class=""></div>
+                    <div class="qui"><a href="qui">Qui sommes-nous ?</a></div>
                 </div>
                 <div>
                 <div class="firstbottom">INFORMATIONS LEGALES</div>
@@ -157,7 +158,8 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
                 </div>
                 <div>
                 <div class="firstbottom">NOS SOLUTIONS PROS</div>
-                    <div class=""></div>
+                <div class="pub"><a href="pub">Publicité</a></div>
+
                 </div>
                 <div>
                     <div class="firstbottom">DES QUESTIONS ?</div>
