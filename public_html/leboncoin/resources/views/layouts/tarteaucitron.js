@@ -417,7 +417,7 @@ var tarteaucitron = {
                 html += '</div>';
 
                 if (tarteaucitron.parameters.orientation === 'bottom') {
-                    orientation = 'Bottom';
+                    orientation = 'BottomRight';
                 }
 
                 if (tarteaucitron.parameters.orientation === 'middle' || tarteaucitron.parameters.orientation === 'popup') {
@@ -1507,7 +1507,7 @@ var tarteaucitron = {
         },
         "jsSizing": function (type) {
             "use strict";
-            var scrollbarMarginRight = 10,
+            var scrollbarMarginBottomRight = 10,
                 scrollbarWidthParent,
                 scrollbarWidthChild,
                 servicesHeight,
@@ -1570,12 +1570,12 @@ var tarteaucitron = {
                     if (e[a + 'Width'] <= 479) {
                         //tarteaucitron.userInterface.css('tarteaucitronScrollbarAdjust', 'marginLeft', '11px');
                     } else if (e[a + 'Width'] <= 767) {
-                        scrollbarMarginRight = 12;
+                        scrollbarMarginBottomRight = 12;
                     }
 
                     scrollbarWidthParent = document.getElementById('tarteaucitronServices').offsetWidth;
                     scrollbarWidthChild = document.getElementById('tarteaucitronScrollbarChild').offsetWidth;
-                    //tarteaucitron.userInterface.css('tarteaucitronScrollbarAdjust', 'marginRight', ((scrollbarWidthParent - scrollbarWidthChild) + scrollbarMarginRight) + 'px');
+                    //tarteaucitron.userInterface.css('tarteaucitronScrollbarAdjust', 'marginBottomRight', ((scrollbarWidthParent - scrollbarWidthChild) + scrollbarMarginBottomRight) + 'px');
                 }
 
                 // center the main panel
@@ -1795,14 +1795,14 @@ var tarteaucitron = {
                     html += '<li class="tarteaucitronCookiesListMain">';
                     html += '    <div class="tarteaucitronCookiesListLeft"><button type="button" class="purgeBtn" data-cookie="' + tarteaucitron.fixSelfXSS(cookies[i].split('=', 1)) + '"><strong>&times;</strong></button> <strong>' + tarteaucitron.fixSelfXSS(name) + '</strong>';
                     html += '    </div>';
-                    html += '    <div class="tarteaucitronCookiesListRight">' + tarteaucitron.fixSelfXSS(cookies[i].split('=').slice(1).join('=')) + '</div>';
+                    html += '    <div class="tarteaucitronCookiesListBottomRight">' + tarteaucitron.fixSelfXSS(cookies[i].split('=').slice(1).join('=')) + '</div>';
                     html += '</li>';
                 }
                 html += '</ul>';
             } else {
                 html += '<div class="tarteaucitronCookiesListMain">';
                 html += '    <div class="tarteaucitronCookiesListLeft"><strong>-</strong></div>';
-                html += '    <div class="tarteaucitronCookiesListRight"></div>';
+                html += '    <div class="tarteaucitronCookiesListBottomRight"></div>';
                 html += '</div>';
             }
 
