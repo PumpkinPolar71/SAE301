@@ -22,16 +22,15 @@ html {
     flex-direction: column;
 }
 .all {
+    position: relative;
     margin-top: 16vw; /*15*/
     width: 125vh; /*68*/
     background-color: rgb(255, 255, 255);
     padding:  0% 0.5% 0% 0.5%;
     font-family: sans-serif;
-    z-index: 1;
+    z-index: 2;
 }
-#search{
-    width:130%; height:5vh; border-radius:20px; background-color:rgb(224, 224, 224); border: none;
-}
+
 /*----------------welcome--------------*/
 .welcome h2 {
     text-align: center;
@@ -85,7 +84,7 @@ body {
 #topnav li {
     display: block;
     float: left;
-    padding: 1% 1% 2% 1%;
+    padding: 1% 1% 1% 1%;
     list-style: none;
 }
 .logo {
@@ -97,7 +96,7 @@ body {
     color: aliceblue;
     background-color:var(--mainColor);
     border-radius: 5px;
-    padding: 3%;
+    padding: 10% 1% 10% 1%;
 }
 a {
     text-decoration: none;
@@ -107,9 +106,12 @@ title {
     color: black;
 }
 .bottom-text {
+    background-color: white;
     text-align: center;
-    margin: 4% 2% 4% 2%;
+    padding: 4% 2% 4% 2%;
     font-size: 70%;
+    z-index: 2;
+    position: relative;
 }
 #bottom {
     z-index:2;
@@ -138,6 +140,14 @@ title {
 }
 #p {
     color: aliceblue;
+}
+#search{
+    width: 130%; 
+    height: 5vh; 
+    border-radius: 20px; 
+    background-color: rgb(236, 236, 236); 
+    border: none;
+    padding-left: 3%;
 }
 /*----------------annonce------------------*/
 .annoncedetail {
@@ -187,6 +197,41 @@ img {
     width: 20%;
 }
 /*----------------annonce-index------------------*/
+.spa {
+    width: 100%;
+    font-size: smaller;
+    text-align: center;
+}
+.spa span:hover {
+    border-bottom: 1px solid rgb(133, 133, 133);
+}
+#reche {
+    background-color: var(--mainColor);
+    border: none;
+    padding: 2% 2% 2% 2%;
+    color: white;
+    border-radius: 5px;
+    float: right;
+    height: 60px;
+    display: inline-flex;
+    position: relative;
+}
+#reche:hover {
+    cursor: pointer;
+    background-color: #ff6e14;
+}
+#formindexe  {
+    padding-left: 4vh;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid rgb(161, 161, 161);
+}
+#formindexe select {
+    height: 60px;
+    border: 1px solid rgb(214, 214, 214);
+    border-top: none;
+    border-bottom: none;
+}
 .indextable {
     margin-top: -60vh;
 }
@@ -200,9 +245,9 @@ img {
     height: 100%;
 }
 .encart-publicitaire2 {
-    width: 29vh;
+    width: 37vh;
     height: 58vh;
-    margin-left: 85vh;
+    margin-left: 80vh;
     position: sticky;
     top: 20%;
     background-size: cover;
@@ -210,9 +255,6 @@ img {
 }
 .formindex {
     margin-top: 2%;
-}
-td {
-
 }
 .annonce {
     border: 1px solid rgb(179, 179, 179);
@@ -253,8 +295,8 @@ td {
     position: fixed;
     padding: 1%;
     border: none;
-    margin-left: 35vh;
-    margin-top: 28vh;
+    margin-left: 30vh;
+    bottom: 20px;
     border-radius: 10px;
 }
 #sauve:hover {

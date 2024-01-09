@@ -64,14 +64,19 @@ class RechercheController extends Controller
   //_____________________________________.Recupérer_infos_pour_recherche_par_filtres.______________________//
     public function indexe(Request $request)
     {
-        $favoris = Favoris::all();
-        $villes = Ville::all();
-        $photos = Photo::all();
-        $typesHebergement = TypeHebergement::all();
-        $annonces = LeBonCoin::all(); 
-        $reservations = Reservation::all();
-        
-        return view('search/annonce-index',compact('annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #searchFolder
+      $re = null;
+      if (isset($_POST['search'])) {
+        $re = $_POST['search'];
+      }
+      
+      $favoris = Favoris::all();
+      $villes = Ville::all();
+      $photos = Photo::all();
+      $typesHebergement = TypeHebergement::all();
+      $annonces = LeBonCoin::all(); 
+      $reservations = Reservation::all();
+      
+      return view('search/annonce-index',compact('re','annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #searchFolder
     }
   //
 

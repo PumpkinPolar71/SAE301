@@ -19,4 +19,7 @@ class AideController extends Controller
     public function aideres() {
         return view("footer/help/aideres");             #footerFolder #HelpFolder
     }
+    public function aiderecherche() {
+        return view("footer/help/aiderecherche");       #footerFolder #HelpFolder
+    }
 }

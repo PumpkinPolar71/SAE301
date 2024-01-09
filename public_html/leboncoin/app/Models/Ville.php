@@ -11,4 +11,9 @@ class Ville extends Model
     protected $table = "ville";
     protected $primaryKey = "idville";
     public $timestamps = false;
+
+    public function getAllSortedByName()
+    {
+        return $this->orderBy('nomville', 'asc')->get();
+    }
 }

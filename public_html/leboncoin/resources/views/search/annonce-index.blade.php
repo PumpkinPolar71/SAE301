@@ -8,13 +8,19 @@
 
 <script>
     $(document).ready(function() {
-        rnd = Math.floor(Math.random() * 1)
+        rnd = Math.floor(Math.random() * 3)
         $('.encart-publicitaire2').css("background-image" , "url(../pub2/pub"+rnd+".png)")
         $('.encart-publicitaire2').css("z-index" , "1")
     })
         </script>
 
-<form class="formindex" action="{{ route('search') }}" method="GET">
+<div class="spa"><span class="carte"><a href="{{ url("/carte") }}">🗺️ Ouvrir la carte</a></span></div>
+
+<?php
+    $villes = (new App\Models\Ville())->getAllSortedByName(); //Ordre alphabétique
+?>
+
+<form class="formindex" id="formindexe" action="{{ route('search') }}" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
     <select name="ville" id="ville">
@@ -34,20 +40,20 @@
     </select>
     
     <!-- Choisir une période de disponibilité -->
-    <label id="datePicker_datedebut" for="datedebut">Date de début :</label>
-    <input type="date" name="datedebut" id="datedebut" value="{{ request()->get('datedebut') }}">
+    <!-- <label id="datePicker_datedebut" for="datedebut">Date de début :</label>
+    <input type="date" name="datedebut" id="datedebut" value="{{ request()->get('datedebut') }}"> -->
     
-    <label for="datefin">Date de fin :</label> 
-    <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
+    <!-- <label for="datefin">Date de fin :</label> 
+    <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}"> -->
     
-    <button id="reche" name="reche" type="submit">Rechercher</button>
+    <button id="reche" name="reche" type="submit"><b>Rechercher</b></button>
 </form>
 
-<button><a href="{{ url("/carte") }}">Ouvrir la carte</a></button>
+
 <h2>Résultats de la recherche pour : location</h2>
 
 @auth
-<form class="formindex" action="{{ route('sauvrecherche') }}" method="POST">
+<form class="formindex" id="formsauve" action="{{ route('sauvrecherche') }}" method="POST">
     @csrf
 
     <button id="sauve" name="sauve" type="submit">Sauvegarder la recherche</button>
@@ -96,7 +102,11 @@ $annonces = $annoncesDB->get();
 if ($annonces->isEmpty()) {
     echo "<p>Désolé, nous n’avons pas ça sous la main ! Vous méritez tellement plus qu’une recherche sans résultat! Est-il possible qu’une faute de frappe se soit glissée dans votre recherche ? N’hésitez pas à vérifier !</p>";
 } else {
-    echo "<div class='encart-publicitaire2'><a class='apub' href='http://licorn--projekt.000webhostapp.com/'></a></div>";
+    if ($re != NULL) {
+        $annoncesDB->where('titreannonce', 'ILIKE', '%'.$re.'%');
+        $annonces = $annoncesDB->get();
+    }
+    echo "<div class='encart-publicitaire2'><a class='apub' href='https://licorn--projekt.000webhostapp.com/static/static.html'></a></div>";
     echo "<table class='indextable'>";
     $rndea = 0;
     foreach ($annonces as $annonce) {

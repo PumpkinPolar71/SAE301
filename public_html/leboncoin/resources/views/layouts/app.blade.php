@@ -39,7 +39,7 @@ tarteaucitron.init({
 
   "showIcon": true, /* Show cookie icon to manage cookies */
   //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
-  "iconPosition": "BottomLeft", /* BottomLeft, BottomLeft, TopRight and TopLeft */
+  "iconPosition": "TopRight", /* TopRight, TopRight, TopRight and TopRight */
 
   "adblocker": false, /* Show a Warning if an adblocker is detected */
                    
@@ -92,13 +92,14 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
     	    </header>
             @section('nav')
             <ul id="topnav">
-                <li><a class="logo" href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>leboncoin</b></a></li>
-                <li style="padding-top:3%;"><a class="depo" href="{{ url("/createAnnonce") }}"><b>Déposer une annonce</b></a></li>
+                <li><a class="logo" href="{{ url("/") }}"><b>leboncoin</b></a></li>
+                <li style="padding-top:2%;"><a class="depo" href="{{ url("/createAnnonce") }}"><b>Déposer une annonce</b></a></li>
                 <li>
                     <div>
-                        <form action="/search" method="post" target="_self">
+                        <!-- /search -->
+                        <form action="{{ route('search') }}" method="post">
                             @csrf
-                            <input style="" id="search" type="text" name="search" placeholder="Ex: Appartement" OnKeyPress="if (event.keyCode == 13)submitForm()" />
+                            <input style="" id="search" type="text" name="search" placeholder="Rechercher sur leboncoin ⌕" OnKeyPress="if (event.keyCode == 13)submitForm()" />
                         </form>
                     </div>
                 </li>   

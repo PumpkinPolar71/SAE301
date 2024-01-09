@@ -154,9 +154,9 @@ use App\Http\Controllers\BotManController;
     //--------------------------------------Voir_mes_recherches------------------------------//
         Route::get('/mes_recherches', [RechercheController::class, 'mes_recherches']);
     //--------------------------------------Barre_de_recherche------------------------------//
-        Route::get("/search", [RechercheController::class, "search"]);
+        Route::get("/search", [RechercheController::class, "indexe"]);
     //--------------------------------------Recherches------------------------------//
-        Route::post('/search', [RechercheController::class, 'search'])->name('search');
+        Route::post('/search', [RechercheController::class, 'indexe'])->name('search');
         Route::get('/search', [RechercheController::class, 'indexe']);
     //--------------------------------------Sauvergarde_recherche------------------------------//
         Route::post('/sauvrecherche', [RechercheController::class, 'sauvrecherche'])->name('sauvrecherche');
@@ -189,6 +189,7 @@ use App\Http\Controllers\BotManController;
         Route::get('/aidecompte', [AideController::class, 'aidecompte']);
         Route::get('/aideannonce', [AideController::class, 'aideannonce']);
         Route::get('/aideres', [AideController::class, 'aideres']);
+        Route::get('/aiderecherche', [AideController::class, 'aiderecherche']);
 //
 
 //_______________________________________________.DROIT.___________________________________________________//
