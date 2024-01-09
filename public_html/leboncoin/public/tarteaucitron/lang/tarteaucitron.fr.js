@@ -1,86 +1,85 @@
 /*global tarteaucitron */
 tarteaucitron.lang = {
-
     "middleBarHead": "☝ 🍪",
-    "adblock": "Bonjour! Ce site joue la transparence et vous donne le choix des services tiers à activer.",
-    "adblock_call": "Merci de désactiver votre adblocker pour commencer la personnalisation.",
-    "reload": "Recharger la page",
+    "adblock": "Hello! This site is transparent and lets you choose the 3rd party services you want to allow.",
+    "adblock_call": "Please disable your adblocker to start customizing.",
+    "reload": "Refresh the page",
     
-    "alertBigScroll": "En continuant de défiler,",
-    "alertBigClick": "En poursuivant votre navigation,",
-    "alertBig": "vous acceptez l'utilisation de services tiers pouvant installer des cookies",
+    "alertBigScroll": "By continuing to scroll,",
+    "alertBigClick": "If you continue to browse this website,",
+    "alertBig": "you are allowing all third-party services",
     
-    "alertBigPrivacy": "Ce site utilise des cookies et vous donne le contrôle sur ceux que vous souhaitez activer",
-    "alertSmall": "Gestion des services",
-    "acceptAll": "Tout accepter",
-    "personalize": "Personnaliser",
-    "close": "Fermer",
+    "alertBigPrivacy": "This site uses cookies and gives you control over what you want to activate",
+    "alertSmall": "Manage services",
+    "personalize": "Personalize",
+    "acceptAll": "OK, accept all",
+    "close": "Close",
 
-    "privacyUrl": "Politique de confidentialité",
+    "privacyUrl": "Privacy policy",
+    
+    "all": "Preference for all services",
 
-    "all": "Préférences pour tous les services",
+    "info": "Protecting your privacy",
+    "disclaimer": "By allowing these third party services, you accept their cookies and the use of tracking technologies necessary for their proper functioning.",
+    "allow": "Allow",
+    "deny": "Deny",
+    "noCookie": "This service does not use cookie.",
+    "useCookie": "This service can install",
+    "useCookieCurrent": "This service has installed",
+    "useNoCookie": "This service has not installed any cookie.",
+    "more": "Read more",
+    "source": "View the official website",
+    "credit": "Cookies manager by tarteaucitron.js",
+    "noServices": "This website does not use any cookie requiring your consent.",
 
-    "info": "Protection de votre vie privée",
-    "disclaimer": "En autorisant ces services tiers, vous acceptez le dépôt et la lecture de cookies et l'utilisation de technologies de suivi nécessaires à leur bon fonctionnement.",
-    "allow": "Autoriser",
-    "deny": "Interdire",
-    "noCookie": "Ce service ne dépose aucun cookie.",
-    "useCookie": "Ce service peut déposer",
-    "useCookieCurrent": "Ce service a déposé",
-    "useNoCookie": "Ce service n'a déposé aucun cookie.",
-    "more": "En savoir plus",
-    "source": "Voir le site officiel",
-    "credit": "Gestion des cookies par tarteaucitron.js",
-    "noServices": "Ce site n'utilise aucun cookie nécessitant votre consentement.",
-
-    "toggleInfoBox": "Afficher/masquer les informations sur le stockage des cookies",
-    "title": "Panneau de gestion des cookies",
-    "cookieDetail": "Détail des cookies",
-    "ourSite": "sur notre site",
-    "modalWindow": "(fenêtre modale)",
-    "newWindow": "(nouvelle fenêtre)",
-    "allowAll": "Tout accepter",
-    "denyAll": "Tout refuser",
+    "toggleInfoBox": "Show/hide informations about cookie storage",
+    "title": "Cookies management panel",
+    "cookieDetail": "Cookie detail for",
+    "ourSite": "on our site",
+    "modalWindow": "(modal window)",
+    "newWindow": "(new window)",
+    "allowAll": "Allow all cookies",
+    "denyAll": "Deny all cookies",
 
     "icon": "Cookies",
     
-    "fallback": "est désactivé.",
-    "allowed": "autorisé",
-    "disallowed": "interdit",
+    "fallback": "is disabled.",
+    "allowed": "allowed",
+    "disallowed": "disallowed",
 
     "ads": {
-        "title": "Régies publicitaires",
-        "details": "Les régies publicitaires permettent de générer des revenus en commercialisant les espaces publicitaires du site."
+        "title": "Advertising network",
+        "details": "Ad networks can generate revenue by selling advertising space on the site."
     },
     "analytic": {
-        "title": "Mesure d'audience",
-        "details": "Les services de mesure d'audience permettent de générer des statistiques de fréquentation utiles à l'amélioration du site."
+        "title": "Audience measurement",
+        "details": "The audience measurement services used to generate useful statistics attendance to improve the site."
     },
     "social": {
-        "title": "Réseaux sociaux",
-        "details": "Les réseaux sociaux permettent d'améliorer la convivialité du site et aident à sa promotion via les partages."
+        "title": "Social networks",
+        "details": "Social networks can improve the usability of the site and help to promote it via the shares."
     },
     "video": {
-        "title": "Vidéos",
-        "details": "Les services de partage de vidéo permettent d'enrichir le site de contenu multimédia et augmentent sa visibilité."
+        "title": "Videos",
+        "details": "Video sharing services help to add rich media on the site and increase its visibility."
     },
     "comment": {
-        "title": "Commentaires",
-        "details": "Les gestionnaires de commentaires facilitent le dépôt de vos commentaires et luttent contre le spam."
+        "title": "Comments",
+        "details": "Comments managers facilitate the filing of comments and fight against spam."
     },
     "support": {
         "title": "Support",
-        "details": "Les services de support vous permettent d'entrer en contact avec l'équipe du site et d'aider à son amélioration."
+        "details": "Support services allow you to get in touch with the site team and help to improve it."
     },
     "api": {
         "title": "APIs",
-        "details": "Les APIs permettent de charger des scripts : géolocalisation, moteurs de recherche, traductions, ..."
+        "details": "APIs are used to load scripts: geolocation, search engines, translations, ..."
     },
     "other": {
-        "title": "Autre",
-        "details": "Services visant à afficher du contenu web."
+        "title": "Other",
+        "details": "Services to display web content."
     },
     
-    "mandatoryTitle": "Cookies obligatoires",
-    "mandatoryText": "Ce site utilise des cookies nécessaires à son bon fonctionnement. Ils ne peuvent pas être désactivés."
+    "mandatoryTitle": "Mandatory cookies",
+    "mandatoryText": "This site uses cookies necessary for its proper functioning which cannot be deactivated."
 };

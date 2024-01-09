@@ -584,11 +584,11 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed {
-    border-color: #1B870B;
+    border-color: #d4b91b;
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied {
-    border-color: #9C1A1A;
+    border-color: #d4b91b;
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronMainLine {
@@ -653,21 +653,21 @@ div#tarteaucitronServices {
 }
 
 #tarteaucitron #tarteaucitronServices #tarteaucitronAllAllowed.tarteaucitronIsSelected {
-    background-color: #1B870B;
+    background-color: #d4b91b;
     opacity: 1;
 }
 #tarteaucitron #tarteaucitronServices #tarteaucitronAllDenied.tarteaucitronIsSelected,
 #tarteaucitron #tarteaucitronServices #tarteaucitronAllDenied2.tarteaucitronIsSelected {
-    background-color: #9C1A1A;
+    background-color: #d4b91b;
     opacity: 1;
 }
 
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsAllowed .tarteaucitronAllow,
 #tarteaucitron #tarteaucitronServices #tarteaucitronServices_mandatory .tarteaucitronLine button.tarteaucitronAllow {
-    background-color: #1B870B;
+    background-color: #d4b91b;
 }
 #tarteaucitron #tarteaucitronServices .tarteaucitronLine.tarteaucitronIsDenied .tarteaucitronDeny {
-    background-color: #9C1A1A;
+    background-color: #d4b91b;
 }
 
 #tarteaucitron #tarteaucitronServices #tarteaucitronServices_mandatory .tarteaucitronLine button.tarteaucitronAllow{
@@ -759,7 +759,7 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronRoot .tarteaucitronDeny {
-    background: #9C1A1A;
+    background: #d4b91b;
 }
 
 #tarteaucitronAlertBig #tarteaucitronCloseAlert, #tarteaucitron #tarteaucitronPrivacyUrl, #tarteaucitron #tarteaucitronPrivacyUrlDialog {
@@ -908,7 +908,7 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronManager #tarteaucitronDot #tarteaucitronDotGreen {
-    background-color: #1B870B;
+    background-color: #d4b91b;
 }
 
 #tarteaucitronAlertSmall #tarteaucitronManager #tarteaucitronDot #tarteaucitronDotYellow {
@@ -916,7 +916,7 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronAlertSmall #tarteaucitronManager #tarteaucitronDot #tarteaucitronDotRed {
-    background-color: #9C1A1A;
+    background-color: #d4b91b;
 }
 
 #tarteaucitronAlertSmall #tarteaucitronCookiesNumber {
@@ -1027,7 +1027,7 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 .tac_activate .tac_float .tarteaucitronAllow {
-    background-color: #1B870B;
+    background-color: #d4b91b;
     display: inline-block;
 }
 

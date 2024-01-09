@@ -94,12 +94,12 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
             <ul id="topnav">
                 <li><a class="logo" href="{{ url("/") }}"><b>leboncoin</b></a></li>
                 <li style="padding-top:2%;"><a class="depo" href="{{ url("/createAnnonce") }}"><b>Déposer une annonce</b></a></li>
-                <li>
+                <li style="width: 320px;">
                     <div>
                         <!-- /search -->
                         <form action="{{ route('search') }}" method="post">
                             @csrf
-                            <input style="" id="search" type="text" name="search" placeholder="Rechercher sur leboncoin" OnKeyPress="if (event.keyCode == 13)submitForm()" />
+                            <input id="search" type="text" name="search" placeholder="Rechercher sur leboncoin" OnKeyPress="if (event.keyCode == 13)submitForm()" />
                             <button type="submit" class="loupebut">⌕</button>
                         </form>
                     </div>
