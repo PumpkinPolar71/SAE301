@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form class="formindex" action="{{ route('get-annonces') }}" method="GET">
+<form class="formindex" id="formindexe" action="{{ route('get-annonces') }}" method="GET">
     <!-- Choisir une ville -->
     <label for="ville">Choisir une ville :</label>
     <select name="ville" id="ville">
@@ -26,13 +26,6 @@
             
         @endforeach
     </select>
-    
-    <!-- Choisir une période de disponibilité -->
-    <label id="datePicker_datedebut" for="datedebut">Date de début :</label>
-    <input type="date" name="datedebut" id="datedebut" value="{{ request()->get('datedebut') }}">
-    
-    <label for="datefin">Date de fin :</label> 
-    <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}">
     
     <button id="reche" name="reche" type="submit">Rechercher</button>
     <button id="sauve" name="sauve" type="submit">Sauvegarder</button>

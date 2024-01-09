@@ -120,7 +120,7 @@ if ($annonces->isEmpty()) {
             echo 'if (rnde > 950) {';
             echo '    console.log(rnde);';
             echo '    $(".pub'.$rndea.'").css("display","block");';
-            echo'     $(".pub'.$rndea.'").css("background-image","url("lol"));';
+            echo '    $(".pub'.$rndea.'").css("background-image","url(`lol`)");';
             echo '}';
             echo '</script>';
             echo "<div class='annonce'>";
