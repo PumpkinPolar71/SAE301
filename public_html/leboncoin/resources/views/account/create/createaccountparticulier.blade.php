@@ -6,41 +6,54 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="flecheretour" onclick="history.back()">←</div>
 <div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
-<form method="post" action="{{ url("/saveaccount") }}" onsubmit="return verifierSexe()">
-@csrf
-  {{ session()->get("error") }}
+<form id="monFormulaire" method="post" action="{{ url("/saveaccount") }}" onsubmit="return verifierSexe()">
+    @csrf
+
     <div>Les champs avec un * sont obligatoires</div>
+
     <div>Nom *</div>
-    <input name="nom" type="" required>
+    <input name="nom" type="" value="{{ old('nom') }}" required>
+
     <div>Prenom *</div>
-    <input name="prenom" type="" required>
+    <input name="prenom" type="" value="{{ old('prenom') }}" required>
+
     <div>Email *</div>
     <input id="email" name="email" type="" required>
     <div style="color:red;" id="messageErreurEmail"></div>
+    <div style="color: red;">{{ session('errorEmailExist') }}</div>
+
     <div>Sexe de naissance *</div>
-    <input type="radio" value="Homme" name="sexe" id="homme">
-    <label  for="homme">Homme</label>
-    <input type="radio" value="Femme" name="sexe" id="femme">
-    <label  for="femme">Femme</label>
+    <input type="radio" value="Homme" name="sexe" id="homme" {{ old('sexe') == 'Homme' ? 'checked' : '' }}>
+    <label for="homme">Homme</label>
+    <input type="radio" value="Femme" name="sexe" id="femme" {{ old('sexe') == 'Femme' ? 'checked' : '' }}>
+    <label for="femme">Femme</label>
+
     <div>date naissance (JJ-MM-AAAA) *</div>
-    <input id="date" name="date" type="" required>
+    <input id="date" name="date" type="" value="{{ old('date') }}" required>
     <div style="color:red;" id="messageErreurDate"></div>
+
     <div>Adresse *</div>
-    <input name="adresse" type="" id="adresse" required>
-    <div style="" id="listA">
-    </div>
+    <input name="adresse" type="" id="adresse" value="{{ old('adresse') }}" required>
+    <div style="" id="listA"></div>
+
     <div>Code Postal *</div>
-    <input id="cp" name="cp" readOnly="readOnly" required>
+    <input id="cp" name="cp" readOnly="readOnly" value="{{ old('cp') }}" required>
     <div style="display:none; color:#f55;" id="error-message"></div>
+
     <div>Ville *</div>
-    <input id="ville" name="ville" readOnly="readOnly" required>
-    <input style="display:none;" id="region" name="region" readOnly="readOnly">
-    <input style="display:none;" id="dept" name="dept" readOnly="readOnly">
+    <input id="ville" name="ville" readOnly="readOnly" value="{{ old('ville') }}" required>
+    <input style="display:none;" id="region" name="region" readOnly="readOnly" value="{{ old('region') }}">
+    <input style="display:none;" id="dept" name="dept" readOnly="readOnly" value="{{ old('dept') }}">
+
     <div>Mot de passe *</div>
     <input name="mdp" id="mdp" type="password" required>
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
-    <input name="mail" type="checkbox"><div id="mail" >Recevoir des mails commerciaux </div>
+
+    <input name="mail" type="checkbox" {{ old('mail') ? 'checked' : '' }}><div id="mail" >Recevoir des mails commerciaux </div>
+    
     <button id="submitb" type="submit">Créer mon compte</button>
+
+
 
     <script>
             function verifierSexe() {
@@ -69,6 +82,7 @@
                 document.getElementById("region").value = all[5]
             }
         $(document).ready(function() {
+            
         let btenvoi = $("#submitb")
 
         $("#date").on("keyup", function() {
@@ -102,12 +116,14 @@
             var Reg = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);        
             const email = document.getElementById("email").value;
             const messageErreur = document.getElementById("messageErreurEmail");
+            // const messageErreurExist = document.getElementById("messageErreurEmailExist");
             if (!Reg.test(email))   {
                 messageErreur.textContent = "L'adresse email n'est pas valide.";
                 btenvoi.hide()
-            } else {
+            }else {
                 messageErreur.textContent = "";
                 btenvoi.show()
+
             }
         })
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';

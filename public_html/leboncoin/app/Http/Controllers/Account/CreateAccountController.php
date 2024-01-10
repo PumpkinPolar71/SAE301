@@ -126,6 +126,17 @@ class CreateAccountController extends Controller
         $request->input("dept") == "" ||
         $request->input("cp") == "" ) {return redirect('createaccountparticulier')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
     } else {
+
+      $email = $request->input('email');
+
+        // Effectuez la vérification dans la base de données
+        $existe = Compte::where('email', $email)->exists();
+
+        if ($existe) {
+            session()->flashInput($request->input());
+            return back()->with('errorEmailExist', 'Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
+        }
+      
       $testville = false;
       $testregion = false;
       $testdept = false;
@@ -210,4 +221,5 @@ class CreateAccountController extends Controller
       }
     }
   //
+
 }
