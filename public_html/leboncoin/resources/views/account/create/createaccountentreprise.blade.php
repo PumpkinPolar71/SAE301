@@ -6,30 +6,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="flecheretourent" onclick="history.back()">←</div>
 <div class="titleconnectent"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
-<form method="post" action="{{ route('saveentaccount') }}">
+<form method="post" action="{{ url("/saveentaccount") }}">
 @csrf
   {{ session()->get("error") }}
     <div>Les champs avec un * sont obligatoires</div>
     <div>SIRET *</div>
-    <input id="siret" name="siret" type="">
+    <input id="siret" name="siret" type="" value="{{ old('siret') }}" required>
     <div style="color:red;" id="messageErreurSir"></div>
+    <div style="color: red;">{{ session('errorSiretExist') }}</div>
     <div>Nom de sociéte *</div>
-    <input name="nom" type="">
+    <input name="nom" type="" value="{{ old('nom') }}" required>
+    <div style="color: red;">{{ session('errorSocieteExist') }}</div>
     <div>Secteur d'activité *</div>
-    <input name="secteur" type="">
-    <div>Addresse *</div>
-    <input name="adresse" type="" id="adresse">
+    <input name="secteur" type="" value="{{ old('secteur') }}" required>
+    <div>Adresse *</div>
+    <input name="adresse" type="" id="adresse" value="{{ old('adresse') }}" required>
     <div style="" id="listA">
     </div>
     <div>Code Postal *</div>
-    <input id="cp" name="cp" readOnly="readOnly">
+    <input id="cp" name="cp" readOnly="readOnly" value="{{ old('cp') }}" required>
     <div style="display:none; color:#f55;" id="error-message"></div>
     <div>Ville *</div>
-    <input id="ville" name="ville" readOnly="readOnly">
-    <input style="display:none;" id="region" name="region" readOnly="readOnly">
-    <input style="display:none;" id="dept" name="dept" readOnly="readOnly">
+    <input id="ville" name="ville" readOnly="readOnly" value="{{ old('ville') }}" required>
+    <input style="display:none;" id="region" name="region" readOnly="readOnly" value="{{ old('region') }}" required>
+    <input style="display:none;" id="dept" name="dept" readOnly="readOnly" value="{{ old('dept') }}" required>
     <div>Mot de passe *</div>
-    <input name="mdp" id="mdp" type="password">
+    <input name="mdp" id="mdp" type="password" required>
     <div id="messageErreur">Le mot de passe doit comporter au moins 12 caractères comprenant au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</div>
     <button id="submitbent" type="submit">Créer mon compte</button>
 

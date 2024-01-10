@@ -37,6 +37,20 @@ class CreateAccountController extends Controller
         $request->input("cp") == "" ) {
           return redirect('createaccountentreprise')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
     } else {
+      $siret = $request->input('siret');
+      $societe = $request->input('nom');
+
+      $existeSiret = Compte::where('siret', $siret)->exists();
+      $existeSociete = Compte::where('nom', $societe)->exists();
+
+      if ($existeSiret) {
+          session()->flashInput($request->input());
+          return back()->with('errorSiretExist', "Il semble y avoir une erreur dans le siret.");
+      } else if ($existeSociete) {
+        session()->flashInput($request->input());
+        return back()->with('errorSocieteExist', "Ce nom de société existe déjà");
+      }
+
       $testville = false;
       $testregion = false;
       $testdept = false;
@@ -129,13 +143,12 @@ class CreateAccountController extends Controller
 
       $email = $request->input('email');
 
-        // Effectuez la vérification dans la base de données
-        $existe = Compte::where('email', $email)->exists();
+      $existe = Compte::where('email', $email)->exists();
 
-        if ($existe) {
-            session()->flashInput($request->input());
-            return back()->with('errorEmailExist', 'Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
-        }
+      if ($existe) {
+          session()->flashInput($request->input());
+          return back()->with('errorEmailExist', 'Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
+      }
       
       $testville = false;
       $testregion = false;

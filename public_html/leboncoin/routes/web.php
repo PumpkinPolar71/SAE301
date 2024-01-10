@@ -190,6 +190,15 @@ use App\Http\Controllers\BotManController;
         Route::get('/aideannonce', [AideController::class, 'aideannonce']);
         Route::get('/aideres', [AideController::class, 'aideres']);
         Route::get('/aiderecherche', [AideController::class, 'aiderecherche']);
+        Route::get('/creercompte', [AideController::class, 'creercompte']);
+        Route::get('/cocompte', [AideController::class, 'cocompte']);
+        Route::get('/gererann', [AideController::class, 'gererann']);
+        Route::get('/gererres', [AideController::class, 'gererres']);
+        Route::get('/gererinci', [AideController::class, 'gererinci']);
+        Route::get('/gererbanc', [AideController::class, 'gererbanc']);
+        Route::get('/gererinfo', [AideController::class, 'gererinfo']);
+        Route::get('/modifinfo', [AideController::class, 'modifinfo']);
+        Route::get('/deco', [AideController::class, 'deco']);
 //
 
 //_______________________________________________.DROIT.___________________________________________________//

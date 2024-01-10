@@ -33,7 +33,34 @@ html {
 
 /*----------------welcome--------------*/
 .recommandation {
-    display: inline;
+   z-index: 3;
+   display: flex;
+   justify-content: center;
+   position: relative;
+    width: 100%;
+}
+.recommandation li {
+    height: 125px;
+    margin: 2%;
+    border-radius: 20px;
+    display: block;
+    float: left;
+    width: 175px;
+    background-image: url("https://media.istockphoto.com/id/977198374/fr/photo/vue-mer-salon-de-maison-de-plage-de-luxe-avec-porte-vitr%C3%A9e-et-une-terrasse-en-bois-tv-sur-un.jpg?s=612x612&w=0&k=20&c=7ttOQylImqPf2YQRvekGfoC9iJRIDpgXCZByJz50-Y0=");
+    background-size: cover;
+}
+.recommandation li div {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+   
+    background: linear-gradient(180deg, black 0%, transparent 30%);
+    border-radius: 20px;
+}
+.recommandation li div span {
+    position: relative;
+    top: 5px;
 }
 .welcome h2 {
     text-align: center;

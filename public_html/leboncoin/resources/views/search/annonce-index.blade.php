@@ -112,17 +112,18 @@ if ($annonces->isEmpty()) {
     foreach ($annonces as $annonce) {
         if ($annonce->codeetatvalide == TRUE) {
             $rndea++;
+           
+            // echo "<tr style='display:none;' id='pub' class='pub`.$rndea.`'><td><div class='annonce'><img class='temp1' src='https://tpc.googlesyndication.com/simgad/10071768540348462494?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qkysVr4wLLhCQNB_8kyHvQMdhGF5Q'></div></td></tr>";
+            // echo '<script>';
+            // echo 'rnde = Math.floor(Math.random() * 1000);';
+            // echo 'if (rnde > 950) {';
+            // echo '    console.log(rnde);';
+            // echo '    $(".pub'.$rndea.'").css("display","block");';
+            // //echo '    $(".pub'.$rndea.'").css("background-image","url(``)");';
+            // echo '}';
+            // echo '</script>';
             echo "<tr>";
             echo "<td>";
-            echo "<div style='display:none;' id='pub' class='pub".$rndea."'></div>";
-            echo '<script>';
-            echo 'rnde = Math.floor(Math.random() * 1000);';
-            echo 'if (rnde > 950) {';
-            echo '    console.log(rnde);';
-            echo '    $(".pub'.$rndea.'").css("display","block");';
-            echo '    $(".pub'.$rndea.'").css("background-image","url(`lol`)");';
-            echo '}';
-            echo '</script>';
             echo "<div class='annonce'>";
             echo "<a href='/annonce/{$annonce->idannonce}'>";
             

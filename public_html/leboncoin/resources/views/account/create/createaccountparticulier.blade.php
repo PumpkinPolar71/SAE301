@@ -12,7 +12,7 @@
 <div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
 
 <!-- Formulaire de création de compte -->
-<form id="monFormulaire" method="post" action="{{ url("/saveaccount") }}" onsubmit="return verifierSexe()">
+<form method="post" action="{{ url("/saveaccount") }}" onsubmit="return verifierSexe()">
     @csrf <!-- Protection contre les attaques CSRF -->
 
     <div>Les champs avec un * sont obligatoires</div>
