@@ -785,8 +785,8 @@ span#tarteaucitronDisclaimerAlert {
  * Icon
  */
 .tarteaucitronIconBottomRight {
-    bottom: 0;
-    right: 0;
+    bottom: 115px;
+    right: 17px;
 }
 .tarteaucitronIconBottomLeft {
     bottom: 0;
