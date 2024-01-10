@@ -26,8 +26,13 @@
 <script>
         var botmanWidget = {
             aboutText: '',
-            introMessage: "Bienvenue dans notre site web"
+            introMessage: "Bienvenue dans notre site web",
+            title: "Chatbot",
+            mainColor: '#ff6e14',
+            bubbleBackground: '#EC5A13',
+            bubbleAvatarUrl: ''
         };
+        
     </script>
    
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
