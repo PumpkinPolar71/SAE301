@@ -32,6 +32,9 @@ html {
 }
 
 /*----------------welcome--------------*/
+.recommandation {
+    display: inline;
+}
 .welcome h2 {
     text-align: center;
     width: 100%;
