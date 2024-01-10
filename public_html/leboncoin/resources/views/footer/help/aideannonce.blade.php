@@ -13,12 +13,12 @@
     <a href="?"><li>?</li></a>
 </ul>
 <div class="question">
-    <a href="">Comment gérer mes annonces ?</a>
-    <a href="">Comment déposer une annonce ?</a>
-    <a href="">Comment voir le propriétaire de l'annonce ?</a>
-    <a href="">Comment partager une annonce ?</a>
-    <a href="">Comment déposer un avis sur une annonce ?</a>
-    <a href="">Comment sauvegarder une annonce ?</a>
-    <a href="">Comment voir les différentes informations d'une annonce ?</a>
+    <a href="gererann">Comment gérer mes annonces ?</a>
+    <a href="depann">Comment déposer une annonce ?</a>
+    <a href="proprioann">Comment voir le propriétaire d'une annonce ?</a>
+    <a href="partageann">Comment partager une annonce ?</a>
+    <a href="depavis">Comment déposer un avis sur une annonce ?</a>
+    <a href="sauvann">Comment sauvegarder une annonce ?</a>
+    <a href="infoann">Comment voir les différentes informations d'une annonce ?</a>
 </div>
 @endsection

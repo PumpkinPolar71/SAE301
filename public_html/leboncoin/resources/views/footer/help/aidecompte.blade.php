@@ -17,6 +17,7 @@
     <a href="cocompte">Comment me connecter à mon compte ?</a>
     <a href="gererann">Comment gérer mes annonces ?</a>
     <a href="gererres">Comment gérer mes réservations ?</a>
+    <a href="gererfav">Comment gérer mes favoris ?</a>
     <a href="gererinci">Comment gérer les incidents qui ont lieu dans mes annonces ?</a>
     <a href="gererbanc">Comment gérer mes informations bancaires ?</a>
     <a href="gererinfo">Comment gérer mes informations personnelles ?</a>

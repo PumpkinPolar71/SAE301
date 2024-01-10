@@ -195,10 +195,22 @@ use App\Http\Controllers\BotManController;
         Route::get('/gererann', [AideController::class, 'gererann']);
         Route::get('/gererres', [AideController::class, 'gererres']);
         Route::get('/gererinci', [AideController::class, 'gererinci']);
+        Route::get('/gererfav', [AideController::class, 'gererfav']);
         Route::get('/gererbanc', [AideController::class, 'gererbanc']);
         Route::get('/gererinfo', [AideController::class, 'gererinfo']);
         Route::get('/modifinfo', [AideController::class, 'modifinfo']);
         Route::get('/deco', [AideController::class, 'deco']);
+        Route::get('/fairerech', [AideController::class, 'fairerech']);
+        Route::get('/sauvrech', [AideController::class, 'sauvrech']);
+        Route::get('/voircarte', [AideController::class, 'voircarte']);
+        Route::get('/depann', [AideController::class, 'depann']);
+        Route::get('/proprioann', [AideController::class, 'proprioann']);
+        Route::get('/partageann', [AideController::class, 'partageann']);
+        Route::get('/depavis', [AideController::class, 'depavis']);
+        Route::get('/sauvann', [AideController::class, 'sauvann']);
+        Route::get('/infoann', [AideController::class, 'infoann']);
+        Route::get('/rechloc', [AideController::class, 'rechloc']);
+        Route::get('/rechheb', [AideController::class, 'rechheb']);
 //
 
 //_______________________________________________.DROIT.___________________________________________________//

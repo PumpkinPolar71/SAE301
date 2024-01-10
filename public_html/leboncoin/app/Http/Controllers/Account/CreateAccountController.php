@@ -41,7 +41,7 @@ class CreateAccountController extends Controller
       $societe = $request->input('nom');
 
       $existeSiret = Compte::where('siret', $siret)->exists();
-      $existeSociete = Compte::where('nom', $societe)->exists();
+      $existeSociete = Entreprise::where('societe', $societe)->exists();
 
       if ($existeSiret) {
           session()->flashInput($request->input());

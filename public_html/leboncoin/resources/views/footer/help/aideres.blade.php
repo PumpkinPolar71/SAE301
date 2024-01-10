@@ -13,10 +13,10 @@
     <a href="?"><li>?</li></a>
 </ul>
 <div class="question">
-    <a href="">Comment réserver une annonce ?</a>
-    <a href="">Un propriétaire peut-il refuser une demande de réservation ?</a>
-    <a href="">Comment contacter le propriétaire ?</a>
-    <a href="">Comment signaler un problème sur une réservation ?</a>
+    <a href="resann">Comment réserver une annonce ?</a>
+    <a href="resrefu">Un propriétaire peut-il refuser une demande de réservation ?</a>
+    <a href="proprioann">Comment contacter le propriétaire ?</a>
+    <a href="resprob">Comment signaler un problème sur une réservation ?</a>
 
 </div>
 @endsection

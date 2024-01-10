@@ -13,10 +13,11 @@
     <a href="?"><li>?</li></a>
 </ul>
 <div class="question">
-    <a href="">Comment faire une recherche ?</a>
-    <a href="">Comment effectuer une recherche par localisation ?</a>
-    <a href="">Comment effectuer une recherche par type d'hebergement ?</a>
-    <a href="">Comment voir les annonces sur la carte ?</a>
+    <a href="fairerech">Comment faire une recherche ?</a>
+    <a href="sauvrech">Comment sauvegarder une recherche ?</a>
+    <a href="rechloc">Comment effectuer une recherche par localisation ?</a>
+    <a href="rechheb">Comment effectuer une recherche par type d'hebergement ?</a>
+    <a href="voircarte">Comment voir les annonces sur la carte ?</a>
 
 </div>
 @endsection
