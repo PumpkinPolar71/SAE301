@@ -276,47 +276,49 @@
             
             
         </div>
-        <a href="/annoncelist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
-            <div class="compte-block"><b>Annonce</b>
-                <p>Gérer mes annonces déposées</p>
-            </div>
-        </a>
-        @if (Auth::user()->compte->codeetatcompte != 2 )
-        <a href="/reservationlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
-            <div class="compte-block"><b>Réservation</b>
-                <p>Retrouver vos réservations</p>
-            </div>
-        </a>
-        @endif
-        <a href="/mes-incidents">
-            <div class="compte-block"><b>Incident</b>
-                <p>Répondre aux incidents sur les annonces réservées</p>
-            </div>
-        </a>
-        @if (Auth::user()->compte->codeetatcompte != 2 )
-        <a href="/mes-infos-bancaires">
-            <div class="compte-block"><b>Carte bancaire</b>
-                <p>Gérer vos informations bancaires</p>
-                
-            </div>
-        </a>
-        @endif
-        <a href="/mesinfoperso">
-            <div class="compte-block"><b>Mes informations personelles</b>
-                <p>Gérer et voir vos informations personelles</p>
-                
-            </div>
-        </a>
-        @if (Auth::user()->compte->codeetatcompte == 14 )
-        <a href="/createheb">
-            <div class="compte-block"><b>Creer type hébergement et equipement</b>
-                <p></p>
-            </div>
-        </a>
+        <div class="gridcompte">
+            <a href="/annoncelist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+                <div class="compte-block"><b>Annonce</b>
+                    <p>Gérer mes annonces déposées</p>
+                </div>
+            </a>
+            @if (Auth::user()->compte->codeetatcompte != 2 )
+            <a href="/reservationlist/{{Auth::user()->compte ? Auth::user()->compte->idcompte : 'Non défini'}}">
+                <div class="compte-block"><b>Réservation</b>
+                    <p>Retrouver vos réservations</p>
+                </div>
+            </a>
+            @endif
+            <a href="/mes-incidents">
+                <div class="compte-block"><b>Incident</b>
+                    <p>Répondre aux incidents sur les annonces réservées</p>
+                </div>
+            </a>
+            @if (Auth::user()->compte->codeetatcompte != 2 )
+            <a href="/mes-infos-bancaires">
+                <div class="compte-block"><b>Carte bancaire</b>
+                    <p>Gérer vos informations bancaires</p>
+
+                </div>
+            </a>
+            @endif
+            <a href="/mesinfoperso">
+                <div class="compte-block"><b>Mes informations personelles</b>
+                    <p>Gérer et voir vos informations personelles</p>
+
+                </div>
+            </a>
+            @if (Auth::user()->compte->codeetatcompte == 14 )
+            <a href="/createheb">
+                <div class="compte-block"><b>Creer type hébergement et equipement</b>
+                    <p></p>
+                </div>
+            </a>
+        </div>
         @endif
         <form action="{{ route('logout') }}" method="post">
         @csrf
-        <button type="submit">Déconnexion</button>
+        <button class="deconection" type="submit">Déconnexion</button>
         
         </form>
         

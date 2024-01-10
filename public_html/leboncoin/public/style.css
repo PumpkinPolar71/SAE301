@@ -151,11 +151,11 @@ title {
     display: block;
     color: white;
     padding: 7% 5% 1% 5%;
-    font-weight: bold;
 }
 #bottom .firstbottom {
     border-bottom: 1px solid white;
     padding-top: 1%;
+    font-weight: bold;
 }
 #bottom p {
     font-size: small;
@@ -379,6 +379,14 @@ img {
     position: relative;
 }
 /*------------compte-------------*/
+.gridcompte {
+    margin-top: 3%;
+    width: 95%;
+    margin-left: 5%;
+    gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+}
 #drop-zone {
     border: 2px dashed #ccc;
     padding: 20px;
@@ -396,11 +404,11 @@ div .pdpContainer {
     margin-left: 45vh;
     margin-top: -2%;
 }
-.compte-block {
+.gridcompte a {
     margin: 2% 2% 2% 0;
-    padding: 6% 2% 0% 2%;
+    padding: 4.5% 2% 0% 2%;
     width: 20%;
-    height: 10vh;
+    height: 12vh;
     border-radius: 10px;
     box-shadow: 0px 3px 7px rgb(95, 95, 95);
     font-size: x-large;
@@ -420,10 +428,26 @@ p {
     display: none;
 }
 .bandeau {
+    margin-top: 3%;
     border-radius: 10px;
     box-shadow: 0px 3px 7px rgb(95, 95, 95);
     padding: 4% 2% 4% 2%;
     border: none;
+}
+.deconection {
+    padding: 8%;
+    background-color: white;
+    color: var(--mainColor);
+    border-radius: 10px;
+    border: none;
+    transition: all 1s ease-in-out;
+    font-size: large;
+    margin-top: 11vh;
+}
+.deconection:hover {
+    cursor: pointer;
+    box-shadow: 0px 3px 7px rgb(95, 95, 95);
+
 }
 /*----------incidents----------*/
 .trincid td {
@@ -542,6 +566,11 @@ p {
 }
 .cookie p a {
     color: var(--mainColor);
+}
+/*-----------------service-immobilier-----------------------*/
+.tempimmo {
+    height: 100%;
+    width: 32%;
 }
 
 

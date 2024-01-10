@@ -144,26 +144,26 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
             </div>
             <div class="bottom-text" >Avec leboncoin, trouvez la bonne affaire sur le site référent de petites annonces de particulier à particulier et de professionnels. Avec des millions de petites annonces, trouvez la bonne occasion dans notre catégorie immobilier. Déposez une annonce gratuite en toute simplicité pour vendre, rechercher, donner vos biens de seconde main ou promouvoir vos services. Pour cet été, découvrez nos idées de destination avec notre guide de vacances en France. Achetez en toute sécurité avec notre système de paiement en ligne et de livraison pour les annonces éligibles.</div>
     
-            <div id="bottom" style="">
+            <div  id="bottom" style="">
                 <div>
                 <div class="firstbottom">A PROPOS DU BONCOIN</div>
-                    <div class="qui"><a href="qui">Qui sommes-nous ?</a></div>
+                    <div class="qui"><a style="color:white;" href="qui">Qui sommes-nous ?</a></div>
                 </div>
                 <div>
                 <div class="firstbottom">INFORMATIONS LEGALES</div>
-                    <div class="cookie"><a href="cookie">Les cookies</a></div>
-                    <div class=""><a href="politique">Politique de protection des données</a></div>
-                    <div class=""><a href="registre">Registre des traitements</a></div>
-                    <div class=""><a href="contrat">Le contrat OVH</a></div>
+                    <div class="cookie"><a style="color:white;" href="cookie">Les cookies</a></div>
+                    <div class=""><a style="color:white;" href="politique">Politique de protection des données</a></div>
+                    <div class=""><a style="color:white;" href="registre">Registre des traitements</a></div>
+                    <div class=""><a style="color:white;" href="contrat">Le contrat OVH</a></div>
                 </div>
                 <div>
                 <div class="firstbottom">NOS SOLUTIONS PROS</div>
-                <div class="pub"><a href="pub">Publicité</a></div>
+                <div class="pub"><a style="color:white;"href="pub">Publicité</a></div>
 
                 </div>
                 <div>
                     <div class="firstbottom">DES QUESTIONS ?</div>
-                    <p id="p"><a href="{{ url("/aide") }}">Aide</a></p>
+                    <p id="p"><a style="color:white;" href="{{ url("/aide") }}">Aide</a></p>
                 </div>
                 </div>
         </div>

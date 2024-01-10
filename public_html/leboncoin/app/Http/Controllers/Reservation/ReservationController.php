@@ -129,8 +129,8 @@ class ReservationController extends Controller
             $compte = auth()->user()->compte;
             $numeroTelephone = $compte->tel; 
             $user = auth()->user();
-            $prenom = $user->particulier->prenom;
-            $nom = $user->particulier->nom;
+            $prenom = $user->particulier->prenomparticulier;
+            $nom = $user->particulier->nomparticulier;
             $datesDisponibles = Annonce::where('idannonce', $idannonce)->pluck('datedebut', 'datefin');
             $reservation = Reservation::where('idannonce', $idannonce)->first();
             // $montantimmediatacompte = $reservation->montantimmediatacompte;

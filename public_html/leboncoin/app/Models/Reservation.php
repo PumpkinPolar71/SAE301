@@ -26,6 +26,6 @@ class Reservation extends Model
     }                     //mes_incidents.blade.php
     public function particulier()
     {
-        return $this->belongsTo(Particulier::class, 'idparticulier');
+        return $this->belongsTo(Particulier::class, 'idparticulier', 'idparticulier');
     }
 }

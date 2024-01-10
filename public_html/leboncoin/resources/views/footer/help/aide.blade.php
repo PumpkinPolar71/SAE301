@@ -24,8 +24,5 @@
 <div onclick="document.location.href='';" class="eachaide"><b>Vos données</b>
     <p>Découvrez toutes les informations dont vous avez besoin sur vos données personnelles</p>
 </div>
-<div onclick="document.location.href='?';" class="eachaide"><b>?</b>
-    <p>?</p>
-</div>
 
 @endsection

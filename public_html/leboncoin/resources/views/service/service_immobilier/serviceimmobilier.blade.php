@@ -18,11 +18,12 @@
                     echo $annonce->codeetatvalide;
                     echo "<tr>";
                     echo "<td>";
+                    echo "<div class='annonce'>";
                     echo "<a href='/annonce/{$annonce->idannonce}'>";
                     
                     foreach ($photos as $photo) {
                         if ($photo->idphoto == $annonce->idannonce) {
-                            echo "<img class='temp' src='{$photo->photo}'>";
+                            echo "<img class='tempimmo' src='{$photo->photo}'>";
                             break; 
                         }
                     }
@@ -35,6 +36,7 @@
                     }
                     echo "<p class='ptitre'>{$annonce->dateannonce}</p>";
                     echo "</a>";
+                    echo "</div>";
                     echo "</td>";
                     echo "</tr>";
                 }

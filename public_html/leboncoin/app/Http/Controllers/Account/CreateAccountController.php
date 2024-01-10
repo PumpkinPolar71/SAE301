@@ -164,6 +164,7 @@ class CreateAccountController extends Controller
       $testregion = false;
       $testdept = false;
       $a = new Compte();
+      
       $villeAll = Ville::all();
       foreach ($villeAll as $vile) { 
         if ( $request->input("ville") == $vile->nomville) {
