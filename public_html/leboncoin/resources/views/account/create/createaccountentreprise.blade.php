@@ -28,6 +28,12 @@
     <input name="nom" type="" value="{{ old('nom') }}" required>
     <div style="color: red;">{{ session('errorSocieteExist') }}</div>
 
+    <!-- Champ pour l'email -->
+    <div>Email *</div>
+    <input id="email" name="email" type="" value="{{ old('email') }}" required>
+    <div style="color:red;" id="messageErreurEmail"></div>
+    <div style="color: red;">{{ session('errorEmailExist') }}</div>
+
     <!-- Champ pour le secteur d'acticité -->
     <div>Secteur d'activité *</div>
     <input name="secteur" type="" value="{{ old('secteur') }}" required>

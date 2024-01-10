@@ -34,6 +34,10 @@ class User extends Authenticatable
     public function ville()
     {
         return $this->belongsTo(Ville::class, 'idville', 'idville');
+    }
+    public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class, 'idcompte', 'idcompte');
     }        
     public function incidents()
     {

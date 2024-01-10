@@ -14,9 +14,9 @@
 </ul>
 <div class="question">
     <a href="resann">Comment réserver une annonce ?</a>
-    <a href="resrefu">Un propriétaire peut-il refuser une demande de réservation ?</a>
     <a href="proprioann">Comment contacter le propriétaire ?</a>
     <a href="resprob">Comment signaler un problème sur une réservation ?</a>
+    <a href="resrefu">Comment voir les incidents sur ma réservation ?</a>
 
 </div>
 @endsection

@@ -88,4 +88,14 @@ class AideController extends Controller
     public function rechheb() {
         return view("footer/help/rechheb");          #footerFolder #HelpFolder
     }
+    /*---------------------RESERVATION-----------------------*/
+    public function resann() {
+        return view("footer/help/resann");          #footerFolder #HelpFolder
+    }
+    public function resprob() {
+        return view("footer/help/resprob");          #footerFolder #HelpFolder
+    }
+    public function resrefu() {
+        return view("footer/help/resrefu");          #footerFolder #HelpFolder
+    }
 }

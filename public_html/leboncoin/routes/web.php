@@ -116,7 +116,7 @@ use App\Http\Controllers\BotManController;
     //--------------------------------------Redirection_vers_compte------------------------------//
         Route::get("/compte",[UserController::class, "compte" ]);
     //--------------------------------------Modifier_son_compte------------------------------//
-        Route::post('/update-user-info', [UserController::class, 'updateUserInfo'])->name('updateUserInfo');
+        Route::post('/updateUserInfo', [UserController::class, 'updateUserInfo'])->name('updateUserInfo');
     //--------------------------------------Créer_un_compte_particulier------------------------------//
         Route::get("/createaccountparticulier", [ UserController::class, "createaccountparticulier"]);
     //--------------------------------------Créer_un_compte_particulier------------------------------//
@@ -211,6 +211,9 @@ use App\Http\Controllers\BotManController;
         Route::get('/infoann', [AideController::class, 'infoann']);
         Route::get('/rechloc', [AideController::class, 'rechloc']);
         Route::get('/rechheb', [AideController::class, 'rechheb']);
+        Route::get('/resann', [AideController::class, 'resann']);
+        Route::get('/resprob', [AideController::class, 'resprob']);
+        Route::get('/resrefu', [AideController::class, 'resrefu']);
 //
 
 //_______________________________________________.DROIT.___________________________________________________//

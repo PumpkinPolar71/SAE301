@@ -36,25 +36,34 @@ class CreateAccountController extends Controller
         $request->input("dept") == "" ||
         $request->input("cp") == "" ) {
           return redirect('createaccountentreprise')->withInput()->with("error","Il semblerait que vous n'ayez pas renseigné tous les champs !");
-    } else {
+    } else 
+    {
       $siret = $request->input('siret');
+      $email = $request->input('email');
       $societe = $request->input('nom');
 
       $existeSiret = Compte::where('siret', $siret)->exists();
+      $existeEmail = Compte::where('email', $email)->exists();
       $existeSociete = Entreprise::where('societe', $societe)->exists();
 
+
+
+      
       if ($existeSiret) {
           session()->flashInput($request->input());
           return back()->with('errorSiretExist', "Il semble y avoir une erreur dans le siret.");
+      } else if ($existeEmail) {
+          session()->flashInput($request->input());
+          return back()->with('errorEmailExist', 'Cet e-mail est déjà utilisé. Veuillez en choisir un autre.');
       } else if ($existeSociete) {
-        session()->flashInput($request->input());
-        return back()->with('errorSocieteExist', "Ce nom de société existe déjà");
+          session()->flashInput($request->input());
+          return back()->with('errorSocieteExist', "Ce nom de société existe déjà");
       }
 
       $testville = false;
       $testregion = false;
       $testdept = false;
-      $a = new Compte();
+      $a = new Compte();      
       $villeAll = Ville::all();
       foreach ($villeAll as $vile) {
         if ( $request->input("ville") == $vile->nomville) {
@@ -110,6 +119,7 @@ class CreateAccountController extends Controller
         $a->adresseruecompte = $request->input("adresse");
         $a->adressecpcompte = $request->input("cp");
         $a->siret = $request->input("siret");
+        $a->email = $request->input("email");
         $a->codeetatcompte = 2;
         $a->save();
       
@@ -120,7 +130,7 @@ class CreateAccountController extends Controller
         $b->societe = $request->input("nom");
         $b->save();
         return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->withInput()->with("compte",'compte professionnel créé');
-      }
+    }
     }
   //
 
