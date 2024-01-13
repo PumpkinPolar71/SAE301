@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="h1aide">Comment sauvegarder une annonce ?</h1>
+<h1 class="h1aide">Comment gérer mes favoris ?</h1>
     <a>Vous devez être connectez pour pouvoir effectuer cette action. </a><br>
     <a>Pour sauvegarder une annonce il suffit de la mettre en “Favoris” pour ce faire il vous suffira de cliquer sur le petit cœur ❤️ sur les annonces pour pouvoir l’ajoutez aux favoris.   </a><br>
     <img src="{{ asset('AidesImages/likeavt.png') }}" ><br>

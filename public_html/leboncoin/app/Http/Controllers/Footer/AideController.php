@@ -22,6 +22,9 @@ class AideController extends Controller
     public function aiderecherche() {
         return view("footer/help/aiderecherche");       #footerFolder #HelpFolder
     }
+    public function aidecookie() {
+        return view("footer/help/aidecookie");                #footerFolder #helpFolder
+    }
     /*---------------------COMPTE-----------------------*/
     public function creercompte() {
         return view("footer/help/creercompte");          #footerFolder #HelpFolder

@@ -187,6 +187,7 @@ use App\Http\Controllers\BotManController;
     //--------------------------------------redirection------------------------------//
         Route::get('/aide', [AideController::class, 'aide']);
         Route::get('/aidecompte', [AideController::class, 'aidecompte']);
+        Route::get('/aidecookie', [AideController::class, 'aidecookie']);
         Route::get('/aideannonce', [AideController::class, 'aideannonce']);
         Route::get('/aideres', [AideController::class, 'aideres']);
         Route::get('/aiderecherche', [AideController::class, 'aiderecherche']);
