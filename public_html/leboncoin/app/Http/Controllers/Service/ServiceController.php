@@ -60,8 +60,19 @@ class ServiceController extends Controller
     //_____________________________________.Ajouter_un_nv_type_hebergement.______________________//
         public function ajoutheb(Request $request) {
         
+            
             if ($request->input("nomhebergement") != "") {
                 $h = new TypeHebergement();
+
+                $type = $request->input('nomhebergement');
+                $existe = TypeHebergement::where('type', $type)->exists();
+                if ($existe) {
+                    session()->flashInput($request->input());
+                    return back()->with('errorTypeHebExist', "Ce type d'hébergement existe déjà !");
+                } else {
+                    //ne rien faire
+                }
+
                 $h->idtype = TypeHebergement::max('idtype')+1;
                 $h->type = $request->input("nomhebergement");
                 $h->save();
@@ -76,6 +87,16 @@ class ServiceController extends Controller
         public function ajoutequ(Request $request) {
             if ($request->input("nomequipement") != "") {
                 $h = new Equipement();
+
+                $nomequipement = $request->input('nomequipement');
+                $existe = Equipement::where('nomequipement', $nomequipement)->exists();
+                if ($existe) {
+                    session()->flashInput($request->input());
+                    return back()->with('errorEquipementExist', "Cet équipement existe déjà !");
+                } else {
+                    //ne rien faire
+                }
+
                 $h->idequipement = Equipement::max('idequipement')+1;
                 $h->nomequipement = $request->input("nomequipement");
                 $h->save();

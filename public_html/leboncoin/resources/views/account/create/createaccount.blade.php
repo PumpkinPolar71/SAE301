@@ -5,3 +5,14 @@
     <form id="formaccount" action="{{ url('/createaccountparticulier') }}" method="get"><div><input id="inputaccount" type="submit" value="" > Pour vous</div></form>
     <form id="formaccount" action="{{ url('/createaccountentreprise') }}" method="get"><div><input id="inputaccount" type="submit" value="" > Pour votre entreprise</div></form>
 </section>
+<script>
+        var botmanWidget = {
+            aboutText: '',
+            introMessage: "Bienvenue dans notre site web",
+            title: "Chatbot",
+            mainColor: '#ff6e14',
+            bubbleBackground: '#EC5A13',
+            bubbleAvatarUrl: ''
+        };
+        
+    </script>

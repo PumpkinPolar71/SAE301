@@ -161,5 +161,16 @@
                     $("#listA").css("display","none")
                 })
         })
+        
+        var botmanWidget = {
+            aboutText: '',
+            introMessage: "Bienvenue dans notre site web",
+            title: "Chatbot",
+            mainColor: '#ff6e14',
+            bubbleBackground: '#EC5A13',
+            bubbleAvatarUrl: ''
+        };
+        
+    
     </script>
 </form>

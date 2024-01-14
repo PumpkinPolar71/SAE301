@@ -20,7 +20,8 @@
                 @csrf
                 <div class="form-group">
                     <label for="nomhebergement">Nom du type d'hébergement</label>
-                    <input type="text" name="nomhebergement" id="nomhebergement" class="form-control" required>
+                    <input type="text" name="nomhebergement" id="nomhebergement" class="form-control" value="{{ old('nomhebergement') }}" required>
+                    <div style="color: red;">{{ session('errorTypeHebExist') }}</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Créer le type d'hebergement</button>
             </form>
@@ -38,7 +39,8 @@
                 @csrf
                 <div class="form-group">
                     <label for="nomequipement">Nom de l'équipement</label>
-                    <input type="text" name="nomequipement" id="nomequipement" class="form-control" required>
+                    <input type="text" name="nomequipement" id="nomequipement" class="form-control" value="{{ old('nomequipement') }}" required>
+                    <div style="color: red;">{{ session('errorEquipementExist') }}</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Créer l'équipement</button>
             </form>

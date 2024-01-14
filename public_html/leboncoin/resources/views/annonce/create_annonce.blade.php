@@ -35,22 +35,27 @@
         <!-- Liste déroulante pour la ville -->
         <div>
             <!-- Choisir une ville -->
-    <label for="ville">Choisir une ville :</label>
-    <select class=ajoutAnnonce name="ville" id="ville">
-        <option value="">Toutes les villes</option>
-        @foreach($villes as $ville)
-            <option value="{{ $ville->idville }}" {{ request()->get('ville') == $ville->idville ? 'selected' : '' }}>{{ $ville->nomville }}</option>
-        @endforeach
-    </select>
+            <?php
+                $villes = (new App\Models\Ville())->getAllSortedByName(); //Ordre alphabétique
+            ?>
+            <label for="ville">Choisir une ville :</label>
+            <select class=ajoutAnnonce name="ville" id="ville">
+                <option value="">Toutes les villes</option>
+                @foreach($villes as $ville)
+                    <option value="{{ $ville->idville }}" {{ request()->get('ville') == $ville->idville ? 'selected' : '' }}>{{ $ville->nomville }}</option>
+                @endforeach
+            </select>
         </div>
-    <!-- Choisir un type d'hébergement -->
-    <label for="ville">Choisir un type d'hébergement :</label>
-    <select class=ajoutAnnonce name="type_hebergement" id="type_hebergement">
-        <option value="">Tous les types</option>
-        @foreach($typesHebergements as $type)
-            <option value="{{ $type->idtype }}">{{ $type->type }}</option>
-        @endforeach
-    </select>
+            <!-- Choisir un type d'hébergement -->
+        <div>
+            <label for="ville">Choisir un type d'hébergement :</label>
+            <select class=ajoutAnnonce name="type_hebergement" id="type_hebergement">
+                <option value="">Tous les types</option>
+                @foreach($typesHebergements as $type)
+                    <option value="{{ $type->idtype }}">{{ $type->type }}</option>
+                @endforeach
+            </select>
+        </div>
         <!-- Cases à cocher pour les critères -->
         <div>
             <label>Capacité(nombres de personnes pouvant etre accueillies) :</label><br>
@@ -92,14 +97,41 @@
 <div id="datesContainer">
     <div>
         <label for="datedebut[]">De :</label>
-        <input class=ajoutAnnonce type="date" name="datedebut[]" id="datedebut[]" value="{{ date('Y-m-d') }}" required>
+        <input class=ajoutAnnonce type="date" name="datedebut[]" id="datedebut[]" value="{{ date('Y-m-d') }}" oninput="limitDateYearD()" required>
+        <div style="color:red;" id="messageErreurDate"></div>
+
         <label for="datefin[]"> à : </label>
-        <input class=ajoutAnnonce type="date" name="datefin[]" id="datefin[]" value="{{ date('Y-m-d') }}" required><br>
+        <input class=ajoutAnnonce type="date" name="datefin[]" id="datefin[]" value="{{ date('Y-m-d') }}" maxlength="8" required><br>
+        <div style="color:red;" id="messageErreurDate"></div>
     </div>
 </div>
 <!-- Bouton d'ajout dynamique -->
 <button type="button" id="ajouterDate">Ajouter une disponibilité</button>
 <script>
+    function limitDateYearD() {
+        var dateInput = document.getElementById("datedebut[]");
+        var dateValue = dateInput.value;
+        
+        // Extraire l'année du format "YYYY-MM-DD"
+        var year = dateValue.substring(0, 4);
+        
+        // Si l'année est plus longue que 4 chiffres, ajuster la valeur du champ
+        if (year.length > 4) {
+            dateInput.value = dateValue.substring(0, 4) + dateValue.substring(7);
+        }
+    }
+    function limitDateYearF() {
+        var dateInput = document.getElementById("datedfin[]");
+        var dateValue = dateInput.value;
+        
+        // Extraire l'année du format "YYYY-MM-DD"
+        var year = dateValue.substring(0, 4);
+        
+        // Si l'année est plus longue que 4 chiffres, ajuster la valeur du champ
+        if (year.length > 4) {
+            dateInput.value = dateValue.substring(0, 4) + dateValue.substring(7);
+        }
+    }
     document.addEventListener('DOMContentLoaded', function () {
         var numDate = 0;
         // Écoutez l'événement de clic sur le bouton

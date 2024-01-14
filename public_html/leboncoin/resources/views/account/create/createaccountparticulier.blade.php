@@ -101,12 +101,18 @@
 
             // Gestionnaire d'événement pour la validation de la date lors de la saisie
             $("#date").on("keyup", function () {
+                var regDate = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/;
+                const date = $("#date").val();
                 const messageErreurDate = $("#messageErreurDate");
                 alldate = $("#date").val().split("-");
                 if (alldate[0] < 1 || alldate[0] > 31 || alldate[1] < 1 || alldate[1] > 12 || alldate[2] < 1900 || alldate[2] > 2013) {
                     messageErreurDate.text("La date de naissance n'est pas valide.");
                     btenvoi.hide();
-                } else {
+                } else if(!regDate.test(date)) {
+                    messageErreurDate.text("Le format saisie n'est pas valide.");
+                    btenvoi.hide();
+                }
+                else {
                     messageErreurDate.text("");
                     btenvoi.show();
                 }
@@ -187,5 +193,16 @@
                 $("#listA").css("display", "none");
             });
         });
+        
+        var botmanWidget = {
+            aboutText: '',
+            introMessage: "Bienvenue dans notre site web",
+            title: "Chatbot",
+            mainColor: '#ff6e14',
+            bubbleBackground: '#EC5A13',
+            bubbleAvatarUrl: ''
+        };
+        
+    
     </script>
 </form>
