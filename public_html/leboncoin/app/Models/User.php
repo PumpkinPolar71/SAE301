@@ -73,8 +73,13 @@ class User extends Authenticatable
      */
     protected $dates = [
         'datenaissanceparticulier',
+        'lastlogin',
     ];
-
+    // Méthode pour récupérer la dernière connexion d'un utilisateur
+    public function getLastloginAttribute()
+    {
+        return $this->attributes['lastlogin'];
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -96,17 +101,18 @@ class User extends Authenticatable
     ];
 
 
-// Ajoutez une méthode pour récupérer le prénom
-public function getPrenomAttribute()
-{
-    return $this->compte->prenom;
-}
+    // Méthode pour récupérer le prénom
+    public function getPrenomAttribute()
+    {
+        return $this->compte->prenom;
+    }
 
-// Ajoutez une méthode pour récupérer le nom
-public function getNomAttribute()
-{
-    return $this->compte->nom;
-}
+    // Méthode pour récupérer le nom
+    public function getNomAttribute()
+    {
+        return $this->compte->nom;
+    }
 
+    
 }
 

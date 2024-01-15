@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->date('lastlogin')->nullable();
+            
         });
     }
+   
 
     /**
      * Reverse the migrations.
