@@ -65,6 +65,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'motdepasse',
+        'lastlogin',
     ];
    
     public function getAuthPassword() {
@@ -77,11 +78,12 @@ class User extends Authenticatable
      */
     protected $dates = [
         'datenaissanceparticulier',
+        'lastlogin',
     ];
     // Méthode pour récupérer la dernière connexion d'un utilisateur
     public function getLastloginAttribute()
     {
-        Log::info('getLastLogin');
+        // Log::info('getLastLogin');
         // dd($this->attributes); // Ajoutez cette ligne pour déboguer
         // Log::info(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5)); // Limitez à 5 niveaux de profondeur
         return $this->attributes['lastlogin'];
@@ -119,7 +121,21 @@ class User extends Authenticatable
         return $this->compte->nom;
     }
 
-
+    protected static function boot()
+    {
+        parent::boot();
     
+        static::updated(function ($user) {
+            // Log::info('User updated. Updating lastlogin date in historisation table.');
+            $user->updateLastLoginDateInHistorisation();
+        });
+    }
+    
+    public function updateLastLoginDateInHistorisation()
+    {
+        // Log::info('Updating lastlogin date in historisation table.');
+        $this->historisation()->update(['DATELOGIN' => $this->lastlogin]);
+    }
+        
 }
 

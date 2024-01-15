@@ -25,4 +25,6 @@ L'accord ainsi donné est valable pour une durée maximum de treize (13) mois à
 • En cliquant sur le bouton « Tout refuser » dans le bandeau après avoir cliqué sur le bouton « Personnaliser »<br>
 • En paramétrant vos choix dans le gestionnaire de cookies accessible depuis le bouton « Personnaliser »</p>
 <img src="{{ asset('AidesImages/panneau1.png') }}" ><br>
+<br>
+<p>Pour plus d'information sur les cookies, <a href="cookie">cliquer ici</a></p>
 @endsection

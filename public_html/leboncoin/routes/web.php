@@ -36,7 +36,7 @@ use App\Models\User;
 
 Route::get('/debug-lastlogin', function () {
     $user = User::find(1);
-    \Log::info($user->lastlogin);
+    // \Log::info($user->lastlogin);
 });
 
 Route::get('/user/profile', [UserController::class, 'showUserProfile']);
@@ -196,6 +196,7 @@ Route::get('/user/profile', [UserController::class, 'showUserProfile']);
 //_______________________________________________.CENTRE_D'AIDE___________________________________________________//
     //--------------------------------------redirection------------------------------//
         Route::get('/aide', [AideController::class, 'aide']);
+        Route::get('/aidedonnee', [AideController::class, 'aidedonnee']);
         Route::get('/aidecompte', [AideController::class, 'aidecompte']);
         Route::get('/aidecookie', [AideController::class, 'aidecookie']);
         Route::get('/aideannonce', [AideController::class, 'aideannonce']);

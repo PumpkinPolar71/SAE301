@@ -8,8 +8,8 @@
     <a href="aideannonce"><li>Annonce</li></a>
     <a href="aideres"><li>Réservation en ligne</li></a>
     <a href="aiderecherche"><li>Recherches</li></a>
-    <a href=""><li>Cookie</li></a>
-    <a href=""><li>Vos données</li></a>
+    <a href="aidecookie"><li>Cookie</li></a>
+    <a href="aidedonnee"><li>Vos données</li></a>
 </ul>
 <div class="question">
     <a href="gererann">Comment gérer mes annonces ?</a>

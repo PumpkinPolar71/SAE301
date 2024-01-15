@@ -12,19 +12,10 @@ class Historisation extends Model
     protected $primaryKey = 'idhistorisation';
     public $timestamps = false; 
 
+    protected $fillable = ['idcompte', 'datelogin'];
 
-    protected static function boot()
+    public function user()
     {
-        parent::boot();
-    
-        static::creating(function ($historisation) {
-            Log::info('Creating historisation record.');
-            $historisation->updateLastLoginDate();
-        });
-    
-        static::updating(function ($historisation) {
-            Log::info('Updating historisation record.');
-            $historisation->updateLastLoginDate();
-        });
+        return $this->belongsTo(User::class, 'idcompte');
     }
 }

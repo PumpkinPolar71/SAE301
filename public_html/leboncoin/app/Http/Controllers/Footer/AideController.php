@@ -101,4 +101,7 @@ class AideController extends Controller
     public function resrefu() {
         return view("footer/help/resrefu");          #footerFolder #HelpFolder
     }
+    public function aidedonnee() {
+        return view("footer/help/aidedonnee");          #footerFolder #HelpFolder
+    }
 }
