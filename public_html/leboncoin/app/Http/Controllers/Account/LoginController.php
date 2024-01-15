@@ -48,7 +48,7 @@ class LoginController extends Controller
             event(new UserLoggedIn(Auth::user()));
 
             $request->session()->regenerate();
-            return redirect()->intended('/annonce-filtres?ville=&type_hebergement=&datedebut=');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([

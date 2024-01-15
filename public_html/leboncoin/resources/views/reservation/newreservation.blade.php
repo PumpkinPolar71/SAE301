@@ -97,12 +97,12 @@
     @foreach ($datesDisponibles as $dateDebut => $dateFin)
         <option value="{{ $dateDebut }}_{{ $dateFin }}">{{ $dateFin }} - {{ $dateDebut }}</option>
     @endforeach
-</select>
+</select><br>
 
     
     
 
-    <button type="submit">Payer</button>
+    <button class="deconectionn" type="submit">Payer</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

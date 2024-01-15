@@ -29,7 +29,7 @@
             title: "Chatbot",
             mainColor: '#ff6e14',
             bubbleBackground: '#EC5A13',
-            bubbleAvatarUrl: ''
+            bubbleAvatarUrl: 'https://i.ibb.co/ysPLyZ3/chatboti-removebg-preview.png'
         };
         
     </script>

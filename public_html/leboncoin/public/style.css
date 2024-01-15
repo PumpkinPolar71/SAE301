@@ -576,3 +576,26 @@ p {
 
 
 
+
+
+
+
+
+
+
+.deconectionn {
+    padding: 1%;
+    background-color: white;
+    color: var(--mainColor);
+    border-radius: 10px;
+    border: none;
+    transition: all 1s ease-in-out;
+    font-size: large;
+    margin-bottom: 1vh;
+}
+.deconectionn:hover {
+    cursor: pointer;
+    box-shadow: 0px 3px 7px rgb(95, 95, 95);
+
+}
+

@@ -24,6 +24,7 @@ if ($reservations->isEmpty()) {
     foreach ($reservations as $reservation) {
         echo "<tr>";
         echo "<td>";
+        echo "<div class='annonce'>";
         echo "<a href='/reservation/{$reservation->idreservation}'>";
         if ($reservation->photo != NULL) {
             echo "<img class='temp' src='{$reservation->photo}'>";
@@ -37,6 +38,7 @@ if ($reservations->isEmpty()) {
         // }
         echo "<p class='ptitre'>{$reservation->dateannonce}</p>";
         echo "</a>";
+        echo "</div>";
         echo "</td>";
         echo "</tr>";
     }

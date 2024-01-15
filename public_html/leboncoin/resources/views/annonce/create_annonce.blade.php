@@ -106,7 +106,7 @@
     </div>
 </div>
 <!-- Bouton d'ajout dynamique -->
-<button type="button" id="ajouterDate">Ajouter une disponibilité</button>
+<button class="deconectionn" style="font-size:small;" type="button" id="ajouterDate">Ajouter une disponibilité</button>
 <script>
     function limitDateYearD() {
         var dateInput = document.getElementById("datedebut[]");
@@ -220,7 +220,7 @@
 
     <input style="display: none;" class="ajoutAnnonce" type="date" name="date" id="idconditionh" value="{{ date('Y-m-d') }}"><br>
         <!-- Bouton pour soumettre le formulaire -->
-    <button id="submitb" type="submit">Créer annonce</button>
+    <button class="deconectionn" id="submitb" type="submit">Créer annonce</button>
 </form>
 @else
     <p>Vous devez être connecté pour créer une annonce.</p>

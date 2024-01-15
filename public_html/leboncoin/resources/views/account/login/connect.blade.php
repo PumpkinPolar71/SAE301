@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{asset('create.css')}}"/> 
 <div class="flecheretour" onclick="history.back()">←</div>
-<div class="titleconnect"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
+<div class="titleconnect"><a href="{{ url("/") }}"><b>LeBonCoin</b></a></div>
 <style>
     body {
         width: 100%;
@@ -19,5 +19,6 @@
     <input type="submit" value="connexion"/>
     {{ $errors }}
 </form>
-<div>Envie de nous rejoindre ? <a href="{{ url("/createaccount") }}"><b>Creer un compte</b></a></div>
+<div style="margin-bottom:2%;">Envie de nous rejoindre ? <a href="{{ url("/createaccount") }}"><b>Creer un compte</b></a></div>
+<a style="font-size:small;" href="creercompte">J'ai oublié mes informations de connection</a>
 </section>

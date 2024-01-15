@@ -9,7 +9,7 @@
 <div class="flecheretourent" onclick="history.back()">←</div>
 
 <!-- Titre du formulaire avec lien vers la page d'accueil -->
-<div class="titleconnectent"><a href="{{ url("/annonce-filtres?ville=&type_hebergement=&datedebut=") }}"><b>LeBonCoin</b></a></div>
+<div class="titleconnectent"><a href="{{ url("/") }}"><b>LeBonCoin</b></a></div>
 
 <!-- Formulaire de création de compte -->
 <form method="post" action="{{ url("/saveentaccount") }}">
