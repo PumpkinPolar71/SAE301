@@ -18,7 +18,7 @@ use App\Models\SauvegardeRecherche;
 
 class User extends Authenticatable
 {
-    protected $table = "compte";
+    protected $table = "compte"; 
     public $timestamps = false;
     protected $primaryKey = "idcompte";
     use HasApiTokens, HasFactory, Notifiable;
