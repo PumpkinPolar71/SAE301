@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 
@@ -135,4 +136,10 @@ class UserController extends Controller
         return view("account/management/compte");                                   #accountFolder #managementFolder
       }
     //
+
+    public function showUserProfile()
+    {
+        $user = $this->retrieveUser();
+        return view('user.profile', compact('user'));
+    }
 }

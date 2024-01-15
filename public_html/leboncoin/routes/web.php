@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\Autres\SiteController;
@@ -30,6 +32,14 @@ use App\Http\Controllers\Discussion\DiscussionController;
 use App\Http\Controllers\Autres\ImgGDController;
 use App\Http\Controllers\BotManController;
 
+use App\Models\User;
+
+Route::get('/debug-lastlogin', function () {
+    $user = User::find(1);
+    \Log::info($user->lastlogin);
+});
+
+Route::get('/user/profile', [UserController::class, 'showUserProfile']);
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -2,60 +2,28 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-
-use App\Models\Particulier;
-use App\Models\Entreprise;
-use App\Models\Compte;
-use App\Models\Ville;
-use App\Models\Incident;
-use App\Models\Annonce;
-use App\Models\SauvegardeRecherche;
-use App\Models\Historisation;
-
-use Illuminate\Support\Facades\Log;
-
-class User extends Authenticatable
+class Users extends Model
 {
-    protected $table = "compte"; 
-    public $timestamps = false;
-    protected $primaryKey = "idcompte";
     use HasApiTokens, HasFactory, Notifiable;
-    
-    public function compte()
-    {
-        return $this->belongsTo(Compte::class, 'idcompte');
-    }
+    protected $table = 'users';
+    protected $primaryKey = 'idcompte';
+    public $timestamps = false;
+
+
     public function particulier()
     {
         return $this->belongsTo(Particulier::class, 'idcompte', 'idcompte');
     }
-    public function ville()
-    {
-        return $this->belongsTo(Ville::class, 'idville', 'idville');
-    }
     public function entreprise()
     {
         return $this->belongsTo(Entreprise::class, 'idcompte', 'idcompte');
-    }        
-    public function incidents()
-    {
-        return $this->hasMany(Incident::class, 'idcompte');
-    }       //mes_incidents.blade.php
-    public function annoncesDeposees()
-    {
-        return $this->hasMany(Annonce::class, 'idannonce');
-    }       //mes_incidents.blade.php
-
-    public function sauvegardesRecherches()
-    {
-        return $this->hasMany(SauvegardeRecherche::class, 'IDCOMPTE');
-    }
+    }     
 
     /**
      * The attributes that are mass assignable.
@@ -65,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'motdepasse',
+        'lastlogin',
     ];
    
     public function getAuthPassword() {
@@ -77,6 +46,7 @@ class User extends Authenticatable
      */
     protected $dates = [
         'datenaissanceparticulier',
+        'lastlogin',
     ];
     // Méthode pour récupérer la dernière connexion d'un utilisateur
     public function getLastloginAttribute()
@@ -119,7 +89,19 @@ class User extends Authenticatable
         return $this->compte->nom;
     }
 
+    protected static function boot()
+    {
+        parent::boot();
 
-    
+        static::updated(function ($user) {
+            Log::info('User updated. Updating lastlogin date in historisation table.');
+            $user->updateLastLoginDateInHistorisation();
+        });
+    }
+
+    public function updateLastLoginDateInHistorisation()
+    {
+        Log::info('Updating lastlogin date in historisation table.');
+        $this->historisation()->update(['DATELOGIN' => $this->lastlogin]);
+    }
 }
-

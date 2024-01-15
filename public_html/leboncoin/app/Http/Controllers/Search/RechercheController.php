@@ -75,6 +75,8 @@ class RechercheController extends Controller
       $typesHebergement = TypeHebergement::all();
       $annonces = LeBonCoin::all(); 
       $reservations = Reservation::all();
+
+      
       
       return view('search/annonce-index',compact('re','annonces', 'villes', 'typesHebergement', 'photos', 'reservations', 'favoris'));     #searchFolder
     }

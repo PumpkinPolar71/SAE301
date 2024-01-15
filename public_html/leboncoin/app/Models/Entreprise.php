@@ -11,4 +11,12 @@ class Entreprise extends Model
     protected $table = "entreprise";
     protected $primaryKey = "identreprise";
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->belongsTo(Users::class, 'idcompte');
+    }
+
 }
+
+
