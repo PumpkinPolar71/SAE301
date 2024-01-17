@@ -10,19 +10,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LeBonCoinController;
 use App\Http\Controllers\Autres\SiteController;
 use App\Http\Controllers\Search\SearchController;
-use App\Http\Controllers\Autres\FiltreController;
 use App\Http\Controllers\Account\LoginController;
 use App\Http\Controllers\Service\ServiceController;
-// use App\Http\Controllers\GeocodeController;
 use App\Http\Controllers\Account\CreateAccountController;
-// use App\Http\Controllers\EncryptionController;
-// use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Annonce\AnnonceController;
-// use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\Account\FavorisController;
 use App\Http\Controllers\Incident\IncidentController;
 use App\Http\Controllers\Account\InfosBancairesController;
-// use App\Http\Controllers\LocalisationController;
 use App\Http\Controllers\Footer\AideController;
 use App\Http\Controllers\Reservation\ReservationController;
 use App\Http\Controllers\Search\RechercheController;
@@ -36,7 +30,6 @@ use App\Models\User;
 
 Route::get('/debug-lastlogin', function () {
     $user = User::find(1);
-    // \Log::info($user->lastlogin);
 });
 
 Route::get('/user/profile', [UserController::class, 'showUserProfile']);
@@ -71,17 +64,11 @@ Route::get('/user/profile', [UserController::class, 'showUserProfile']);
             return view('welcome');
             redirect('/annonces');
         });
-    //------------------------------------Sert_à_?-------------------------------------//
-        Route::post('/process-form', [LeBonCoinController::class, 'processForm'])->name('process-form');    // View appropriée inconnue 
-//
 
 //_______________________________________________.ANNONCE_CONTROLLER.___________________________________________________//
     
     //------------------------------------Afficher_les_annonces-------------------------------------//
         Route::get("/annonces",[LeBonCoinController::class, "index" ]); //sert a rien non ? a refaire css
-    //------------------------------------Adresse_annonce?-------------------------------------//
-        // Route::get('/adresse/{q}', [FiltreController::class, 'adresse']);
-
     //------------------------------------affiche_l'annonce-------------------------------------//
         Route::get("/annonce/{id}",[AnnonceController::class, "one" ]);
         Route::post("/annonce/{id}",[AnnonceController::class, "one" ]);
@@ -178,15 +165,11 @@ Route::get('/user/profile', [UserController::class, 'showUserProfile']);
         Route::post("oneann",[ServiceController::class, "oneann" ])->name("oneann");
     //--------------------------------------Service_immobilier------------------------------//
         Route::get('/serviceimmobilier', [ServiceController::class, 'serviceimmobilier']);
-    //--------------------------------------Service_validateann------------------------------//
-        //Route::post('/serviceimmoilier/validateann', [ServiceController::class, 'validateann']);
-        //Route::post("/annonce/{id}",[ServiceController::class, "validateann" ]);
     //--------------------------------------Recevoir_les_(nv)_types_d'hebergement_ou_les_(nv)_equipements------------------------------//
         Route::get('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
     //--------------------------------------Ajouter_un_nv_equipement------------------------------//
         Route::post('/createheb', [ServiceController::class, 'ajoutequ'])->name('ajoutequ');
     //--------------------------------------Ajouter_un_nv_type_hebergement------------------------------//
-        //Route::post('/createheb', [ServiceController::class, 'createheb'])->name('createheb');
         Route::post('/ajoutheb', [ServiceController::class, 'ajoutheb'])->name('ajoutheb');
     //--------------------------------------Afficher_les_inscriptions_en_attente------------------------------//
         Route::get('/inscription-attente', [ServiceController::class, 'afficherInscriptionAttente']);
@@ -271,7 +254,6 @@ Route::get('/user/profile', [UserController::class, 'showUserProfile']);
     //------------------------------------Global-------------------------------------//
         Route::get("/imgGP",[ImgGDController::class, "imgGP" ]);
         Route::get('/upload', [ImgGDController::class, 'showForm']);
-        //Route::post('/compte', [ImgGDController::class, 'upload'])->name('upload');
 //
 
 //_______________________________________________.FAVORIS_CONTROLLER.___________________________________________________//
@@ -295,5 +277,5 @@ Route::get('/user/profile', [UserController::class, 'showUserProfile']);
 //
 
 //_________________________________________________.BOTMAN._______________________________________//
-
-Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\BotManController@handle');
+    Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\BotManController@handle');
+//

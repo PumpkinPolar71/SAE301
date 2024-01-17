@@ -39,7 +39,6 @@ class ServiceController extends Controller
                     $element->save();
                 } 
                 elseif ($request->input("annval") == "non") {
-                    // $annonces->foreign('idannonce')->references($request->input("id"))->on('annnonce')->onDelete('cascade');
                     $element->annonceS()->delete();
                 } else {
 

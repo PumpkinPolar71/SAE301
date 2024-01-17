@@ -35,10 +35,8 @@
 </div>
 <h1>{{ $annonce->titreannonce }}</h1>
 <?php
-// Convertir la date de format anglophone en objet DateTime
+// Convertir la date de format anglophone
 $dateAnnonce = new DateTime($annonce->dateannonce);
-
-// Formater la date en format francophone
 $dateAnnonceFormattee = $dateAnnonce->format('d-m-Y');
 ?>
 
@@ -90,7 +88,6 @@ if($data){
     echo "<a href=/proprio/".$data['idcompte'].">";
     echo "voir";
     echo "</a>";
-   // echo "Nom : $nomparticulier\n<br> Prenom : $prenomparticulier";
 }
 
 ?>
@@ -101,9 +98,6 @@ if($data){
         const crite = document.getElementById("crit");
         const char = crit.split(" ")
         const br = document.createElement("br");
-        //console.log(crit, crite) 
-        //console.log(char[0],char[1],char[2])
-        // crite.innerHTML = "Nombre d'étoiles : "+char[0]+"/5"+"\nCapacité : "+char[1]+"\nNombre de chambres : "+char[2]
         crite.innerHTML = "Nombre d'étoiles : " + char[0] + "/5" + br.outerHTML +
                            "Capacité : " + char[1] + br.outerHTML +
                            "Nombre de chambres : " + char[2];
@@ -146,22 +140,16 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
 } else {
     // Utilise un index pour accéder à la date de fin et au prix correspondants
     foreach ($datesDebut as $index => $dateDebut) {
-        // Converti chaque date de début en objet DateTime
         $dateDebutObj = new DateTime($dateDebut);
 
-        // Format date de début en format francophone
         $dateDebutFormattee = $dateDebutObj->format('d-m-Y');
 
-        // Converti date de fin correspondante en objet DateTime
         $dateFinObj = new DateTime($datesFin[$index]);
 
-        // Format date de fin en format francophone
         $dateFinFormattee = $dateFinObj->format('d-m-Y');
 
-        // Récupère le prix correspondant
         $prix = $libsPrix[$index];
 
-        // Affiche la paire de dates avec le prix
         echo "<p class='datedebut'>De $dateDebutFormattee à $dateFinFormattee au prix de $prix € la nuit.</p>";
     }
 }
@@ -229,7 +217,6 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
                     <img src="{{ $ad->photo }}" class="card-img-top" style="height:150px;" alt="...">
                     <div class="card-body"><a href=/annonce/{{"$ad->idannonce"}}>
                         <h5 class="card-title">{{ $ad->titreannonce }}</h5>
-                        <!-- Autres détails de l'annonce si nécessaire echo "<a href=/annonce/".$ann->idannonce.">";-->
                         </a>
                     </div>
                 </div>

@@ -56,7 +56,7 @@ class RechercheController extends Controller
   //_____________________________________.Récupérer_infos_annoncelist_grace_a_un_id.______________________//
     public function oneann($id) {
       $id = $id;
-      $villes = Ville::all();//find($id)
+      $villes = Ville::all();
     return view("search/annoncelist", compact('id','villes'));                                                                          #searchFolder
     }
   //
@@ -114,17 +114,10 @@ class RechercheController extends Controller
   //
 
   //_____________________________________.Barre_de_recherche.______________________//
-    // public function search() 
-    // {
-    //   return view("search");
-    // }
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
-
-        //$searchTermLower = strtolower($searchTerm);
-
-
         return view('search/search', ['searchTerm' => $searchTerm]);                                                                    #searchFolder
     }
   //

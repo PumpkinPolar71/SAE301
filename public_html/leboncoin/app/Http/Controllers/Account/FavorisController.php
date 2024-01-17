@@ -20,7 +20,6 @@ class FavorisController extends Controller
     //_______________________________________________.Afficher_favoris.___________________________________________________//
         public function favoris($id) {
             $favoris = Favoris::where('idcompte', $id)->first();
-            //$favoris = Favoris::find($id);
             $annonces = Annonce::all();
             $photos = Photo::all();
             $villes = Ville::all();
@@ -48,7 +47,6 @@ class FavorisController extends Controller
                 $favoris->idparticulier = $particulier->idparticulier;
             }
         
-            // Sauvegarde seulement si $favoris est défini
             if ($favoris) {
                 $favoris->save();
             }

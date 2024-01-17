@@ -19,7 +19,7 @@ class ReservationController extends Controller
         public function oneres($id) {
             $id = $id;
             $villes = Ville::all();
-            $annonces = Annonce::all();//find($id)
+            $annonces = Annonce::all();
             return view("reservation/reservationlist", compact('id', "villes", "annonces"));            #reservationFolder
         }
     //
@@ -40,10 +40,8 @@ class ReservationController extends Controller
     
     //_____________________________________.Récupérer_données_annonce_pour_créer_une_nouvelle_reservation.______________________//
         public function newres(){
-            $annonces = Annonce::all(); // Exemple pour récupérer toutes les annonces
-        
+            $annonces = Annonce::all();
             $user = auth()->user();
-            // Passer les données récupérées à la vue
             return view('reservation/newreservation', ['annonces' => $annonces]);                   #reservationFolder
             return view('reservation/newreservation');                                              #reservationFolder
         }
@@ -74,44 +72,23 @@ class ReservationController extends Controller
             $reservation->idparticulier = Auth::id(); // ID du particulier connecté
             $reservation->nbadulte = $request->input('nbadulte');
             $reservation->nbenfant = $request->input('nbenfant');
-
             $reservation->nbbebe = $request->input('nbbebe');
             $reservation->nbanimaux = $request->input('nbanimaux');
             $reservation->prenom = $request->input('prenom');
             $reservation->nom = $request->input('nom');
             $reservation->tel = $request->input('tel');
             $nbNuits = $request->input('nbnuitee');
-
-            // Utilisation du nombre de nuits récupéré
-            // ... (autres opérations)
-            
-            // Sauvegarde de la réservation
             $reservation->nbnuitee = $nbNuits;
             $datedebut = $request->input('datedebutr');
             $datefin = $request->input('datefinr');
-
-            // Utilisez les variables $datedebut et $datefin comme nécessaire dans votre logique de réservation
-
-            // Sauvegarde de la réservation
             $reservation->datedebutr = $datedebut;
             $reservation->datefinr = $datefin;
-        
-            // Calcul du nombre de nuits
-            
-            // Assigner le nombre de nuits à la réservation
-            
             $reservation->montantimmediatacompte = $request->has('montantimmediatacompte');
-            // Exemple de calcul pour taxessejour
             $reservation->montantimmediat = $request->input('montantimmediat');
             $taxesSejour = $request->input('montantimmediat') * 0.1;
             $reservation->taxessejour = $taxesSejour;
-
-            // Ajustez les autres calculs selon vos besoins pour les autres champs dérivés
-
             // Sauvegarde de la réservation
             $reservation->save();
-
-            // Redirection vers une page de confirmation ou autre
 
             return redirect('/annonce-filtres?ville=&type_hebergement=&datedebut=&datefin=')->with('success', 'Réservation effectuée avec succès !');
           }
@@ -133,7 +110,6 @@ class ReservationController extends Controller
             $nom = $user->particulier->nomparticulier;
             $datesDisponibles = Annonce::where('idannonce', $idannonce)->pluck('datedebut', 'datefin');
             $reservation = Reservation::where('idannonce', $idannonce)->first();
-            // $montantimmediatacompte = $reservation->montantimmediatacompte;
             $montantimmediatacompte = $annonce->libprix;
         
             return view('reservation/newreservation', [                                                         #reservationFolder
@@ -154,10 +130,9 @@ class ReservationController extends Controller
     //_____________________________________.Afficher_le_formulaire_de_payement.______________________//
         public function showPayementForm($idannonce)
         {
-            // Vous pouvez également ajouter la logique pour récupérer les données associées à $idannonce
             $annonce = Annonce::find($idannonce);
         
-            $compte = auth()->user()->compte; // Assurez-vous que cette relation est correctement définie dans votre modèle User
+            $compte = auth()->user()->compte;
         
             $user = auth()->user();
         

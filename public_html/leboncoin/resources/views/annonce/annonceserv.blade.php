@@ -46,11 +46,6 @@
 
 <h2>Propriétaire de l'annonce</h2>
 <form id="proprioPost" method="post">
-<!--<p class="proprio">{{ $annonce->idcompte }}</p>-->
-
-
-
-
 
 <?php
 use Illuminate\Support\Facades\Config;

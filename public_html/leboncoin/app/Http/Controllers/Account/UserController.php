@@ -20,14 +20,6 @@ class UserController extends Controller
     //_____________________________________.Modifier_son_compte.______________________//
       public function updateUserInfo(Request $request)
       {
-        // $siret = $request->input('siret');
-        // $email = $request->input('email');
-        // $societe = $request->input('nom');
-
-        
-
-        
-
         $nouvellePdp = $request->input('escapedImageData');
         $nouveauNom = $request->input('nouveauNom');
         $nouveauPrenom = $request->input('nouveauPrenom');
@@ -102,8 +94,6 @@ class UserController extends Controller
               return back()->with('errorSocieteExist', "Ce nom de société existe déjà");
             }else {
               $entreprise->societe = $nouveauNomS;
-            
-            
             }
           }
           if($nouveauSecteur != ""){

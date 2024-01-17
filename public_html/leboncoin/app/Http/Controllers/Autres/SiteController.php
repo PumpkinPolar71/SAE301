@@ -12,7 +12,6 @@ class SiteController extends Controller
     public function index() {
         return view("welcome",
             [ "todays" => LeBonCoin::inRandomOrder()->first() ]
-
         );
     }
 }

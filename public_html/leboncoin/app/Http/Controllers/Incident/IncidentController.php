@@ -34,8 +34,6 @@ class IncidentController extends Controller
         $incident->commentaire = $request->input("commentaire");
         
         $incident->save();
-        // Mettre à jour le prochain ID pour le prochain incident
-
         
         return redirect('/compte')->withInput()->with("incident", 'signalement créé');
       }
@@ -80,12 +78,8 @@ class IncidentController extends Controller
       {
         $annonces = Annonce::all();
         $user = Auth::user();
-
-        // Récupérer les incidents associés à l'utilisateur via la relation dans le modèle User
         $incidents = $user->incidents;
         $annonceDeposee = $user->annoncesDeposees;
-      
-        // dd($incidents);
 
         return view('incident/mes_incidents', compact('incidents','annonces','annonceDeposee'));           #incidentFolder
       }

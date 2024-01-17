@@ -36,22 +36,6 @@ class DroitController extends Controller
         return view("footer/legislation/mesinfoperso", compact('comptes', "particuliers", "entreprises", "villes", "cartes", "enregistres"));        #footerFolder #legislationFolder
     }
     public function supprinfo() {
-        //if (Auth::user()) {
-            //$comptes = Compte::All();
-            //foreach ($comptes as $compte) {
-            ///    if ($compte->idcompte == Auth::user()->compte->idcompte) {
-
-            //    } else {
-    //             $table->foreign('idcompte')
-    //   ->references('id')->on('compte')
-    //   ->onDelete('cascade');
-      //Auth::logout();
-                    //return redirect('/');
-            //    }
-            //}
-            return view("footer/legislation/contrat");
-        //} else {
-            //mesinfoperso();
-        //}
+        return view("footer/legislation/contrat");
     }
 }
