@@ -134,7 +134,7 @@
     }
     document.addEventListener('DOMContentLoaded', function () {
         var numDate = 0;
-        // Écoutez l'événement de clic sur le bouton
+   
         document.getElementById('ajouterDate').addEventListener('click', function () {
             numDate += 1;
             //----------------------------------------Prix
@@ -142,7 +142,7 @@
             var labelPrix = document.createElement('label');
             labelPrix.textContent = 'Prix : ';
                     
-            // Créez un champ de prix
+    
             var champPrix = document.createElement('input');
             champPrix.setAttribute('class', 'ajoutAnnonce');
             champPrix.setAttribute('type', 'number');
@@ -151,19 +151,18 @@
             champPrix.setAttribute('id', 'prix[]');
             champPrix.setAttribute('required', '');
                     
-            // Créez un conteneur div pour le champ de prix
+       
             var prixContainer = document.createElement('div');
             prixContainer.appendChild(labelPrix);
             prixContainer.appendChild(champPrix);
-                    
-            // Récupérez le conteneur principal
+           
             var datesContainer = document.getElementById('datesContainer');
                     
-            // Insérez le nouveau champ de prix à la fin du conteneur
+          
             datesContainer.appendChild(prixContainer);
             
             //----------------------------------------Dates
-            // Créez de nouveaux champs de date
+       
             var nvDateDebut = document.createElement('input');
             nvDateDebut.setAttribute('type', 'date');
             nvDateDebut.setAttribute('class', 'ajoutAnnonce');
@@ -200,17 +199,16 @@
             var labelFin = document.createElement('label');
             labelFin.textContent = ' à : ';
 
-            // Créez un conteneur div pour les nouvelles dates
             var newDateContainer = document.createElement('div');
             newDateContainer.appendChild(labelDebut);
             newDateContainer.appendChild(nvDateDebut);
             newDateContainer.appendChild(labelFin);
             newDateContainer.appendChild(nvDateFin);
 
-            // Récupérez le conteneur principal
+       
             var datesContainer = document.getElementById('datesContainer');
 
-            // Insérez les nouveaux champs à la fin du conteneur
+            
             datesContainer.appendChild(newDateContainer);
 
             
@@ -226,7 +224,7 @@
     <p>Vous devez être connecté pour créer une annonce.</p>
 @endif
 
-<!-- Script JavaScript -->
+
 <script>
     
 </script>

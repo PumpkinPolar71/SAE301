@@ -45,27 +45,6 @@
     <label for="tel">Numéro de téléphone:</label>
     <input type="text" name="tel" id="tel" value="{{ $numeroTelephone }}" maxlength="14" required><br><br>
 
-    <script>
-        // Fonction pour ajouter des espaces tous les deux chiffres
-        // function formatPhoneNumber() {
-        //     var input = document.getElementById('tel');
-        //     var inputValue = input.value.replace(/\D/g, ''); // Retirer les caractères non numériques
-        //     var formattedValue = '';
-            
-        //     for (var i = 0; i < inputValue.length; i++) {
-        //         if (i > 0 && i % 2 === 0) {
-        //             formattedValue += ' '; // Ajouter un espace tous les deux chiffres
-        //         }
-        //         formattedValue += inputValue[i];
-        //     }
-
-        //     input.value = formattedValue;
-        // }
-
-        // // Ajouter un écouteur d'événement pour appeler la fonction lors de la saisie
-        // document.getElementById('tel').addEventListener('input', formatPhoneNumber);
-    </script>
-
     <label for="nbnuitee">Nombre de nuits:</label>
     <input type="number" name="nbnuitee" required>
 

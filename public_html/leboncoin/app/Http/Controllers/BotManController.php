@@ -39,6 +39,8 @@ class BotManController extends Controller
             }
             else if ($question == "Est-ce que je peux sauvegarder ma recherche ?") {
                 $bot->reply("Vous pouvez sauvegarder votre recherche grace au bouton présent sur la page en meme temps que vous faites défiler les annonces.");
+            } else {
+                $bot->reply("Oups :( , il semblerait que je n'ai pas bien compris votre question ?");
             }
 
         });

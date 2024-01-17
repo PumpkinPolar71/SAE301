@@ -20,15 +20,6 @@
         }
         echo "</tr>";
     ?>
-    <!-- @if(isset($recherches) && count($recherches) > 0)
-        <ul>            /search?ville=Bourg-en-Bresse&type_hebergement=4&datedebut=&datefin=&reche=
-            @foreach($recherches as $recherche)
-                <li>{{ $recherche->NOMRECHERCHE }} - Prix : {{ $recherche->PRIXMIN }} à {{ $recherche->PRIXMAX }}</li>
-            @endforeach
-        </ul>
-    @else
-        <p>Aucune recherche sauvegardée.</p>
-    @endif -->
 @else
 <p>Vous devez être connécté pour voir vos recherhces sauvegardées</p>
 @endauth

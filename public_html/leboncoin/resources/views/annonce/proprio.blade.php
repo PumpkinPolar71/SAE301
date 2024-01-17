@@ -5,12 +5,6 @@
 @section('content')
 <div class="bandeau">
     <?php
-        $nomDB = Config::get('database.connections.pgsql.database');
-        $userDB = Config::get('database.connections.pgsql.username');
-        $motDePasse = Config::get('database.connections.pgsql.password');
-        pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
-        pg_query("set names 'UTF8'");
-        pg_query("SET search_path TO leboncoin");
 
         //---------------------------------------------------------Pdp
         foreach ($particuliers as $particulier) {

@@ -15,9 +15,6 @@
         @endforeach
     </select>
     
-    <!-- <input type="hidden" name="annonces_ids" id="annonces_ids" value=""> -->
-
-    <!-- Choisir un type d'hébergement -->
     <label for="type_hebergement">Choisir un type d'hébergement :</label>
     <select name="type_hebergement" id="type_hebergement">
         <option value="">Tous les types</option>
@@ -40,7 +37,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var map = L.map('map').setView([46.603354, 1.888334], 6); // Coordonnées de la France et niveau de zoom
-        var marker = null; // Ajoutez cette ligne pour stocker la référence du marqueur
+        var marker = null; 
 
         
 
@@ -52,19 +49,16 @@
             maxZoom: 19,
         }).addTo(map);
     
-        // Capturer l'événement de soumission du formulaire
         document.querySelector('.formindex').addEventListener('submit', function(event) {
             event.preventDefault(); // Empêcher la soumission par défaut du formulaire
         
             
 
-            // Réinitialiser la carte avant chaque recherche
+            // Réinitialise la carte avant chaque recherche
             map.setView([46.603354, 1.888334], 6);
             if (marker !== null) {
                 map.removeLayer(marker);
             }
-        
-            // var selectedCity = document.getElementById('ville').value; // Récupérer la valeur sélectionnée dans le champ "ville"
             
             var selectedCityElement = document.getElementById('ville');
             var selectedOption = selectedCityElement.options[selectedCityElement.selectedIndex];
@@ -75,12 +69,6 @@
             console.log("Nom de la ville :", selectedCity);
             console.log("ID de la ville :", idville);
 
-            // var annoncesIds = data.annonces_ids.join(','); // Supposant que les identifiants sont dans un tableau
-            // document.getElementById('annonces_ids').value = annoncesIds;
-
-            // form.submit();
-        
-            // Utiliser un service de géocodage (Nominatim) pour obtenir les coordonnées de la ville sélectionnée
             fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + selectedCity + ', France')
                 .then(function(response) {
                     return response.json();
@@ -187,11 +175,11 @@
 <div id="annonces-container">
     <style>
         .amour {
-            width: 20px; /* Ajustez la taille selon vos besoins */
+            width: 20px; 
             height: 20px;
         }
     </style>
-    <!-- Les annonces sont affichées ici -->
+    
 </div>
 
 

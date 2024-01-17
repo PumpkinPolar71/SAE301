@@ -38,14 +38,6 @@
             <option value="{{ $type->idtype }}" {{ request()->get('type_hebergement') == $type->idtype ? 'selected' : '' }}>{{ $type->type }}</option>
         @endforeach
     </select>
-    
-    <!-- Choisir une période de disponibilité -->
-    <!-- <label id="datePicker_datedebut" for="datedebut">Date de début :</label>
-    <input type="date" name="datedebut" id="datedebut" value="{{ request()->get('datedebut') }}"> -->
-    
-    <!-- <label for="datefin">Date de fin :</label> 
-    <input type="date" name="datefin" id="datefin" value="{{ request()->get('datefin') }}"> -->
-    
     <button id="reche" name="reche" type="submit"><b>Rechercher</b></button>
 </form>
 
@@ -68,14 +60,6 @@ use Illuminate\Support\Facades\DB;
 
 $annoncesDB = DB::table('annonce');
 
-// if (isset($_GET['sauve'])) {
-//     header("Location: sauvrecherche");
-//     exit();
-// }
-// if (isset($_GET['pasco'])) {
-//     header("Location: redirection");
-//     exit();
-// }
 
 if (isset($_GET['ville']) && $_GET['ville'] !== '') {
     echo "<input style='display:none;' type='text' name='villess' id='villess' value={$_GET['ville']}>";
@@ -112,16 +96,6 @@ if ($annonces->isEmpty()) {
     foreach ($annonces as $annonce) {
         if ($annonce->codeetatvalide == TRUE) {
             $rndea++;
-           
-            // echo "<tr style='display:none;' id='pub' class='pub`.$rndea.`'><td><div class='annonce'><img class='temp1' src='https://tpc.googlesyndication.com/simgad/10071768540348462494?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qkysVr4wLLhCQNB_8kyHvQMdhGF5Q'></div></td></tr>";
-            // echo '<script>';
-            // echo 'rnde = Math.floor(Math.random() * 1000);';
-            // echo 'if (rnde > 950) {';
-            // echo '    console.log(rnde);';
-            // echo '    $(".pub'.$rndea.'").css("display","block");';
-            // //echo '    $(".pub'.$rndea.'").css("background-image","url(``)");';
-            // echo '}';
-            // echo '</script>';
             echo "<tr>";
             echo "<td>";
             echo "<div class='annonce'>";

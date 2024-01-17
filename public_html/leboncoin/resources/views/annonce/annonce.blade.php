@@ -63,31 +63,26 @@ $dateAnnonceFormattee = $dateAnnonce->format('d-m-Y');
 
 
 <?php
-use Illuminate\Support\Facades\Config;
 
-$nomDB = Config::get('database.connections.pgsql.database');
-$userDB = Config::get('database.connections.pgsql.username');
-$motDePasse = Config::get('database.connections.pgsql.password');
+use Illuminate\Support\Facades\DB;
 
+$annoncesDB = DB::table('particulier');
 
-pg_connect("host=localhost dbname=$nomDB user=$userDB password=$motDePasse");
-pg_query("set names 'UTF8'");
-pg_query("SET search_path TO leboncoin");
+$annoncesDB->join('annonce','annonce.idcompte','=','particulier.idcompte')
+        ->where('particulier.idcompte', $annonce->idcompte);
 
-$query = "SELECT nomparticulier, prenomparticulier, p.idcompte FROM particulier p
-JOIN annonce a ON a.idcompte=p.idcompte
-WHERE p.idcompte = {$annonce->idcompte}";
+$annonces = $annoncesDB->get();
+$a = 5;
+foreach ($annonces as $annonce) {
+    if ($a == 5) {
+        $nomparticulier = $annonce->nomparticulier;
+        $prenomparticulier = $annonce->prenomparticulier;
+        echo "<a href='/proprio/".$annonce->idcompte."'>";
+        echo "voir";
+        echo "</a>";
+        $a = 0;
+    }
 
-$text = pg_query($query);
-
-$data = pg_fetch_assoc($text);
-
-if($data){
-    $nomparticulier = $data['nomparticulier'];
-    $prenomparticulier = $data['prenomparticulier'];
-    echo "<a href=/proprio/".$data['idcompte'].">";
-    echo "voir";
-    echo "</a>";
 }
 
 ?>
@@ -110,7 +105,6 @@ if($data){
         @foreach ($avis as $commentaire)
             <li>
                 <p>Commentaire : {{ $commentaire }}</p>
-                <!-- Autres détails de l'avis -->
             </li>
         @endforeach
     </ul>
@@ -230,7 +224,7 @@ if (count($datesDebut) !== count($datesFin) || count($datesDebut) !== count($lib
     @csrf <!-- Protection CSRF de Laravel -->
 
     <!-- Champ caché pour l'ID de l'annonce --> 
-    <input type="hidden" name="idannonce" value="{{ $annonce->idannonce }}"> <!-- Supposons que $annonce contient les détails de l'annonce actuelle -->
+    <input type="hidden" name="idannonce" value="{{ $annonce->idannonce }}">
 
     <!-- Champ de texte pour le commentaire -->
     <input type="text" name="commentaire" placeholder="Avis">
