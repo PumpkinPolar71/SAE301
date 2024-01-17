@@ -2,6 +2,7 @@
 
 @section('content')
 
+@auth
 <h2>Incidents en cours</h2>
 <table>
     @foreach($incidents->where('resolu', false) as $incident)
@@ -31,5 +32,7 @@
         </tr>
     @endforeach
 </table>
-
+@else
+<p>Vous n'avez pas les autorisations de voir ceci, cette incident à été signalé.</p>
+@endauth
 @endsection

@@ -1,7 +1,3 @@
-<?php
-    /*require 'vendor/autoload.php';
-    use GuzzleHttp\Client;*/
-?>
 <link rel="stylesheet" type="text/css" href="{{asset('create.css')}}"/> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

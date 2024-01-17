@@ -4,6 +4,8 @@
 
 @section('content')
 
+@auth
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -98,4 +100,8 @@
     
 
 </script>
+
+@else
+<p>Vous devez être connecté.</p>
+@endauth
 @endsection

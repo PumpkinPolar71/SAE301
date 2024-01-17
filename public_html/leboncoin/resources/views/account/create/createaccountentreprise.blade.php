@@ -1,7 +1,3 @@
-<?php
-    /*require 'vendor/autoload.php';
-    use GuzzleHttp\Client;*/
-?>
 <link rel="stylesheet" type="text/css" href="{{asset('create.css')}}"/> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -111,7 +107,7 @@
             const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
             const format = '&format=json';
             const apiUrlAdresse = "https://api-adresse.data.gouv.fr/search/?q=";
-            const limit = /*"&type=name&autocomplete=1"//*/"&limit=12";
+            const limit = "&limit=12";
             let html = $("html");
             let adresse = $("#adresse");
             let zipcode =$("#cp"); 
@@ -137,7 +133,6 @@
                             var i =0;
                             $.each(results.features, function(key, value) {
                                 console.log(results, "results");
-                                //console.log(value, key, "value et kes"/*value.features.properties.label*/);
                                 $(listA).append('<div class="apiAdr" id="apiAdr'+i+'" onclick="recupererIdDiv(this.id)">'+results.features[i].properties.name+','+results.features[i].properties.city+','+results.features[i].properties.postcode+','+results.features[i].properties.context+'</div>')
                                 i++
                             })

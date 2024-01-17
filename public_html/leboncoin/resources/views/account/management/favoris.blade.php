@@ -2,6 +2,8 @@
 
 @section('content')
 
+@auth
+
 {{ session()->get("error") }}
 <?php
 if ($favoris == "") {
@@ -37,9 +39,12 @@ if ($favoris == "") {
             echo "</a>";
             echo "</td>";
             echo "</tr>";
-        //}
     }
     echo "</table>";
 }
 ?>
+
+@else
+<p>Vous devez être connecté pour avoir accès à ceci.</p>
+@endauth
 @endsection

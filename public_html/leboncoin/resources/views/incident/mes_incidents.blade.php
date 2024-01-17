@@ -2,6 +2,7 @@
 
 @section('content')
 
+@auth
 <h2>Mes incidents</h2>
 
 
@@ -94,19 +95,8 @@
         <p>Aucun incident à afficher.</p>   
     @endif
 @endif
+@else
+<p>Vous devez être connecté pour voir cette page</p>
+@endauth
 @endsection
-
-
-<!-- Table incident :
-idincident, 	idannonce, 	remboursement, 	commentaire, 	procedurejuridique, 	resolu;
-6,  [fk]24,  FALSE,  Test,   FALSE,  FALSE;
-7,  [fk]24,  FALSE,  Test2,   FALSE,  FALSE;
-
-Table reservation :
-idreservation, 	idannonce, 	idcompte;
-25, [fk]24, [fk]25;
-
-Table compte (User.php) :
-idcompte;
-25[fk]; -->
 

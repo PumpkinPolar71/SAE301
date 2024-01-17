@@ -128,7 +128,6 @@
             <script>
                 $(document).ready(function () {
                     // Au chargement de la page, affiche le label et cache l'input
-                    // $('#image').hide();
                     $('#email').hide();
                     $('#siret').hide();
                     $('#noms').hide();

@@ -2,6 +2,7 @@
 
 @section('content')
 
+@auth
 <h2>Incidents en cours</h2>
 <table>
     @foreach($incidents->where('resolu', false) as $incident)
@@ -42,6 +43,8 @@
         </tr>
     @endforeach
 </table>
-
+@else
+    <p>Vous devez être connecté pour avoir accès à ceci.</p>
+@endauth
 @endsection
 

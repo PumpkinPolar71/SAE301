@@ -88,7 +88,6 @@ tarteaucitron.user.googletagmanagerId = 'GTM-XXXX';
         <div class="allflex">
             <div class="all">
     	    <header>
-    		    <!-- <h1>@yield('title')</h1> -->
     	    </header>
             @section('nav')
             <ul id="topnav">
